@@ -22,8 +22,9 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var i18n = require("i18n")
 /* nodejs module import end */
+
+
 
 /* router import */
 var index = require('./routes/index');
@@ -35,14 +36,6 @@ var users = require('./routes/users');
 
 /* express */
 var app = express();
-app.use(i18n.init);
-
-/* multi language setting */
-i18n.configure({
-    locales: ['en', 'ko', 'ch'],
-    directory: __dirname + '/locales',
-    defaultLocale: 'ko'
-});
 
 
 /* views setting */
@@ -58,17 +51,34 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 /* router detail setting import */
-app.use('/', index);
-app.use('/users', users);
-app.use('/admin', admin);
-
 app.use(function (req, res, next) {
     var ko = require("./locales/ko.json");
     res.locals.ko = ko;
     next();
 });
 
-/* router detail setting import end */
+
+app.use('/', index);
+app.use('/users', users);
+app.use('/admin', admin);
+
+
+/******* language setting ************/
+app.get('/en', function(req, res) {
+    res.cookie("lang", "en");
+    res.redirect('back');
+});
+
+app.get('/ko', function(req, res) {
+    res.cookie("lang", "ko");
+    res.redirect('back');
+});
+
+app.get('/cn', function(req, res) {
+    res.cookie("lang", "cn");
+    res.redirect('back');
+});
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
