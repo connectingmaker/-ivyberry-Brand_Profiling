@@ -1,4 +1,13 @@
-console.log("1111");
+var mysql      = require('mysql');
+var connection = mysql.createConnection({
+        host     : 'carin.c-maker.co.kr',
+        user     : 'brand',
+        password : 'profiling',
+        port     : 3306,
+    database : 'brand'
+});
+connection.connect();
+
 
 var express = require('express');
 var path = require('path');
@@ -46,3 +55,6 @@ app.use(function(err, req, res, next) {
 });
 
 module.exports = app;
+
+
+connection.end();
