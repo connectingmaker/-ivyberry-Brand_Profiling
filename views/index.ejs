@@ -1,11 +1,15 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-  </body>
-</html>
+
+<div class="container">
+
+  <form name="loginForm" id="loginForm" method="post" action="/admin/login" class="form-signin">
+    <h2 class="form-signin-heading">로고</h2>
+    <input type="text" name="adminid" id="adminid" class="input-block-level" placeholder="관리자 아이디">
+    <input type="password" name="adminpw" id="adminpw" class="input-block-level" placeholder="관리자 패스워드">
+    <a href="javascript:void(0);" id="loginBtn" class="btn btn-large btn-primary">로그인</a>
+  </form>
+
+</div> <!-- /container -->
+
+
+<script langauge="javascript" src="/js/index.js"></script>
+

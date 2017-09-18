@@ -5,7 +5,7 @@ var connection = mysql.createConnection({
         user     : 'brand',
         password : 'profiling',
         port     : 3306,
-    database : 'brand'
+        database : 'brand'
 });
 /******** mysql connection module end ********/
 
@@ -17,6 +17,7 @@ connection.connect();
 
 /* nodejs module import */
 var express = require('express');
+var expressLayouts = require('express-ejs-layouts');
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
@@ -27,8 +28,8 @@ var bodyParser = require('body-parser');
 
 
 /* router import */
+var il18n = require("./i18n")
 var index = require('./routes/index');
-var admin = require('./routes/admin');
 var users = require('./routes/users');
 /* router import end */
 
@@ -36,11 +37,19 @@ var users = require('./routes/users');
 
 /* express */
 var app = express();
-
+app.use(il18n);
 
 /* views setting */
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+
+
+// ejs-layouts setting
+app.set('layout', 'layout');
+app.set("layout extractScripts", true);
+app.use(expressLayouts);
+
+
 
 /* default setting */
 app.use(logger('dev'));
@@ -50,17 +59,13 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 
-/* router detail setting import */
-app.use(function (req, res, next) {
-    var ko = require("./locales/ko.json");
-    res.locals.ko = ko;
-    next();
-});
 
 
 app.use('/', index);
 app.use('/users', users);
-app.use('/admin', admin);
+
+
+
 
 
 /******* language setting ************/
