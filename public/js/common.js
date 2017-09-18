@@ -2,11 +2,12 @@
  * Created by kwangheejung on 2017. 9. 18..
  */
 /*
- * DEV TEAM : CM
+ * DEV COMPANY : CM
  * DEV NAME : KWANG HEE JUNG
  * DEV EMAIL : KHJUNG@C-MAKER.CO.KR
  * DEV VER : 1.0
  * DEV MODULE NAME : AJAX MODULE
+ * DEV HOMEPAGE : www.c-maker.co.kr
  */
 /****** ajax module **********/
 var common = {};
@@ -32,7 +33,6 @@ common.ajax.send = function (url, data) {
 common.ajax.returnGubun = function(url, data) {
     if(typeof eval(common.ajax.return) == "function") {
         common.ajax.return(data);
-
     } else {
         alert("실행된 함수가 지정되지 않았습니다");
     }

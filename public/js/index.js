@@ -18,12 +18,13 @@ $(function() {
         params.adminpw = adminpw.val();
 
         common.ajax.send("/", params);
+        common.ajax.return = function(data) {
+            //console.log(data);
+        }
     });
 
 
 });
 
 
-common.ajax.return = function(data) {
-    console.log(data);
-}
+
