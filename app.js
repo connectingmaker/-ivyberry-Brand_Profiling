@@ -1,19 +1,3 @@
-/********* mysql connection module ***********/
-var mysql      = require('mysql');
-var connection = mysql.createConnection({
-        host     : 'carin.c-maker.co.kr',
-        user     : 'brand',
-        password : 'profiling',
-        port     : 3306,
-        database : 'brand'
-});
-/******** mysql connection module end ********/
-
-
-/* mysql connection */
-connection.connect();
-/* mysql connection end */
-
 
 /* nodejs module import */
 var express = require('express');
@@ -30,8 +14,9 @@ var bodyParser = require('body-parser');
 
 /* router import */
 var il18n = require("./i18n")
-var index = require('./routes/index');
-var users = require('./routes/users');
+var index = require('./controller/index');
+var brand = require('./controller/brand');
+var users = require('./controller/users');
 /* router import end */
 
 
@@ -46,7 +31,7 @@ app.set('view engine', 'ejs');
 
 
 // ejs-layouts setting
-app.set('layout', 'layout');
+app.set('layout', 'layout/layout');
 app.set("layout extractScripts", true);
 app.use(expressLayouts);
 
@@ -64,6 +49,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
 app.use('/users', users);
+app.use('/brand', brand);
 
 
 
@@ -106,5 +92,3 @@ app.use(function(err, req, res, next) {
 
 module.exports = app;
 
-
-connection.end();
