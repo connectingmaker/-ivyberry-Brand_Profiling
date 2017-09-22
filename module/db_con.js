@@ -4,6 +4,7 @@
 var mysql = require('mysql');
 var config = require('../config/db_config').local;
 
+
 module.exports = function () {
     return {
         init: function () {
@@ -15,7 +16,6 @@ module.exports = function () {
                 database: config.database
             })
         },
-
         test_open: function (con) {
             con.connect(function (err) {
                 if (err) {
@@ -27,3 +27,5 @@ module.exports = function () {
         }
     }
 };
+
+//module.exports = sqlConnection;

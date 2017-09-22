@@ -1,0 +1,165 @@
+body {
+    background-color:#ccc;
+}
+
+/*********** 상단 색상 ******************/
+.top_header { background-color:#357ea6; text-align:center; }
+.top_header .top_gnb { width:1004px;  margin:0 auto; color:#fff; text-align:right; padding:9px 0px 1px 0px;}
+.top_header .top_gnb ul {}
+.top_header .top_gnb ul li { display:inline; padding-left:9px; font-size:11px;}
+/*.top_header .top_gnb ul li:first-child { width:200px; }*/
+.top_header .top_gnb ul a { text-decoration:none; color:#fff; }
+
+.top_gnb_menu { background-color:#fff; padding:16px 0px; }
+.top_gnb_menu .menu { width:1004px; margin:0 auto; padding:0px 0px 0px 0px; height:30px;}
+.top_gnb_menu .logo { width:130px; float:left;  }
+.top_gnb_menu .menu_btn { width:640px; float:left;}
+.top_gnb_menu .menu_btn ul { padding-top:3px; }
+.top_gnb_menu .menu_btn ul li { display:inline; font-size:11px; padding-left:20px; color:#4F4F4F; }
+.top_gnb_menu .logout { float:right; padding-top:2px; font-size:12px;}
+.top_gnb_menu .logout ul { padding:0px; }
+.top_gnb_menu .logout li { display:inline;}
+.top_gnb_menu .logout li span { color:#DA4211; }
+
+
+.top_gnb_menu_sub { background-color:#f1f1f1; padding:12px 0px; }
+.top_gnb_menu_sub .menu { width:1100px; margin:0 auto; padding:0px 0px 0px 0px; height:30px;}
+.top_gnb_menu_sub .menu_btn { width:640px; float:left;}
+.top_gnb_menu_sub .menu_btn ul { padding-top:3px; }
+.top_gnb_menu_sub .menu_btn ul li { display:inline; font-size:11px; padding-left:20px; color:#4F4F4F; }
+
+
+
+.round_box {  padding: 20px;  border-radius: 5px;  border:1px solid #B2B2B2; }
+.round_box .title { font-size:14px; color:#4F4F4F; }
+.round_box .contents_list { padding-top: 10px; }
+
+
+table tr .check { color:#DA4211; font-size:9px; padding-left:5px; }
+
+
+/************ MAIN 컨텐츠 ******************/
+#main-container {min-width:1004px;}
+#main-container .contents { width:1004px; margin:0 auto; padding:26px 0px; height:564px; }
+#main-container .contents .c01 { }
+#main-container .contents .c01 .left_box { width:239px; height:250px;  position: relative; float:left; }
+#main-container .contents .c01 .center_box { width:494px; height:250px; position: relative; left:16px; border:1px solid #dadada; float:left; background-color:#fff; }
+
+#main-container .contents .c01 .center_box .kytitle { padding:23px; float:left; }
+#main-container .contents .c01 .center_box .kytitle_plus { padding:23px; float:right; }
+#main-container .contents .c01 .center_box .newsList { width:447px; margin:0 auto; }
+#main-container .contents .c01 .center_box .newsList .kynews_table tr { border-bottom:1px solid #e5e5e5;}
+#main-container .contents .c01 .center_box .newsList .kynews_table tr td { color:#888888; font-size:11px;  padding:10px 0px 10px 0px; }
+#main-container .contents .c01 .center_box .newsList .kynews_table tr:last-child { color:#888888; font-size:11px;  padding:14px 0px 5px 0px;  border-bottom: none;}
+#main-container .contents .c01 .center_box .newsList .kynews_table tr td:last-child { text-align: right;}
+
+#main-container .contents .c01 .right_box { width:239px; height:250px; position: relative; left:32px;float:left; }
+#main-container .contents .c01 .right_box .btn1 { text-align: center; position: relative; top:40px; }
+#main-container .contents .c01 .right_box .btn2 { text-align: center; position: relative; top:70px; }
+#main-container .contents .c01 .right_box .btn3 { text-align: center; position: relative; top:95px; }
+
+#main-container .contents .c02 { position: relative; top:16px;}
+#main-container .contents .c02 .box01 { width:239px; height:250px;  position: relative; float:left; background-image: url('../../img/main/main_footer_box1.gif'); }
+#main-container .contents .c02 .box02 { width:239px; height:250px;  position: relative; left:16px; float:left; background-image: url('../../img/main/main_footer_box2.gif');}
+#main-container .contents .c02 .box03 { width:239px; height:250px;  position: relative; left:32px;  float:left;}
+#main-container .contents .c02 .box04 { width:239px; height:250px;  position: relative; left:48px;  float:left; }
+
+
+#main-container .customer { background-color:#e5eff0; height:333px; margin:0 auto; text-align:center; padding:50px 0px; }
+#main-container .customer .title_line { background-color:#357ea6; height:2px; width:29px; margin:0 auto; }
+#main-container .customer .title { color:#3d4040; font-size:18px; width:200px; padding-top:17px; margin:0 auto; text-align: center; padding-bottom:40px; }
+
+#main-container .customer .customer_box { width:1004px; margin:0 auto; text-align:center; }
+#main-container .customer ul { padding:0px;}
+#main-container .customer ul li:first-child { display:inline; padding:0px; height:150px; width:239px; }
+#main-container .customer ul li { display:inline; padding:0px 0px 0px 10px; height:150px; width:239px; }
+
+
+
+
+#main-container .music { background-color:#c3dae7; height:252px; margin:0 auto; text-align:center; padding:50px 0px; }
+#main-container .music .title_line { background-color:#357ea6; height:2px; width:29px; margin:0 auto; }
+#main-container .music .title { color:#3d4040; font-size:18px; width:200px; padding-top:17px; margin:0 auto; text-align: center; padding-bottom:40px; }
+
+#main-container .music .music_box  { width:1004px; margin:0 auto; text-align:center; }
+#main-container .music ul { padding:0px;}
+#main-container .music ul li:first-child { display:inline; padding:0px; }
+#main-container .music ul li { display:inline; padding:0px 0px 0px 10px; }
+
+
+#main-container .music2 { margin:0 auto; text-align:center; padding:54px 0px 48px 0px; width:1004px; }
+#main-container .music2 ul { padding:0px; }
+#main-container .music2 ul li { display:inline; padding:0px 35px 0px 35px; }
+
+
+#main-container .callcenter { margin:0 auto; text-align:center; padding:0px 0px; width:1004px; }
+#main-container .callcenter ul { padding:0px; }
+#main-container .callcenter ul li:first-child{ display:inline; padding:0px; }
+#main-container .callcenter ul li { display:inline; padding-left:10px; }
+
+#main-container .footer_logo { margin:0 auto; text-align:center; padding:39px 0px 20px 0px; width:1004px; }
+#main-container .footer_logo ul { padding:0px; }
+#main-container .footer_logo ul li:first-child{ display:inline; padding:0px; }
+#main-container .footer_logo ul li { display:inline; padding-left:52px; }
+
+
+#main-container .container { width:1004px; margin:0 auto;  }
+
+#main-container .left_menu {float:left; width:247px; border-left:1px solid #dadada; border-right:1px solid #dadada; }
+#main-container .left_menu .left_title { background-color:#357ea6; padding:36px 0px; text-align: center; color:#fff; font-size:24px; }
+#main-container .left_menu .menu_gnb { width:247px; min-height:500px; }
+#main-container .left_menu .menu_gnb .step1 { list-style: none; padding:0px; }
+#main-container .left_menu .menu_gnb .step1 li { border-bottom:1px solid #dadada; width:100%; padding:13px 0px 10px 0px; }
+#main-container .left_menu .menu_gnb .step1 li:last-child { width:100%; padding:13px 0px 5px 0px; }
+#main-container .left_menu .menu_gnb .step1 li a { padding-left: 24px; text-decoration:none; color:#585858; }
+
+#main-container .left_menu .menu_gnb .step2 { list-style:none; padding:0px 0px 0px 40px; }
+#main-container .left_menu .menu_gnb .step2 li:first-child { border-bottom:none; padding-top:0px; width:100%;  }
+#main-container .left_menu .menu_gnb .step2 li { border-bottom:0px; width:100%;}
+#main-container .left_menu .menu_gnb .step2 li a { padding:0px; text-decoration:none; color:#585858; }
+
+
+#main-container .container .main_contents { padding:36px 0px 0px 72px; margin-left:247px; background-color:#fff; width:753px;}
+#main-container .container .main_contents .contents_title { color:#357ea6; font-weight:bold; font-size:24px; }
+#main-container .container .main_contents .txt {  padding-top:36px;  }
+
+/************ 하단 색상 및 사이즈 *************/
+.page-footer { background-color:#f2f2f2;  }
+.footer_text {  padding:14px 0px; margin:0 auto; width:1004px; text-align:center;}
+.footer_text ul { list-style:none; padding-top:10px; }
+.footer_text ul li:first-child { display:inline;text-align:center; padding:0px;}
+.footer_text ul li { display:inline;text-align:center; padding:0px 30px;}
+.footer_text ul a { text-decoration:none; color:#000;}
+.footer_logo_bg { background-color:#cccccc; }
+
+
+.footer_main { background-color:#cccccc; padding:29px 0px 26px 0px;  }
+.footer_main .kylogo { margin:0 auto; text-align: center; width:1004px;   }
+.footer_main .copyright { text-align:center; margin:0 auto; width:1004px; font-size:11px; color:#000; padding:20px 0px 0px 0px; }
+
+
+
+/*********** TAB MENU *************************/
+.row { }
+.nav-tabs { border-bottom: 2px solid #DDD; }
+.nav-tabs > li.active > a, .nav-tabs > li.active > a:focus, .nav-tabs > li.active > a:hover { border-width: 0; }
+.nav-tabs > li > a { border: none; color: #666; }
+.nav-tabs > li.active > a, .nav-tabs > li > a:hover { border: none; color: #4285F4 !important; background: transparent; }
+.nav-tabs > li > a::after { content: ""; background: #4285F4; height: 2px; position: absolute; width: 100%; left: 0px; bottom: -1px; transition: all 250ms ease 0s; transform: scale(0); }
+.nav-tabs > li.active > a::after, .nav-tabs > li:hover > a::after { transform: scale(1); }
+.tab-nav > li > a::after { background: #21527d none repeat scroll 0% 0%; color: #fff; }
+.tab-pane { padding: 15px 0px 0px 0px; }
+.tab-content{padding:10px 10px 0px 10px;}
+
+.card {background: #FFF none repeat scroll 0% 0%;  margin-bottom: 0px; }
+
+/****** 인재채용 ******/
+.recruit_info {
+    width: 680px;
+    height: 116px;
+    background: url('http://www.kumyoung.co.kr/img/g/bg_cva_top.gif') no-repeat;
+}
+.recruit_info img {
+    padding-top:25px;
+    padding-left: 21px;
+}

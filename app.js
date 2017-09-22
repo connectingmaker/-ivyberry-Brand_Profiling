@@ -7,6 +7,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var session = require("express-session");
 /* nodejs module import end */
 
 
@@ -17,6 +18,7 @@ var il18n = require("./i18n")
 var index = require('./controller/index');
 var brand = require('./controller/brand');
 var users = require('./controller/users');
+var campaign = require('./controller/campaign');
 /* router import end */
 
 
@@ -24,6 +26,13 @@ var users = require('./controller/users');
 /* express */
 var app = express();
 app.use(il18n);
+
+/* session setting */
+app.use(session({
+    secret: '!@#$%brand@@@@@profiling!@#$%',
+    resave: false,
+    saveUninitialized: true
+}));
 
 /* views setting */
 app.set('views', path.join(__dirname, 'views'));
@@ -47,9 +56,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 
+
 app.use('/', index);
 app.use('/users', users);
 app.use('/brand', brand);
+app.use('/campaign', campaign);
 
 
 

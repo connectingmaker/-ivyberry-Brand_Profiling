@@ -1,114 +1,108 @@
 <!DOCTYPE html>
-<html>
-
+<!--[if IE 9]>         <html class="ie9 no-focus"> <![endif]-->
+<!--[if gt IE 9]><!--> <html class="no-focus"> <!--<![endif]-->
 <head>
-
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Brand Profiling - ADMIN</title>
+    <title>BrandProfiling-ADMIN</title>
 
-    <link href="/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/css/font-awesome/css/font-awesome.css" rel="stylesheet">
-    <link href="/css/animate.css" rel="stylesheet">
-    <link href="/css/style.css" rel="stylesheet">
-
+    <meta name="description" content="브랜드프로파일-관리자">
+    <meta name="author" content="pixelcave">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1.0">
 
 
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400italic,600,700%7COpen+Sans:300,400,400italic,600,700">
+
+    <!-- Bootstrap and OneUI CSS framework -->
+    <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/css/common.css">
+    <link rel="stylesheet" href="/assets/css/custom.css">
 
 
 </head>
+<body>
 
-<body class="top-navigation">
 
-<div id="wrapper">
-    <div id="page-wrapper">
-        <header>
-            <div class="row white-bg">
-                <nav class="navbar navbar-static-top" role="navigation">
-                    <div class="navbar-header">
-                        <a href="#" class="navbar-brand">로고</a>
-                    </div>
-                    <div class="navbar-collapse" id="navbar">
-                        <ul class="nav navbar-nav">
 
-                            <li>
-                                <a role="button" href="#">설문 관리</a>
+<div id="page-container">
 
-                            </li>
-                            <li>
-                                <a aria-expanded="false" role="button" href="#">통꼐관리</a>
 
-                            </li>
-                            <li>
-                                <a aria-expanded="false" role="button" href="#">사용자관리</a>
-                            </li>
-                            <li>
-                                <a aria-expanded="false" role="button" href="#">브랜드관리</a>
-                            </li>
-                            <li>
-                                <a aria-expanded="false" role="button" href="#">문항관리</a>
-                            </li>
+    <!-- Header -->
+    <header id="header-navbar">
 
-                        </ul>
-
-                    </div>
-                    <div class="navbar-collapse text-center" style="background-color:#f1f1f1;" id="navbar">
-                        <ul class="nav navbar-nav">
-                            <li>
-                                <a role="button" href="#">설문 관리</a>
-
-                            </li>
-                            <li>
-                                <a aria-expanded="false" role="button" href="#">통꼐관리</a>
-
-                            </li>
-                            <li>
-                                <a aria-expanded="false" role="button" href="#">사용자관리</a>
-                            </li>
-                            <li>
-                                <a aria-expanded="false" role="button" href="#">브랜드관리</a>
-                            </li>
-                            <li>
-                                <a aria-expanded="false" role="button" href="#">문항관리</a>
-                            </li>
-
-                        </ul>
-
-                    </div>
-                </nav>
-            </div>
-        </header>
-        <div class="wrapper wrapper-content">
-            <div class="container">
-                <%- body %>
-            </div>
-
-        </div>
-        <footer>
-        <div class="footer">
-
-            <div>
-                <strong>Copyright</strong> Canada &copy; 2016
+        <div class="top_gnb_menu">
+            <div class="menu">
+                <div class="logo"><img src="/img/logo.png"></div>
+                <div class="menu_btn">
+                    <ul>
+                        <li><a href="/campaign/list">설문관리</a></li>
+                        <li>통계관리</li>
+                        <li><a href="/users/list">사용자관리</a></li>
+                        <li><a href="/brand/list">브랜드관리</a></li>
+                        <li>문항관리</li>
+                    </ul>
+                </div>
+                <div class="logout">
+                    <ul>
+                        <li>관리자<span>(Master)</span></li>
+                        <li style="padding-left:10px;"><img src="/img/logout_btn.png" width="55"></li>
+                    </ul>
+                </div>
             </div>
         </div>
-        </footer>
+        <div class="top_gnb_menu_sub">
+            <div class="menu">
+                <div class="menu_btn">
+                    <ul>
+                        <li><a href="/campaign/list">설문관리</a></li>
+                        <li>통계관리</li>
+                        <li><a href="/users/list">사용자관리</a></li>
+                        <li><a href="/brand/list">브랜드관리</a></li>
+                        <li>문항관리</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- END Header -->
 
-    </div>
+    <!-- Main Container -->
+    <main id="main-container">
+
+
+        <!-- 가운데 컨텐츠 -->
+        <div class="contents">
+
+
+            <%- body %>
+
+
+        </div>
+
+
+
+
+    </main>
+    <!-- Footer -->
+    <footer id="page-footer" class="page-footer">
+
+    </footer>
+    <!-- END Footer -->
 </div>
+<!-- END Page Container -->
 
-<!-- Mainly scripts -->
-<script src="/js/jquery-2.1.1.js"></script>
-<script src="/js/bootstrap.min.js"></script>
-<script src="/js/plugins/metisMenu/jquery.metisMenu.js"></script>
-<script src="/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-
-<!-- Custom and plugin javascript -->
-<script src="/js/inspinia.js"></script>
-<script src="/js/plugins/pace/pace.min.js"></script>
-
-
-<script language="javascript" src="/js/common.js"></script>
-<%- script %>
 </body>
+<script src="/assets/js/core/jquery-1.12.4.min.js"></script>
+<script src="/assets/js/core/bootstrap.min.js"></script>
+<script src="/assets/js/core/jquery.slimscroll.min.js"></script>
+<script src="/assets/js/core/jquery.scrollLock.min.js"></script>
+<script src="/assets/js/core/jquery.appear.min.js"></script>
+<script src="/assets/js/core/jquery.countTo.min.js"></script>
+<script src="/assets/js/core/jquery.placeholder.min.js"></script>
+<script src="/assets/js/core/js.cookie.min.js"></script>
+<script src="/assets/js/app.js"></script>
+<script src="/js/common.js"></script>
+<%- script %>
+
 </html>

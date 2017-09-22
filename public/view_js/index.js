@@ -1,3 +1,5 @@
+var loginUrl = "/users/list";
+
 $(function() {
     $("header").hide();
     $("footer").hide();
@@ -35,7 +37,8 @@ $(function() {
         common.ajax.return = function(data) {
             switch(data.err_code) {
                 case "000":
-                    console.log(data.data);
+                    location.replace(loginUrl);
+                    //console.log(data.data);
                     break;
                 default:
                     alert(data.err_msg);

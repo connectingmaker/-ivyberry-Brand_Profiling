@@ -1,0 +1,123 @@
+<div class="row">
+    <div class="col-xs-12 bg-white box round_box">
+        <div class="row">
+            <div class="col-xs-10 title">
+                브랜드 카테고리
+            </div>
+            <div class="col-xs-2 text-right">
+                <button id="brandCategoryBtn" class="btn btn-danger btn-xs">카테고리 추가</button>
+            </div>
+        </div>
+        <div class="contents_list">
+            <table id="list" class="table table-bordered fontsize">
+                <col width="7%">
+                <col width="15%">
+                <col width="5%">
+                <col width="15%">
+                <col width="15%">
+                <col width="20%">
+                <col width="13%">
+                <col width="10%">
+                <thead>
+                    <tr>
+                        <th>카테고리ID</th>
+                        <th>카테고리 이름</th>
+                        <th>메모</th>
+                        <th>카테고리 영문</th>
+                        <th>카테고리 중문</th>
+                        <th>참조</th>
+                        <th>최종수정일</th>
+                        <th>상태</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <% for(var i = 0; i<list.length; i++) { %>
+                    <tr id="<%=list[i].CATEGORY_CODE%>">
+                        <td><%=list[i].CATEGORY_CODE%></td>
+                        <td><a href="/brand/detail/<%=list[i].CATEGORY_CODE%>"><%=list[i].CATEGORY_NAME_KO%></a></td>
+                        <td><%=list[i].MEMO%></td>
+                        <td><%=list[i].CATEGORY_NAME_EN%></td>
+                        <td><%=list[i].CATEGORY_NAME_CN%></td>
+                        <td><%=list[i].ETC%></td>
+
+                        <td><%=list[i].MODIFY_DATETIME%></td>
+                        <% if(list[i].CNT == 0) { %>
+                        <td class="text-center">
+                            <button class="btn btn-xs btn-warning deleteBtn">삭제</button>
+                            <button class="btn btn-xs btn-primary modifyBtn">수정</button>
+                        </td>
+                        <% } else { %>
+                        <td>사용가능</td>
+                        <% } %>
+                    </tr>
+                <% } %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+<!-- 등록폼 모달 -->
+<div class="modal fade" id="brandModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="block block-themed block-transparent remove-margin-b">
+                <div class="block-header bg-primary-dark">
+                    <ul class="block-options">
+                        <li>
+                            <button data-dismiss="modal" type="button"><i class="si si-close"></i></button>
+                        </li>
+                    </ul>
+                    <h3 class="block-title">브랜드 추가</h3>
+                </div>
+                <div class="block-content">
+                    <input type="hidden" id="category_code">
+                    <table class="table table-bordered fontsize">
+                        <col width="15%">
+                        <col width="85%">
+                        <tbody>
+                        <tr>
+                            <th class="text-center">브랜드 이름<span class="check">*</span></th>
+                            <td>
+                                <input type="text" id="category_name_ko" class="form-control">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="text-center">브랜드 메모<span class="check">*</span></th>
+                            <td>
+                                <input type="text" id="memo" class="form-control">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="text-center">브랜드 영문</th>
+                            <td>
+                                <input type="text" id="category_name_en" class="form-control">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="text-center">브랜드 중문</th>
+                            <td>
+                                <input type="text" id="category_name_cn" class="form-control">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="text-center">참조</th>
+                            <td>
+                                <input type="text" id="etc" class="form-control">
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-sm btn-default" type="button" data-dismiss="modal">닫기</button>
+                <button id="brandSave" class="btn btn-sm btn-danger" type="button"><i class="fa fa-check"></i> 등록</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script language="javascript" src="/view_js/brand/list.js"></script>

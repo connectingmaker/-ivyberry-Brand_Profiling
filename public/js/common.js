@@ -39,6 +39,58 @@ common.ajax.returnGubun = function(url, data) {
 }
 /****** ajax module end *********/
 
-
-
 var string = {};
+string.dateTime = function(date) {
+    var dateReturn = new Date(date);
+    var stringYear = dateReturn.getFullYear();
+    var stringMonth = dateReturn.getMonth() + 1;
+    var stringDay = dateReturn.getDate();
+    var stringHour = dateReturn.getHours();
+    var stringSecond = dateReturn.getSeconds();
+    var stringMinute = dateReturn.getMinutes();
+
+    if(stringMonth < 10) {
+        stringMonth = "0" + stringMonth;
+    }
+
+    if(stringDay < 10) {
+        stringDay = "0" + stringDay;
+    }
+
+    if(stringHour < 10) {
+        stringHour = "0" + stringHour;
+    }
+
+    if(stringSecond < 10) {
+        stringSecond = "0" + stringSecond;
+    }
+
+    if(stringMinute < 10) {
+        stringMinute = "0" + stringMinute;
+    }
+
+    return stringYear + "-" + stringMonth + "-" + stringDay+" "+stringHour+":"+stringSecond+":"+stringMinute;
+    //return dateReturn.getTime();
+}
+
+
+function inputTextCheck(id, msg) {
+    if($("#"+id).val() == false) {
+        alert(msg);
+        $("#"+id).focus();
+        return false;
+    }
+}
+
+function inputRadioCheck(className, msg) {
+    if($("."+className).is(":checked") == false) {
+        alert(msg);
+        return false;
+    }
+}
+
+$(function() {
+    $(".backBtn").click(function() {
+        history.back(-1);
+    });
+})

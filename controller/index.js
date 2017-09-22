@@ -4,14 +4,22 @@ var muser = require("../model/muser");
 
 /* admin login */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express', layout: 'layout/single_page', "layout extractScripts": true });
+  sess = req.session;
+  if(sess.username == undefined) {
+    res.render('index', { title: 'Express', layout: 'layout/single_page', "layout extractScripts": true });
+  } else {
+    res.redirect('/users/list');
+  }
 });
 
+/* admin login process */
 router.post('/', function(req, res, next) {
   var adminid = req.body.adminid;
   var adminpw = req.body.adminpw;
   var err_code = {};
+  var sess;
   var dataReturn = {};
+
     muser.getAdminMemberSelect(adminid,adminpw, function(err, rows) {
       if(err) {
         console.log("error");
@@ -36,14 +44,38 @@ router.post('/', function(req, res, next) {
             , "data" : rows[0]
           }
 
+          sess = req.session;
+          sess.username = rows[0].ADMIN_ID;
+
         }
       }
 
-      console.log(err_code);
       res.send(err_code);
 
     });
 
+});
+
+/* admin logout process */
+router.get("/logout", function(req, res, next) {
+
+  sess = req.session;
+  console.log("OK2");
+  //res.send("1111");
+  if(sess.username) {
+    req.session.destroy(function(err) {
+      if(err) {
+        console.log(err);
+      } else {
+        res.redirect("/");
+      }
+    });
+  } else {
+    res.redirect("/");
+  }
+
+
+  //console.log("OK");
 });
 
 module.exports = router;
