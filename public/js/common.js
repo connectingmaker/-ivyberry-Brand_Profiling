@@ -89,6 +89,17 @@ function inputRadioCheck(className, msg) {
     }
 }
 
+function inputRadioCheckReturn(className) {
+    var checkVal = "";
+    $("."+className).each(function() {
+        if($(this).is(":checked") == true) {
+            checkVal = $(this).val();
+        }
+    });
+
+    return checkVal;
+}
+
 $(function() {
     $(".backBtn").click(function() {
         history.back(-1);

@@ -19,6 +19,8 @@ var index = require('./controller/index');
 var brand = require('./controller/brand');
 var users = require('./controller/users');
 var campaign = require('./controller/campaign');
+var question = require("./controller/question");
+var statistics = require('./controller/statistics');
 /* router import end */
 
 
@@ -61,6 +63,8 @@ app.use('/', index);
 app.use('/users', users);
 app.use('/brand', brand);
 app.use('/campaign', campaign);
+app.use('/question', question);
+app.use('/statistics', statistics);
 
 
 

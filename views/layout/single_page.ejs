@@ -8,45 +8,30 @@
 
     <title>Brand Profiling - ADMIN</title>
 
-    <link href="/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/css/font-awesome/css/font-awesome.css" rel="stylesheet">
-    <link href="/css/animate.css" rel="stylesheet">
-    <link href="/css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400italic,600,700%7COpen+Sans:300,400,400italic,600,700">
+    <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" id="css-main" href="/assets/css/oneui.css">
 
 </head>
+<body>
+<%-body%>
+</body>
+<!-- OneUI Core JS: jQuery, Bootstrap, slimScroll, scrollLock, Appear, CountTo, Placeholder, Cookie and App.js -->
+<script src="/assets/js/core/jquery.min.js"></script>
+<script src="/assets/js/core/bootstrap.min.js"></script>
+<script src="/assets/js/core/jquery.slimscroll.min.js"></script>
+<script src="/assets/js/core/jquery.scrollLock.min.js"></script>
+<script src="/assets/js/core/jquery.appear.min.js"></script>
+<script src="/assets/js/core/jquery.countTo.min.js"></script>
+<script src="/assets/js/core/jquery.placeholder.min.js"></script>
+<script src="/assets/js/core/js.cookie.min.js"></script>
+<script src="/assets/js/app.js"></script>
 
-<body class="gray-bg">
+<!-- Page JS Plugins -->
+<script src="/assets/js/plugins/jquery-validation/jquery.validate.min.js"></script>
 
-<%- body %>
-<!--
-<div class="middle-box text-center loginscreen animated fadeInDown">
-    <div>
-        <div>®
-
-            <h1 class="logo-name"></h1>
-
-        </div>
-        <h3>ADMIN LOGIN</h3>
-
-        <form class="m-t" role="form" method="post" action="/mosaic/admin/loginProcess">
-            <div class="form-group">
-                <input type="text" id="adminid" name="adminid" class="form-control" placeholder="ADMIN ID" required="">
-            </div>
-            <div class="form-group">
-                <input type="password" id="adminpw" name="adminpw" class="form-control" placeholder="ADMIN PW" required="">
-            </div>
-            <button type="submit" id="login_btn" class="btn btn-primary block full-width m-b">Login</button>
-
-
-        </form>
-        <p class="m-t"> <small>canada &copy; 2016</small> </p>
-    </div>
-</div>
--->
-
-<!-- Mainly scripts -->
-<script src="/js/jquery-2.1.1.js"></script>
-<script src="/js/bootstrap.min.js"></script>
+<!-- Page JS Code -->
+<script src="/assets/js/pages/base_pages_login.js"></script>
 <script src="/js/common.js"></script>
 <%- script %>
 

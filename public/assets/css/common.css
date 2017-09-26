@@ -16,7 +16,7 @@ body {
   outline: 0 !important;
 }
 a {
-  color: #5c90d2;
+  color: #4f4f4f;
   -webkit-transition: color 0.12s ease-out;
   transition: color 0.12s ease-out;
 }
@@ -40,7 +40,7 @@ a.link-effect:before {
 }
 a:hover,
 a:focus {
-  color: #3169b1;
+  color: #da4211;
   text-decoration: none;
 }
 a:hover.link-effect:before,
@@ -51,8 +51,13 @@ a:focus.link-effect:before {
   transform: scaleX(1);
 }
 a:active {
-  color: #5c90d2;
+  color: #da4211;
 }
+
+a .active {
+  color: #da4211;
+}
+
 a.inactive {
   cursor: not-allowed;
 }
