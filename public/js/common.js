@@ -82,6 +82,22 @@ function inputTextCheck(id, msg) {
     }
 }
 
+function inputEmailCheck(id, msg)
+{
+    var regExp = /[0-9a-zA-Z][_0-9a-zA-Z-]*@[_0-9a-zA-Z-]+(\.[_0-9a-zA-Z-]+){1,2}$/;
+    if($("#"+id).val().length == 0) {
+        alert(msg);
+        $("#"+id).focus();
+        return false;
+    }
+
+    if(!$("#"+id).val().match(regExp)) {
+        alert("이메일 형식이 올바르지 않습니다.");
+        $("#"+id).focus();
+        return false;
+    }
+}
+
 function inputRadioCheck(className, msg) {
     if($("."+className).is(":checked") == false) {
         alert(msg);
