@@ -1,0 +1,95 @@
+<div class="row">
+    <div class="col-xs-12 bg-white box round_box">
+        <div class="row">
+            <div class="col-xs-12 title">
+                사용자 등록 및 수정
+            </div>
+
+        </div>
+        <div class="contents_list">
+            <table id="list" class="table table-bordered fontsize">
+                <col width="15%">
+                <col width="35%">
+                <col width="15%">
+                <col width="35%">
+                <tbody>
+                <tr>
+                    <th>UID</th>
+                    <td>
+                        <input type="text" id="uid" class="form-control" value="<%=userData.uid%>" disabled>
+                    </td>
+                    <th>이메일</th>
+                    <td>
+                        <div class="input-group">
+
+                            <input class="form-control" type="text" id="useremail" placeholder="email" value="<%=userData.useremail%>">
+                            <span class="input-group-btn">
+                            <button id="emailSearch" class="btn btn-default btn-danger" type="button"><i class="fa fa-search"></i> 조회</button>
+                            </span>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <th>이름</th>
+                    <td>
+                        <input type="text" id="username" class="form-control" value="<%=userData.username%>">
+                    </td>
+                    <th>권한</th>
+                    <td>
+                        <select id="code_grade" class="form-control">
+                            <option value="">-선택-</option>
+                            <% for(var i=0; i<gradelist.length; i++) { %>
+                            <option value="<%=gradelist[i].CODE_GRADE%>" <% if(userData.code_grade == gradelist[i].CODE_GRADE) { %>selected<% } %>><%=gradelist[i].CODE_NAME%> [<%=gradelist[i].CODE_DESC%>]</option>
+                            <% } %>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <th>성별</th>
+                    <td>
+                        <select id="sex" class="form-control">
+                            <option value="">-선택-</option>
+                            <option value="M" <% if(userData.sex == "M") { %>selected<% } %>>남성</option>
+                            <option value="F" <% if(userData.sex == "F") { %>selected<% } %>>여성</option>
+                        </select>
+                    </td>
+                    <th>생년월일</th>
+                    <td>
+                        <input id="birthday" type="text" class="form-control" value="<%=userData.birthday%>">
+                    </td>
+                </tr>
+                <tr>
+                    <th>포인트</th>
+                    <td>
+                        <input id="point" type="text" class="form-control" value="<%=userData.point%>" disabled>
+                    </td>
+                    <th>최근 로그인</th>
+                    <td>
+                        <input id="last_login" type="text" class="form-control" value="<%=userData.last_login%>" disabled>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+
+    </div>
+
+    <div class="row">
+        <div class="col-xs-6 push-20-t">
+            <button class="btn btn-sm btn-block btn-primary backBtn">이전</button>
+        </div>
+        <div class="col-xs-6 push-20-t">
+            <button id="memberSave" class="btn btn-sm btn-block btn-danger">등록</button>
+        </div>
+    </div>
+
+
+</div>
+
+
+
+
+
+
+<script language="javascript" src="/view_js/users/write.js"></script>

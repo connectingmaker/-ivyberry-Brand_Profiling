@@ -5,7 +5,7 @@
                 사용자 목록
             </div>
             <div class="col-xs-2 text-right">
-                <button class="btn btn-sm btn-danger">회원 추가</button>
+                <a href="/users/write" class="btn btn-sm btn-danger">회원 추가</a>
             </div>
 
         </div>
@@ -13,7 +13,6 @@
             <table id="list" class="table table-bordered fontsize">
                 <thead>
                 <tr>
-                    <th>선택</th>
                     <th>UID</th>
                     <th>등급</th>
                     <th>이름</th>
@@ -25,6 +24,21 @@
                     <th>기능</th>
                 </tr>
                 </thead>
+                <tbody>
+                <% for(var i = 0; i<userData.length; i++) { %>
+                <tr>
+                    <td class="text-center"><a href="/users/write/<%=userData[i].UID%>" class="btn btn-xs btn-danger"><%=userData[i].UID%></a></td>
+                    <td><%=userData[i].CODE_NAME%></td>
+                    <td><%=userData[i].USERNAME%></td>
+                    <td><%=userData[i].USEREMAIL%></td>
+                    <td></td>
+                    <td><%=userData[i].POINT%></td>
+                    <td><%=userData[i].JOIN_SURVEY_CNT%></td>
+                    <td><%=userData[i].LAST_LOGIN%></td>
+                    <td></td>
+                </tr>
+                <% } %>
+                </tbody>
             </table>
         </div>
     </div>
