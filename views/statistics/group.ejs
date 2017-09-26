@@ -1,28 +1,145 @@
 <div class="row">
     <div class="col-xs-12 bg-white box round_box">
         <div class="row">
-            <div class="col-xs-12 title">
-                통계를 볼 카테고리를 선택해주세요.
+            <div class="col-xs-10 title">
+                통계조회 - 2017-08-21 13:31:03
             </div>
+            <div class="col-xs-2 text-right"><a href="#" class="btn btn-danger btn-block btn-xs">엑셀다운로드</a> </div>
         </div>
         <div class="contents_list">
             <table id="list" class="table table-bordered fontsize">
                 <thead>
                 <tr>
-                    <th>카테고리ID</th>
-                    <th>카테고리 이름</th>
+                    <th>질문그룹ID</th>
+                    <th>질문그룹 이름</th>
                     <th>메모</th>
-                    <th>카테고리 영문</th>
-                    <th>카테고리 중문</th>
+                    <th>질문수</th>
+                    <th>유형</th>
                     <th>참조</th>
-                    <th>최근수정</th>
+                    <th>최근수정일</th>
                 </tr>
                 </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>타겟소비자성향</td>
+                        <td>1.0</td>
+                        <td>2</td>
+                        <td>7점척도</td>
+                        <td></td>
+                        <td>2017-06-01 19:32:22</td>
+                    </tr>
+                </tbody>
             </table>
         </div>
     </div>
+
+    <div class="col-xs-12 bg-white box round_box push-30-t">
+            <div class="row">
+                <div class="block-header">
+                    <ul class="block-options">
+                        <li>
+                            <button type="button" data-toggle="block-option" data-action="refresh_toggle" data-action-mode="demo"><i class="si si-refresh"></i></button>
+                        </li>
+                    </ul>
+                    <h3 class="block-title">전체평균</h3>
+                </div>
+                <div class="block-content block-content-full push-100-l">
+                    <ul style="margin:0 50px 0 50px; padding:1px 0 0 3px; border:1px solid #ddd; border-top:0; border-right:0; font-size:10px; list-style:none;">
+                        <li style="position:relative; margin:10px 0; white-space:nowrap;">
+                            <span style="position:absolute; width:100px; top:0; left:-90px; line-height:20px; text-align:center; color:#767676; font-weight:bold;">가전제품 1.0<br><span style="font-size:5px;">(5,000명 응답)</span></span>
+                            <span style="position:relative; display:inline-block; height:20px; border:1px solid #ccc; border-left:0; background:#DA4211; width: 80%">
+                                <span style="position:absolute; width:40px; line-height:20px; top:0; right:-50px; color:#767676;"> 모르겠음 3%</span>
+                            </span>
+                        </li>
+                        <li style="position:relative; margin:20px 0; white-space:nowrap;">
+                            <span style="position:absolute; width:100px; top:0; left:-90px; line-height:20px; text-align:center; color:#767676; font-weight:bold;">가구 1.0<br><span style="font-size:5px;">(3,000명 응답)</span></span>
+                            <span style="position:relative; display:inline-block; height:20px; border:1px solid #ccc; border-left:0; background:#DA4211; width: 60%">
+                                <span style="position:absolute; width:40px; line-height:20px; top:0; right:-50px; color:#767676;"> 모르겠음 0.5%</span>
+                            </span>
+                        </li>
+                        <li style="position:relative; margin:20px 0; white-space:nowrap;">
+                            <span style="position:absolute; width:100px; top:0; left:-90px; line-height:20px; text-align:center; color:#767676; font-weight:bold;">사무용품 1.0<br><span style="font-size:5px;">(1,000명 응답)</span></span>
+                            <span style="position:relative; display:inline-block; height:20px; border:1px solid #ccc; border-left:0; background:#DA4211; width: 50%">
+                                <span style="position:absolute; width:40px; line-height:20px; top:0; right:-50px; color:#767676;"> 모르겠음 1.5%</span>
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+    </div>
+    <div class="col-xs-12 bg-white box round_box push-30-t">
+        <div class="row">
+            <div class="block-header">
+                <ul class="block-options">
+                    <li>
+                        <button type="button" data-toggle="block-option" data-action="refresh_toggle" data-action-mode="demo"><i class="si si-refresh"></i></button>
+                    </li>
+                </ul>
+                <h3 class="block-title">관여도</h3>
+            </div>
+            <div class="block-content block-content-full push-100-l">
+                <ul style="margin:0 50px 0 50px; padding:1px 0 0 3px; border:1px solid #ddd; border-top:0; border-right:0; font-size:10px; list-style:none;">
+                    <li style="position:relative; margin:10px 0; white-space:nowrap;">
+                        <span style="position:absolute; width:100px; top:0; left:-90px; line-height:20px; text-align:center; color:#767676; font-weight:bold;">가전제품 1.0<br><span style="font-size:5px;">(5,000명 응답)</span></span>
+                        <span style="position:relative; display:inline-block; height:20px; border:1px solid #ccc; border-left:0; background:#DA4211; width: 80%">
+                                <span style="position:absolute; width:40px; line-height:20px; top:0; right:-50px; color:#767676;"> 모르겠음: 150</span>
+                        </span>
+                    </li>
+                    <li style="position:relative; margin:20px 0; white-space:nowrap;">
+                        <span style="position:absolute; width:100px; top:0; left:-90px; line-height:20px; text-align:center; color:#767676; font-weight:bold;">가구 1.0<br><span style="font-size:5px;">(3,000명 응답)</span></span>
+                        <span style="position:relative; display:inline-block; height:20px; border:1px solid #ccc; border-left:0; background:#DA4211; width: 60%">
+                                <span style="position:absolute; width:40px; line-height:20px; top:0; right:-50px; color:#767676;"> 모르겠음: 300</span>
+                        </span>
+                    </li>
+                    <li style="position:relative; margin:20px 0; white-space:nowrap;">
+                        <span style="position:absolute; width:100px; top:0; left:-90px; line-height:20px; text-align:center; color:#767676; font-weight:bold;">사무용품 1.0<br><span style="font-size:5px;">(1,000명 응답)</span></span>
+                        <span style="position:relative; display:inline-block; height:20px; border:1px solid #ccc; border-left:0; background:#DA4211; width: 50%">
+                                <span style="position:absolute; width:40px; line-height:20px; top:0; right:-50px; color:#767676;"> 모르겠음: 100</span>
+                        </span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 bg-white box round_box push-30-t">
+        <div class="row">
+            <div class="block-header">
+                <ul class="block-options">
+                    <li>
+                        <button type="button" data-toggle="block-option" data-action="refresh_toggle" data-action-mode="demo"><i class="si si-refresh"></i></button>
+                    </li>
+                </ul>
+                <h3 class="block-title">디자인지향도</h3>
+            </div>
+            <div class="block-content block-content-full push-100-l">
+                <ul style="margin:0 50px 0 50px; padding:1px 0 0 3px; border:1px solid #ddd; border-top:0; border-right:0; font-size:10px; list-style:none;">
+                    <li style="position:relative; margin:10px 0; white-space:nowrap;">
+                        <span style="position:absolute; width:100px; top:0; left:-90px; line-height:20px; text-align:center; color:#767676; font-weight:bold;">가전제품 1.0<br><span style="font-size:5px;">(5,000명 응답)</span></span>
+                        <span style="position:relative; display:inline-block; height:20px; border:1px solid #ccc; border-left:0; background:#DA4211; width: 80%">
+                                <span style="position:absolute; width:40px; line-height:20px; top:0; right:-50px; color:#767676;"> 모르겠음: 150</span>
+                        </span>
+                    </li>
+                    <li style="position:relative; margin:20px 0; white-space:nowrap;">
+                        <span style="position:absolute; width:100px; top:0; left:-90px; line-height:20px; text-align:center; color:#767676; font-weight:bold;">가구 1.0<br><span style="font-size:5px;">(3,000명 응답)</span></span>
+                        <span style="position:relative; display:inline-block; height:20px; border:1px solid #ccc; border-left:0; background:#DA4211; width: 60%">
+                                <span style="position:absolute; width:40px; line-height:20px; top:0; right:-50px; color:#767676;"> 모르겠음: 0</span>
+                        </span>
+                    </li>
+                    <li style="position:relative; margin:20px 0; white-space:nowrap;">
+                        <span style="position:absolute; width:100px; top:0; left:-90px; line-height:20px; text-align:center; color:#767676; font-weight:bold;">사무용품 1.0<br><span style="font-size:5px;">(1,000명 응답)</span></span>
+                        <span style="position:relative; display:inline-block; height:20px; border:1px solid #ccc; border-left:0; background:#DA4211; width: 50%">
+                                <span style="position:absolute; width:40px; line-height:20px; top:0; right:-50px; color:#767676;"> 모르겠음: 200</span>
+                        </span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
 </div>
 
 
 
-<script language="javascript" src="/view_js/brand/list.js"></script>
+<script language="javascript" src="/view_js/statistics/group.js"></script>
+<script src="/assets/js/plugins/chartjs/Chart.min.js"></script>
