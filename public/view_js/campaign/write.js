@@ -26,7 +26,7 @@ $(function() {
 
 
         var params = {
-            campaign_code : ""
+            campaign_code : $("#campaign_code").val()
             ,campaign_title : $("#campaign_title").val()
             ,campaign_desc : $("#campaign_desc").val()
             ,category_code : inputRadioCheckReturn("category_code")

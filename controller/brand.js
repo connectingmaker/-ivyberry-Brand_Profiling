@@ -6,6 +6,9 @@ var router = express.Router();
 
 
 var mbrand = require("../model/mbrand");
+var moment = require('moment');
+
+
 
 /**** 브랜드 카테고리 대분류 VIEW *****************/
 router.get('/list', function(req, res, next) {
@@ -18,7 +21,7 @@ router.get('/list', function(req, res, next) {
 
         console.log(rows);
 
-        res.render('brand/list', { list: rows });
+        res.render('brand/list', { list: rows ,moment : moment });
     });
 });
 

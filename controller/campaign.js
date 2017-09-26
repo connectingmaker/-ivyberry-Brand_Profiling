@@ -6,12 +6,13 @@ var router = express.Router();
 
 var mbrand = require("../model/mbrand");
 var mcampaign = require("../model/mcampaign");
+var moment = require('moment');
 
 
 router.get('/list', function(req, res, next) {
     mcampaign.get_campaign_list("N", function(err, rows) {
         var campaignlist = rows;
-        res.render('campaign/list', { campaignlist : campaignlist });
+        res.render('campaign/list', { moment: moment, campaignlist : campaignlist });
     });
 
 });
@@ -37,7 +38,7 @@ router.get('/write/:code', function(req, res) {
             var campaign_startdate = campaign_rows[0].CAMPAIGN_STARTDATE;
             var campaign_enddate = campaign_rows[0].CAMPAIGN_ENDDATE;
 
-            res.render('campaign/write', { brandlist: brandlist, campaign_code: campaign_code, campaign_title: campaign_title, campaign_desc:campaign_desc, category_code : category_code, campaign_startdate: campaign_startdate, campaign_enddate: campaign_enddate});
+            res.render('campaign/write', { moment: moment, brandlist: brandlist, campaign_code: campaign_code, campaign_title: campaign_title, campaign_desc:campaign_desc, category_code : category_code, campaign_startdate: campaign_startdate, campaign_enddate: campaign_enddate});
         });
 
     });

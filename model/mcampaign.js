@@ -25,7 +25,7 @@ var mcampaign = {
     }
     ,get_campaign_list: function(campaign_ing, callback) {
         var connection = mysql_dbc.init();
-        var query = " SELECT * FROM CAMPAIGN WHERE CAMPAIGN_ING = ? ORDER BY INSERT_DATETIME DESC ";
+        var query = " SELECT CAMPAIGN_CODE, CAMPAIGN_TITLE, CAMPAIGN_DESC, FROM_UNIXTIME(CAMPAIGN_STARTDATE) AS CAMPAIGN_STARTDATE, FROM_UNIXTIME(CAMPAIGN_ENDDATE) AS CAMPAIGN_ENDDATE, CAMPAIGN_ING, VIRTUAL_YN, JOIN_CNT, INSERT_DATETIME, MODIFY_DATETIME FROM CAMPAIGN WHERE CAMPAIGN_ING = ? ORDER BY INSERT_DATETIME DESC ";
         var params = [];
         params.push(campaign_ing);
 
@@ -35,7 +35,7 @@ var mcampaign = {
     }
     ,get_campaign_select: function(campaign_code, callback) {
         var connection = mysql_dbc.init();
-        var query = " SELECT * FROM CAMPAIGN WHERE CAMPAIGN_CODE = ? ";
+        var query = " SELECT CAMPAIGN_CODE, CAMPAIGN_TITLE, CAMPAIGN_DESC, FROM_UNIXTIME(CAMPAIGN_STARTDATE) AS CAMPAIGN_STARTDATE, FROM_UNIXTIME(CAMPAIGN_ENDDATE) AS CAMPAIGN_ENDDATE, CAMPAIGN_ING, VIRTUAL_YN, JOIN_CNT, INSERT_DATETIME, MODIFY_DATETIME FROM CAMPAIGN WHERE CAMPAIGN_CODE = ? ";
         var params = [];
         params.push(campaign_code);
 

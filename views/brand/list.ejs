@@ -40,7 +40,8 @@
                         <td><%=list[i].CATEGORY_NAME_CN%></td>
                         <td><%=list[i].ETC%></td>
 
-                        <td><%=list[i].MODIFY_DATETIME%></td>
+                        <td><%=moment(list[i].MODIFY_DATETIME).format("YYYY-MM-DD hh:mm:ss")%></td>
+                        <td><%=moment(list[i].MODIFY_DATETIME).format("YYYY-MM-DD hh:mm:ss")%></td>
                         <% if(list[i].CNT == 0) { %>
                         <td class="text-center">
                             <button class="btn btn-xs btn-warning deleteBtn">삭제</button>
