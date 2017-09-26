@@ -34,6 +34,21 @@ $(function() {
             return;
         }
 
+        if(inputTextCheck("passwd1", "패스워드를 입력해주세요.") == false) {
+            return;
+        }
+
+
+        if(inputTextCheck("passwd2", "패스워드를 입력해주세요.") == false) {
+            return;
+        }
+
+        if($("#passwd1").val() != $("#passwd2").val()) {
+            alert("패스워드가 일치하지 않습니다");
+            $("#passwd2").val("");
+            return;
+        }
+
         if(inputTextCheck("username", "이름을 입력해주세요") == false) {
             return;
         }
@@ -50,13 +65,22 @@ $(function() {
             return;
         }
 
+
+        if(inputTextCheck("userphone", "핸드폰번호를 입력해주세요.") == false) {
+            return;
+        }
+
+
+
         var json = {
             uid : $("#uid").val()
             ,useremail: $("#useremail").val()
             ,username: $("#username").val()
             ,code_grade : $("#code_grade").val()
+            ,userpasswd : $("#passwd1").val()
             ,sex : $("#sex").val()
             ,birthday : $("#birthday").val()
+            ,userphone : $("#userphone").val()
         }
         common.ajax.send('/users/writeProcess', json);
         common.ajax.return = function(data) {

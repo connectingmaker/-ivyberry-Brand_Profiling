@@ -75,8 +75,10 @@ router.post("/writeProcess", function(req, res) {
     var useremail = req.body.useremail;
     var sex = req.body.sex;
     var birthday = req.body.birthday;
+    var userphone = req.body.userphone;
+    var userpasswd = req.body.userpasswd;
 
-    muser.sp_MEMBER_SAVE(uid, code_grade, username, useremail, sex, birthday, function(err, rows) {
+    muser.sp_MEMBER_SAVE(uid, code_grade, username, useremail, userphone, userpasswd, sex, birthday, function(err, rows) {
         if(err) {
             console.log(err);
         }

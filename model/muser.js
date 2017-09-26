@@ -49,6 +49,7 @@ var muser = {
         query += " , M.BIRTHDAY ";
         query += " , M.POINT ";
         query += " , M.JOIN_SURVEY_CNT ";
+        query += " , AES_DECRYPT(UNHEX(M.USERPHONE), '"+mysql_dbc.enckey()+"') AS USERPHONE "
         query += " , FROM_UNIXTIME(M.LAST_LOGIN) AS LAST_LOGIN ";
         query += " , FROM_UNIXTIME(M.INSERT_DATETIME) AS INSERT_DATETIME ";
         query += " , CG.CODE_GRADE ";
@@ -66,16 +67,19 @@ var muser = {
         connection.end();
         return data;
     }
-    ,sp_MEMBER_SAVE: function(uid, code_grade, username, useremail, sex, birthday, callback) {
+    ,sp_MEMBER_SAVE: function(uid, code_grade, username, useremail, userphone, userpasswd, sex, birthday, callback) {
         var connection = mysql_dbc.init();
-        var query = " call sp_MEMBER_SAVE(?, ?, ?, ?, ?, ?)";
+        var query = " call sp_MEMBER_SAVE(?, ?, ?, ?, ?, ?, ?, ?, ?)";
         var params = [];
         params.push(uid);
         params.push(code_grade);
         params.push(username);
         params.push(useremail);
+        params.push(userphone);
+        params.push(userpasswd);
         params.push(sex);
         params.push(birthday);
+        params.push(mysql_dbc.enckey());
 
         var data = connection.query(query,params,callback);
         connection.end();

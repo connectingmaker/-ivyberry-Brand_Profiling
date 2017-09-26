@@ -25,6 +25,9 @@ module.exports = function () {
                 }
             })
         }
+        ,enckey: function() {
+            return "brandEncKey";
+        }
     }
 };
 
