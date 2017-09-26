@@ -1,4 +1,5 @@
 <div class="row">
+    <input type="hidden" id="campaign_code" value="<%=campaign_code%>">
     <div class="col-xs-12 bg-white box round_box">
         <div class="row">
             <div class="col-xs-10 title">
@@ -88,13 +89,13 @@
                 <tr>
                     <th>시작일시</th>
                     <td>
-                        <input type="text" id="campaign_startdate" class="form-control" value="<%=campaign_startdate%>">
+                        <input type="text" id="campaign_startdate" class="form-control" value="<%=moment(campaign_startdate).format("YYYY-MM-DD hh:mm:ss")%>">
                     </td>
                 </tr>
                 <tr>
                     <th>종료일시</th>
                     <td>
-                        <input type="text" id="campaign_startdate" class="form-control" value="<%=campaign_enddate%>">
+                        <input type="text" id="campaign_enddate" class="form-control" value="<%=moment(campaign_enddate).format("YYYY-MM-DD hh:mm:ss")%>">
                     </td>
                 </tr>
                 </tbody>

@@ -44,11 +44,11 @@
                     <td></td>
                     <td><%=campaignlist[i].CAMPAIGN_TITLE%></td>
                     <td></td>
-                    <td><%=campaignlist[i].CAMPAIGN_STARTDATE%></td>
-                    <td><%=campaignlist[i].CAMPAIGN_ENDDATE%></td>
+                    <td><%=moment(campaignlist[i].CAMPAIGN_STARTDATE).format("YYYY-MM-DD hh:mm:ss")%></td>
+                    <td><%=moment(campaignlist[i].CAMPAIGN_ENDDATE).format("YYYY-MM-DD hh:mm:ss")%></td>
                     <td><%=campaignlist[i].JOIN_CNT%></td>
                     <td>1111</td>
-                    <td><%=campaignlist[i].MODIFY_DATETIME%></td>
+                    <td><%=moment(campaignlist[i].MODIFY_DATETIME).format("YYYY-MM-DD hh:mm:ss")%></td>
                     <td></td>
                 </tr>
                 <% } %>

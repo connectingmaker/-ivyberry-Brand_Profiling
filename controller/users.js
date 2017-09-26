@@ -3,19 +3,72 @@ var router = express.Router();
 
 var mcode = require("../model/mcode");
 var muser = require("../model/muser");
+var moment = require('moment');
+var pagination = require('pagination');
 
 /* GET users listing. */
-router.get('/list', function(req, res, next) {
-    muser.getMemberList("0", function(err, rows) {
-        if(err) {
-            console.log(err);
-        }
-        var userData = rows;
-        console.log(userData);
-        res.render('users/list', { userData: userData });
-    })
 
+router.get('/list', function(req, res, next) {
+    var page = req.query.page;
+    if(page == undefined) {
+        page = 1;
+    }
+
+    var total = 0;
+    var start = 0;
+    var viewCnt = 10;
+
+
+    muser.getMemberCount(function(err, count_rows) {
+        total = count_rows[0].TOTAL;
+        start = viewCnt * (page - 1);
+
+
+        var boostrapPaginator = new pagination.TemplatePaginator({
+            prelink:'/users/list', current: page, rowsPerPage: 10,
+            totalResult: total, slashSeparator: true,
+            template: function(result) {
+                var i, len, prelink;
+                var html = '<div><ul class="pagination">';
+                if(result.pageCount < 2) {
+                    html += '</ul></div>';
+                    return html;
+                }
+                prelink = this.preparePreLink(result.prelink);
+                console.log(prelink);
+                if(result.previous) {
+                    html += '<li><a href="./?page=' + result.previous + '">' + this.options.translator('PREVIOUS') + '</a></li>';
+                }
+                if(result.range.length) {
+                    for( i = 0, len = result.range.length; i < len; i++) {
+                        if(result.range[i] === result.current) {
+                            html += '<li class="active"><a href="?page=' + result.range[i] + '">' + result.range[i] + '</a></li>';
+                        } else {
+                            html += '<li><a href="?page=' + result.range[i] + '">' + result.range[i] + '</a></li>';
+                        }
+                    }
+                }
+                if(result.next) {
+                    html += '<li><a href="?page=' + result.next + '" class="paginator-next">' + this.options.translator('NEXT') + '</a></li>';
+                }
+                html += '</ul></div>';
+                return html;
+            }
+        });
+
+
+
+        muser.getMemberList(start, function(err, rows) {
+            if(err) {
+                console.log(err);
+            }
+            var userData = rows;
+            res.render('users/list', { moment:moment, pageHtml: boostrapPaginator, userData: userData });
+        });
+    });
 });
+
+
 
 router.get('/write', function(req, res) {
     mcode.getCodeGradeList(function(err, rows) {

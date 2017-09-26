@@ -39,6 +39,13 @@ var muser = {
         connection.end();
         return data;
     }
+    ,getMemberCount: function(callback) {
+        var connection = mysql_dbc.init();
+        var query = " SELECT COUNT(*) AS TOTAL FROM MEMBER ";
+        var data = connection.query(query,[],callback);
+        connection.end();
+        return data;
+    }
     ,getMemberList: function(page, callback) {
         var connection = mysql_dbc.init();
         var query = " SELECT ";
