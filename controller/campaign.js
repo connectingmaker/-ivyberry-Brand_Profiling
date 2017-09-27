@@ -73,19 +73,25 @@ router.post('/writeProcess', function(req, res) {
 
 router.get('/brand/:code', function(req, res) {
     var campaign_code = req.params.code;
+    mcampaign.get_campaign_select(campaign_code, function(err, rows) {
+        var campaign = rows[0];
+        mbrand.sp_CAMPAIGN_BRAND_LIST(campaign_code, function(err, rows) {
+            var brandlist = rows[0];
 
-    mbrand.sp_CAMPAIGN_BRAND_LIST(campaign_code, function(err, rows) {
-        var brandlist = rows[0];
-
-        var brandTitle;
-        if(brandlist.length > 0) {
-            brandTitle = brandlist[0].BRAND_NAME_KO;
-        }
+            var brandTitle;
+            if(brandlist.length > 0) {
+                brandTitle = brandlist[0].BRAND_NAME_KO;
+            }
 
 
 
-        res.render('campaign/brand', { campaign_code: campaign_code, moment: moment, brandTitle:brandTitle, brandlist : brandlist });
+            res.render('campaign/brand', { campaign_code: campaign_code, moment: moment, campaign : campaign, brandTitle:brandTitle, brandlist : brandlist });
+        });
     });
+});
+
+router.get('/brandPool/:code', function(req, res) {
+    res.render('campaign/brandPool');
 });
 
 router.post("/brandProcess", function(req, res) {

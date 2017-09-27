@@ -31,7 +31,7 @@ $(function() {
         common.ajax.return = function(data) {
             switch(data.err) {
                 case "000":
-                    alert("저장성공");
+                    location.href = "/campaign/brandPool/"+campaign_code;
                     break;
                 default:
                     alert("DB 오류 발생");
