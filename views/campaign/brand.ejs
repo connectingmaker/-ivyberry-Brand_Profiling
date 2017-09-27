@@ -1,8 +1,10 @@
 <div class="row">
+    <input type="hidden" id="campaign_code" value="<%=campaign_code%>">
     <div class="col-xs-12 bg-white box round_box">
         <div class="row">
             <div class="col-xs-12 title">
-                가상 브랜드 사용여부 - 설문 답변시 리스트 하단에 위치하고 모두가 답변할 가상 브랜드사용 여부를 결정해주세요 가상브랜드를 포함해 총 5개의 브랜드에 대하여 참여자의 답변이 이루어집니다. (필수)
+                <span class="color">가상 브랜드 사용여부</span>
+                <div class="sub">설문 답변시 리스트 하단에 위치하고 모두가 답변할 가상 브랜드사용 여부를 결정해주세요 가상브랜드를 포함해 총 5개의 브랜드에 대하여 참여자의 답변이 이루어집니다. <span class="color">(필수)</span></div>
             </div>
         </div>
         <div class="contents_list">
@@ -11,13 +13,13 @@
                 <col width="50%">
                 <thead>
                     <tr>
-                        <th colspan="2">가상브랜드 - 1111</th>
+                        <th colspan="2">가상브랜드 - <%=brandTitle%></th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td><input type="radio" class="visual_yn" value="Y"> 사용하기</td>
-                        <td><input type="radio" class="visual_yn" value="N"> 사용하지않기</td>
+                        <td><input type="radio" name="visual_yn" class="visual_yn" value="Y"> 사용하기</td>
+                        <td><input type="radio" name="visual_yn" class="visual_yn" value="N"> 사용하지않기</td>
                     </tr>
                 </tbody>
             </table>
@@ -27,11 +29,17 @@
     <div class="col-xs-12 bg-white box round_box push-10-t">
         <div class="row">
             <div class="col-xs-12 title">
-                고정브랜드 선택하기 - 설문 답변시 리스트 상단에 위치하고 모두가 답변할 고정 브랜드를 선택해주세요.
+                <span class="color">고정브랜드 선택하기</span>
+                <div class="sub">설문 답변시 리스트 상단에 위치하고 모두가 답변할 고정 브랜드를 선택해주세요.</div>
             </div>
 
             <div class="col-xs-12 push-10-t">
                 <table class="table table-bordered fontsize">
+                    <col width="5%">
+                    <col width="5%">
+                    <col width="20%">
+                    <col width="5%">
+                    <col width="50%">
                     <thead>
                         <tr>
                             <th>선택</th>
@@ -42,6 +50,18 @@
                             <th>최종수정일</th>
                         </tr>
                     </thead>
+                    <tbody>
+                        <% for(var i = 0; i<brandlist.length; i++) { %>
+                        <tr>
+                            <td class="text-center"><input type="checkbox" class="brandlist" name="brandlist" value="<%=brandlist[i].DETAIL_CATEGORY_CODE%>"></td>
+                            <td><%=brandlist[i].DETAIL_CATEGORY_CODE%></td>
+                            <td><%=brandlist[i].BRAND_NAME_KO%></td>
+                            <td><%=brandlist[i].MEMO%></td>
+                            <td><%=brandlist[i].ETC%></td>
+                            <td><%=moment(brandlist[i].MODIFY_DATETIME).format("YYYY-MM-DD hh:mm:ss")%></td>
+                        </tr>
+                        <% } %>
+                    </tbody>
                 </table>
             </div>
         </div>
@@ -55,7 +75,7 @@
         </div>
 
         <div class="col-xs-6 push-20-t text-right">
-            <button id="surveyCreate" class="btn btn-sm btn-block btn-danger">다음</button>
+            <button id="brandBtn" class="btn btn-sm btn-block btn-danger">다음</button>
         </div>
     </div>
 </div>
@@ -65,4 +85,4 @@
 
 
 
-<script language="javascript" src="/view_js/campaign/write.js"></script>
+<script language="javascript" src="/view_js/campaign/brand.js"></script>

@@ -127,6 +127,16 @@ var mbrand = {
 
         var data = connection.query(query, params, callback);
     }
+
+    ,sp_CAMPAIGN_BRAND_LIST: function(campaign_code, callback) {
+        var connection = mysql_dbc.init();
+        var query = " call sp_CAMPAIGN_BRAND_LIST(?) ";
+        var params = [];
+        params.push(campaign_code);
+
+        var data = connection.query(query, params, callback);
+    }
+
 }
 
 module.exports = mbrand;

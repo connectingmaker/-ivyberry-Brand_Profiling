@@ -25,7 +25,7 @@ var mcampaign = {
     }
     ,get_campaign_list: function(campaign_ing, callback) {
         var connection = mysql_dbc.init();
-        var query = " SELECT CAMPAIGN_CODE, CAMPAIGN_TITLE, CAMPAIGN_DESC, FROM_UNIXTIME(CAMPAIGN_STARTDATE) AS CAMPAIGN_STARTDATE, FROM_UNIXTIME(CAMPAIGN_ENDDATE) AS CAMPAIGN_ENDDATE, CAMPAIGN_ING, VIRTUAL_YN, JOIN_CNT, INSERT_DATETIME, MODIFY_DATETIME FROM CAMPAIGN WHERE CAMPAIGN_ING = ? ORDER BY INSERT_DATETIME DESC ";
+        var query = " SELECT CAMPAIGN_CODE, CAMPAIGN_TITLE, CAMPAIGN_DESC, CATEGORY_CODE, FROM_UNIXTIME(CAMPAIGN_STARTDATE) AS CAMPAIGN_STARTDATE, FROM_UNIXTIME(CAMPAIGN_ENDDATE) AS CAMPAIGN_ENDDATE, CAMPAIGN_ING, VIRTUAL_YN, JOIN_CNT, INSERT_DATETIME, MODIFY_DATETIME FROM CAMPAIGN WHERE CAMPAIGN_ING = ? ORDER BY INSERT_DATETIME DESC ";
         var params = [];
         params.push(campaign_ing);
 
@@ -35,7 +35,7 @@ var mcampaign = {
     }
     ,get_campaign_select: function(campaign_code, callback) {
         var connection = mysql_dbc.init();
-        var query = " SELECT CAMPAIGN_CODE, CAMPAIGN_TITLE, CAMPAIGN_DESC, FROM_UNIXTIME(CAMPAIGN_STARTDATE) AS CAMPAIGN_STARTDATE, FROM_UNIXTIME(CAMPAIGN_ENDDATE) AS CAMPAIGN_ENDDATE, CAMPAIGN_ING, VIRTUAL_YN, JOIN_CNT, INSERT_DATETIME, MODIFY_DATETIME FROM CAMPAIGN WHERE CAMPAIGN_CODE = ? ";
+        var query = " SELECT CAMPAIGN_CODE, CAMPAIGN_TITLE, CAMPAIGN_DESC, CATEGORY_CODE, FROM_UNIXTIME(CAMPAIGN_STARTDATE) AS CAMPAIGN_STARTDATE, FROM_UNIXTIME(CAMPAIGN_ENDDATE) AS CAMPAIGN_ENDDATE, CAMPAIGN_ING, VIRTUAL_YN, JOIN_CNT, INSERT_DATETIME, MODIFY_DATETIME FROM CAMPAIGN WHERE CAMPAIGN_CODE = ? ";
         var params = [];
         params.push(campaign_code);
 
@@ -43,8 +43,28 @@ var mcampaign = {
         connection.end();
         return data;
     }
+    ,set_campaign_virtual: function(campaign_code, virtual_yn, callback) {
+        var connection = mysql_dbc.init();
+        var query = " UPDATE CAMPAIGN SET VIRTUAL_YN = ? WHERE CAMPAIGN_CODE = ? ";
+        var params = [];
+        params.push(virtual_yn);
+        params.push(campaign_code);
 
+        var data = connection.query(query,params,callback);
+        connection.end();
+        return data;
+    }
+    ,sp_CAMPAIGN_BRAND_SUB_SAVE: function(campaign_code, detail_category_code, callback) {
+        var connection = mysql_dbc.init();
+        var query = " call sp_CAMPAIGN_BRAND_SUB_SAVE(?, ?) ";
+        var params = [];
+        params.push(campaign_code);
+        params.push(detail_category_code);
 
+        var data = connection.query(query,params,callback);
+        connection.end();
+        return data;
+    }
 }
 
 module.exports = mcampaign;

@@ -3,7 +3,8 @@
     <div class="col-xs-12 bg-white box round_box">
         <div class="row">
             <div class="col-xs-10 title">
-                <span class="color">새로운 설문 등록하기</span> - 설문 리스트에서 참여자에게 보여질 설문의 제목과 설명을 입력해주세요
+                <span class="color">새로운 설문 등록하기</span>
+                <div class="sub">설문 리스트에서 참여자에게 보여질 설문의 제목과 설명을 입력해주세요</div>
             </div>
         </div>
         <div class="contents_list">
@@ -31,7 +32,8 @@
     <div class="col-xs-12 bg-white box round_box push-10-t">
         <div class="row">
             <div class="col-xs-10 title">
-                <span class="color">브랜드 카테고리 선택해주세요</span> - 카테고리 선택하기(1개)
+                <span class="color">브랜드 카테고리 선택해주세요</span>
+                <div class="sub">카테고리 선택하기(1개)</div>
             </div>
         </div>
         <div class="contents_list">
@@ -66,7 +68,7 @@
                             <% } %>
                         </td>
                         <td>
-                            <%=brandlist[i].MODIFY_DATETIME%>
+                            <%=moment(brandlist[i].MODIFY_DATETIME).format("YYYY-MM-DD hh:mm:ss")%>
                         </td>
                     </tr>
                     <% } %>
@@ -77,8 +79,9 @@
 
     <div class="col-xs-12 bg-white box round_box push-10-t">
         <div class="row">
-            <div class="col-xs-10 title">
-                <span class="color">설문기간 설정하기</span> - 참여자가 설문에 참여할 수 있는 기간을 선택해주세요 종료 이후에는 설문 결과를 제출받지 않게 됩니다. 종료일시를 9999-12-31 23:59:59로 설정하게 되면 사용자에게는 '종료시까지'로 표시됩니다.
+            <div class="col-xs-12 title">
+                <span class="color">설문기간 설정하기</span>
+                <div class="sub">참여자가 설문에 참여할 수 있는 기간을 선택해주세요 종료 이후에는 설문 결과를 제출받지 않게 됩니다. 종료일시를 9999-12-31 23:59:59로 설정하게 되면 사용자에게는 '종료시까지'로 표시됩니다.</div>
             </div>
         </div>
         <div class="contents_list">
@@ -89,13 +92,13 @@
                 <tr>
                     <th>시작일시</th>
                     <td>
-                        <input type="text" id="campaign_startdate" class="form-control" value="<%=moment(campaign_startdate).format("YYYY-MM-DD hh:mm:ss")%>">
+                        <input type="text" id="campaign_startdate" class="form-control" value="<% if(campaign_startdate != "") { %><%=moment(campaign_startdate).format("YYYY-MM-DD hh:mm:ss")%><% } %>">
                     </td>
                 </tr>
                 <tr>
                     <th>종료일시</th>
                     <td>
-                        <input type="text" id="campaign_enddate" class="form-control" value="<%=moment(campaign_enddate).format("YYYY-MM-DD hh:mm:ss")%>">
+                        <input type="text" id="campaign_enddate" class="form-control" value="<% if(campaign_enddate != "") { %><%=moment(campaign_enddate).format("YYYY-MM-DD hh:mm:ss")%><% } %>">
                     </td>
                 </tr>
                 </tbody>

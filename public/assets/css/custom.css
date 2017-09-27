@@ -33,6 +33,7 @@ body {
 .round_box {  padding: 20px;  border-radius: 5px;  border:1px solid #B2B2B2; }
 .round_box .title { font-size:16px; color:#4F4F4F; }
 .round_box .title .color { font-weight: bold; color:#da4211; }
+.round_box .title .sub { font-size:12px; padding-top:5px; color:#999; }
 .round_box .contents_list { padding-top: 10px; }
 
 
