@@ -180,6 +180,28 @@ router.get("/setting/:code", function(req, res) {
 
 
     res.render("campaign/setting", { campaign_code : campaign_code});
-})
+});
+
+router.post("/campaignDelete", function(req, res) {
+    var campaign_code = req.body.campaign_code;
+    var jsonData = {
+        campaign_code : campaign_code
+    };
+
+    mcampaign.delCampaign(campaign_code, function(err, rows) {
+        if(err) {
+            console.log(err);
+            throw err;
+        }
+
+        var jsonData = {
+            campaign_code : campaign_code
+        };
+
+        res.send(jsonData);
+    });
+
+
+});
 
 module.exports = router;

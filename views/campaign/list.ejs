@@ -41,7 +41,7 @@
                 </thead>
                 <tbody>
                 <% for(var i = 0; i<campaignlist.length; i++) { %>
-                <tr>
+                <tr id="<%=campaignlist[i].CAMPAIGN_CODE%>">
                     <td><a href="/campaign/write/<%=campaignlist[i].CAMPAIGN_CODE%>" class="btn btn-danger btn-block btn-xs"><%=campaignlist[i].CAMPAIGN_CODE%></a></td>
                     <td>가전제품</td>
                     <td><%=campaignlist[i].CAMPAIGN_TITLE%></td>
@@ -66,4 +66,4 @@
 
 
 
-<script language="javascript" src="/view_js/brand/list.js"></script>
+<script language="javascript" src="/view_js/campaign/list.js"></script>

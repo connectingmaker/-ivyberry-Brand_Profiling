@@ -2,31 +2,31 @@
     <div class="col-xs-12 bg-white box round_box">
         <div class="row">
             <div class="col-xs-10 title">
-                질문그룹
+                <h3 class="block-title">질문그룹 - ID 또는 그룹 이름을 클릭하시면 수정할 수 있습니다</h3>
             </div>
             <div class="col-xs-2 text-right">
-                <button id="groupCreate" class="btn btn-danger btn-block btn-xs">질문그룹 추가</button>
+                <button id="groupCreate" class="btn btn-danger btn-block btn-xs btn-rounded">질문그룹 추가</button>
             </div>
         </div>
         <div class="contents_list">
             <table id="list" class="table table-bordered fontsize">
                 <thead>
                 <tr>
-                    <th>질문그룹ID</th>
-                    <th>질문그룹 이름</th>
-                    <th>메모</th>
-                    <th>질문수</th>
-                    <th>유형</th>
-                    <th>참조</th>
-                    <th>최근수정일</th>
-                    <th>상태</th>
+                    <th class="text-center">질문그룹ID</th>
+                    <th class="text-center">질문그룹 이름</th>
+                    <th class="text-center">메모</th>
+                    <th class="text-center">질문수</th>
+                    <th class="text-center">유형</th>
+                    <th class="text-center">참조</th>
+                    <th class="text-center">최근수정일</th>
+                    <th class="text-center">상태</th>
                 </tr>
                 </thead>
                 <tbody>
                 <% for(var i = 0; i<grouplist.length; i++) { %>
                 <tr>
-                    <td><a href="/question/group/detail/<%=grouplist[i].GROUP_CODE%>"><%=grouplist[i].GROUP_CODE%></a></td>
-                    <td><a href="/question/group/detail/<%=grouplist[i].GROUP_CODE%>"><%=grouplist[i].GROUP_NAME_KO%></a></td>
+                    <td class="text-center"><a href="/question/group/detail/<%=grouplist[i].GROUP_CODE%>" class="btn btn-rounded btn-info btn-sm"><%=grouplist[i].GROUP_CODE%></a></td>
+                    <td class="text-center"><a href="/question/group/detail/<%=grouplist[i].GROUP_CODE%>" class="btn btn-rounded btn-info btn-sm"><%=grouplist[i].GROUP_NAME_KO%></a></td>
                     <td><%=grouplist[i].MEMO%></td>
                     <td>0</td>
                     <td><%=grouplist[i].QUESTION_TYPE_NAME%></td>

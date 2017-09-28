@@ -86,6 +86,16 @@ var mcampaign = {
         connection.end();
         return data;
     }
+    ,delCampaign: function(campaign_code, callback) {
+        var connection = mysql_dbc.init();
+        var query = " DELETE FROM CAMPAIGN WHERE CAMPAIGN_CODE = ? ";
+        var params = [];
+        params.push(campaign_code);
+
+        var data = connection.query(query,params,callback);
+        connection.end();
+        return data;
+    }
 }
 
 module.exports = mcampaign;
