@@ -64,14 +64,16 @@ $(function() {
 
 
     $(document).on('click', '.deleteBtn', function() {
-        var id = $(this).parents("tr").attr("id");
-        var params = {
-            category_code : id
-        };
+        if(confirm("해당 브랜드 카테고리를 정말로 삭제하시겠습니까?") == true) {
+            var id = $(this).parents("tr").attr("id");
+            var params = {
+                category_code: id
+            };
 
-        common.ajax.send("/brand/categoryDelete", params);
-        common.ajax.return = function(data) {
-            $("#"+data.category_code).remove();
+            common.ajax.send("/brand/categoryDelete", params);
+            common.ajax.return = function (data) {
+                $("#" + data.category_code).remove();
+            }
         }
 
     });
