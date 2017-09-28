@@ -87,7 +87,8 @@ $(function() {
             var dataJson = eval("("+data+")");
             //console.log(dataJson[0]);
 
-            location.replace("/users/write/"+dataJson[0].UID);
+            //location.replace("/users/write/"+dataJson[0].UID);
+            location.replace("/users/list");
         }
     });
 

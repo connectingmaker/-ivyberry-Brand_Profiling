@@ -11,9 +11,11 @@
             </div>
         </div>
     </div>
+    <!--
     <div class="push-10-t col-xs-12 bg-white box round_box_title">
-        <div class="title"><span class="color">설문제목 : 사무용품 브랜드에 대한 이미지 조사 1차 2017</span></div>
+        <div class="title"><span class="color">설문제목 : 사무용품 브랜드에 대한 이미지 조사 1차 2017</span></div>-
     </div>
+    -->
     <div class="push-10-t col-xs-12 bg-white box round_box">
 
         <div class="row">
@@ -105,21 +107,29 @@
         <div class="contents_list">
             <table id="list" class="table table-bordered fontsize">
                 <col width="10%">
-                <col width="90%">
+                <col width="40%">
+                <col width="10%">
+                <col width="40%">
                 <tbody>
                 <tr>
-                    <th>시작일시</th>
+
+                    <th class="text-center">시작일시</th>
                     <td>
-                        <input type="text" id="campaign_startdate" class="form-control" value="<% if(campaign_startdate != "") { %><%=moment(campaign_startdate).format("YYYY-MM-DD hh:mm:ss")%><% } %>">
+                        <div class="js-datetimepicker input-group date" data-show-today-button="true" data-show-clear="true" data-show-close="true" data-side-by-side="true">
+                            <input class="form-control input-group-addon" type="text" id="campaign_startdate" name="example-datetimepicker4" value="<% if(campaign_startdate != "") { %><%=moment(campaign_startdate).format("YYYY-MM-DD hh:mm:ss")%><% } %>" placeholder="시작일시를 입력해주세요.">
+                            <span class="input-group-addon"><span class="fa fa-calendar"></span></span>
+                        </div>
                     </td>
-                </tr>
-                <tr>
-                    <th>종료일시</th>
+                    <th class="text-center">종료일시</th>
                     <td>
-                        <input type="text" id="campaign_enddate" class="form-control" value="<% if(campaign_enddate != "") { %><%=moment(campaign_enddate).format("YYYY-MM-DD hh:mm:ss")%><% } %>">
+                        <div class="js-datetimepicker input-group date" data-show-today-button="true" data-show-clear="true" data-show-close="true" data-side-by-side="true">
+                            <input class="form-control input-group-addon" type="text" id="campaign_enddate" name="example-datetimepicker4" value="<% if(campaign_enddate != "") { %><%=moment(campaign_enddate).format("YYYY-MM-DD hh:mm:ss")%><% } %>" placeholder="종료일시를 입력해주세요.">
+                            <span class="input-group-addon"><span class="fa fa-calendar"></span></span>
+                        </div>
                     </td>
                 </tr>
                 </tbody>
+
             </table>
         </div>
     </div>
@@ -130,7 +140,7 @@
         </div>
 
         <div class="col-xs-6 push-20-t text-right">
-            <button id="surveyCreate" class="btn btn-sm btn-block btn-danger">등록</button>
+            <button id="surveyCreate" class="btn btn-sm btn-block btn-danger">저장</button>
         </div>
     </div>
 </div>
@@ -141,3 +151,4 @@
 
 
 <script language="javascript" src="/view_js/campaign/write.js"></script>
+

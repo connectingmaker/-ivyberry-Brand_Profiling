@@ -18,6 +18,8 @@
     <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="/assets/css/common.css">
     <link rel="stylesheet" href="/assets/css/custom.css">
+    <link rel="stylesheet" href="/assets/js/plugins/bootstrap-datepicker/bootstrap-datepicker3.min.css">
+    <link rel="stylesheet" href="/assets/js/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.min.css">
 
 
 </head>
@@ -32,15 +34,15 @@
     <header id="header-navbar">
 
         <div class="top_gnb_menu">
-            <div class="menu">
+            <div class="menu ">
                 <div class="logo"><img src="/img/logo.png"></div>
                 <div class="menu_btn">
                     <ul>
-                        <li><a href="/campaign/list">설문관리</a></li>
-                        <li><a href="/statistics/group">통계관리</a></li>
-                        <li><a href="/users/list">사용자관리</a></li>
-                        <li><a href="/brand/list">브랜드관리</a></li>
-                        <li><a href="/question/group">문항관리</a></li>
+                        <li><a href="/campaign/list" class="campaign">설문관리</a></li>
+                        <li><a href="/statistics/group" class="statistics">통계관리</a></li>
+                        <li><a href="/users/list" class="users">사용자관리</a></li>
+                        <li><a href="/brand/list" class="brand">브랜드관리</a></li>
+                        <li><a href="/question/group" class="question">문항관리</a></li>
                     </ul>
                 </div>
                 <div class="logout">
@@ -98,6 +100,18 @@
 <script src="/assets/js/core/js.cookie.min.js"></script>
 <script src="/assets/js/app.js"></script>
 <script src="/js/common.js"></script>
+<script src="/assets/js/plugins/select2/select2.full.min.js"></script>
+<script src="/assets/js/plugins/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+<script src="/assets/js/plugins/bootstrap-datetimepicker/moment.min.js"></script>
+<script src="/assets/js/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js"></script>
+<script src="/assets/js/plugins/masked-inputs/jquery.maskedinput.min.js"></script>
+<script src="/assets/js/plugins/jquery-tags-input/jquery.tagsinput.min.js"></script>
+<script>
+    $(function () {
+        // Init page helpers (BS Datepicker + BS Datetimepicker + BS Colorpicker + BS Maxlength + Select2 + Masked Input + Range Sliders + Tags Inputs plugins)
+        App.initHelpers(['datepicker', 'datetimepicker', 'colorpicker', 'maxlength', 'select2', 'masked-inputs', 'rangeslider', 'tags-inputs']);
+    });
+</script>
 <%- script %>
 
 </html>
