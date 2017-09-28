@@ -37,6 +37,15 @@ body {
 .round_box .contents_list { padding-top: 10px; }
 
 
+.round_box_title {  padding: 20px;  border-radius: 5px;  border:1px solid #B2B2B2; background-color:#f1f1f1; text-align: center; }
+.round_box_title .title { font-size:20px; color:#4F4F4F; }
+.round_box_title .title .color { font-weight: bold; color:#da4211; }
+.round_box_title .title .sub { font-size:12px; padding-top:5px; color:#999; }
+.round_box_title .contents_list { padding-top: 10px; }
+
+
+.round_navi { border-radius: 5px;  border:1px solid #B2B2B2; }
+
 table tr .check { color:#DA4211; font-size:9px; padding-left:5px; }
 
 
@@ -155,13 +164,63 @@ table tr .check { color:#DA4211; font-size:9px; padding-left:5px; }
 
 .card {background: #FFF none repeat scroll 0% 0%;  margin-bottom: 0px; }
 
-/****** 인재채용 ******/
-.recruit_info {
-    width: 680px;
-    height: 116px;
-    background: url('http://www.kumyoung.co.kr/img/g/bg_cva_top.gif') no-repeat;
+
+.wizard a {
+    padding: 10px 12px 10px;
+    margin-right: 5px;
+    background: #efefef;
+    position: relative;
+    display: inline-block;
 }
-.recruit_info img {
-    padding-top:25px;
-    padding-left: 21px;
+.wizard a:before {
+    width: 0;
+    height: 0;
+    border-top: 20px inset transparent;
+    border-bottom: 20px inset transparent;
+    border-left: 20px solid #ccc;
+    position: absolute;
+    content: "";
+    top: 0;
+    left: 0;
+}
+.wizard a:after {
+    width: 0;
+    height: 0;
+    border-top: 20px inset transparent;
+    border-bottom: 20px inset transparent;
+    border-left: 20px solid #efefef;
+    position: absolute;
+    content: "";
+    top: 0;
+    right: -20px;
+    z-index: 2;
+}
+.wizard a:first-child:before,
+.wizard a:last-child:after {
+    border: none;
+}
+.wizard a:first-child {
+    -webkit-border-radius: 4px 0 0 4px;
+    -moz-border-radius: 4px 0 0 4px;
+    border-radius: 4px 0 0 4px;
+}
+.wizard a:last-child {
+    -webkit-border-radius: 0 4px 4px 0;
+    -moz-border-radius: 0 4px 4px 0;
+    border-radius: 0 4px 4px 0;
+}
+.wizard .badge {
+    margin: 0 5px 0 18px;
+    position: relative;
+    top: -1px;
+}
+.wizard a:first-child .badge {
+    margin-left: 0;
+}
+.wizard .current {
+    background: #da4211;
+    color: #fff;
+}
+.wizard .current:after {
+    border-left-color: #da4211;
 }
