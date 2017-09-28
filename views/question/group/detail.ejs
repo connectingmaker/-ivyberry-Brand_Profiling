@@ -34,15 +34,20 @@
                 </thead>
                 <tbody>
                 <tr>
-                    <td>3</td>
-                    <td>타겟</td>
-                    <td>1.0</td>
-                    <td>7점척도</td>
-                    <td>Target</td>
-                    <td></td>
-                    <td></td>
-                    <td>2018-01-31 23:59:59</td>
-                    <td>사용중</td>
+                    <td><%=grouplist.GROUP_CODE%></td>
+                    <td><%=grouplist.GROUP_NAME_KO%></td>
+                    <td><%=grouplist.MEMO%></td>
+                    <td><%=grouplist.QUESTION_TYPE_NAME%></td>
+                    <td><%=grouplist.GROUP_NAME_EN%></td>
+                    <td><%=grouplist.GROUP_NAME_CN%></td>
+                    <td><%=grouplist.ETC%></td>
+                    <td><%=moment(grouplist.MODIFY_DATETIME).format("YYYY-MM-DD hh:ss")%></td>
+                    <td>
+                        <select class="form-control use_yn">
+                            <option value="Y">사용중</option>
+                            <option value="N">사용안함</option>
+                        </select>
+                    </td>
                 </tr>
                 </tbody>
             </table>

@@ -23,45 +23,23 @@
                 </tr>
                 </thead>
                 <tbody>
+                <% for(var i = 0; i<grouplist.length; i++) { %>
                 <tr>
-                    <td><a href="/question/group/detail/1">1</a></td>
-                    <td><a href="/question/group/detail/1">제품관여도</a></td>
-                    <td>1.0</td>
-                    <td>2</td>
-                    <td>7점척도</td>
-                    <td></td>
-                    <td>2018-01-31 23:59:59</td>
-                    <td>사용중</td>
+                    <td><a href="/question/group/detail/<%=grouplist[i].GROUP_CODE%>"><%=grouplist[i].GROUP_CODE%></a></td>
+                    <td><a href="/question/group/detail/<%=grouplist[i].GROUP_CODE%>"><%=grouplist[i].GROUP_NAME_KO%></a></td>
+                    <td><%=grouplist[i].MEMO%></td>
+                    <td>0</td>
+                    <td><%=grouplist[i].QUESTION_TYPE_NAME%></td>
+                    <td><%=grouplist[i].ETC%></td>
+                    <td><%=moment(grouplist[i].MODIFY_DATETIME).format("YYYY-MM-DD hh:mm")%></td>
+                    <td>
+                        <select class="form-control">
+                            <option value="Y" <% if(grouplist[i].USE_YN == "Y") { %>selected<% } %>>사용중</option>
+                            <option value="N" <% if(grouplist[i].USE_YN == "N") { %>selected<% } %>>사용안함</option>
+                        </select>
+                    </td>
                 </tr>
-                <tr>
-                    <td>2</td>
-                    <td>구매동기2 요인</td>
-                    <td>1.0</td>
-                    <td>2</td>
-                    <td>7점척도</td>
-                    <td></td>
-                    <td>2018-01-31 23:59:59</td>
-                    <td>대기(삭제)</td>
-                <tr>
-                    <td>3</td>
-                    <td>타겟</td>
-                    <td>1.0</td>
-                    <td>4</td>
-                    <td>7점척도</td>
-                    <td></td>
-                    <td>2018-01-31 23:59:59</td>
-                    <td>사용중</td>
-                </tr>
-                <tr>
-                    <td>4</td>
-                    <td>상황가치</td>
-                    <td>1.0</td>
-                    <td>10</td>
-                    <td>7점척도</td>
-                    <td></td>
-                    <td>2018-01-31 23:59:59</td>
-                    <td>사용중</td>
-                </tr>
+                <% } %>
 
                 </tbody>
             </table>
@@ -95,7 +73,7 @@
                             <tr>
                                 <th class="text-center">질문 그룹이름<span class="check">*</span></th>
                                 <td colspan="5">
-                                    <input type="text" id="qustion_name" class="form-control" placeholder="영역이름을 입력해주세요.(필수)">
+                                    <input type="text" id="group_name_ko" name="group_name_ko" class="form-control" placeholder="영역이름을 입력해주세요.(필수)">
                                 </td>
                             </tr>
                             <tr>
@@ -107,13 +85,13 @@
                             <tr>
                                 <th class="text-center">질문 영문</th>
                                 <td colspan="5">
-                                    <input type="text"  class="form-control" placeholder="영문 질문 설명을 입력해주세요.">
+                                    <input type="text" id="group_name_en" name="group_name_en" class="form-control" placeholder="영문 질문 설명을 입력해주세요.">
                                 </td>
                             </tr>
                             <tr>
                                 <th class="text-center">질문 중문</th>
                                 <td colspan="5">
-                                    <input type="text"  class="form-control" placeholder="중문 질문 설명을 입력해주세요.">
+                                    <input type="text" id="group_name_cn" name="group_name_cn" class="form-control" placeholder="중문 질문 설명을 입력해주세요.">
                                 </td>
                             </tr>
                             <tr>
@@ -144,31 +122,13 @@
                             </tr>
                         </thead>
                         <tbody>
+                            <% for(var i = 0; i<question_type_list.length; i++) { %>
                             <tr>
-                                <td class="text-center"><input type="radio"></td>
-                                <td>7점 척도</td>
-                                <td>한개의 키워드에 대해 7점척도로 '부정도'와'긍정도'를 평가 또는 '모름'을 선택</td>
+                                <td class="text-center"><input type="radio" class="question_type" name="question_type" value="<%=question_type_list[i].QUESTION_TYPE%>"></td>
+                                <td><%=question_type_list[i].QUESTION_TYPE_NAME%></td>
+                                <td><%=question_type_list[i].QUESTION_TYPE_DESC%></td>
                             </tr>
-                            <tr>
-                                <td class="text-center"><input type="radio"></td>
-                                <td>이미지 7점 척도</td>
-                                <td>각각 한개의 키워드를 갖고 있는 두개의 이미지에 대해 '편향성'을 평가 또는 '모름'을 선택</td>
-                            </tr>
-                            <tr>
-                                <td class="text-center"><input type="radio"></td>
-                                <td>이미지 선택/주관식 입력</td>
-                                <td>다수의 이미지 중에서 해당 브랜드와 어울리는 이미지를 선택 후 선택된 이미지마다 연상되는 키워드를 주관식으로 입력</td>
-                            </tr>
-                            <tr>
-                                <td class="text-center"><input type="radio"></td>
-                                <td>양자택일형</td>
-                                <td>'예'와 '아니오'중에 선택</td>
-                            </tr>
-                            <tr>
-                                <td class="text-center"><input type="radio"></td>
-                                <td>선택형</td>
-                                <td>다수의 옵션 중에서 해당하는 항목을 선택</td>
-                            </tr>
+                            <% } %>
                         </tbody>
                     </table>
                 </div>
