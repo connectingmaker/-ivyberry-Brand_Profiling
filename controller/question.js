@@ -1,8 +1,6 @@
 var express = require('express');
 var router = express.Router();
-
 var mquestion = require("../model/mquestion");
-
 var moment = require('moment');
 
 /* GET users listing. */
@@ -38,9 +36,9 @@ router.post('/group', function(req, res) {
             console.log(err);
         }
 
+
         var objToJson = rows[0];
         var dataJson = JSON.stringify(objToJson);
-        console.log(dataJson);
         res.send(dataJson);
     });
 
@@ -69,6 +67,64 @@ router.get('/group/detail/:code', function(req, res) {
     });
 });
 
+router.post("/qlist", function(req, res) {
+    var group_code = req.body.group_code;
+
+    mquestion.getQuestionList(group_code, function(err, rows) {
+       if(err) {
+           console.log(err);
+           throw err;
+       }
+
+        var objToJson = rows;
+        var dataJson = JSON.stringify(objToJson);
+        res.send(dataJson);
+    });
+});
+
+router.post("/qDelete", function(req, res) {
+    var q_code = req.body.q_code;
+
+    mquestion.sp_QUESTION_Q_DELETE(q_code, function(err, rows) {
+        if(err)
+        {
+            console.log(err);
+            throw err;
+        }
+
+        var jsonData = {
+            q_code : q_code
+        }
+
+        res.send(jsonData);
+    });
+});
+
+router.post("/qUseUpdate", function(req, res) {
+    var q_code = req.body.q_code;
+    var use_yn = req.body.use_yn;
+
+    if(use_yn == "N") {
+        use_yn = "Y";
+    } else {
+        use_yn = "N";
+    }
+
+    mquestion.setQuestionQUse(q_code, use_yn, function(err, rows) {
+        if(err) {
+            console.log(err);
+            throw err;
+        }
+
+        var json = {
+            q_code : q_code
+            ,use_yn : use_yn
+        };
+
+        res.send(json);
+    });
+});
+
 router.post("/multiProcess", function(req, res) {
     var q_code = req.body.q_code;
     var group_code = req.body.group_code;
@@ -78,16 +134,27 @@ router.post("/multiProcess", function(req, res) {
     var q_title_en = req.body.q_title_en;
     var q_title_cn = req.body.q_title_cn;
     var etc = req.body.etc;
+    var memo = req.body.memo;
     var qaData = eval("("+req.body.qaJson+")");
 
-    mquestion.sp_QUESTION_Q_SAVE(q_code, group_code, q_name, q_title_ko, q_title_en, q_title_cn, etc, function(err, rows) {
+    mquestion.sp_QUESTION_Q_SAVE(q_code, group_code, q_name, q_title_ko, q_title_en, q_title_cn, etc, memo, function(err, rows) {
         if(err) {
             console.log(err);
             throw err;
         }
         var qData = rows[0];
         q_code = qData[0].Q_CODE;
-        console.log(q_code);
+
+        var objToJson = qData;
+        var dataJson = JSON.stringify(objToJson);
+
+        mquestion.sp_QUESTION_QA_SAVE(q_code, qaData, function(err, rows) {
+            if(err) {
+                console.log(err);
+                throw err;
+            }
+            res.send(dataJson);
+        });
     });
     
 

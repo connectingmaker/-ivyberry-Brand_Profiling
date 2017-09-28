@@ -55,27 +55,34 @@ var mquestion = {
         connection.end();
         return data;
     }
-    ,sp_QUESTION_Q_SAVE: function(q_code, group_code, q_name, q_title_ko, q_title_en, q_title_cn, etc, callback) {
+
+    ,getQuestionList:function(group_code, callback) {
         var connection = mysql_dbc.init();
-        var query = " call sp_QUESTION_Q_SAVE(?, ?, ?, ?, ?, ?, ?) ";
+        var query = " SELECT * FROM QUESTION_Q WHERE GROUP_CODE = ? ";
 
         var params = [];
 
-        params.push(q_code);
         params.push(group_code);
-        params.push(q_name);
-        params.push(q_title_ko);
-        params.push(q_title_en);
-        params.push(q_title_cn);
-        params.push(etc);
 
         var data = connection.query(query,params, callback);
         connection.end();
         return data;
     }
-    ,sp_QUESTION_QA_SAVE: function(qaData, callback) {
+    ,sp_QUESTION_Q_DELETE: function(q_code, callback) {
         var connection = mysql_dbc.init();
-        var query = " call sp_QUESTION_Q_SAVE(?, ?, ?, ?, ?, ?, ?) ";
+        var query = " call sp_QUESTION_Q_DELETE(?) ";
+
+        var params = [];
+
+        params.push(q_code);
+
+        var data = connection.query(query,params, callback);
+        connection.end();
+        return data;
+    }
+    ,sp_QUESTION_Q_SAVE: function(q_code, group_code, q_name, q_title_ko, q_title_en, q_title_cn, etc, memo, callback) {
+        var connection = mysql_dbc.init();
+        var query = " call sp_QUESTION_Q_SAVE(?, ?, ?, ?, ?, ?, ?, ?) ";
 
         var params = [];
 
@@ -86,6 +93,43 @@ var mquestion = {
         params.push(q_title_en);
         params.push(q_title_cn);
         params.push(etc);
+        params.push(memo);
+
+        var data = connection.query(query,params, callback);
+        connection.end();
+        return data;
+    }
+    ,sp_QUESTION_QA_SAVE: function(q_code, qaData, callback) {
+        var connection = mysql_dbc.init();
+        var query = " call sp_QUESTION_QA_SAVE(?, ?, ?, ?, ?) ";
+
+        var params = [];
+        for(var i = 0; i<qaData.length; i++) {
+            params = [];
+            params.push(q_code);
+            params.push("");
+            params.push(qaData[i].qa_title_ko);
+            params.push(qaData[i].qa_title_en);
+            params.push(qaData[i].qa_title_cn);
+            if(i == qaData.length - 1) {
+                var data = connection.query(query, params, callback);
+                connection.end();
+                return data;
+            } else {
+                var data = connection.query(query, params);
+            }
+
+        }
+
+    }
+    ,setQuestionQUse: function(q_code, use_yn, callback) {
+        var connection = mysql_dbc.init();
+        var query = " UPDATE QUESTION_Q SET USE_YN = ? WHERE Q_CODE = ? ";
+
+        var params = [];
+
+        params.push(use_yn);
+        params.push(q_code);
 
         var data = connection.query(query,params, callback);
         connection.end();

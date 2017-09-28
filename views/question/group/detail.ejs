@@ -1,4 +1,4 @@
-<input type="text" id="group_code" value="<%=group_code%>">
+<input type="hidden" id="group_code" value="<%=group_code%>">
 
 <div class="row">
     <div class="col-xs-12 bg-white box round_box">
@@ -36,7 +36,7 @@
                     <td><%=grouplist.GROUP_CODE%></td>
                     <td><%=grouplist.GROUP_NAME_KO%></td>
                     <td><%=grouplist.MEMO%></td>
-                    <td><%=grouplist.QUESTION_TYPE_NAME%></td>
+                    <td id="question_type"><%=grouplist.QUESTION_TYPE_NAME%></td>
                     <td><%=grouplist.GROUP_NAME_EN%></td>
                     <td><%=grouplist.GROUP_NAME_CN%></td>
                     <td><%=grouplist.ETC%></td>
@@ -53,65 +53,67 @@
         </div>
     </div>
     <!-- 7점 척도 세부질문 view-->
-    <div class="col-xs-12 bg-white box round_box push-30-t">
-        <div class="row">
-            <div class="col-xs-8 title">
-                세부질문 - 7점 척도
+    <div id="questionList">
+        <!--
+        <div class="col-xs-12 bg-white box round_box push-30-t">
+
+            <div class="row">
+                <div class="col-xs-8 title">
+                    세부질문 - 7점 척도
+                </div>
+                <div class="col-xs-4 text-right">
+                    <button class="btn btn-danger btn-sm">활성화중</button>
+                    <button class="btn btn-danger btn-sm">삭제</button>
+                    <button class="btn btn-danger btn-sm">수정</button>
+                </div>
             </div>
-            <div class="col-xs-4 text-right">
-                <button class="btn btn-danger btn-sm">활성화중</button>
-                <button class="btn btn-danger btn-sm">삭제</button>
-                <button class="btn btn-danger btn-sm">수정</button>
+            <div class="contents_list">
+                <table class="table table-bordered fontsize">
+                    <col width="8%">
+                    <col width="28%">
+                    <col width="10%">
+                    <col width="10%">
+                    <col width="10%">
+                    <col width="10%">
+                    <col width="20%">
+                    <col width="10%">
+                    <thead>
+                    <tr>
+                        <th>질문ID</th>
+                        <th>질문 이름</th>
+                        <th>메모</th>
+                        <th>참조</th>
+                        <th>최근수정일</th>
+                        <th>상태</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>5</td>
+                        <td>디자인지향</td>
+                        <td>1.0</td>
+                        <td></td>
+                        <td>2018-01-31 23:59:59</td>
+                        <td>사용중</td>
+                    </tr>
+                    <tr>
+                        <th>질문내용<upper class="check">*</upper></th>
+                        <td colspan="7">이 카테고리 브랜드들은 이것저것 많은 것을 따져보고 선택하게 된다.</td>
+                    </tr>
+                    <tr>
+                        <th>질문영문</th>
+                        <td colspan="5"></td>
+                    </tr>
+                    <tr>
+                        <th>질문중문</th>
+                        <td colspan="5"></td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
+
         </div>
-        <div class="contents_list">
-            <table id="list" class="table table-bordered fontsize">
-                <col width="8%">
-                <col width="8%">
-                <col width="10%">
-                <col width="10%">
-                <col width="10%">
-                <col width="10%">
-                <col width="20%">
-                <col width="10%">
-                <thead>
-                <tr>
-                    <th>질문ID</th>
-                    <th>질문 이름</th>
-                    <th>메모</th>
-                    <th>질문그룹 영문</th>
-                    <th>질문그룹 중문</th>
-                    <th>참조</th>
-                    <th>최근수정일</th>
-                    <th>상태</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td>5</td>
-                    <td>디자인지향</td>
-                    <td>1.0</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td>2018-01-31 23:59:59</td>
-                    <td>사용중</td>
-                </tr>
-                <tr>
-                    <th>질문내용<upper class="check">*</upper></th>
-                    <td colspan="7">이 카테고리 브랜드들은 이것저것 많은 것을 따져보고 선택하게 된다.</td>
-                </tr>
-                <tr>
-                    <th>질문영문</th>
-                    <td colspan="7"></td>
-                </tr>
-                <tr>
-                    <th>질문중문</th>
-                    <td colspan="7"></td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
+        -->
     </div>
 
     <% if(grouplist.QUESTION_TYPE == 1) { %>
@@ -632,6 +634,12 @@
                                 <th class="text-center">참조</th>
                                 <td colspan="7">
                                     <input type="text" id="multi_etc" class="form-control" placeholder="설문 참여시 참고할 사항을 입력해주세요.">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="text-center">메모</th>
+                                <td colspan="7">
+                                    <input type="text" id="multi_memo" class="form-control" placeholder="설문 참여시 참고할 사항을 입력해주세요.">
                                 </td>
                             </tr>
                         </tbody>
