@@ -5,7 +5,7 @@
                 <h3 class="block-title">브랜드 카테고리</h3>
             </div>
             <div class="col-xs-2 text-right">
-                <button id="brandCategoryBtn" class="btn btn-danger btn-xs">카테고리 추가</button>
+                <button id="brandCategoryBtn" class="btn btn-danger btn-xs btn-rounded">카테고리 추가</button>
             </div>
         </div>
         <div class="contents_list">
@@ -15,19 +15,19 @@
                 <col width="5%">
                 <col width="15%">
                 <col width="15%">
-                <col width="20%">
+                <col width="15%">
                 <col width="13%">
-                <col width="10%">
+                <col width="15%">
                 <thead>
                     <tr>
-                        <th>카테고리ID</th>
-                        <th>카테고리 이름</th>
-                        <th>메모</th>
-                        <th>카테고리 영문</th>
-                        <th>카테고리 중문</th>
-                        <th>참조</th>
-                        <th>최종수정일</th>
-                        <th>상태</th>
+                        <th class="text-center">카테고리ID</th>
+                        <th class="text-center">카테고리 이름</th>
+                        <th class="text-center">메모</th>
+                        <th class="text-center">카테고리 영문</th>
+                        <th class="text-center">카테고리 중문</th>
+                        <th class="text-center">참조</th>
+                        <th class="text-center">최종수정일</th>
+                        <th class="text-center">관리</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -40,12 +40,12 @@
                         <td><%=list[i].CATEGORY_NAME_CN%></td>
                         <td><%=list[i].ETC%></td>
 
-                        <td><%=moment(list[i].MODIFY_DATETIME).format("YYYY-MM-DD hh:mm:ss")%></td>
-                        <td><%=moment(list[i].MODIFY_DATETIME).format("YYYY-MM-DD hh:mm:ss")%></td>
+                        <td><%=moment(list[i].MODIFY_DATETIME).format("YYYY-MM-DD hh:mm")%></td>
                         <% if(list[i].CNT == 0) { %>
                         <td class="text-center">
                             <button class="btn btn-xs btn-warning deleteBtn">삭제</button>
                             <button class="btn btn-xs btn-primary modifyBtn">수정</button>
+                            <button class="btn btn-xs btn-info detailBtn"><a href="/brand/detail/<%=list[i].CATEGORY_CODE%>" class="text-white">세부</a></button>
                         </td>
                         <% } else { %>
                         <td>사용가능</td>
@@ -75,8 +75,8 @@
                 <div class="block-content">
                     <input type="hidden" id="category_code">
                     <table class="table table-bordered fontsize">
-                        <col width="15%">
-                        <col width="85%">
+                        <col width="25%">
+                        <col width="75%">
                         <tbody>
                         <tr>
                             <th class="text-center">카테고리 이름<span class="check">*</span></th>
