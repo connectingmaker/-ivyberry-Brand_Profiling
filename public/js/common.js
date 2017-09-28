@@ -69,7 +69,7 @@ string.dateTime = function(date) {
         stringMinute = "0" + stringMinute;
     }
 
-    return stringYear + "-" + stringMonth + "-" + stringDay+" "+stringHour+":"+stringSecond+":"+stringMinute;
+    return stringYear + "-" + stringMonth + "-" + stringDay+" "+stringHour+":"+stringSecond;
     //return dateReturn.getTime();
 }
 

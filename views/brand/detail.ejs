@@ -2,7 +2,7 @@
     <div class="col-xs-12 bg-white box round_box">
         <div class="row">
             <div class="col-xs-10 title">
-                <h3 class="block-title">브랜드 카테고리 - <%=category.CATEGORY_NAME_KO%></h3>
+                <h3 class="block-title">브랜드 카테고리 - <span class="color"><%=category.CATEGORY_NAME_KO%></span></h3>
             </div>
 
             <div class="col-xs-2 text-right">
@@ -40,7 +40,7 @@
                     <td><%=category.CATEGORY_NAME_EN%></td>
                     <td><%=category.CATEGORY_NAME_CN%></td>
                     <td><%=category.ETC%></td>
-                    <td><%=category.MODIFY_DATETIME%></td>
+                    <td><%=moment(category.MODIFY_DATETIME).format("YYYY-MM-DD hh:mm")%></td>
                     <td class="text-center">
                         <% if(category.CNT == 0) { %>
                         대기
@@ -58,7 +58,7 @@
     <div class="col-xs-12 bg-white box round_box push-10-t">
         <div class="row">
             <div class="col-xs-10 title">
-                <h3 class="block-title"><%=category.CATEGORY_NAME_KO%>에 해당하는 브랜드</h3>
+                <h3 class="block-title"><span class="color"><%=category.CATEGORY_NAME_KO%></span>에 해당하는 브랜드</h3>
             </div>
 
             <div class="col-xs-2 text-right">
@@ -85,7 +85,7 @@
                     <th class="text-center">브랜드 중문</th>
                     <th class="text-center">참조</th>
                     <th class="text-center">최종수정일</th>
-                    <th class="text-center">상태</th>
+                    <th class="text-center">관리</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -97,7 +97,7 @@
                     <td><%=detail[i].BRAND_NAME_EN%></td>
                     <td><%=detail[i].BRAND_NAME_CN%></td>
                     <td><%=detail[i].BRAND_NAME_ETC%></td>
-                    <td><%=detail[i].MODIFY_DATETIME%></td>
+                    <td><%=moment(detail[i].MODIFY_DATETIME).format("YYYY-MM-DD hh:mm")%></td>
                     <% if(detail[i].CNT == 0) { %>
                     <td class="text-center">
                         <button class="btn btn-xs btn-warning deleteBtn">삭제</button>

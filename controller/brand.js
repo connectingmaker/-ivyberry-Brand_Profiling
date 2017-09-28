@@ -34,7 +34,7 @@ router.get('/detail/:code', function(req, res, next) {
         var category = rows[0];
         mbrand.get_BrandCategoryDetailList(category_code, function(err, detail) {
             var detail = detail;
-            res.render('brand/detail', { category : category, detail : detail });
+            res.render('brand/detail', { category : category, detail : detail, moment : moment });
         });
 
     });
