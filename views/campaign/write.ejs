@@ -1,6 +1,21 @@
 <div class="row">
     <input type="hidden" id="campaign_code" value="<%=campaign_code%>">
-    <div class="col-xs-12 bg-white box round_box">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="wizard">
+                <a class="current" href="/campaign/write/<%=campaign_code%>"><span class="badge badge-inverse">1</span> 설문등록</a>
+                <a href="/campaign/brand/<%=campaign_code%>"><span class="badge">2</span> 브랜드선택</a>
+                <a href="/campaign/brandPool/<%=campaign_code%>"><span class="badge">3</span> 브랜드풀선택</a>
+                <a href="/campaign/question/<%=campaign_code%>"><span class="badge">4</span> 질문설정</a>
+                <a href="/campaign/setting/<%=campaign_code%>"><span class="badge">5</span> 참여설정 및 보상설정</a>
+            </div>
+        </div>
+    </div>
+    <div class="push-10-t col-xs-12 bg-white box round_box_title">
+        <div class="title"><span class="color">설문제목 : 사무용품 브랜드에 대한 이미지 조사 1차 2017</span></div>
+    </div>
+    <div class="push-10-t col-xs-12 bg-white box round_box">
+
         <div class="row">
             <div class="col-xs-10 title">
                 <span class="color">새로운 설문 등록하기</span>

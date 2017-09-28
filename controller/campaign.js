@@ -170,7 +170,16 @@ router.post("/brandProcess", function(req, res) {
 router.get("/question/:code", function(req, res) {
     var campaign_code = req.params.code;
 
-    res.render("campaign/question");
+    res.render("campaign/question", { campaign_code : campaign_code});
 });
+
+
+
+router.get("/setting/:code", function(req, res) {
+    var campaign_code = req.params.code;
+
+
+    res.render("campaign/setting", { campaign_code : campaign_code});
+})
 
 module.exports = router;

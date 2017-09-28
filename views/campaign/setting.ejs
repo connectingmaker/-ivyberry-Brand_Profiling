@@ -1,0 +1,170 @@
+<div class="row">
+    <input type="hidden" id="campaign_code" value="">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="wizard">
+                <a href="/campaign/write/<%=campaign_code%>"><span class="badge">1</span> 설문등록</a>
+                <a href="/campaign/brand/<%=campaign_code%>"><span class="badge">2</span> 브랜드선택</a>
+                <a href="/campaign/brandPool/<%=campaign_code%>"><span class="badge">3</span> 브랜드풀선택</a>
+                <a href="/campaign/question/<%=campaign_code%>"><span class="badge">4</span> 질문설정</a>
+                <a class="current" href="/campaign/setting/<%=campaign_code%>"><span class="badge badge-inverse">5</span> 참여설정 및 보상설정</a>
+            </div>
+        </div>
+    </div>
+    <div class="push-10-t col-xs-12 bg-white box round_box_title">
+        <div class="title"><span class="color">설문제목 : 사무용품 브랜드에 대한 이미지 조사 1차 2017</span></div>
+    </div>
+
+
+    <div class="push-10-t col-xs-12 bg-white box round_box">
+        <div class="row">
+            <div class="col-xs-12 title">
+                <span class="color">참여대상 설정하기</span>
+                <div class="sub">설문 참여 대상의 패널 레벨을 선택해주세요. <span class="color">(최소개1)</span></div>
+            </div>
+        </div>
+        <div class="contents_list">
+            <table id="list" class="table table-bordered fontsize">
+                <col width="5%">
+                <col width="5%">
+                <col width="25%">
+                <col width="5%">
+                <col width="5%">
+                <col width="10%">
+                <col width="35%">
+                <thead>
+                <tr>
+                    <th>퀘스트</th>
+                    <th>영역ID</th>
+                    <th>영역이름</th>
+                    <th>메모</th>
+                    <th>항목수</th>
+                    <th>유형</th>
+                    <th>참조</th>
+                    <th>최종수정일</th>
+                </tr>
+                </thead>
+            </table>
+        </div>
+
+    </div>
+
+
+    <div class="col-xs-12 bg-white box round_box push-10-t">
+        <div class="row">
+            <div class="col-xs-12 title">
+                <span class="color">참여조건 추가하기</span>
+                <div class="sub">추가하실 참여가능한 회원의 조건을 선택해주세요. 추가하실 참여조건을 선택하면 다음화면에서 세부옵션을 선택하실 수 있습니다.<span class="color">(최소0개)</span></div>
+            </div>
+        </div>
+        <div class="contents_list">
+            <table id="list" class="table table-bordered fontsize">
+                <col width="10%">
+                <thead>
+                <tr>
+                    <th>선택</th>
+                    <th>조건</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td class="text-center"><input type="checkbox"></td>
+                    <td>성별</td>
+                </tr>
+                <tr>
+                    <td class="text-center"><input type="checkbox"></td>
+                    <td>출생년도</td>
+                </tr>
+                <tr>
+                    <td class="text-center"><input type="checkbox"></td>
+                    <td>지역</td>
+                </tr>
+                <tr>
+                    <td class="text-center"><input type="checkbox"></td>
+                    <td>월평균지출</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+
+    <div class="col-xs-12 bg-white box round_box push-10-t">
+        <div class="row">
+            <div class="col-xs-12 title">
+                <span class="color">최대인원 설정하기</span>
+                <div class="sub">설문에 참여가능한 최대 인원을 설정해주세요.<span class="color">(필수)</span></div>
+            </div>
+        </div>
+        <div class="contents_list">
+            <table id="list" class="table table-bordered fontsize">
+                <col width="15%">
+                <tbody>
+                <tr>
+                    <th class="text-center">최대인원(명)</th>
+                    <td><input type="text" class="form-control input-sm"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+
+    <div class="col-xs-12 bg-white box round_box push-10-t">
+        <div class="row">
+            <div class="col-xs-12 title">
+                <span class="color">퀘스트 단계별 보상과 예상 응답 소요 시간 설정하기</span>
+                <div class="sub">퀘스트 단계별 보상과 예상 응답 소요 시간을 입력해주세요. 설문참여오류보상(10P)를 제외한 최대 참여 보상이 자동 계산됩니다.</div>
+            </div>
+        </div>
+        <div class="contents_list">
+            <table id="list" class="table table-bordered fontsize">
+                <col width="10%">
+                <col width="10%">
+                <col width="10%">
+                <col width="10%">
+
+                <tbody>
+                <tr>
+                    <th class="text-center">퀘스트1</th>
+                    <td><input type="text" class="form-control input-sm"></td>
+                    <th class="text-center">예상소요시간(분)</th>
+                    <td><input type="text" class="form-control input-sm"></td>
+                    <th>질문셋팅 내용 나오기</th>
+                </tr>
+                <tr>
+                    <th class="text-center">퀘스트2</th>
+                    <td><input type="text" class="form-control input-sm"></td>
+                    <th class="text-center">예상소요시간(분)</th>
+                    <td><input type="text" class="form-control input-sm"></td>
+                    <th>질문셋팅 내용 나오기</th>
+                </tr>
+                <tr>
+                    <th class="text-center">최대 참여 보상</th>
+                    <td colspan="4"><input type="text" class="form-control input-sm" value="0"></td>
+                </tr>
+                </tbody>
+
+            </table>
+        </div>
+
+    </div>
+
+
+
+    <div class="row">
+        <div class="col-xs-6 push-20-t">
+            <button class="btn btn-sm btn-block btn-primary backBtn">이전</button>
+        </div>
+
+        <div class="col-xs-6 push-20-t text-right">
+            <button id="brandBtn" class="btn btn-sm btn-block btn-danger">다음</button>
+        </div>
+    </div>
+</div>
+
+
+
+
