@@ -1,4 +1,4 @@
-var loginUrl = "/users/list";
+var loginUrl = "/campaign/list";
 
 $(function() {
     $("header").hide();
