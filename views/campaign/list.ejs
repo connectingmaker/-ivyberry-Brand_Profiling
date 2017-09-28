@@ -17,39 +17,44 @@
             <table id="list" class="table table-bordered fontsize">
                 <col width="8%">
                 <col width="8%">
-                <col width="20%">
+                <col width="15%">
                 <col width="5%">
                 <col width="10%">
                 <col width="10%">
+                <col width="5%">
+                <col width="5%">
                 <col width="10%">
                 <col width="10%">
                 <thead>
                 <tr>
-                    <th>설문ID</th>
-                    <th>카테고리</th>
-                    <th>설문제목</th>
-                    <th>상태</th>
-                    <th>시작일</th>
-                    <th>종료일</th>
-                    <th>제한인원</th>
-                    <th>참여인원</th>
-                    <th>최종수정일</th>
-                    <th>관리</th>
+                    <th class="text-center">설문ID</th>
+                    <th class="text-center">카테고리</th>
+                    <th class="text-center">설문제목</th>
+                    <th class="text-center">상태</th>
+                    <th class="text-center">시작일</th>
+                    <th class="text-center">종료일</th>
+                    <th class="text-center">제한<br>인원</th>
+                    <th class="text-center">참여<br>인원</th>
+                    <th class="text-center">최종수정일</th>
+                    <th class="text-center">관리</th>
                 </tr>
                 </thead>
                 <tbody>
                 <% for(var i = 0; i<campaignlist.length; i++) { %>
                 <tr>
                     <td><a href="/campaign/write/<%=campaignlist[i].CAMPAIGN_CODE%>" class="btn btn-danger btn-block btn-xs"><%=campaignlist[i].CAMPAIGN_CODE%></a></td>
-                    <td></td>
+                    <td>가전제품</td>
                     <td><%=campaignlist[i].CAMPAIGN_TITLE%></td>
-                    <td></td>
-                    <td><%=moment(campaignlist[i].CAMPAIGN_STARTDATE).format("YYYY-MM-DD hh:mm:ss")%></td>
-                    <td><%=moment(campaignlist[i].CAMPAIGN_ENDDATE).format("YYYY-MM-DD hh:mm:ss")%></td>
+                    <td>대기</td>
+                    <td><%=moment(campaignlist[i].CAMPAIGN_STARTDATE).format("YYYY-MM-DD hh:mm")%></td>
+                    <td><%=moment(campaignlist[i].CAMPAIGN_ENDDATE).format("YYYY-MM-DD hh:mm")%></td>
                     <td><%=campaignlist[i].JOIN_CNT%></td>
-                    <td>1111</td>
-                    <td><%=moment(campaignlist[i].MODIFY_DATETIME).format("YYYY-MM-DD hh:mm:ss")%></td>
-                    <td></td>
+                    <td>500</td>
+                    <td><%=moment(campaignlist[i].MODIFY_DATETIME).format("YYYY-MM-DD hh:mm")%></td>
+                    <td class="text-center">
+                        <button class="btn btn-xs btn-warning deleteBtn">삭제</button>
+                        <button class="btn btn-xs btn-primary modifyBtn"><a href="/campaign/write/<%=campaignlist[i].CAMPAIGN_CODE%>" class="text-white" >수정</a></button>
+                    </td>
                 </tr>
                 <% } %>
                 </tbody>

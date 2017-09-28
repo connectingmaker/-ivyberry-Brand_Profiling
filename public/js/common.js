@@ -126,8 +126,23 @@ $(function() {
     var tempPath = urlData.split('/');
     var controller = tempPath[1];
 
-    //console.log(controller);
+    console.log(controller);
 
+    if(controller == 'campaign'){
+        $(".campaign").addClass("active");
+    }
+    if(controller == 'statistics'){
+        $(".statistics").addClass("active");
+    }
+    if(controller == 'users'){
+        $(".users").addClass("active");
+    }
+    if(controller == 'brand'){
+        $(".brand").addClass("active");
+    }
+    if(controller == 'question'){
+        $(".question").addClass("active");
+    }
 
-    console.log(urlData);
+    //console.log(urlData);
 })
