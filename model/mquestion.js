@@ -55,6 +55,42 @@ var mquestion = {
         connection.end();
         return data;
     }
+    ,sp_QUESTION_Q_SAVE: function(q_code, group_code, q_name, q_title_ko, q_title_en, q_title_cn, etc, callback) {
+        var connection = mysql_dbc.init();
+        var query = " call sp_QUESTION_Q_SAVE(?, ?, ?, ?, ?, ?, ?) ";
+
+        var params = [];
+
+        params.push(q_code);
+        params.push(group_code);
+        params.push(q_name);
+        params.push(q_title_ko);
+        params.push(q_title_en);
+        params.push(q_title_cn);
+        params.push(etc);
+
+        var data = connection.query(query,params, callback);
+        connection.end();
+        return data;
+    }
+    ,sp_QUESTION_QA_SAVE: function(qaData, callback) {
+        var connection = mysql_dbc.init();
+        var query = " call sp_QUESTION_Q_SAVE(?, ?, ?, ?, ?, ?, ?) ";
+
+        var params = [];
+
+        params.push(q_code);
+        params.push(group_code);
+        params.push(q_name);
+        params.push(q_title_ko);
+        params.push(q_title_en);
+        params.push(q_title_cn);
+        params.push(etc);
+
+        var data = connection.query(query,params, callback);
+        connection.end();
+        return data;
+    }
 };
 
 module.exports = mquestion;

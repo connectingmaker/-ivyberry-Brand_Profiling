@@ -66,7 +66,32 @@ router.get('/group/detail/:code', function(req, res) {
 
             res.render('question/group/detail', { group_code : group_code, question_type_list : question_type_list, grouplist: grouplist, moment: moment  });
         });
-    })
+    });
+});
+
+router.post("/multiProcess", function(req, res) {
+    var q_code = req.body.q_code;
+    var group_code = req.body.group_code;
+
+    var q_name = req.body.q_name;
+    var q_title_ko = req.body.q_title_ko;
+    var q_title_en = req.body.q_title_en;
+    var q_title_cn = req.body.q_title_cn;
+    var etc = req.body.etc;
+    var qaData = eval("("+req.body.qaJson+")");
+
+    mquestion.sp_QUESTION_Q_SAVE(q_code, group_code, q_name, q_title_ko, q_title_en, q_title_cn, etc, function(err, rows) {
+        if(err) {
+            console.log(err);
+            throw err;
+        }
+        var qData = rows[0];
+        q_code = qData[0].Q_CODE;
+        console.log(q_code);
+    });
+    
+
+
 
 
 });

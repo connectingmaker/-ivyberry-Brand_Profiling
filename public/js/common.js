@@ -120,4 +120,14 @@ $(function() {
     $(".backBtn").click(function() {
         history.back(-1);
     });
+
+
+    var urlData = location.pathname;
+    var tempPath = urlData.split('/');
+    var controller = tempPath[1];
+
+    //console.log(controller);
+
+
+    console.log(urlData);
 })
