@@ -65,6 +65,27 @@ var mcampaign = {
         connection.end();
         return data;
     }
+    ,sp_CAMPAIGN_BRAND_POOL_LIST: function(campaign_code, callback) {
+        var connection = mysql_dbc.init();
+        var query = " call sp_CAMPAIGN_BRAND_POOL_LIST(?) ";
+        var params = [];
+        params.push(campaign_code);
+
+        var data = connection.query(query,params,callback);
+        connection.end();
+        return data;
+    }
+    ,sp_CAMPAIGN_BRAND_POOL_SAVE: function(campaign_code, detail_brand_code, callback) {
+        var connection = mysql_dbc.init();
+        var query = " call sp_CAMPAIGN_BRAND_POOL_SAVE(?, ?) ";
+        var params = [];
+        params.push(campaign_code);
+        params.push(detail_brand_code);
+
+        var data = connection.query(query,params,callback);
+        connection.end();
+        return data;
+    }
 }
 
 module.exports = mcampaign;

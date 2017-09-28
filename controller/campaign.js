@@ -91,7 +91,40 @@ router.get('/brand/:code', function(req, res) {
 });
 
 router.get('/brandPool/:code', function(req, res) {
-    res.render('campaign/brandPool');
+    var campaign_code = req.params.code;
+    mcampaign.sp_CAMPAIGN_BRAND_POOL_LIST(campaign_code, function(err, rows) {
+        if(err) {
+            console.log(err);
+        }
+        var brandList = rows[0];
+        res.render('campaign/brandPool', { moment: moment, campaign_code : campaign_code, brandList : brandList});
+    });
+});
+
+router.post("/brandPoolProcess", function(req, res) {
+    var campaign_code = req.body.campaign_code;
+    var brandList = req.body.brandList;
+    var err = "";
+    var jsonData = {};
+
+    mcampaign.sp_CAMPAIGN_BRAND_POOL_SAVE(campaign_code, brandList, function(err, rows) {
+        if(err) {
+            console.log(err);
+            err = "err";
+            jsonData = {
+                err : "INSERT_DB_ERR"
+            }
+            res.send(jsonData);
+        }
+
+        jsonData = {
+            err : "000"
+        }
+
+        res.send(jsonData);
+
+
+    })
 });
 
 router.post("/brandProcess", function(req, res) {
@@ -132,7 +165,12 @@ router.post("/brandProcess", function(req, res) {
 
         });
     });
+});
 
+router.get("/question/:code", function(req, res) {
+    var campaign_code = req.params.code;
+
+    res.render("campaign/question");
 });
 
 module.exports = router;

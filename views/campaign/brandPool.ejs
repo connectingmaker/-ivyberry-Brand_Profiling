@@ -1,5 +1,5 @@
 <div class="row">
-    <input type="hidden" id="campaign_code">
+    <input type="hidden" id="campaign_code" value="<%=campaign_code%>">
     <div class="col-xs-12 bg-white box round_box">
         <div class="row">
             <div class="col-xs-12 title">
@@ -24,6 +24,19 @@
                     <th>최종수정일</th>
                 </tr>
                 </thead>
+                <tbody>
+                <% for(var i = 0; i<brandList.length; i++) { %>
+                <% console.log(brandList[i]); %>
+                <tr>
+                    <td class="text-center"><input type="checkbox" class="brandpool" name="brandpool" value="<%=brandList[i].DETAIL_CATEGORY_CODE%>" <% if(brandList[i].SELECTED != 0) { %>checked<% } %>></td>
+                    <td><%=brandList[i].DETAIL_CATEGORY_CODE%></td>
+                    <td><%=brandList[i].BRAND_NAME_KO%></td>
+                    <td><%=brandList[i].MEMO%></td>
+                    <td><%=brandList[i].ETC%></td>
+                    <td><%=moment(brandList[i].MODIFY_DATETIME).format("YYYY-MM-DD hh:mm:ss")%></td>
+                </tr>
+                <% } %>
+                </tbody>
             </table>
         </div>
     </div>
