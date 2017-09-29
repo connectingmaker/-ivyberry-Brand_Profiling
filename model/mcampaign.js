@@ -96,6 +96,97 @@ var mcampaign = {
         connection.end();
         return data;
     }
+    ,sp_CAMPAIGN_QUESTION_GROUP:function(campaign_code, callback) {
+        var connection = mysql_dbc.init();
+        var query = " call sp_CAMPAIGN_QUESTION_GROUP(?) ";
+        var params = [];
+        params.push(campaign_code);
+
+        var data = connection.query(query,params,callback);
+        connection.end();
+        return data;
+    }
+    ,sp_CAMPAIGN_QUESTION_GROUP_SAVE: function(data, callback) {
+        var connection = mysql_dbc.init();
+        var query = " call sp_CAMPAIGN_QUESTION_GROUP_SAVE(?, ?, ?) ";
+
+        var params = [];
+        for(var i = 0; i<data.length; i++) {
+            params = [];
+            params.push(data[i].campaign_code);
+            params.push(data[i].group_code);
+            params.push(data[i].quest_num);
+
+            if(i == data.length - 1) {
+                var data = connection.query(query, params, callback);
+                connection.end();
+                return true;
+            } else {
+                connection.query(query, params);
+                //var data = connection.query(query, params);
+            }
+
+
+        }
+    }
+    ,sp_CAMPAIGN_GRADE_COUNT: function(campaign_code, callback) {
+        var connection = mysql_dbc.init();
+        var query = " call sp_CAMPAIGN_GRADE_COUNT(?) ";
+        var params = [];
+        params.push(campaign_code);
+
+        var data = connection.query(query,params,callback);
+        connection.end();
+        return data;
+    }
+    ,sp_CAMPAIGN_QUEST_SETTING_LIST: function(campaign_code, callback) {
+        var connection = mysql_dbc.init();
+        var query = " call sp_CAMPAIGN_QUEST_SETTING_LIST(?) ";
+        var params = [];
+        params.push(campaign_code);
+
+        var data = connection.query(query,params,callback);
+        connection.end();
+        return data;
+    }
+    ,sp_CAMPAIGN_GRADE_IN_JOIN_CNT_UPDATE: function(campaign_code, join_cnt, grade_text, callback) {
+        var connection = mysql_dbc.init();
+        var query = " call sp_CAMPAIGN_GRADE_IN_JOIN_CNT_UPDATE(?, ?, ?) ";
+        var params = [];
+        params.push(campaign_code);
+        params.push(join_cnt);
+        params.push(grade_text);
+
+        var data = connection.query(query,params,callback);
+        connection.end();
+        return data;
+    }
+    ,sp_CAMPAIGN_QUESTION_GROUP_UPDATE: function(campaign_code, jsonData, callback) {
+        var connection = mysql_dbc.init();
+        var query = " call sp_CAMPAIGN_QUESTION_GROUP_UPDATE(?, ?, ?, ?, ?) ";
+
+        var params = [];
+        for(var i = 0; i<jsonData.length; i++) {
+            params = [];
+            params.push(campaign_code);
+            params.push(jsonData[i].group_code);
+            params.push(jsonData[i].quest);
+            params.push(jsonData[i].point);
+            params.push(jsonData[i].survey_time);
+            console.log(params);
+
+            if(i == jsonData.length - 1) {
+                var data = connection.query(query, params, callback);
+                connection.end();
+                return true;
+            } else {
+                connection.query(query, params);
+                //var data = connection.query(query, params);
+            }
+
+
+        }
+    }
 }
 
 module.exports = mcampaign;

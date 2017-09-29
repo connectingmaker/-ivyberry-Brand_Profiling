@@ -1,5 +1,5 @@
 <div class="row">
-    <input type="hidden" id="campaign_code" value="">
+    <input type="hidden" id="campaign_code" value="<%=campaign_code%>">
     <div class="row">
         <div class="col-xs-12">
             <div class="wizard">
@@ -12,7 +12,7 @@
         </div>
     </div>
     <div class="push-10-t col-xs-12 bg-white box round_box_title">
-        <div class="title"><span class="color">설문제목 : 사무용품 브랜드에 대한 이미지 조사 1차 2017</span></div>
+        <div class="title"><span class="color">설문제목 : <%=campaign_data.CAMPAIGN_TITLE%></span></div>
     </div>
 
 
@@ -26,24 +26,26 @@
         <div class="contents_list">
             <table id="list" class="table table-bordered fontsize">
                 <col width="5%">
-                <col width="5%">
-                <col width="25%">
-                <col width="5%">
-                <col width="5%">
                 <col width="10%">
-                <col width="35%">
+                <col width="10%">
                 <thead>
                 <tr>
-                    <th>퀘스트</th>
-                    <th>영역ID</th>
-                    <th>영역이름</th>
-                    <th>메모</th>
-                    <th>항목수</th>
-                    <th>유형</th>
+                    <th>선택</th>
+                    <th>레벨</th>
+                    <th>회원수</th>
                     <th>참조</th>
-                    <th>최종수정일</th>
                 </tr>
                 </thead>
+                <tbody>
+                <% for(var i = 0; i<gradelist.length; i++) { %>
+                <tr>
+                    <td class="text-center"><input type="checkbox" class="grade_code" value="<%=gradelist[i].CODE_GRADE%>" <% if(gradelist[i].CODE_GRADE == gradelist[i].GRADE_CODE) { %>checked<% } %>></td>
+                    <td><%=gradelist[i].CODE_NAME%></td>
+                    <td><%=gradelist[i].MEMBER_TOTAL%>명</td>
+                    <td><%=gradelist[i].CODE_DESC%></td>
+                </tr>
+                <% } %>
+                </tbody>
             </table>
         </div>
 
@@ -103,7 +105,7 @@
                 <tbody>
                 <tr>
                     <th class="text-center">최대인원(명)</th>
-                    <td><input type="text" class="form-control input-sm"></td>
+                    <td><input type="text" id="join_cnt" class="form-control input-sm" value="<%=campaign_data.JOIN_CNT%>"></td>
                 </tr>
                 </tbody>
             </table>
@@ -127,23 +129,34 @@
                 <col width="10%">
 
                 <tbody>
+                <% for(var i = 0; i<questList.length; i++) { %>
                 <tr>
-                    <th class="text-center">퀘스트1</th>
-                    <td><input type="text" class="form-control input-sm"></td>
+                    <th class="text-center">퀘스트<%=questList[i].QUEST_NUM%></th>
+                    <td><input type="text" id="point_<%=questList[i].QUEST_NUM%>" quest="<%=questList[i].QUEST_NUM%>" group_code="<%=questList[i].GROUP_CODE%>" class="form-control input-sm point" value="<%=questList[i].POINT%>"></td>
                     <th class="text-center">예상소요시간(분)</th>
-                    <td><input type="text" class="form-control input-sm"></td>
-                    <th>질문셋팅 내용 나오기</th>
+                    <td><input type="text" id="survey_time_<%=questList[i].QUEST_NUM%>" quest="<%=questList[i].QUEST_NUM%>" group_code="<%=questList[i].GROUP_CODE%>" class="form-control input-sm survey_time" value="<%=questList[i].SURVEY_TIME%>"></td>
+                    <th>
+                        <% if(questList[i].Q_LIST == "") { %>
+                        <div class="row">
+                            <div class="col-xs-10">
+                                등록된 질문지가 존재하지 않습니다
+                            </div>
+                            <div class="col-xs-2 text-right">
+                                <a href="#" class="btn btn-xs btn-danger">바로가기</a>
+                            </div>
+                        </div>
+
+
+
+                        <% } else { %>
+                        <%=questList[i].Q_LIST%>
+                        <% } %>
+                    </th>
                 </tr>
-                <tr>
-                    <th class="text-center">퀘스트2</th>
-                    <td><input type="text" class="form-control input-sm"></td>
-                    <th class="text-center">예상소요시간(분)</th>
-                    <td><input type="text" class="form-control input-sm"></td>
-                    <th>질문셋팅 내용 나오기</th>
-                </tr>
+                <% } %>
                 <tr>
                     <th class="text-center">최대 참여 보상</th>
-                    <td colspan="4"><input type="text" class="form-control input-sm" value="0"></td>
+                    <td colspan="4"><input type="text" id="total_point" class="form-control input-sm" value="0"></td>
                 </tr>
                 </tbody>
 
@@ -160,11 +173,14 @@
         </div>
 
         <div class="col-xs-6 push-20-t text-right">
-            <button id="brandBtn" class="btn btn-sm btn-block btn-danger">다음</button>
+            <button id="settingBtn" class="btn btn-sm btn-block btn-danger">다음</button>
         </div>
     </div>
 </div>
 
 
+
+
+<script language="javascript" src="/view_js/campaign/setting.js"></script>
 
 
