@@ -1,5 +1,5 @@
 <div class="row">
-    <input type="hidden" id="campaign_code" value="">
+    <input type="hidden" id="campaign_code" value="<%=campaign_code%>">
     <div class="row">
         <div class="col-xs-12">
             <div class="wizard">
@@ -12,7 +12,7 @@
         </div>
     </div>
     <div class="push-10-t col-xs-12 bg-white box round_box_title">
-        <div class="title"><span class="color">설문제목 : 사무용품 브랜드에 대한 이미지 조사 1차 2017</span></div>
+        <div class="title"><span class="color">설문제목 : <%=campaign.CAMPAIGN_TITLE%></span></div>
     </div>
 
     <div class="push-10-t col-xs-12 bg-white box round_box">
@@ -24,13 +24,13 @@
         </div>
         <div class="contents_list">
             <table id="list" class="table table-bordered fontsize">
-                <col width="5%">
-                <col width="5%">
-                <col width="25%">
-                <col width="5%">
-                <col width="5%">
                 <col width="10%">
-                <col width="35%">
+                <col width="5%">
+                <col width="20%">
+                <col width="5%">
+                <col width="5%">
+                <col width="15%">
+                <col width="25%">
                 <thead>
                     <tr>
                         <th>퀘스트</th>
@@ -44,9 +44,26 @@
                     </tr>
                 </thead>
                 <tbody>
+                <% for(var i = 0; i<q_group.length; i++) { %>
                     <tr>
-                        
+                        <td>
+                            <select class="form-control input-sm questQ">
+                                <option value="">선택안함</option>
+                                <% for(var j=1; j<=q_group.length; j++) { %>
+                                <option value="<%=q_group[i].GROUP_CODE%>:::<%=j%>" <% if(j == q_group[i].QUEST_NUM) { %>selected<% } %>><%=j%></option>
+                                <% } %>
+
+                            </select>
+                        </td>
+                        <td><%=q_group[i].GROUP_CODE%></td>
+                        <td><%=q_group[i].GROUP_NAME_KO%></td>
+                        <td><%=q_group[i].MEMO%></td>
+                        <td><%=q_group[i].Q_CNT%></td>
+                        <td><%=q_group[i].QUESTION_TYPE_NAME%></td>
+                        <td><%=q_group[i].ETC%></td>
+                        <td><%=moment(q_group[i].MODIFY_DATETIME).format("YYYY-MM-DD hh:mm")%></td>
                     </tr>
+                <% } %>
                 </tbody>
             </table>
         </div>
@@ -60,11 +77,13 @@
         </div>
 
         <div class="col-xs-6 push-20-t text-right">
-            <button id="brandBtn" class="btn btn-sm btn-block btn-danger">다음</button>
+            <button id="questBtn" class="btn btn-sm btn-block btn-danger">다음</button>
         </div>
     </div>
 </div>
 
+
+<script language="javascript" src="/view_js/campaign/question.js"></script>
 
 
 

@@ -92,12 +92,15 @@ router.get('/brand/:code', function(req, res) {
 
 router.get('/brandPool/:code', function(req, res) {
     var campaign_code = req.params.code;
-    mcampaign.sp_CAMPAIGN_BRAND_POOL_LIST(campaign_code, function(err, rows) {
-        if(err) {
-            console.log(err);
-        }
-        var brandList = rows[0];
-        res.render('campaign/brandPool', { moment: moment, campaign_code : campaign_code, brandList : brandList});
+    mcampaign.get_campaign_select(campaign_code, function(err, rows) {
+        var campaign = rows[0];
+        mcampaign.sp_CAMPAIGN_BRAND_POOL_LIST(campaign_code, function (err, rows) {
+            if (err) {
+                console.log(err);
+            }
+            var brandList = rows[0];
+            res.render('campaign/brandPool', {moment: moment, campaign_code: campaign_code, campaign : campaign, brandList: brandList});
+        });
     });
 });
 
@@ -169,17 +172,103 @@ router.post("/brandProcess", function(req, res) {
 
 router.get("/question/:code", function(req, res) {
     var campaign_code = req.params.code;
+    mcampaign.get_campaign_select(campaign_code, function(err, rows) {
+        var campaign = rows[0];
+        mcampaign.sp_CAMPAIGN_QUESTION_GROUP(campaign_code, function (err, rows) {
+            var q_group = rows[0];
+            res.render("campaign/question", {campaign_code: campaign_code, q_group: q_group, moment: moment, campaign: campaign});
+        });
+    });
 
-    res.render("campaign/question", { campaign_code : campaign_code});
 });
 
+
+router.post("/questionProcess", function(req, res) {
+    var quest = eval("("+req.body.quest+")");
+    var data = {};
+
+    mcampaign.sp_CAMPAIGN_QUESTION_GROUP_SAVE(quest, function(err, rows) {
+        if(err) {
+            console.log(err);
+            throw err;
+            data = {
+                err: "DB_ERR"
+            }
+        }
+
+        data = {
+            err: "000"
+        }
+
+        console.log(data);
+
+        res.send(data);
+    });
+
+
+});
 
 
 router.get("/setting/:code", function(req, res) {
     var campaign_code = req.params.code;
+    mcampaign.get_campaign_select(campaign_code, function(err, rows) {
+        var campaign_data = rows[0];
+        mcampaign.sp_CAMPAIGN_GRADE_COUNT(campaign_code, function(err, rows) {
+            if(err){
+                console.log(err);
+                throw err;
+            }
+
+            var gradelist = rows[0];
+            mcampaign.sp_CAMPAIGN_QUEST_SETTING_LIST(campaign_code, function(err, rows) {
+                var questList = rows[0];
+                res.render("campaign/setting", { campaign_code : campaign_code, campaign_data : campaign_data, gradelist : gradelist, questList: questList});
+            });
+
+        });
+    });
+});
+
+router.post("/settingProcess", function(req, res) {
+    var campaign_code = req.body.campaign_code;
+    var grade_code = req.body.grade_code;
+    var join_cnt = req.body.join_cnt;
+    var questData = eval("("+req.body.questData+")");
+    var err = "";
+
+    mcampaign.sp_CAMPAIGN_GRADE_IN_JOIN_CNT_UPDATE(campaign_code, join_cnt, grade_code, function(err, rows) {
+        if(err) {
+            console.log(err);
+            throw err;
+
+            err = "DB_ERR";
+            var data = {
+                err : err
+            };
+            res.send()
+        }
+        mcampaign.sp_CAMPAIGN_QUESTION_GROUP_UPDATE(campaign_code, questData, function(err, rows) {
+            if(err) {
+                console.log(err);
+                throw err;
+                err = "DB_ERR";
+                var data = {
+                    err : err
+                };
+            }
+
+            err = "000";
+            var data = {
+                err : err
+            };
+
+            res.send(data);
+        })
+
+    });
 
 
-    res.render("campaign/setting", { campaign_code : campaign_code});
+
 });
 
 router.post("/campaignDelete", function(req, res) {
