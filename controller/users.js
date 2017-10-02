@@ -154,6 +154,80 @@ router.post("/emailCheck", function(req, res) {
 
 });
 
+
+router.get("/pointHistory/:code", function(req, res) {
+    var uid = req.params.code;
+    var page = req.query.page;
+
+    if(page == undefined) {
+        page = 1;
+    }
+
+    var total = 0;
+    var start = 0;
+    var viewCnt = 10;
+
+    muser.get_pointHistoryCnt(uid, function(err,rows) {
+        if(err) {
+            console.log(err);
+            throw err;
+        }
+
+        var total = rows[0].TOTAL;
+        start = viewCnt * (page - 1);
+
+        console.log(total);
+
+        var boostrapPaginator = new pagination.TemplatePaginator({
+            prelink:'/users/pointHistory', current: page, rowsPerPage: 10,
+            totalResult: total, slashSeparator: true,
+            template: function(result) {
+                var i, len, prelink;
+                var html = '<div><ul class="pagination">';
+                if(result.pageCount < 2) {
+                    html += '</ul></div>';
+                    return html;
+                }
+                prelink = this.preparePreLink(result.prelink);
+                console.log(prelink);
+                if(result.previous) {
+                    html += '<li><a href="./'+uid+'?page=' + result.previous + '">' + this.options.translator('PREVIOUS') + '</a></li>';
+                }
+                if(result.range.length) {
+                    for( i = 0, len = result.range.length; i < len; i++) {
+                        if(result.range[i] === result.current) {
+                            html += '<li class="active"><a href="./'+uid+'?page=' + result.range[i] + '">' + result.range[i] + '</a></li>';
+                        } else {
+                            html += '<li><a href="./'+uid+'?page=' + result.range[i] + '">' + result.range[i] + '</a></li>';
+                        }
+                    }
+                }
+                if(result.next) {
+                    html += '<li><a href="./'+uid+'?page=' + result.next + '" class="paginator-next">' + this.options.translator('NEXT') + '</a></li>';
+                }
+                html += '</ul></div>';
+                return html;
+            }
+        });
+
+        muser.sp_MEMBER_POINT_HISTORY_LIST(uid, page, function(err, rows) {
+            if(err) {
+                console.log(err);
+                throw err;
+            }
+
+            var pointList = rows[0];
+            console.log(pointList)
+            res.render("users/pointHistory", { pageHtml: boostrapPaginator, pointList : pointList });
+        });
+
+
+    });
+
+
+
+});
+
 router.get('/22222', function(req, res, next) {
     res.send('respond with a resource');
 });

@@ -92,7 +92,27 @@ var muser = {
         connection.end();
         return data;
     }
+    ,get_pointHistoryCnt: function(uid, callback) {
+        var connection = mysql_dbc.init();
+        var query = " SELECT COUNT(*) TOTAL FROM MEMBER_POINT_HISTORY WHERE UID = ? ";
+        var params = [];
+        params.push(uid);
 
+        var data = connection.query(query,params,callback);
+        connection.end();
+        return data;
+    }
+    ,sp_MEMBER_POINT_HISTORY_LIST: function(uid, page, callback) {
+        var connection = mysql_dbc.init();
+        var query = " call sp_MEMBER_POINT_HISTORY_LIST(?, ?)";
+        var params = [];
+        params.push(uid);
+        params.push(page);
+
+        var data = connection.query(query,params,callback);
+        connection.end();
+        return data;
+    }
 
 }
 

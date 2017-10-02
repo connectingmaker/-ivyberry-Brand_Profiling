@@ -1,0 +1,74 @@
+<div class="row">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="wizard">
+                <a href="/users/list"><span class="badge">1</span> 사용자관리</a>
+                <a class="current" href="#"><span class="badge badge-inverse">2</span> 포인트 리스트</a>
+
+            </div>
+        </div>
+    </div>
+    <div class="push-20-t col-xs-12 bg-white box round_box">
+        <div class="row">
+            <div class="col-xs-10 title">
+                <h3 class="block-title">사용자 목록</h3>
+            </div>
+            <div class="col-xs-2 text-right">
+                <a href="/users/write" class="btn btn-sm btn-danger btn-rounded">포인트 처리</a>
+            </div>
+
+        </div>
+        <div class="contents_list">
+            <table id="list" class="table table-bordered fontsize">
+                <thead>
+                <tr>
+                    <th>코드</th>
+                    <th>UID</th>
+                    <th>이름</th>
+                    <th>포인트_타입</th>
+                    <th>포인트</th>
+                    <th>설문</th>
+                    <th>등록일</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <% for(var i = 0; i<pointList.length; i++) { %>
+                    <tr>
+                        <td><%=pointList[i].SEQ%></td>
+                        <td><%=pointList[i].UID%></td>
+                        <td><%=pointList[i].USERNAME%></td>
+                        <td><%=pointList[i].POINT_TYPE%></td>
+                        <td>
+                            <% if(pointList[i].POINT_TYPE == "지급") { %>
+                            +<%=pointList[i].POINT%>
+                            <% } else { %>
+                            -<%=pointList[i].POINT%>
+                            <% } %>
+                        </td>
+                        <td>
+                            <%=pointList[i].CAMPAIGN_TITLE%>
+                        </td>
+                        <td>
+                            <%=pointList[i].INSERT_DATETIME%>
+                        </td>
+                    </tr>
+                    <% } %>
+                </tbody>
+            </table>
+
+            <div class="col-xs-12 text-center">
+                <%-pageHtml.render()%>
+
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+
+
+
+
+
+<script language="javascript" src="/view_js/users/pointHistory.js"></script>
