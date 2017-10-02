@@ -150,6 +150,80 @@ $(function() {
     });
 
 
+    $("#singleSave").click(function() {
+        if(inputTextCheck("single_q_name", "질문이름을 입력해주세요.") == false) {
+            return;
+        }
+
+        if(inputTextCheck("single_q_title_ko", "질문 내용을 입력해주세요.") == false) {
+            return;
+        }
+
+
+
+        var qaJson = [];
+        var qaStringData = {};
+        qaStringData = {
+            qa_code : ""
+            ,qa_title_ko : $("#single_qa_title_ko1").val()
+            ,qa_title_en : $("#single_qa_title_en1").val()
+            ,qa_title_cn : $("#single_qa_title_cn1").val()
+        }
+        qaJson.push(qaStringData);
+
+
+        qaStringData = {
+            qa_code : ""
+            ,qa_title_ko : $("#single_qa_title_ko2").val()
+            ,qa_title_en : $("#single_qa_title_en2").val()
+            ,qa_title_cn : $("#single_qa_title_cn2").val()
+        }
+        qaJson.push(qaStringData);
+
+        var jsonData = {
+            q_code : ""
+            ,group_code : $("#group_code").val()
+            ,q_name : $("#single_q_name").val()
+            ,q_title_ko : $("#single_q_title_ko").val()
+            ,q_title_en : $("#single_q_title_en").val()
+            ,q_title_cn : $("#single_q_title_cn").val()
+            ,etc : $("#single_etc").val()
+            ,memo : ""
+            ,qaJson : JSON.stringify(qaJson)
+        };
+
+
+        common.ajax.send('/question/singleProcess', jsonData);
+        common.ajax.return = function(data) {
+            var dataJson = eval("("+data+")");
+            dataJson = dataJson[0];
+
+
+            var survey_template_temp = survey_template;
+            survey_template_temp = survey_template_temp.replace("[_Q_TYPE_]", $("#question_type").html());
+            survey_template_temp = survey_template_temp.replace("[_Q_CODE_ID_]", dataJson.Q_CODE);
+            survey_template_temp = survey_template_temp.replace("[_Q_CODE_]", dataJson.Q_CODE);
+            survey_template_temp = survey_template_temp.replace("[_Q_NAME_]", dataJson.Q_NAME);
+            survey_template_temp = survey_template_temp.replace("[_MEMO_]", dataJson.MEMO);
+            survey_template_temp = survey_template_temp.replace("[_ETC_]", dataJson.ETC);
+            survey_template_temp = survey_template_temp.replace("[_Q_INSERT_DATETIME_]", string.dateTime(dataJson.INSERT_DATETIME));
+            survey_template_temp = survey_template_temp.replace("[_Q_TITLE_KO_]", dataJson.Q_TITLE_KO);
+            survey_template_temp = survey_template_temp.replace("[_Q_TITLE_EN_]", dataJson.Q_TITLE_EN);
+            survey_template_temp = survey_template_temp.replace("[_Q_TITLE_CN_]", dataJson.Q_TITLE_CN);
+            survey_template_temp = survey_template_temp.replace("[_SET_USE_YN_]", dataJson.USE_YN);
+            if(dataJson.USE_YN == "Y") {
+                survey_template_temp = survey_template_temp.replace("[_USE_YN_]", "사용함");
+            } else {
+                survey_template_temp = survey_template_temp.replace("[_USE_YN_]", "사용안함");
+            }
+
+            $('#multiModal').modal('hide');
+
+            $("#questionList").append(survey_template_temp);
+        };
+        $('#multiModal').modal('hide');
+
+    });
 
 
     $("#multiSave").click(function() {

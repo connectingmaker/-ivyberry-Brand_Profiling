@@ -125,6 +125,39 @@ router.post("/qUseUpdate", function(req, res) {
     });
 });
 
+router.post("/singleProcess", function(req, res) {
+    var q_code = req.body.q_code;
+    var group_code = req.body.group_code;
+
+    var q_name = req.body.q_name;
+    var q_title_ko = req.body.q_title_ko;
+    var q_title_en = req.body.q_title_en;
+    var q_title_cn = req.body.q_title_cn;
+    var etc = req.body.etc;
+    var memo = req.body.memo;
+    var qaData = eval("("+req.body.qaJson+")");
+
+    mquestion.sp_QUESTION_Q_SAVE(q_code, group_code, q_name, q_title_ko, q_title_en, q_title_cn, etc, memo, function(err, rows) {
+        if(err) {
+            console.log(err);
+            throw err;
+        }
+        var qData = rows[0];
+        q_code = qData[0].Q_CODE;
+
+        var objToJson = qData;
+        var dataJson = JSON.stringify(objToJson);
+
+        mquestion.sp_QUESTION_QA_SAVE(q_code, qaData, function(err, rows) {
+            if(err) {
+                console.log(err);
+                throw err;
+            }
+            res.send(dataJson);
+        });
+    });
+});
+
 router.post("/multiProcess", function(req, res) {
     var q_code = req.body.q_code;
     var group_code = req.body.group_code;
