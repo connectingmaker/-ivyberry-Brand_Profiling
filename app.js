@@ -9,6 +9,10 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require("express-session");
 
+
+
+
+
 /* nodejs module import end */
 
 
@@ -108,3 +112,21 @@ app.use(function(err, req, res, next) {
 
 module.exports = app;
 
+
+
+function imageUpload(files) {
+    fs.readFile(files.path, function (err, data) {
+        var filePath = __dirname + '\\uploads\\' + files.originalname;
+        fs.writeFile(filePath, data, function (error) {
+            if (error) {
+                throw error;
+            } else {
+                fs.unlink(files.path, function (removeFileErr) {
+                    if (removeFileErr) {
+                        throw removeFileErr;
+                    }
+                });
+            }
+        });
+    });
+}

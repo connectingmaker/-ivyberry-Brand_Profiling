@@ -162,6 +162,7 @@
 <div class="modal fade" id="img_7scaleModal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
+            <form id="scaleImg_Form" name="saleImg_Form" enctype="multipart/form-data">
             <div class="block block-themed block-transparent remove-margin-b">
                 <div class="block-header bg-primary-dark">
                     <ul class="block-options">
@@ -221,12 +222,17 @@
                             </td>
                         </tr>
                         <tr>
-                            <td class="text-center"><button class="btn btn-sm btn-default">업로드하기<span class="check">*</span></button></td>
+                            <td class="text-center"><a href="javascript:void(0);" id="scaleImg1Btn" class="btn btn-sm btn-default">업로드하기<span class="check">*</span></a></td>
                             <th class="text-center">파일이름</th>
                             <td>권장사이즈(350*350px 이상)</td>
-                            <td class="text-center"><button class="btn btn-sm btn-default">업로드하기<span class="check">*</span></button></td>
+
+                            <input type="file" id="file1" name="file1">
+
+                            <td class="text-center"><a href="javascript:void(0);" id="scaleImg2Btn" class="btn btn-sm btn-default">업로드하기<span class="check">*</span></a></td>
                             <th class="text-center">파일이름</th>
                             <td>권장사이즈(350*350px 이상)</td>
+
+                            <input type="file" id="file2">
                         </tr>
                         <tr>
                             <th class="text-center">질문 메모<span class="check">*</span></th>
@@ -262,9 +268,10 @@
                     </table>
                 </div>
             </div>
+            </form>
             <div class="modal-footer">
                 <button class="btn btn-sm btn-default" type="button" data-dismiss="modal">닫기</button>
-                <button id="brandSave" class="btn btn-sm btn-danger" type="button"><i class="fa fa-check"></i> 저장</button>
+                <button id="scaleImgSave" class="btn btn-sm btn-danger" type="button"><i class="fa fa-check"></i> 저장</button>
             </div>
         </div>
     </div>

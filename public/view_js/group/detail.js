@@ -390,6 +390,40 @@ $(function() {
         };
     });
 
+    $("#scaleImgSave").click(function() {
+        var form = $('#scaleImg_Form')[0];
+        var formData = new FormData(form);
+
+        formData.append("file1",  $("#file1")[0].files[0]);
+        formData.append("test",  "22222");
+
+        console.log(formData);
+
+        /*
+        $.ajax({
+            url:'/question/scaleImgProcess'
+            ,proessData:false
+            ,contentType:false
+            ,data:formData
+            ,type:'POST'
+            ,success:function(data) {
+                console.log(data);
+            }
+        });
+
+        console.log(form);
+        */
+    });
+
+
+    $("#scaleImg1Btn").click(function() {
+        $("#file1").trigger("click");
+    });
+
+    $("#scaleImg2Btn").click(function() {
+        $("#file2").trigger("click");
+    });
+
 
     $(document).on('click', '.delQBtn', function() {
         if(confirm("선택한 질문지를 삭제하시겠습니까") == true) {

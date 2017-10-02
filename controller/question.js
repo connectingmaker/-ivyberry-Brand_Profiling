@@ -3,6 +3,9 @@ var router = express.Router();
 var mquestion = require("../model/mquestion");
 var moment = require('moment');
 
+var multer = require("multer");
+var upload = multer({ dest: 'uploads/' });
+
 /* GET users listing. */
 router.get('/group', function(req, res, next) {
     mquestion.getCodeQuestionTypeList(function(err, rows) {
@@ -222,6 +225,11 @@ router.post("/scaleProcess", function(req, res) {
             res.send(dataJson);
         });
     });
+});
+
+router.post("/scaleImgProcess", upload.array('uploadFile'), function(req, res) {
+    console.log(req.body);
+    res.send("111");
 });
 
 
