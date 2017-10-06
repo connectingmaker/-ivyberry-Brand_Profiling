@@ -14,20 +14,6 @@ $(function() {
         }
 
     });
-
-    $(document).on('click', '.historyBtn', function() {
-
-            var uid = $(this).parents("tr").attr("uid");
-            var params = {
-                uid: uid
-            };
-
-            common.ajax.send("/users/pointHistory", params);
-            common.ajax.return = function (data) {
-                $('#historyModal').modal('show');
-            }
-
-
-    });
+    
 
 });
