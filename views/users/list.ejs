@@ -32,7 +32,7 @@
                     <td><%=userData[i].USERNAME%></td>
                     <td><%=userData[i].USEREMAIL%></td>R
                     <td><%=userData[i].USERPHONE%></td>
-                    <td class="btn btn-xs btn-success historyBtn"><%=userData[i].POINT%></td>
+                    <td><a href="/users/pointHistroy/<%=userData[i].UID%>" target="_blank" class="btn btn-xs btn-success historyBtn"><%=userData[i].POINT%></a></td>
                     <td><%=userData[i].JOIN_SURVEY_CNT%></td>
                     <td><%=moment(userData[i].LAST_LOGIN).format("YYYY-MM-DD hh:mm")%></td>
                     <td class="text-center">
@@ -76,73 +76,6 @@
     </div>
 
 
-</div>
-
-<!-- 포인트 히스토리 모달 -->
-<div class="modal fade" id="historyModal" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="block block-themed block-transparent remove-margin-b">
-                <div class="block-header bg-primary-dark">
-                    <ul class="block-options">
-                        <li>
-                            <button data-dismiss="modal" type="button"><i class="si si-close"></i></button>
-                        </li>
-                    </ul>
-                    <h3 class="block-title">포인트 히스토리</h3>
-                </div>
-                <div class="block-content">
-                    <div class="contents_list">
-                        <table id="list" class="table table-bordered fontsize">
-                            <thead>
-                            <tr>
-                                <th>코드</th>
-                                <th>UID</th>
-                                <th>이름</th>
-                                <th>포인트_타입</th>
-                                <th>포인트</th>
-                                <th>설문</th>
-                                <th>등록일</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <% for(var i = 0; i<pointList.length; i++) { %>
-                            <tr>
-                                <td><%=pointList[i].SEQ%></td>
-                                <td><%=pointList[i].UID%></td>
-                                <td><%=pointList[i].USERNAME%></td>
-                                <td><%=pointList[i].POINT_TYPE%></td>
-                                <td>
-                                    <% if(pointList[i].POINT_TYPE == "지급") { %>
-                                    +<%=pointList[i].POINT%>
-                                    <% } else { %>
-                                    -<%=pointList[i].POINT%>
-                                    <% } %>
-                                </td>
-                                <td>
-                                    <%=pointList[i].CAMPAIGN_TITLE%>
-                                </td>
-                                <td>
-                                    <%=pointList[i].INSERT_DATETIME%>
-                                </td>
-                            </tr>
-                            <% } %>
-                            </tbody>
-                        </table>
-
-                        <div class="col-xs-12 text-center">
-                            <%-pageHtml.render()%>
-
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-sm btn-default" type="button" data-dismiss="modal">닫기</button>
-            </div>
-        </div>
-    </div>
 </div>
 
 
