@@ -11,10 +11,10 @@
     <div class="push-20-t col-xs-12 bg-white box round_box">
         <div class="row">
             <div class="col-xs-10 title">
-                <h3 class="block-title">사용자 목록</h3>
+                <h3 class="block-title">UID : <%=pointList[0].UID%> | 이름 : <%=pointList[0].USERNAME%></h3>
             </div>
             <div class="col-xs-2 text-right">
-                <a href="/users/write" class="btn btn-sm btn-danger btn-rounded">포인트 처리</a>
+                <span class="btn btn-sm btn-danger btn-rounded pointBtn">포인트 처리</span>
             </div>
 
         </div>
@@ -23,8 +23,6 @@
                 <thead>
                 <tr>
                     <th>코드</th>
-                    <th>UID</th>
-                    <th>이름</th>
                     <th>포인트_타입</th>
                     <th>포인트</th>
                     <th>설문</th>
@@ -35,8 +33,6 @@
                     <% for(var i = 0; i<pointList.length; i++) { %>
                     <tr>
                         <td><%=pointList[i].SEQ%></td>
-                        <td><%=pointList[i].UID%></td>
-                        <td><%=pointList[i].USERNAME%></td>
                         <td><%=pointList[i].POINT_TYPE%></td>
                         <td>
                             <% if(pointList[i].POINT_TYPE == "지급") { %>
@@ -67,7 +63,56 @@
 </div>
 
 
-
+<!-- 포인트 처리폼 모달 -->
+<div class="modal fade" id="pointModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="block block-themed block-transparent remove-margin-b">
+                <div class="block-header bg-primary-dark">
+                    <ul class="block-options">
+                        <li>
+                            <button data-dismiss="modal" type="button"><i class="si si-close"></i></button>
+                        </li>
+                    </ul>
+                    <h3 class="block-title">포인트 처리</h3>
+                </div>
+                <div class="block-content">
+                    <input type="hidden" id="category_code">
+                    <table class="table table-bordered fontsize">
+                        <col width="25%">
+                        <col width="75%">
+                        <tbody>
+                        <tr>
+                            <th class="text-center">포인트 타입<span class="check">*</span></th>
+                            <td>
+                                <select class="form-control">선택
+                                <option>지급</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="text-center">포인트<span class="check">*</span></th>
+                            <td>
+                                <input type="text" id="point" class="form-control">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="text-center">참조</th>
+                            <td>
+                                <input type="text" id="etc" class="form-control">
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-sm btn-default" type="button" data-dismiss="modal">닫기</button>
+                <button id="pointSave" class="btn btn-sm btn-danger" type="button"><i class="fa fa-check"></i> 등록</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 
