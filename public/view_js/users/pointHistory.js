@@ -1,8 +1,3 @@
-<<<<<<< HEAD
-/**
- * Created by kwangheejung on 2017. 10. 6..
- */
-=======
 $(function() {
     $(".pointBtn").click(function() {
         $('#pointModal').modal('show');
@@ -11,21 +6,31 @@ $(function() {
     $("#pointSave").click(function() {
 
 
+        if(inputTextCheck("code_point", "포인트 옵션을 선택해주세요") == false) {
+            return;
+        }
+
         if(inputTextCheck("point", "포인트를 입력해주세요.") == false) {
             return;
         }
 
         var json = {
             uid : $("#uid").val()
+            ,code_point : $("#code_point").val()
             ,point: $("#point").val()
+            ,point_msg: $("#point_msg").val()
+
         }
         common.ajax.send('/users/pointProcess', json);
         common.ajax.return = function(data) {
-            var dataJson = eval("("+data+")");
-            location.replace("/users/pointHistory");
+            console.log(data);
+
+            if(data.err == "000") {
+                location.reload();
+            } else {
+                alert("DB 오류 발생");
+            }
         }
     });
 
 });
-
->>>>>>> 3e86d56bab5854b7c3cc3a88785edabd61ed2ee4

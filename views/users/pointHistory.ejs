@@ -8,10 +8,11 @@
             </div>
         </div>
     </div>
+    <input type="hidden" id="uid" value="<%=uid%>">
     <div class="push-20-t col-xs-12 bg-white box round_box">
         <div class="row">
             <div class="col-xs-10 title">
-                <h3 class="block-title">UID : <%=pointList[0].UID%> | 이름 : <%=pointList[0].USERNAME%></h3>
+                <h3 class="block-title">UID :  | 이름 : </h3>
             </div>
             <div class="col-xs-2 text-right">
                 <span class="btn btn-sm btn-danger btn-rounded pointBtn">포인트 처리</span>
@@ -20,32 +21,43 @@
         </div>
         <div class="contents_list">
             <table id="list" class="table table-bordered fontsize">
+                <col width="4%">
+                <col width="8%">
+                <col width="30%">
+                <col width="30%">
                 <thead>
                 <tr>
                     <th>코드</th>
                     <th>포인트_타입</th>
                     <th>포인트</th>
-                    <th>설문</th>
+                    <th>포인트내용</th>
                     <th>등록일</th>
                 </tr>
                 </thead>
                 <tbody>
+
                     <% for(var i = 0; i<pointList.length; i++) { %>
                     <tr>
                         <td><%=pointList[i].SEQ%></td>
-                        <td><%=pointList[i].POINT_TYPE%></td>
-                        <td>
-                            <% if(pointList[i].POINT_TYPE == "지급") { %>
-                            +<%=pointList[i].POINT%>
+                        <td class="text-center">
+                            <% if(pointList[i].CODE_TYPE == "OUT") { %>
+                            <span class="label label-danger"><%=pointList[i].CODE_NAME%></span>
                             <% } else { %>
-                            -<%=pointList[i].POINT%>
+                            <span class="label label-success"><%=pointList[i].CODE_NAME%></span>
                             <% } %>
                         </td>
                         <td>
-                            <%=pointList[i].CAMPAIGN_TITLE%>
+                            <%=pointList[i].POINT%>P
                         </td>
                         <td>
-                            <%=pointList[i].INSERT_DATETIME%>
+                            <% if(pointList[i].CAMPAIGN_TITLE == "") { %>
+                            <%=pointList[i].POINT_MSG%>
+                            <% } else { %>
+                            <%=pointList[i].CAMPAIGN_TITLE%>
+                            <% } %>
+                        </td>
+                        <td>
+                            <%=moment(pointList[i].INSERT_DATETIME).format("YYYY-MM-DD hh:mm")%>
                         </td>
                     </tr>
                     <% } %>
@@ -85,8 +97,10 @@
                         <tr>
                             <th class="text-center">포인트 타입<span class="check">*</span></th>
                             <td>
-                                <select class="form-control">선택
-                                <option>지급</option>
+                                <select id="code_point" class="form-control">선택
+                                    <% for(var i = 0; i<codeList.length; i++) { %>
+                                    <option value="<%=codeList[i].CODE_POINT%>"><%=codeList[i].CODE_NAME%></option>
+                                    <% } %>
                                 </select>
                             </td>
                         </tr>
@@ -97,9 +111,14 @@
                             </td>
                         </tr>
                         <tr>
+                            <th class="text-center">설문리스트</th>
+                            <td>
+                            </td>
+                        </tr>
+                        <tr>
                             <th class="text-center">참조</th>
                             <td>
-                                <input type="text" id="etc" class="form-control">
+                                <input type="text" id="point_msg" class="form-control">
                             </td>
                         </tr>
                         </tbody>

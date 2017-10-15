@@ -102,6 +102,20 @@ var muser = {
         connection.end();
         return data;
     }
+    ,sp_MEMBER_POINT_HISTORY_SAVE: function(uid, point, point_type, point_msg, campaign_code, callback) {
+        var connection = mysql_dbc.init();
+        var query = " call sp_MEMBER_POINT_HISTORY(?, ?, ?, ?, ?)";
+        var params = [];
+        params.push(uid);
+        params.push(point);
+        params.push(point_type);
+        params.push(point_msg);
+        params.push(campaign_code);
+
+        var data = connection.query(query,params,callback);
+        connection.end();
+        return data;
+    }
     ,sp_MEMBER_POINT_HISTORY_LIST: function(uid, page, callback) {
         var connection = mysql_dbc.init();
         var query = " call sp_MEMBER_POINT_HISTORY_LIST(?, ?)";
@@ -109,6 +123,14 @@ var muser = {
         params.push(uid);
         params.push(page);
 
+        var data = connection.query(query,params,callback);
+        connection.end();
+        return data;
+    }
+    ,get_codePointList: function(callback) {
+        var connection = mysql_dbc.init();
+        var query = " SELECT * FROM CODE_POINT ORDER BY CODE_POINT ASC ";
+        var params = [];
         var data = connection.query(query,params,callback);
         connection.end();
         return data;

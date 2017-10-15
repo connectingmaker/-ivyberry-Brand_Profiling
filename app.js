@@ -26,6 +26,7 @@ var users = require('./controller/users');
 var campaign = require('./controller/campaign');
 var question = require("./controller/question");
 var statistics = require('./controller/statistics');
+var api = require("./controller/api")
 /* router import end */
 
 
@@ -70,7 +71,7 @@ app.use('/brand', brand);
 app.use('/campaign', campaign);
 app.use('/question', question);
 app.use('/statistics', statistics);
-
+app.use('/api', api);
 
 
 

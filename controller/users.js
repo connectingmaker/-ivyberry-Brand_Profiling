@@ -176,7 +176,6 @@ router.get("/pointHistory/:code", function(req, res) {
         var total = rows[0].TOTAL;
         start = viewCnt * (page - 1);
 
-        console.log(total);
 
         var boostrapPaginator = new pagination.TemplatePaginator({
             prelink:'/users/pointHistory', current: page, rowsPerPage: 10,
@@ -209,27 +208,55 @@ router.get("/pointHistory/:code", function(req, res) {
                 return html;
             }
         });
-
-        muser.sp_MEMBER_POINT_HISTORY_LIST(uid, page, function(err, rows) {
+        muser.get_codePointList(function(err, rows) {
             if(err) {
                 console.log(err);
                 throw err;
             }
 
-            var pointList = rows[0];
-            console.log(pointList)
-            res.render("users/pointHistory", { pageHtml: boostrapPaginator, pointList : pointList });
+            var codeList = rows;
+            muser.sp_MEMBER_POINT_HISTORY_LIST(uid, page, function(err, rows) {
+                if(err) {
+                    console.log(err);
+                    throw err;
+                }
+                var pointList = rows[0];
+
+                res.render("users/pointHistory", { pageHtml: boostrapPaginator, moment:moment, uid: uid, pointList : pointList, codeList : codeList });
+            });
         });
-
-
     });
 
 
 
 });
 
-router.get('/22222', function(req, res, next) {
-    res.send('respond with a resource');
+router.post('/pointProcess', function(req, res, next) {
+    var uid = req.body.uid;
+    var code_point = req.body.code_point;
+    var point = req.body.point;
+    var point_msg = req.body.point_msg;
+    var err = "";
+
+    muser.sp_MEMBER_POINT_HISTORY_SAVE(uid, point, code_point, point_msg, "", function(err, rows) {
+        if(err) {
+            console.log(err);
+            throw err;
+            err = "DB_ERR";
+        } else {
+            err = "000";
+
+
+        }
+
+        var data = {
+            err : err
+        };
+
+        res.send(data);
+
+
+    });
 });
 
 module.exports = router;
