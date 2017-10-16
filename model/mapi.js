@@ -25,5 +25,16 @@ var mapi = {
         connection.end();
         return data;
     }
+    ,userPhoneAuthCheck: function(phoneNumber, authCode, callback) {
+        var connection = mysql_dbc.init();
+        var query = " call sp_API_USER_PHONE_AUTH_CHECK(?, ?) ";
+        var params = [];
+        params.push(phoneNumber);
+        params.push(authCode);
+
+        var data = connection.query(query, params, callback);
+        connection.end();
+        return data;
+    }
 }
 module.exports = mapi;

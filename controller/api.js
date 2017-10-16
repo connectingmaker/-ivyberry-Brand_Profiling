@@ -50,4 +50,21 @@ router.post("/phoenNumberAuth", function(req, res) {
     })
 });
 
+
+/****************** 핸드폰번호 인증키 체크 ***************************/
+router.post("/phoneNumberAuthCheck", function(req, res) {
+    var phoneNumber = req.body.phoneNumber;
+    var authNumber = req.body.authNumber;
+    mapi.userPhoneAuthCheck(phoneNumber, authNumber, function(err, rows) {
+        if(err) {
+            console.log(err);
+            throw err;
+        }
+
+        var objToJson = rows[0];
+        var dataJson = JSON.stringify(objToJson);
+        res.send(dataJson);
+    });
+});
+
 module.exports = router;
