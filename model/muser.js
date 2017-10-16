@@ -76,7 +76,7 @@ var muser = {
     }
     ,sp_MEMBER_SAVE: function(uid, code_grade, username, useremail, userphone, userpasswd, sex, birthday, callback) {
         var connection = mysql_dbc.init();
-        var query = " call sp_MEMBER_SAVE(?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        var query = " call sp_MEMBER_SAVE(?, ?, ?, ?, ?, ?, ?, ?)";
         var params = [];
         params.push(uid);
         params.push(code_grade);

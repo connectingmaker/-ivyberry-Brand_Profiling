@@ -7,6 +7,7 @@ var router = express.Router();
 
 
 var mapi = require("../model/mapi");
+var muser = require("../model/muser");
 var moment = require('moment');
 
 
@@ -56,6 +57,26 @@ router.post("/phoneNumberAuthCheck", function(req, res) {
     var phoneNumber = req.body.phoneNumber;
     var authNumber = req.body.authNumber;
     mapi.userPhoneAuthCheck(phoneNumber, authNumber, function(err, rows) {
+        if(err) {
+            console.log(err);
+            throw err;
+        }
+
+        var objToJson = rows[0];
+        var dataJson = JSON.stringify(objToJson);
+        res.send(dataJson);
+    });
+});
+
+router.post("/memberInsert", function(req,res) {
+    var code_grade = 0;
+    var username = "";
+    var useremail = req.body.useremail;
+    var userphone = req.body.userphone;
+    var userpasswd = req.body.userpasswd;
+    var birthday = "";
+
+    muser.sp_MEMBER_SAVE('', code_grade, '', useremail, userphone, userpasswd, 'N', '', function(err,rows) {
         if(err) {
             console.log(err);
             throw err;
