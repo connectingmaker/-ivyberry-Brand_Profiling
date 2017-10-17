@@ -88,4 +88,35 @@ router.post("/memberInsert", function(req,res) {
     });
 });
 
+router.post("/memberSelect", function(req, res) {
+    var useremail = req.body.useremail;
+    var userpasswd = req.body.userpasswd;
+
+    mapi.userSelect(useremail, userpasswd, function(err, rows) {
+        if(err) {
+            console.log(err);
+            throw err;
+        }
+
+        var objToJson = rows[0];
+        var dataJson = JSON.stringify(objToJson);
+        res.send(dataJson);
+    });
+});
+
+router.get("/campaignList", function(req, res) {
+    //var uid = req.body.uid;
+    var uid = "20170926181112gz0317";
+    mapi.campaignList(uid, function(err,rows) {
+        if(err) {
+            console.log(err);
+            throw err;
+        }
+        var objToJson = rows[0];
+        var dataJson = JSON.stringify(objToJson);
+        res.send(dataJson);
+
+    });
+});
+
 module.exports = router;

@@ -36,5 +36,26 @@ var mapi = {
         connection.end();
         return data;
     }
+    ,userSelect: function(email, passwd, callback) {
+        var connection = mysql_dbc.init();
+        var query = " call sp_API_USER(?, ?) ";
+        var params = [];
+        params.push(email);
+        params.push(passwd);
+
+        var data = connection.query(query, params, callback);
+        connection.end();
+        return data;
+    }
+    ,campaignList: function(uid, callback) {
+        var connection = mysql_dbc.init();
+        var query = " call sp_API_CAMPAIGN_LIST(?) ";
+        var params = [];
+        params.push(uid);
+
+        var data = connection.query(query, params, callback);
+        connection.end();
+        return data;
+    }
 }
 module.exports = mapi;
