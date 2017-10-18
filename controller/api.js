@@ -68,6 +68,8 @@ router.post("/phoneNumberAuthCheck", function(req, res) {
     });
 });
 
+
+/****************** 회원등록 ***************************/
 router.post("/memberInsert", function(req,res) {
     var code_grade = 0;
     var username = "";
@@ -88,6 +90,8 @@ router.post("/memberInsert", function(req,res) {
     });
 });
 
+
+/****************** 회원조회 ***************************/
 router.post("/memberSelect", function(req, res) {
     var useremail = req.body.useremail;
     var userpasswd = req.body.userpasswd;
@@ -104,6 +108,8 @@ router.post("/memberSelect", function(req, res) {
     });
 });
 
+
+/****************** 캠페인리스트 ***************************/
 router.get("/campaignList", function(req, res) {
     //var uid = req.body.uid;
     var uid = "20170926181112gz0317";
@@ -117,6 +123,11 @@ router.get("/campaignList", function(req, res) {
         res.send(dataJson);
 
     });
+});
+
+/****************** 포인트 히스토리 ***************************/
+router.get("/pointHistory", function(req, res) {
+    res.send("1111");
 });
 
 module.exports = router;
