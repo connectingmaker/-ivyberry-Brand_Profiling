@@ -127,7 +127,21 @@ router.get("/campaignList", function(req, res) {
 
 /****************** 포인트 히스토리 ***************************/
 router.get("/pointHistory", function(req, res) {
-    res.send("1111");
+    //var uid = req.body.uid;
+    //var code_point = req.body.code_point;
+    var uid = "20170926181112gz0317";
+    var code_point = 1;
+    mapi.pointHistoryList(uid, code_point, function(err,rows) {
+        if(err) {
+            console.log(err);
+            throw err;
+        }
+        var objToJson = rows[0];
+        var dataJson = JSON.stringify(objToJson);
+        res.send(dataJson);
+
+    });
+
 });
 
 module.exports = router;

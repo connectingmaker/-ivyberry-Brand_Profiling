@@ -57,5 +57,16 @@ var mapi = {
         connection.end();
         return data;
     }
+    ,pointHistoryList: function(uid, code_point, callback) {
+        var connection = mysql_dbc.init();
+        var query = " call sp_API_POINT_HISTORY(?, ?) ";
+        var params = [];
+        params.push(uid);
+        params.push(code_point);
+
+        var data = connection.query(query, params, callback);
+        connection.end();
+        return data;
+    }
 }
 module.exports = mapi;
