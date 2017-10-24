@@ -117,6 +117,7 @@ router.get("/campaignList", function(req, res) {
         if(err) {
             console.log(err);
             throw err;
+
         }
         var objToJson = rows[0];
         var dataJson = JSON.stringify(objToJson);
@@ -143,18 +144,35 @@ router.get("/pointHistory", function(req, res) {
                 console.log(err);
                 throw err;
             }
+
             var objToJson = rows[0];
             var dataJson = JSON.stringify(objToJson);
-            var data = {
-                "userPoint" : userPoint
-                ,"inPointList" : dataJson
-            };
 
-            res.send(JSON.stringify(data));
+
+            mapi.pointHistoryBank(uid, function(err, rows) {
+                if(err) {
+                    console.log(err);
+                    throw err;
+                }
+                var bankToJson = rows[0];
+                var bankJson = JSON.stringify(bankToJson);
+                var data = {
+                    "userPoint" : userPoint
+                    ,"inPointList" : dataJson
+                    ,"bankPointList" : bankJson
+                };
+
+                res.send(JSON.stringify(data));
+
+            });
+
+
+
 
         });
     });
-
 });
+
+
 
 module.exports = router;

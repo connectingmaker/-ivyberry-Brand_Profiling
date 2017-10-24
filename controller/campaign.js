@@ -10,7 +10,7 @@ var moment = require('moment');
 
 
 router.get('/list', function(req, res, next) {
-    mcampaign.get_campaign_list("N", function(err, rows) {
+    mcampaign.get_campaign_list("", function(err, rows) {
         var campaignlist = rows;
         res.render('campaign/list', { moment: moment, campaignlist : campaignlist });
     });

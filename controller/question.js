@@ -103,6 +103,25 @@ router.post("/qDelete", function(req, res) {
     });
 });
 
+router.post("/qaDelete", function(req, res) {
+    var q_code = req.body.q_code;
+    var qa_code = req.body.qa_code;
+
+    mquestion.sp_QUESTION_QA_DELETE(q_code, qa_code, function(err, rows) {
+        if(err) {
+            console.log(err);
+            throw err;
+        }
+        var jsonData = {
+            q_code : q_code
+            ,qa_code : qa_code
+        }
+
+        res.send(jsonData);
+
+    });
+});
+
 router.post("/qUseUpdate", function(req, res) {
     var q_code = req.body.q_code;
     var use_yn = req.body.use_yn;
@@ -161,6 +180,39 @@ router.post("/singleProcess", function(req, res) {
     });
 });
 
+
+
+router.post("/qSelectMulti", function(req, res) {
+    var q_code = req.body.q_code;
+    var question_type = req.body.question_type;
+
+    mquestion.sp_QUESTION_Q(q_code, function(err, rows) {
+        if(err) {
+            console.log(err);
+            throw err;
+        }
+        var qData = rows[0];
+        mquestion.sp_QUESTION_QA(q_code, function(err, rows) {
+            var qaData = rows[0];
+
+            var jsonData = {
+                q: qData
+                ,qa: qaData
+            };
+
+            var dataJson = JSON.stringify(jsonData);
+
+            console.log(dataJson);
+
+            res.send(dataJson);
+
+
+        });
+    });
+
+
+});
+
 router.post("/multiProcess", function(req, res) {
     var q_code = req.body.q_code;
     var group_code = req.body.group_code;
@@ -193,6 +245,8 @@ router.post("/multiProcess", function(req, res) {
         });
     });
 });
+
+
 
 router.post("/scaleProcess", function(req, res) {
     var q_code = req.body.q_code;

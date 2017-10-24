@@ -95,6 +95,8 @@ $(function() {
         common.ajax.return = function(data) {
             var jsonData = eval("("+data+")");
 
+            console.log(jsonData);
+
             $("#brand_name_ko").val(jsonData.BRAND_NAME_KO);
             $("#memo").val(jsonData.MEMO);
             $("#brand_name_en").val(jsonData.BRAND_NAME_EN);

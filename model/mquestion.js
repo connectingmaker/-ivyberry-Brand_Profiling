@@ -107,7 +107,7 @@ var mquestion = {
         for(var i = 0; i<qaData.length; i++) {
             params = [];
             params.push(q_code);
-            params.push("");
+            params.push(qaData[i].qa_code);
             params.push(qaData[i].qa_title_ko);
             params.push(qaData[i].qa_title_en);
             params.push(qaData[i].qa_title_cn);
@@ -122,6 +122,19 @@ var mquestion = {
         }
 
     }
+    ,sp_QUESTION_QA_DELETE: function(q_code, qa_code, callback) {
+        var connection = mysql_dbc.init();
+        var query = " call sp_QUESTION_QA_DELETE(?, ?) ";
+
+        var params = [];
+
+        params.push(q_code);
+        params.push(qa_code);
+
+        var data = connection.query(query,params, callback);
+        connection.end();
+        return data;
+    }
     ,setQuestionQUse: function(q_code, use_yn, callback) {
         var connection = mysql_dbc.init();
         var query = " UPDATE QUESTION_Q SET USE_YN = ? WHERE Q_CODE = ? ";
@@ -129,6 +142,31 @@ var mquestion = {
         var params = [];
 
         params.push(use_yn);
+        params.push(q_code);
+
+        var data = connection.query(query,params, callback);
+        connection.end();
+        return data;
+    }
+    ,sp_QUESTION_Q: function(q_code, callback) {
+        var connection = mysql_dbc.init();
+        var query = " call sp_QUESTION_Q_SELECT(?) ";
+
+        var params = [];
+
+        params.push(q_code);
+
+        var data = connection.query(query,params, callback);
+        connection.end();
+        return data;
+    }
+
+    ,sp_QUESTION_QA: function(q_code, callback) {
+        var connection = mysql_dbc.init();
+        var query = " call sp_QUESTION_QA_SELECT(?) ";
+
+        var params = [];
+
         params.push(q_code);
 
         var data = connection.query(query,params, callback);
