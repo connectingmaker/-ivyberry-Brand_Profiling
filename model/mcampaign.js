@@ -25,14 +25,23 @@ var mcampaign = {
     }
     ,get_campaign_list: function(campaign_ing, callback) {
         var connection = mysql_dbc.init();
-        var query = " SELECT CAMPAIGN_CODE, CAMPAIGN_TITLE, CAMPAIGN_DESC, CATEGORY_CODE, FROM_UNIXTIME(CAMPAIGN_STARTDATE) AS CAMPAIGN_STARTDATE, FROM_UNIXTIME(CAMPAIGN_ENDDATE) AS CAMPAIGN_ENDDATE, CAMPAIGN_ING, VIRTUAL_YN, JOIN_CNT, INSERT_DATETIME, MODIFY_DATETIME FROM CAMPAIGN WHERE CAMPAIGN_ING IN(?) ORDER BY INSERT_DATETIME DESC ";
+        if(campaign_ing == "") {
+            var query = " SELECT CAMPAIGN_CODE, CAMPAIGN_TITLE, CAMPAIGN_DESC, CATEGORY_CODE, FROM_UNIXTIME(CAMPAIGN_STARTDATE) AS CAMPAIGN_STARTDATE, FROM_UNIXTIME(CAMPAIGN_ENDDATE) AS CAMPAIGN_ENDDATE, CASE CAMPAIGN_ING WHEN 'N' THEN '대기' WHEN 'S' THEN '진행중' WHEN 'E' THEN '완료' END CAMPAIGN_ING_TEXT, VIRTUAL_YN, JOIN_CNT, INSERT_DATETIME, MODIFY_DATETIME FROM CAMPAIGN ORDER BY INSERT_DATETIME DESC ";
+            var params = [];
+            params.push();
 
-        var params = [];
-        params.push(campaign_ing);
+            var data = connection.query(query, params, callback);
+            connection.end();
+            return data;
+        } else {
+            var query = " SELECT CAMPAIGN_CODE, CAMPAIGN_TITLE, CAMPAIGN_DESC, CATEGORY_CODE, FROM_UNIXTIME(CAMPAIGN_STARTDATE) AS CAMPAIGN_STARTDATE, FROM_UNIXTIME(CAMPAIGN_ENDDATE) AS CAMPAIGN_ENDDATE, CASE CAMPAIGN_ING WHEN 'N' THEN '대기' WHEN 'S' THEN '진행중' WHEN 'E' THEN '완료' END CAMPAIGN_ING_TEXT, VIRTUAL_YN, JOIN_CNT, INSERT_DATETIME, MODIFY_DATETIME FROM CAMPAIGN WHERE CAMPAIGN_ING = ? ORDER BY INSERT_DATETIME DESC ";
+            var params = [];
+            params.push(campaign_ing);
 
-        var data = connection.query(query,params,callback);
-        connection.end();
-        return data;
+            var data = connection.query(query, params, callback);
+            connection.end();
+            return data;
+        }
     }
     ,get_campaign_select: function(campaign_code, callback) {
         var connection = mysql_dbc.init();

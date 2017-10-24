@@ -143,6 +143,9 @@ $(function() {
     if(controller == 'question'){
         $(".question").addClass("active");
     }
+    if(controller == 'notice'){
+        $(".notice").addClass("active");
+    }
 
     //console.log(urlData);
-})
+});

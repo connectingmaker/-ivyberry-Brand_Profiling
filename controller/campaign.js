@@ -10,9 +10,13 @@ var moment = require('moment');
 
 
 router.get('/list', function(req, res, next) {
-    mcampaign.get_campaign_list("", function(err, rows) {
+    var type = req.param("type");
+    if(type == undefined) {
+        type = "";
+    }
+    mcampaign.get_campaign_list(type, function(err, rows) {
         var campaignlist = rows;
-        res.render('campaign/list', { moment: moment, campaignlist : campaignlist });
+        res.render('campaign/list', { moment: moment, campaignlist : campaignlist, type : type });
     });
 
 });
