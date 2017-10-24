@@ -1,3 +1,5 @@
+console.log("OK");
+
 var multi_template = "";
 multi_template = "<tr id='[_ID_]'>";
 multi_template += '<td style="padding:5px;"><input type="text" class="form-control qa_code" value="[_QA_CODE_]" readonly></td>';
