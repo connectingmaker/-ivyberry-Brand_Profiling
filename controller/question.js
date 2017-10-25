@@ -1,10 +1,21 @@
 var express = require('express');
 var router = express.Router();
+var path = require('path');
 var mquestion = require("../model/mquestion");
 var moment = require('moment');
 
-var multer = require("multer");
-var upload = multer({ dest: 'uploads/' });
+var multer = require('multer');//업로드를 위한 multer를 가져옴
+var storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, 'public/uploads/')
+    },
+    filename: function (req, file, cb) {
+        cb(null, Date.now().toString() + path.extname(file.originalname))
+    }
+});
+
+var upload = multer({storage:storage});//uploads라는 폴더가 업로드 폴더임
+var fs = require('fs');
 
 /* GET users listing. */
 router.get('/group', function(req, res, next) {
@@ -256,11 +267,41 @@ router.post("/scaleProcess", function(req, res) {
     var q_title_ko = req.body.q_title_ko;
     var q_title_en = req.body.q_title_en;
     var q_title_cn = req.body.q_title_cn;
+    var q_img_min = "";
+    var q_img_max = "";
+    var q_text_min = "";
+    var q_text_max = "";
+
+    if(req.body.q_img_min == undefined) {
+        q_img_min = "";
+    } else {
+        q_img_min = req.body.q_img_min;
+    }
+
+    if(req.body.q_img_max == undefined) {
+        q_img_max = "";
+    } else {
+        q_img_max = req.body.q_img_max;
+    }
+
+    if(req.body.q_text_min == undefined) {
+        q_text_min = "";
+    } else {
+        q_text_min = req.body.q_text_min;
+    }
+
+
+    if(req.body.q_text_max == undefined) {
+        q_text_max = "";
+    } else {
+        q_text_max = req.body.q_text_max;
+    }
+
     var etc = req.body.etc;
     var memo = req.body.memo;
     var qaData = eval("("+req.body.qaJson+")");
 
-    mquestion.sp_QUESTION_Q_SAVE(q_code, group_code, q_name, q_title_ko, q_title_en, q_title_cn, etc, memo, function(err, rows) {
+    mquestion.sp_QUESTION_Q_SAVE(q_code, group_code, q_name, q_title_ko, q_title_en, q_title_cn, etc, memo, q_img_min, q_img_max, q_text_min, q_text_min, function(err, rows) {
         if(err) {
             console.log(err);
             throw err;
@@ -281,10 +322,15 @@ router.post("/scaleProcess", function(req, res) {
     });
 });
 
-router.post("/scaleImgProcess", upload.array('uploadFile'), function(req, res) {
-    console.log(req.body);
-    res.send("111");
+
+router.post("/imageUpdate", upload.single('qa_title_img'), function(req, res){
+    var json = {
+        img : req.file.filename
+    };
+
+    res.send(json);
 });
+
 
 
 module.exports = router;
