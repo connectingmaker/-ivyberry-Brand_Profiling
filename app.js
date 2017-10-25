@@ -26,7 +26,8 @@ var users = require('./controller/users');
 var campaign = require('./controller/campaign');
 var question = require("./controller/question");
 var statistics = require('./controller/statistics');
-var api = require("./controller/api")
+var survey = require('./controller/survey');
+var api = require("./controller/api");
 /* router import end */
 
 
@@ -73,6 +74,7 @@ app.use('/campaign', campaign);
 app.use('/question', question);
 app.use('/statistics', statistics);
 app.use('/api', api);
+app.use('/survey',survey);
 
 
 
