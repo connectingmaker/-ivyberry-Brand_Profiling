@@ -170,7 +170,7 @@ router.post("/singleProcess", function(req, res) {
     var memo = req.body.memo;
     var qaData = eval("("+req.body.qaJson+")");
 
-    mquestion.sp_QUESTION_Q_SAVE(q_code, group_code, q_name, q_title_ko, q_title_en, q_title_cn, etc, memo, function(err, rows) {
+    mquestion.sp_QUESTION_Q_SAVE(q_code, group_code, q_name, q_title_ko, q_title_en, q_title_cn, etc, memo, "", "", "", "", function(err, rows) {
         if(err) {
             console.log(err);
             throw err;
@@ -236,7 +236,7 @@ router.post("/multiProcess", function(req, res) {
     var memo = req.body.memo;
     var qaData = eval("("+req.body.qaJson+")");
 
-    mquestion.sp_QUESTION_Q_SAVE(q_code, group_code, q_name, q_title_ko, q_title_en, q_title_cn, etc, memo, function(err, rows) {
+    mquestion.sp_QUESTION_Q_SAVE(q_code, group_code, q_name, q_title_ko, q_title_en, q_title_cn, etc, memo, "", "", "", "", function(err, rows) {
         if(err) {
             console.log(err);
             throw err;
