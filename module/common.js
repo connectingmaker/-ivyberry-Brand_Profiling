@@ -21,3 +21,4 @@ module.exports = function number_format (number, decimals, decPoint, thousandsSe
     }
     return s.join(dec)
 }
+
