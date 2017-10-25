@@ -80,9 +80,9 @@ var mquestion = {
         connection.end();
         return data;
     }
-    ,sp_QUESTION_Q_SAVE: function(q_code, group_code, q_name, q_title_ko, q_title_en, q_title_cn, etc, memo, callback) {
+    ,sp_QUESTION_Q_SAVE: function(q_code, group_code, q_name, q_title_ko, q_title_en, q_title_cn, etc, memo, q_img_min, q_img_max, q_text_min, q_text_max, callback) {
         var connection = mysql_dbc.init();
-        var query = " call sp_QUESTION_Q_SAVE(?, ?, ?, ?, ?, ?, ?, ?) ";
+        var query = " call sp_QUESTION_Q_SAVE(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ";
 
         var params = [];
 
@@ -94,6 +94,10 @@ var mquestion = {
         params.push(q_title_cn);
         params.push(etc);
         params.push(memo);
+        params.push(q_img_min);
+        params.push(q_img_max);
+        params.push(q_text_min);
+        params.push(q_text_max);
 
         var data = connection.query(query,params, callback);
         connection.end();
@@ -101,7 +105,7 @@ var mquestion = {
     }
     ,sp_QUESTION_QA_SAVE: function(q_code, qaData, callback) {
         var connection = mysql_dbc.init();
-        var query = " call sp_QUESTION_QA_SAVE(?, ?, ?, ?, ?) ";
+        var query = " call sp_QUESTION_QA_SAVE(?, ?, ?, ?, ?, ?) ";
 
         var params = [];
         for(var i = 0; i<qaData.length; i++) {
@@ -111,6 +115,7 @@ var mquestion = {
             params.push(qaData[i].qa_title_ko);
             params.push(qaData[i].qa_title_en);
             params.push(qaData[i].qa_title_cn);
+            params.push(qaData[i].img);
             if(i == qaData.length - 1) {
                 var data = connection.query(query, params, callback);
                 connection.end();
