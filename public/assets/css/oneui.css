@@ -1572,11 +1572,11 @@ a.list-group-item:focus {
 .list-group-item.active,
 .list-group-item.active:hover,
 .list-group-item.active:focus {
-    background-color: #5c90d2;
-    border-color: #5c90d2;
+    background-color: #DA4211;
+    border-color: #f1f1f1;
 }
 .list-group-item.active > .badge {
-    color: #5c90d2;
+    color: #DA4211;
 }
 .breadcrumb {
     padding: 0;
@@ -5599,6 +5599,9 @@ fieldset[disabled] .form-material.floating > label {
 .css-radio-primary input:checked + span:after {
     background-color: #5c90d2;
 }
+.css-radio-color input:checked + span:after {
+    background-color: #DA4211;
+}
 .css-radio-info input:checked + span:after {
     background-color: #70b9eb;
 }
@@ -6141,9 +6144,11 @@ a.block.block-link-hover3:active {
     color: rgba(255, 255, 255, 0.25);
     content: "\f104";
 }
+/*
 .nav-main a.nav-submenu:before.nav-main a.nav-submenu:before-fwidth {
     width: 100%;
 }
+*/
 .nav-main ul {
     margin: 0;
     padding: 0 0 0 50px;
@@ -6535,9 +6540,11 @@ a.block.block-link-hover3:active {
     color: rgba(255, 255, 255, 0.75);
     content: "\f073";
 }
+/*
 .list-events > li:before.list-events > li:before-fwidth {
     width: 100%;
 }
+*/
 .list-events > li:hover {
     cursor: move;
 }
@@ -6615,7 +6622,7 @@ a.block.block-link-hover3:active {
     content: "";
     background-color: rgba(0, 0, 0, 0.6);
     opacity: 0;
-    visibility: none;
+    visibility: visible;
     -webkit-transition: all 0.25s ease-out;
     transition: all 0.25s ease-out;
 }
