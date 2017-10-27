@@ -1,0 +1,28 @@
+<div class="content bg-gray-lighter round_box" >
+    <div class="row items-push">
+        <div class="col-sm-12 text-center title">
+            <h5 class="text-center"> <span class="Textcolor">1</span> / 1</h5>
+            <small><span class="Textcolor">하단의 다음 단계를 눌러주세요.</span></small>
+        </div>
+    </div>
+</div>
+<div class="content col-sm-12 text-center bg-white round_box">
+    <span class="Textcolor">하이트</span><small>-브랜드와 어울리는 이미지를 선택해주세요.<span class="Textcolor">(1개)</span></small>
+</div>
+
+<div class="container AnswerTitle">
+    <div class="row">
+        <div class="col-xs-12">
+            <form method="get">
+                <div class="form-group">
+                <% for(var i = 0; i<7; i++) { %>
+                    <div class="col-xs-6 text-center push-10"><label class="btn btn-danger imgbg"><img src="../../public/img/img_default.png" class="img-thumbnail img-check" style="width:160px; height: 160px;"><input type="checkbox" name="chk<%=i%>" id="item<%=i%>" value="val<%=i%>" class="hidden" autocomplete="off"></label></div>
+                <%}%>
+                </div>
+                <!--<input type="submit" value="Check Item" class="btn btn-success">-->
+            </form>
+        </div>
+    </div>
+</div>
+
+<script language="javascript" src="/view_js/survey/imgSelectType.js"></script>
