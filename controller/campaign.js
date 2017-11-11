@@ -21,6 +21,24 @@ router.get('/list', function(req, res, next) {
 
 });
 
+router.post("/listStats", function(req, res) {
+    var campaign_code = req.body.campaign_code;
+    var status = req.body.status;
+
+    mcampaign.set_campaign_statusUpdate(campaign_code,status, function(err, rows) {
+        if(err) {
+            console.log(err);
+            throw err;
+        }
+
+        var json = {
+            ERR_CODE : "000"
+        }
+
+        res.send(json);
+    });
+});
+
 router.get('/write', function(req, res) {
     mbrand.get_BrandCategoryList_BRAND(function(err,rows) {
         var brandlist = rows;
@@ -226,7 +244,40 @@ router.get("/setting/:code", function(req, res) {
             var gradelist = rows[0];
             mcampaign.sp_CAMPAIGN_QUEST_SETTING_LIST(campaign_code, function(err, rows) {
                 var questList = rows[0];
-                res.render("campaign/setting", { campaign_code : campaign_code, campaign_data : campaign_data, gradelist : gradelist, questList: questList});
+
+                mcampaign.sp_CAMPAIGN_QUOTA_SEX(campaign_code, function(err, rows) {
+                    if(err) {
+                        console.log(err);
+                        throw err;
+                    }
+                    var sexQuota = rows[0];
+                    mcampaign.sp_CAMPAIGN_QUOTA_AREA(campaign_code, function(err, rows) {
+                        if(err) {
+                            console.log(err);
+                            throw err;
+                        }
+                        var areaQuota = rows[0];
+                        mcampaign.quotaAGESelect(campaign_code, function(err, rows) {
+                            if(err) {
+                                console.log(err);
+                                throw err;
+                            }
+                            var ageQuota = rows;
+                            mcampaign.sp_CAMPAIGN_QUOTA_MONEY(campaign_code, function(err, rows) {
+                                if(err) {
+                                    console.log(err);
+                                    throw err;
+                                }
+                                var moneyQuota = rows[0];
+                                res.render("campaign/setting", { campaign_code : campaign_code, campaign_data : campaign_data, gradelist : gradelist, questList: questList, sexQuota: sexQuota, ageQuota:ageQuota, areaQuota: areaQuota, moneyQuota: moneyQuota});
+                            });
+
+                        });
+
+                    });
+                });
+
+
             });
 
         });
@@ -237,6 +288,12 @@ router.post("/settingProcess", function(req, res) {
     var campaign_code = req.body.campaign_code;
     var grade_code = req.body.grade_code;
     var join_cnt = req.body.join_cnt;
+    var startAge = req.body.startAge;
+    var endAge = req.body.endAge;
+    var area = req.body.area;
+    var sex = req.body.sex;
+    var money = req.body.money;
+
     var questData = eval("("+req.body.questData+")");
     var err = "";
 
@@ -261,12 +318,25 @@ router.post("/settingProcess", function(req, res) {
                 };
             }
 
-            err = "000";
-            var data = {
-                err : err
-            };
+            mcampaign.sp_CAMPAIGN_QUOTA_SAVE(campaign_code, sex, startAge, endAge, area, money, function(err, rows) {
+                if(err) {
+                    console.log(err);
+                    throw err;
+                    err = "DB_ERR";
+                    var data = {
+                        err : err
+                    };
+                }
 
-            res.send(data);
+                err = "000";
+                var data = {
+                    err : err
+                };
+
+                res.send(data);
+            });
+
+
         })
 
     });

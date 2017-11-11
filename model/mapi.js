@@ -89,5 +89,91 @@ var mapi = {
         connection.end();
         return data;
     }
+    ,surveyStart: function(campaign_code, uid, quest_num, callback) {
+        var connection = mysql_dbc.init();
+        var query = " call sp_API_SURVEY_START(?, ?, ?) ";
+        var params = [];
+        params.push(campaign_code, uid, quest_num);
+
+        var data = connection.query(query, params, callback);
+        connection.end();
+        return data;
+    }
+    ,surveyPage: function(campaign_code, quest_num, callback) {
+        var connection = mysql_dbc.init();
+        var query = " call sp_API_SURVEY_PAGE(?, ?) ";
+        var params = [];
+        params.push(campaign_code, quest_num);
+
+        var data = connection.query(query, params, callback);
+        connection.end();
+        return data;
+    }
+    ,brandList: function(campaign_code, seq, callback) {
+        var connection = mysql_dbc.init();
+        var query = " call sp_API_SURVEY_BRAND(?, ?) ";
+        var params = [];
+        params.push(campaign_code, seq);
+
+        var data = connection.query(query, params, callback);
+        connection.end();
+        return data;
+    }
+    ,brandSave: function(seq, data, callback) {
+        var connection = mysql_dbc.init();
+        var query = " call sp_QUESTION_QA_SAVE(?, ?, ?, ?, ?, ?) ";
+
+        var params = [];
+        for(var i = 0; i<data.length; i++) {
+            params = [];
+            params.push(q_code);
+            params.push(qaData[i].qa_code);
+            params.push(qaData[i].qa_title_ko);
+            params.push(qaData[i].qa_title_en);
+            params.push(qaData[i].qa_title_cn);
+            params.push(qaData[i].img);
+            if(i == data.length - 1) {
+                var data = connection.query(query, params, callback);
+                connection.end();
+                return data;
+            } else {
+                var data = connection.query(query, params);
+            }
+
+        }
+    }
+    ,sp_API_MEMBER_SELECT: function(uid, callback) {
+        var connection = mysql_dbc.init();
+        var query = " call sp_API_MEMBER_SELECT(?) ";
+        var params = [];
+        params.push(uid);
+
+        var data = connection.query(query, params, callback);
+        connection.end();
+        return data;
+    }
+    ,sp_API_PWD_USER_CHECK: function(uid, email, phone, callback) {
+        var connection = mysql_dbc.init();
+        var query = " call sp_API_PWD_USER_CHECK(?, ?, ?) ";
+        var params = [];
+        params.push(uid);
+        params.push(email);
+        params.push(phone);
+
+        var data = connection.query(query, params, callback);
+        connection.end();
+        return data;
+    }
+    ,sp_API_PWD_CHANGE: function(uid, pwd, callback) {
+        var connection = mysql_dbc.init();
+        var query = " call sp_API_PWD_CHANGE(?, ?) ";
+        var params = [];
+        params.push(uid);
+        params.push(pwd);
+
+        var data = connection.query(query, params, callback);
+        connection.end();
+        return data;
+    }
 }
 module.exports = mapi;

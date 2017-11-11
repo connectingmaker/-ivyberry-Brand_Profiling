@@ -59,7 +59,7 @@ var mbrand = {
         var connection = mysql_dbc.init();
         var query = " SELECT * ";
         query += " , 0 AS CNT"
-        query += " FROM BRAND_CATEGORY ORDER BY CATEGORY_CODE ASC ";
+        query += " FROM BRAND_CATEGORY WHERE CATEGORY_CODE <> '9999' ORDER BY CATEGORY_CODE ASC ";
 
         var data = connection.query(query, callback);
         connection.end();
@@ -71,7 +71,7 @@ var mbrand = {
         var connection = mysql_dbc.init();
         var query = " SELECT * ";
         query += " , IFNULL((SELECT GROUP_CONCAT(BRAND_NAME_KO) FROM BRAND_CATEGORY_SUB WHERE CATEGORY_CODE = BC.CATEGORY_CODE ORDER BY DETAIL_CATEGORY_CODE ASC),'') AS BRAND_LIST"
-        query += " FROM BRAND_CATEGORY BC ORDER BY BC.CATEGORY_CODE ASC ";
+        query += " FROM BRAND_CATEGORY BC WHERE BC.CATEGORY_CODE <> '9999' ORDER BY BC.CATEGORY_CODE ASC ";
 
         var data = connection.query(query, callback);
         connection.end();

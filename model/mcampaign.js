@@ -23,10 +23,21 @@ var mcampaign = {
         connection.end();
         return data;
     }
+    ,set_campaign_statusUpdate: function(campaign_code, status, callback) {
+        var connection = mysql_dbc.init();
+        var query = " UPDATE CAMPAIGN SET CAMPAIGN_ING = ? WHERE CAMPAIGN_CODE = ?";
+        var params = [];
+        params.push(status);
+        params.push(campaign_code);
+
+        var data = connection.query(query,params,callback);
+        connection.end();
+        return data;
+    }
     ,get_campaign_list: function(campaign_ing, callback) {
         var connection = mysql_dbc.init();
         if(campaign_ing == "") {
-            var query = " SELECT CAMPAIGN_CODE, CAMPAIGN_TITLE, CAMPAIGN_DESC, CATEGORY_CODE, FROM_UNIXTIME(CAMPAIGN_STARTDATE) AS CAMPAIGN_STARTDATE, FROM_UNIXTIME(CAMPAIGN_ENDDATE) AS CAMPAIGN_ENDDATE, CASE CAMPAIGN_ING WHEN 'N' THEN '대기' WHEN 'S' THEN '진행중' WHEN 'E' THEN '완료' END CAMPAIGN_ING_TEXT, VIRTUAL_YN, JOIN_CNT, INSERT_DATETIME, MODIFY_DATETIME FROM CAMPAIGN ORDER BY INSERT_DATETIME DESC ";
+            var query = " SELECT C.CAMPAIGN_CODE, C.CAMPAIGN_TITLE, C.CAMPAIGN_DESC, C.CATEGORY_CODE, FROM_UNIXTIME(C.CAMPAIGN_STARTDATE) AS CAMPAIGN_STARTDATE, FROM_UNIXTIME(C.CAMPAIGN_ENDDATE) AS CAMPAIGN_ENDDATE, C.CAMPAIGN_ING, CASE C.CAMPAIGN_ING WHEN 'N' THEN '대기' WHEN 'S' THEN '진행중' WHEN 'E' THEN '완료' END CAMPAIGN_ING_TEXT, C.VIRTUAL_YN, C.JOIN_CNT, BC.CATEGORY_NAME_KO, C.INSERT_DATETIME, C.MODIFY_DATETIME FROM CAMPAIGN C JOIN BRAND_CATEGORY BC ON(C.CATEGORY_CODE = BC.CATEGORY_CODE) ORDER BY C.INSERT_DATETIME DESC ";
             var params = [];
             params.push();
 
@@ -34,7 +45,7 @@ var mcampaign = {
             connection.end();
             return data;
         } else {
-            var query = " SELECT CAMPAIGN_CODE, CAMPAIGN_TITLE, CAMPAIGN_DESC, CATEGORY_CODE, FROM_UNIXTIME(CAMPAIGN_STARTDATE) AS CAMPAIGN_STARTDATE, FROM_UNIXTIME(CAMPAIGN_ENDDATE) AS CAMPAIGN_ENDDATE, CASE CAMPAIGN_ING WHEN 'N' THEN '대기' WHEN 'S' THEN '진행중' WHEN 'E' THEN '완료' END CAMPAIGN_ING_TEXT, VIRTUAL_YN, JOIN_CNT, INSERT_DATETIME, MODIFY_DATETIME FROM CAMPAIGN WHERE CAMPAIGN_ING = ? ORDER BY INSERT_DATETIME DESC ";
+            var query = " SELECT C.CAMPAIGN_CODE, C.CAMPAIGN_TITLE, C.CAMPAIGN_DESC, C.CATEGORY_CODE, FROM_UNIXTIME(C.CAMPAIGN_STARTDATE) AS CAMPAIGN_STARTDATE, FROM_UNIXTIME(C.CAMPAIGN_ENDDATE) AS CAMPAIGN_ENDDATE, C.CAMPAIGN_ING, CASE C.CAMPAIGN_ING WHEN 'N' THEN '대기' WHEN 'S' THEN '진행중' WHEN 'E' THEN '완료' END CAMPAIGN_ING_TEXT, C.VIRTUAL_YN, C.JOIN_CNT, BC.CATEGORY_NAME_KO, C.INSERT_DATETIME, C.MODIFY_DATETIME FROM CAMPAIGN C JOIN BRAND_CATEGORY BC ON(C.CATEGORY_CODE = BC.CATEGORY_CODE) WHERE C.CAMPAIGN_ING = ? ORDER BY C.INSERT_DATETIME DESC ";
             var params = [];
             params.push(campaign_ing);
 
@@ -173,13 +184,12 @@ var mcampaign = {
     }
     ,sp_CAMPAIGN_QUESTION_GROUP_UPDATE: function(campaign_code, jsonData, callback) {
         var connection = mysql_dbc.init();
-        var query = " call sp_CAMPAIGN_QUESTION_GROUP_UPDATE(?, ?, ?, ?, ?) ";
+        var query = " call sp_CAMPAIGN_QUESTION_GROUP_UPDATE(?, ?, ?, ?) ";
 
         var params = [];
         for(var i = 0; i<jsonData.length; i++) {
             params = [];
             params.push(campaign_code);
-            params.push(jsonData[i].group_code);
             params.push(jsonData[i].quest);
             params.push(jsonData[i].point);
             params.push(jsonData[i].survey_time);
@@ -196,6 +206,61 @@ var mcampaign = {
 
 
         }
+    }
+    ,sp_CAMPAIGN_QUOTA_SEX: function(campaign_code, callback) {
+        var connection = mysql_dbc.init();
+        var query = " call sp_CAMPAIGN_QUOTA_SEX(?) ";
+        var params = [];
+        params.push(campaign_code);
+
+        var data = connection.query(query,params,callback);
+        connection.end();
+        return data;
+    }
+    ,sp_CAMPAIGN_QUOTA_AREA: function(campaign_code, callback) {
+        var connection = mysql_dbc.init();
+        var query = " call sp_CAMPAIGN_QUOTA_AREA(?) ";
+        var params = [];
+        params.push(campaign_code);
+
+        var data = connection.query(query,params,callback);
+        connection.end();
+        return data;
+    }
+    ,quotaAGESelect: function(campaign_code, callback) {
+        var connection = mysql_dbc.init();
+        var query = " SELECT * FROM CAMPAIGN_QUOTA_AGE WHERE CAMPAIGN_CODE = ? ";
+        var params = [];
+        params.push(campaign_code);
+
+        var data = connection.query(query,params,callback);
+        connection.end();
+        return data;
+    }
+    ,sp_CAMPAIGN_QUOTA_MONEY: function(campaign_code, callback) {
+        var connection = mysql_dbc.init();
+        var query = " call sp_CAMPAIGN_QUOTA_MONEY(?) ";
+        var params = [];
+        params.push(campaign_code);
+
+        var data = connection.query(query,params,callback);
+        connection.end();
+        return data;
+    }
+    ,sp_CAMPAIGN_QUOTA_SAVE: function(campaign_code, sex, age_start, age_end, area, money, callback) {
+        var connection = mysql_dbc.init();
+        var query = " call sp_CAMPAIGN_QUOTA_SAVE(?, ?, ?, ?, ?, ?) ";
+        var params = [];
+        params.push(campaign_code);
+        params.push(sex);
+        params.push(age_start);
+        params.push(age_end);
+        params.push(area);
+        params.push(money)
+
+        var data = connection.query(query,params,callback);
+        connection.end();
+        return data;
     }
 }
 

@@ -135,6 +135,15 @@ var muser = {
         connection.end();
         return data;
     }
+    ,sp_MEMBER_POINT_REQUEST: function(callback) {
+        var connection = mysql_dbc.init();
+        var query = " call sp_MEMBER_POINT_REQUEST()";
+        var params = [];
+
+        var data = connection.query(query,params,callback);
+        connection.end();
+        return data;
+    }
 
 }
 

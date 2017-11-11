@@ -259,4 +259,17 @@ router.post('/pointProcess', function(req, res, next) {
     });
 });
 
+router.get("/pointRequest", function(req, res) {
+    muser.sp_MEMBER_POINT_REQUEST(function(err, rows) {
+        if(err) {
+            console.log(err);
+            throw err;
+        }
+        var request = rows[0];
+
+        res.render("users/pointRequest", {request : request});
+    });
+
+});
+
 module.exports = router;

@@ -174,5 +174,96 @@ router.get("/pointHistory", function(req, res) {
 });
 
 
+/****************** 회원조회 ***************************/
+router.get("/memberSelect/:code", function(req, res) {
+    var uid = req.params.code;
+    mapi.sp_API_MEMBER_SELECT(uid, function(err, rows) {
+        if(err)
+        {
+            console.log(err);
+            throw err;
+        }
+        var data = rows[0];
+
+        var json = {
+            USERNAME : data[0].USERNAME
+            ,USEREMAIL : data[0].USEREMAIL
+            ,SEX: data[0].SEX
+            ,BRITHDAY: data[0].BRITHDAY
+            ,AGE : data[0].AGE
+        };
+        console.log(json);
+
+        res.send(json);
+    });
+});
+
+/****************** 패스워드 변경  회원조회 ***************************/
+router.post("/pwdUserCheck", function(req, res) {
+    var uid = req.body.uid;
+    var email = req.body.emailString;
+    var phone = req.body.phoneNumber;
+
+
+
+
+    mapi.sp_API_PWD_USER_CHECK(uid, email, phone, function(err, rows) {
+        if(err) {
+            console.log(err);
+            throw err;
+        }
+
+        var data = rows[0];
+        var json = {
+            ERR_CODE : data[0].ERR_CODE
+            ,ERR_MSG : data[0].ERR_MSG
+        }
+
+        res.send(json);
+    });
+    /*
+    mapi.sp_API_MEMBER_SELECT(uid, function(err, rows) {
+        if(err)
+        {
+            console.log(err);
+            throw err;
+        }
+        var data = rows[0];
+
+        var json = {
+            USERNAME : data[0].USERNAME
+            ,USEREMAIL : data[0].USEREMAIL
+            ,SEX: data[0].SEX
+            ,BRITHDAY: data[0].BRITHDAY
+            ,AGE : data[0].AGE
+        };
+        console.log(json);
+
+        res.send(json);
+    });
+    */
+});
+
+router.post("/pwdChange", function(req, res) {
+    var uid = req.body.uid;
+    var newPw = req.body.newPw;
+
+    mapi.sp_API_PWD_CHANGE(uid, newPw, function(err, rows) {
+        if(err) {
+            console.log(err);
+            throw err;
+        }
+
+        var data = rows[0];
+        var json = {
+            ERR_CODE : data[0].ERR_CODE
+            ,ERR_MSG : data[0].ERR_MSG
+        }
+        res.send(json);
+    });
+
+
+});
+
 
 module.exports = router;

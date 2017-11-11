@@ -27,11 +27,11 @@ $(function() {
 
             var point = $(this).val();
             var survey_time = $("#survey_time_"+quest).val();
-            var group_code = $(this).attr("group_code");
+            var quest_num = $(this).attr("quest_num");
 
             var questJson = {
                 quest : quest
-                ,group_code : group_code
+                ,quest_num : quest_num
                 ,point : point
                 ,survey_time : survey_time
             };
@@ -39,7 +39,51 @@ $(function() {
             questArr.push(questJson);
         });
 
-        console.log(questArr);
+        var sex = 0;
+        var startAge = 0;
+        var endAge = 0;
+        var area = 0;
+
+
+
+        if($(".sex").is(":checked") == false) {
+            alert("성별을 선택해주세요.");
+            return;
+        } else {
+
+            $(".sex").each(function() {
+                if($(this).is(":checked") == true) {
+                    sex += parseInt($(this).val());
+                }
+            });
+        }
+
+        if($("#startAge").val() == "") {
+            $("#startAge").focus();
+            alert("조사연령 범위를 입력해주세요.");
+            return;
+        }
+
+        if($("#endAge").val() == "") {
+            $("#endAge").focus();
+            alert("조사연령 범위를 입력해주세요.");
+            return;
+        }
+
+        if($(".area").is(":checked") == false) {
+            alert("지역을 선택해주세요");
+            return;
+        } else {
+            $(".area").each(function() {
+                if($(this).is(":checked") == true) {
+                    area += parseInt($(this).val());
+                }
+            });
+        }
+
+
+
+
 
 
         var jsonData = {
@@ -47,7 +91,13 @@ $(function() {
             ,grade_code : grade_code
             ,join_cnt : $("#join_cnt").val()
             ,questData : JSON.stringify(questArr)
+            ,sex : sex
+            ,startAge : $("#startAge").val()
+            ,endAge : $("#endAge").val()
+            ,area : area
+            ,money : $("#month_money").val()
         };
+
 
 
         common.ajax.send("/campaign/settingProcess", jsonData);
@@ -77,5 +127,32 @@ $(function() {
         });
 
         $("#total_point").val(point);
+    });
+
+    $("#allSex").click(function() {
+        if($(this).is(":checked") == true) {
+            $(".sex").prop("checked", true);
+        } else {
+            $(".sex").prop("checked", false);
+        }
+    });
+
+    $("#allAge").click(function() {
+        if($(this).is(":checked") == true) {
+            $("#startAge").val("1");
+            $("#endAge").val("99");
+        } else {
+            $("#startAge").val("");
+            $("#endAge").val("");
+
+        }
+    });
+
+    $("#allArea").click(function() {
+        if($(this).is(":checked") == true) {
+            $(".area").prop("checked", true);
+        } else {
+            $(".area").prop("checked", false);
+        }
     });
 });

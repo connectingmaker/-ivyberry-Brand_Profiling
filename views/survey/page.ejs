@@ -1,0 +1,26 @@
+<div class="content bg-gray-lighter round_box" >
+    <div class="row items-push">
+        <div class="col-sm-12 text-center title">
+            <h5 class="text-center"> <span class="Textcolor">1</span> / 5</h5>
+            <small><span class="Textcolor">4개를 더 응답해주세요.</span></small>
+        </div>
+
+    </div>
+</div>
+<div class="content col-sm-12 text-center bg-white round_box">
+    <small>설문에 응답하실 알고 계신 브랜드를 선택해주세요.<span style="color:#DA4211">(5개)</span></small>
+</div>
+
+<div class="container AnswerTitle">
+    <div class="row">
+        <div class="col-xs-12">
+            <ul class="list-group checked-list-box">
+                <% for(var i = 0; i<7; i++) { %>
+                <li class="list-group-item"> 제품<%=i+1%></li>
+                <%}%>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<script language="javascript" src="/view_js/survey/checkedType.js"></script>

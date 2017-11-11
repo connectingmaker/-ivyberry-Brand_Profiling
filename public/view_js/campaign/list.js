@@ -16,8 +16,24 @@ $(function() {
             };
 
         }
-
     });
 
+
+
+    $(".status").change(function() {
+        var status = $(this).val();
+        var campaign_code = $(this).parents("tr").attr("id");
+
+        var json = {
+            campaign_code : campaign_code
+            ,status : status
+        }
+
+        common.ajax.send("/campaign/listStats", json);
+        common.ajax.return = function(data){
+            location.reload();
+        }
+
+    });
 
 });
