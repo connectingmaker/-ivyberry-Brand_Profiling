@@ -20,20 +20,25 @@
                 </tr>
                 </thead>
                 <tbody>
+                    <% for(var i = 0; i<groupList.length; i++) { %>
                     <tr>
-                        <td>1</td>
-                        <td>타겟소비자성향</td>
-                        <td>1.0</td>
-                        <td>2</td>
+                        <td><%=groupList[i].GROUP_CODE%></td>
+                        <td><a href="/statistics/group/<%=groupList[i].GROUP_CODE%>"><%=groupList[i].GROUP_NAME_KO%></a></td>
+                        <td><%=groupList[i].MEMO%></td>
+                        <td><%=groupList[i].Q_CNT%></td>
                         <td>7점척도</td>
-                        <td></td>
+                        <td><%=groupList[i].ETC%></td>
                         <td>2017-06-01 19:32:22</td>
                     </tr>
+                    <% } %>
                 </tbody>
             </table>
         </div>
     </div>
 
+
+
+    <!--
     <div class="col-xs-12 bg-white box round_box push-30-t">
             <div class="row">
                 <div class="block-header">
@@ -136,6 +141,7 @@
             </div>
         </div>
     </div>
+    -->
 
 </div>
 
