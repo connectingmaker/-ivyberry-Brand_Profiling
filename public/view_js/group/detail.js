@@ -9,23 +9,23 @@ multi_template += "<td align='center'><div class='btnDeleteDiv'><button class='b
 multi_template += "</tr>";
 
 
-var img_template = "<tr id='[_ID_]'>";
-img_template += "<input type='hidden' id='imgValue'>";
-img_template += "<th rowspan='2' id='imgText'></th>";
+var img_template = "<tr class='[_ID_]' id='[_ID_]'>";
+img_template += "<input type='hidden' id='imgValue' value='[_IMG_VALUE_]'>";
+img_template += "<th rowspan='2' id='imgText'>[_IMG_]</th>";
 img_template += '<th class="text-center">이미지 이름<span class="check">*</span></th>';
 img_template += '<td><input type="text" id="img_qa_title_ko" class="form-control img_qa_title_ko" placeholder="이미지 이름을 입력해주세요.(필수)" value="[_QA_TITLE_KO_]"></td>';
 img_template += '<th class="text-center">이미지 영문</th>';
 img_template += '<td><input type="text" id="img_qa_title_en" class="form-control" placeholder="이미지의 영문 이름을 입력해주세요." value="[_QA_TITLE_EN_]"></td>';
 img_template += '</tr>';
-img_template += '<tr>';
+img_template += '<tr class="[_ID_]">';
 img_template += '<th class="text-center">파일이름</th>';
 img_template += '<td>권장사이즈(350*350px 이상)</td>';
 img_template += '<th class="text-center">이미지 중문</th>';
 img_template += '<td><input type="text" id="img_qa_title_cn" class="form-control" placeholder="이미지의 중문 이름을 입력해주세요." value="[_QA_TITLE_CN_]"></td>';
 img_template += '</tr>';
-img_template += '<tr>';
-img_template += '<td class="text-center"><span class="btn btn-default btn-sm fileinput-button"><span>업로드하기 <span class="check">*</span></span><input id="" class="fileupload" type="file" name="qa_title_img"></span></td>';
-img_template += '<td colspan="4" class="text-right"><button class="btn btn-sm btn-default">삭제</button></td>';
+img_template += '<tr class="[_ID_]">';
+img_template += '<td class="text-center"><span class="btn btn-default btn-sm fileinput-button"><span>업로드하기 <span class="check">*</span></span><input id="IMG_[_ID_]" class="fileupload" type="file" name="qa_title_img"></span></td>';
+img_template += '<td colspan="4" class="text-right"><button id="qaDel_[_QA_CODE_]" class="btn btn-sm btn-default scaleQaDelete">삭제</button></td>';
 img_template += '</tr>';
 
 
@@ -123,6 +123,24 @@ $(function() {
 
     /*********** 파일 업로드 *****************/
 
+    $(document).on('click', '.fileupload', function() {
+        var id = $(this).attr("id");
+        id = id.replace("IMG_", "");
+
+        $(this).fileupload({
+            url: "/question/imageUpdate",
+            dataType: 'json',
+            done: function (e, data) {
+                console.log(data.result.img);
+                $("#"+id+" #imgText").html("<img src='/uploads/"+data.result.img+"' width='100%'>");
+                $("#"+id+" #imgValue").val("/uploads/"+data.result.img);
+                //$("#img1").html("<img src='/uploads/"+data.result.img+"' width='100%'>");
+
+            }
+        }).prop('disabled', !$.support.fileInput)
+            .parent().addClass($.support.fileInput ? undefined : 'disabled');
+    });
+
     $('#fileupload').fileupload({
         url: "/question/imageUpdate",
         dataType: 'json',
@@ -149,15 +167,17 @@ $(function() {
 
 
 
+    /*
     $('.fileupload').fileupload({
         url: "/question/imageUpdate",
         dataType: 'json',
         done: function (e, data) {
-            console.log(data.result.img);
+            alert("OK");
 
         }
     }).prop('disabled', !$.support.fileInput)
         .parent().addClass($.support.fileInput ? undefined : 'disabled');
+        */
 
 
 
@@ -232,11 +252,14 @@ $(function() {
     <!--이미지 선택 / 주관식 질문 추가하기 -->
     $("#imgTextCreate").click(function() {
         var code = Math.floor(Math.random() * 99999999999999) + 1;
-        var img_template_temp = img_template.replace("[_ID_]", code);
+        var img_template_temp = replaceAll(img_template, "[_ID_]", code);
+
 
         img_template_temp = img_template_temp.replace("[_IMG_ID_]", "");
-
-        img_template_temp = img_template_temp.replace("[_QA_CODE_]", "");
+        img_template_temp = img_template_temp.replace("[_IMG_]", "");
+        img_template_temp = img_template_temp.replace("[_IMG_VALUE_]", "");
+        //img_template_temp = img_template_temp.replace("[_QA_CODE_]", code);
+        img_template_temp = replaceAll(img_template_temp, "[_QA_CODE_]", code);
         img_template_temp = img_template_temp.replace("[_QA_TITLE_KO_]", "");
         img_template_temp = img_template_temp.replace("[_QA_TITLE_EN_]", "");
         img_template_temp = img_template_temp.replace("[_QA_TITLE_CN_]", "");
@@ -751,7 +774,6 @@ $(function() {
 
         $(".img_qa_title_ko").each(function() {
             var id = $(this).parents("tr").attr("id");
-            console.log($(this));
             if($(this).val() == false) {
                 alert("보기 국문을 입력해주세요.");
                 checkBool = true;
@@ -759,21 +781,22 @@ $(function() {
                 return false;
             } else {
 
-
                 qaStringData = {
-                    qa_code : ""
+                    qa_code : id
                     ,qa_title_ko : $("#imgTemplate #"+id+" #img_qa_title_ko").val()
                     ,qa_title_en : $("#imgTemplate #"+id+" #img_qa_title_en").val()
                     ,qa_title_cn : $("#imgTemplate #"+id+" #img_qa_title_en").val()
-                    ,img: ""
+                    ,img: $("#"+id+" #imgValue").val()
                 }
+
+
 
                 qaJson.push(qaStringData);
 
             }
         });
 
-        console.log(qaJson);
+
 
 
 
@@ -798,6 +821,7 @@ $(function() {
             ,memo : $("#img_q_memo").val()
             ,qaJson : JSON.stringify(qaJson)
         };
+
 
 
 
@@ -863,11 +887,13 @@ $(function() {
 
     $("#qaBtn_imgText").click(function() {
         var code = Math.floor(Math.random() * 99999999999999) + 1;
-        var img_template_temp = img_template.replace("[_ID_]", code);
-
+        var img_template_temp = replaceAll(img_template, "[_ID_]", code);
+        img_template_temp = img_template_temp.replace("[_IMG_]", "");
         img_template_temp = img_template_temp.replace("[_IMG_ID_]", "");
+        img_template_temp = img_template_temp.replace("[_IMG_VALUE_]", "");
 
-        img_template_temp = img_template_temp.replace("[_QA_CODE_]", "");
+
+        img_template_temp = replaceAll(img_template_temp, "[_QA_CODE_]", code);
         img_template_temp = img_template_temp.replace("[_QA_TITLE_KO_]", "");
         img_template_temp = img_template_temp.replace("[_QA_TITLE_EN_]", "");
         img_template_temp = img_template_temp.replace("[_QA_TITLE_CN_]", "");
@@ -1041,10 +1067,15 @@ $(function() {
                     var realTemplate = "";
 
 
+
                     for(var i = 0; i<jsonData.qa.length; i++) {
-                        qaTemplate = qaTemplate;
-                        qaTemplate = qaTemplate.replace("[_ID_]", jsonData.qa[i].QA_CODE);
+
+                        qaTemplate = replaceAll(img_template, "[_ID_]", jsonData.qa[i].QA_CODE);
                         qaTemplate = qaTemplate.replace("[_QA_CODE_]", jsonData.qa[i].QA_CODE);
+
+
+                        qaTemplate = qaTemplate.replace("[_IMG_VALUE_]", jsonData.qa[i].IMG);
+                        qaTemplate = qaTemplate.replace("[_IMG_]", "<img src='"+jsonData.qa[i].IMG+"' width='100%'>");
                         qaTemplate = qaTemplate.replace("[_QA_TITLE_KO_]", jsonData.qa[i].QA_TITLE_KO);
                         qaTemplate = qaTemplate.replace("[_QA_TITLE_EN_]", jsonData.qa[i].QA_TITLE_EN);
                         qaTemplate = qaTemplate.replace("[_QA_TITLE_CN_]", jsonData.qa[i].QA_TITLE_CN);
@@ -1172,6 +1203,24 @@ $(function() {
             common.ajax.return = function (data) {
 
                 $("#template #"+data.qa_code).remove();
+            }
+
+        }
+    });
+
+    $(document).on('click', '.scaleQaDelete', function() {
+        var q_code = $("#q_code").val();
+        var qa_code = $(this).attr("id").replace("qaDel_", "");
+        if(confirm("보기코드("+qa_code+")를 정말로 삭제하시겠습니까?") == true) {
+            var json = {
+                q_code : q_code
+                ,qa_code : qa_code
+            }
+
+            common.ajax.send("/question/qaDelete", json);
+            common.ajax.return = function (data) {
+                $("."+data.qa_code).remove();
+                //$("#imgTemplate ."+data.qa_code).remove();
             }
 
         }

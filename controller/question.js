@@ -3,11 +3,21 @@ var router = express.Router();
 var path = require('path');
 var mquestion = require("../model/mquestion");
 var moment = require('moment');
+var mkdirp = require('mkdirp');
 
 var multer = require('multer');//업로드를 위한 multer를 가져옴
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, 'public/uploads/')
+        var d = new Date();
+        var year = d.getFullYear();
+        var month = d.getMonth();
+        var day = d.getDay();
+
+        mkdirp('public/uploads/'+year+'/'+month+'/'+day, function (err) {
+            if (err) console.error(err)
+            cb(null, 'public/uploads/'+year+'/'+month+'/'+day)
+        });
+
     },
     filename: function (req, file, cb) {
         cb(null, Date.now().toString() + path.extname(file.originalname))
@@ -324,8 +334,14 @@ router.post("/scaleProcess", function(req, res) {
 
 
 router.post("/imageUpdate", upload.single('qa_title_img'), function(req, res){
+    var d = new Date();
+    var year = d.getFullYear();
+    var month = d.getMonth();
+    var day = d.getDay();
+
+
     var json = {
-        img : req.file.filename
+        img : year + '/' + month + '/' + day + '/' +req.file.filename
     };
 
     res.send(json);

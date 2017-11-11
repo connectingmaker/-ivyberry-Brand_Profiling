@@ -116,6 +116,10 @@ function inputRadioCheckReturn(className) {
     return checkVal;
 }
 
+function replaceAll(str, searchStr, replaceStr) {
+    return str.split(searchStr).join(replaceStr);
+}
+
 $(function() {
     $(".backBtn").click(function() {
         history.back(-1);
