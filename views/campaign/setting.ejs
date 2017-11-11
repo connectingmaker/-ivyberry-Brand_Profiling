@@ -148,16 +148,17 @@
                         <select id="month_money_start" class="form-control">
                             <option value="0">상관없음</option>
                             <% for(var moneyI=0; moneyI<moneyQuota.length; moneyI++) { %>
-                            <option value="<%=moneyQuota[moneyI].CODE%>" <% if(moneyQuota[moneyI].START_CHECKED != 0) { %>selected<%}%>><%=moneyQuota[moneyI].CODE_NAME%></option>
+                            <option value="<%=moneyQuota[moneyI].CODE%>" <% if(moneyQuota[moneyI].MONEY_START_CODE == moneyQuota[moneyI].CODE) { %>selected<% } %>><%=moneyQuota[moneyI].CODE_NAME%></option>
+
                             <% } %>
                         </select>
                         </div>
-                        <div class="col-xs-2"> ~ </div>
+                        <div class="col-xs-2 text-center"> ~ </div>
                         <div class="col-xs-5">
                             <select id="month_money_end" class="form-control">
                                 <option value="0">상관없음</option>
                                 <% for(var moneyI=0; moneyI<moneyQuota.length; moneyI++) { %>
-                                <option value="<%=moneyQuota[moneyI].CODE%>" <% if(moneyQuota[moneyI].END_CHECKED != 0) { %>selected<%}%>><%=moneyQuota[moneyI].CODE_NAME%></option>
+                                <option value="<%=moneyQuota[moneyI].CODE%>" <% if(moneyQuota[moneyI].MONEY_END_CODE == moneyQuota[moneyI].CODE) { %>selected<% } %>><%=moneyQuota[moneyI].CODE_NAME%></option>
                                 <% } %>
                             </select>
                         </div>

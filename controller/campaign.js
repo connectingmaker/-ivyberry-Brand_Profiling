@@ -271,6 +271,9 @@ router.get("/setting/:code", function(req, res) {
                                 }
                                 var moneyQuota = rows[0];
 
+                                console.log(moneyQuota);
+
+
                                 res.render("campaign/setting", { campaign_code : campaign_code, campaign_data : campaign_data, gradelist : gradelist, questList: questList, sexQuota: sexQuota, ageQuota:ageQuota, areaQuota: areaQuota, moneyQuota: moneyQuota});
                             });
 

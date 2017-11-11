@@ -281,6 +281,7 @@ var mcampaign = {
         params.push(area);
         params.push(money_start);
         params.push(money_end);
+
         var data = connection.query(query,params,callback);
         connection.end();
         return data;
