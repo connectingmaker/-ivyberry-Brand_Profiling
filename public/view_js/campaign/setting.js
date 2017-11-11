@@ -80,6 +80,11 @@ $(function() {
                 }
             });
         }
+        if(parseInt($("#month_money_start").val()) > parseInt($("#month_money_end").val())){
+            alert("월 평균 지출 설정이 잘못되었습니다. 다시 확인하고 선택해주세요.");
+            $("#month_money_start").focus();
+            return;
+        }
 
 
 
@@ -95,7 +100,8 @@ $(function() {
             ,startAge : $("#startAge").val()
             ,endAge : $("#endAge").val()
             ,area : area
-            ,money : $("#month_money").val()
+            ,money_start : $("#month_money_start").val()
+            ,money_end : $("#month_money_end").val()
         };
 
 
@@ -105,6 +111,7 @@ $(function() {
             switch(data.err) {
                 case "000":
                     alert("정상적으로 저장되었습니다.");
+                    location.replace("/campaign/list")
                     break;
                 default:
                     alert("DB 오류 발생");

@@ -39,7 +39,9 @@ router.get('/group', function(req, res, next) {
                 console.log(err);
             }
             var grouplist = rows;
+
             res.render('question/group', { question_type_list : question_type_list, grouplist : grouplist, moment: moment });
+
         });
 
     });
@@ -91,6 +93,17 @@ router.get('/group/detail/:code', function(req, res) {
     });
 });
 
+router.post('/questionSelect', function(req, res, next) {
+    var group_code = req.body.group_code;
+    mquestion.getQuestionGroupSelect(group_code, function(err, rows) {
+
+        var objToJson = rows[0];
+        var dataJson = JSON.stringify(objToJson);
+        console.log(dataJson);
+        res.send(dataJson);
+    });
+});
+
 router.post("/qlist", function(req, res) {
     var group_code = req.body.group_code;
 
@@ -103,6 +116,25 @@ router.post("/qlist", function(req, res) {
         var objToJson = rows;
         var dataJson = JSON.stringify(objToJson);
         res.send(dataJson);
+    });
+});
+
+
+router.post("/groupDelete", function(req, res) {
+    var group_code = req.body.group_code;
+
+    mquestion.sp_QUESTION_GROUP_DELETE(group_code, function(err, rows) {
+        if(err)
+        {
+            console.log(err);
+            throw err;
+        }
+
+        var jsonData = {
+            group_code : group_code
+        }
+
+        res.send(jsonData);
     });
 });
 

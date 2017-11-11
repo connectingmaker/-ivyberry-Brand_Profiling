@@ -16,6 +16,7 @@ router.get('/list', function(req, res, next) {
     }
     mcampaign.get_campaign_list(type, function(err, rows) {
         var campaignlist = rows;
+        console.log(rows);
         res.render('campaign/list', { moment: moment, campaignlist : campaignlist, type : type });
     });
 
@@ -269,6 +270,7 @@ router.get("/setting/:code", function(req, res) {
                                     throw err;
                                 }
                                 var moneyQuota = rows[0];
+
                                 res.render("campaign/setting", { campaign_code : campaign_code, campaign_data : campaign_data, gradelist : gradelist, questList: questList, sexQuota: sexQuota, ageQuota:ageQuota, areaQuota: areaQuota, moneyQuota: moneyQuota});
                             });
 
@@ -292,7 +294,9 @@ router.post("/settingProcess", function(req, res) {
     var endAge = req.body.endAge;
     var area = req.body.area;
     var sex = req.body.sex;
-    var money = req.body.money;
+    var money_start = req.body.money_start;
+    var money_end = req.body.money_end;
+
 
     var questData = eval("("+req.body.questData+")");
     var err = "";
@@ -318,7 +322,7 @@ router.post("/settingProcess", function(req, res) {
                 };
             }
 
-            mcampaign.sp_CAMPAIGN_QUOTA_SAVE(campaign_code, sex, startAge, endAge, area, money, function(err, rows) {
+            mcampaign.sp_CAMPAIGN_QUOTA_SAVE(campaign_code, sex, startAge, endAge, area, money_start, money_end, function(err, rows) {
                 if(err) {
                     console.log(err);
                     throw err;

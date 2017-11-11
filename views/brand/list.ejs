@@ -33,12 +33,12 @@
                 <tbody>
                 <% for(var i = 0; i<list.length; i++) { %>
                     <tr id="<%=list[i].CATEGORY_CODE%>">
-                        <td><%=list[i].CATEGORY_CODE%></td>
-                        <td><a href="/brand/detail/<%=list[i].CATEGORY_CODE%>"><%=list[i].CATEGORY_NAME_KO%></a></td>
-                        <td><%=list[i].MEMO%></td>
-                        <td><%=list[i].CATEGORY_NAME_EN%></td>
-                        <td><%=list[i].CATEGORY_NAME_CN%></td>
-                        <td><%=list[i].ETC%></td>
+                        <td class="text-center"><%=list[i].CATEGORY_CODE%></td>
+                        <td class="text-center"><a href="/brand/detail/<%=list[i].CATEGORY_CODE%>"><%=list[i].CATEGORY_NAME_KO%></a></td>
+                        <td class="text-center"><%=list[i].MEMO%></td>
+                        <td class="text-center"><%=list[i].CATEGORY_NAME_EN%></td>
+                        <td class="text-center"><%=list[i].CATEGORY_NAME_CN%></td>
+                        <td class="text-center"><%=list[i].ETC%></td>
 
                         <td><%=moment(list[i].MODIFY_DATETIME).format("YYYY-MM-DD hh:mm")%></td>
                         <% if(list[i].CNT == 0) { %>

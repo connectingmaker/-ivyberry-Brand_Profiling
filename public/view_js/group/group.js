@@ -54,6 +54,14 @@ $(function() {
                 template += "<td>"+select+"</td>";
                 template += "</tr>";
                 $("#list tbody").append(template);
+            }else{
+                $("#"+dataReturn.GROUP_CODE+" td:eq(0)").text(dataReturn.GROUP_CODE);
+                $("#"+dataReturn.GROUP_CODE+" td:eq(1)").find("a").text(dataReturn.CATEGORY_NAME_KO);
+                $("#"+dataReturn.GROUP_CODE+" td:eq(2)").text(dataReturn.MEMO);
+                $("#"+dataReturn.GROUP_CODE+" td:eq(3)").text(dataReturn.QUESTION_TYPE_NAME);
+                $("#"+dataReturn.GROUP_CODE+" td:eq(4)").text(dataReturn.ETC);
+                $("#"+dataReturn.GROUP_CODE+" td:eq(5)").text(string.dateTime(dataReturn.MODIFY_DATETIME));
+                $("#"+dataReturn.GROUP_CODE+" td:eq(6)").text(select);
             }
 
 
@@ -62,6 +70,46 @@ $(function() {
         };
 
         $('#groupModal').modal('hide');
+
+    });
+
+    $(document).on('click', '.deleteBtn', function() {
+        if(confirm("해당 문항그룹을 정말로 삭제하시겠습니까?") == true) {
+            var id = $(this).parents("tr").attr("id");
+            var params = {
+                group_code: id
+            };
+
+            common.ajax.send("/question/groupDelete", params);
+            common.ajax.return = function (data) {
+                $("#" + data.group_code).remove();
+            }
+        }
+
+    });
+
+    $(document).on('click', '.modifyBtn', function() {
+        var id = $(this).parents("tr").attr("id");
+        var params = {
+            group_code : id
+        };
+
+        common.ajax.send("/question/questionSelect", params);
+        common.ajax.return = function(data) {
+            var jsonData = eval("("+data+")");
+            console.log(jsonData);
+
+            $("#group_code").val(jsonData.CATEGORY_CODE);
+            $("#group_name_ko").val(jsonData.GROUP_NAME_KO);
+            $("#memo").val(jsonData.MEMO);
+            $("#group_name_en").val(jsonData.GROUP_NAME_EN);
+            $("#group_name_cn").val(jsonData.GROUP_NAME_CN);
+            $("#etc").val(jsonData.ETC);
+            $("#question_type").val(jsonData.QUESTION_TYPE);
+
+
+            $('#groupModal').modal('show');
+        }
 
     });
 

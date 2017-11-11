@@ -67,9 +67,9 @@ survey_template += "<div class=\"col-xs-12 bg-white box round_box push-30-t\" id
 survey_template += "<div class='row'>";
 survey_template += "<div class='col-xs-8 title'>[_Q_TYPE_]</div>";
 survey_template += "<div class=\"col-xs-4 text-right\">";
-survey_template += "<button class=\"btn btn-danger btn-sm useQBtn\">[_USE_YN_TEXT_]</button>";
-survey_template += "<button class=\"btn btn-danger btn-sm delQBtn\">삭제</button>";
-survey_template += "<button class=\"btn btn-danger btn-sm modifyQBtn\">수정</button>";
+survey_template += "<button class=\"btn btn-default btn-sm delQBtn\">삭제</button>";
+survey_template += "<button class=\"btn btn-success btn-sm useQBtn\">[_USE_YN_TEXT_]</button>";
+survey_template += "<button class=\"btn btn-info btn-sm modifyQBtn\">수정</button>";
 survey_template += "</div>";
 survey_template += "</div>";
 

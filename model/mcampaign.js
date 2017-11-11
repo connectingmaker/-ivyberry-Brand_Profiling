@@ -237,6 +237,7 @@ var mcampaign = {
         connection.end();
         return data;
     }
+    /*
     ,sp_CAMPAIGN_QUOTA_MONEY: function(campaign_code, callback) {
         var connection = mysql_dbc.init();
         var query = " call sp_CAMPAIGN_QUOTA_MONEY(?) ";
@@ -247,17 +248,39 @@ var mcampaign = {
         connection.end();
         return data;
     }
-    ,sp_CAMPAIGN_QUOTA_SAVE: function(campaign_code, sex, age_start, age_end, area, money, callback) {
+    */
+    ,sp_CAMPAIGN_QUOTA_MONEY: function(campaign_code, callback) {
         var connection = mysql_dbc.init();
-        var query = " call sp_CAMPAIGN_QUOTA_SAVE(?, ?, ?, ?, ?, ?) ";
+        var query = " call sp_CAMPAIGN_QUOTA_MONEY(?) ";
+        var params = [];
+        params.push(campaign_code);
+
+        var data = connection.query(query,params,callback);
+        connection.end();
+        return data;
+    }
+    /*
+    ,sp_CAMPAIGN_QUOTA_END_MONEY: function(campaign_code, callback) {
+        var connection = mysql_dbc.init();
+        var query = " call sp_CAMPAIGN_QUOTA_END_MONEY(?) ";
+        var params = [];
+        params.push(campaign_code);
+
+        var data = connection.query(query,params,callback);
+        connection.end();
+        return data;
+    }*/
+    ,sp_CAMPAIGN_QUOTA_SAVE: function(campaign_code, sex, age_start, age_end, area, money_start, money_end, callback) {
+        var connection = mysql_dbc.init();
+        var query = " call sp_CAMPAIGN_QUOTA_SAVE(?, ?, ?, ?, ?, ?, ?) ";
         var params = [];
         params.push(campaign_code);
         params.push(sex);
         params.push(age_start);
         params.push(age_end);
         params.push(area);
-        params.push(money)
-
+        params.push(money_start);
+        params.push(money_end);
         var data = connection.query(query,params,callback);
         connection.end();
         return data;

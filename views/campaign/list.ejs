@@ -19,11 +19,11 @@
                 <col width="8%">
                 <col width="15%">
                 <col width="5%">
-                <col width="10%">
-                <col width="10%">
+                <col width="15%">
+                <col width="15%">
                 <col width="5%">
                 <col width="5%">
-                <col width="10%">
+                <col width="14%">
                 <col width="10%">
                 <thead>
                 <tr>
@@ -42,27 +42,29 @@
                 <tbody>
                 <%if(campaignlist.length > 0){%>
                     <% for(var i = 0; i<campaignlist.length; i++) { %>
-                    <tr id="<%=campaignlist[i].CAMPAIGN_CODE%>" class="text-center push-10 push-10-t">
-                        <td><a href="/campaign/write/<%=campaignlist[i].CAMPAIGN_CODE%>" class="btn btn-danger btn-block btn-xs"><%=campaignlist[i].CAMPAIGN_CODE%></a></td>
-                        <td><%=campaignlist[i].CATEGORY_NAME_KO%></td>
-                        <td><%=campaignlist[i].CAMPAIGN_TITLE%></td>
-                        <td>
-                            <select class="status">
-                                <option value="N" <% if(campaignlist[i].CAMPAIGN_ING == "N") { %>selected<%}%>>대기</option>
-                                <option value="S" <% if(campaignlist[i].CAMPAIGN_ING == "S") { %>selected<%}%>>진행중</option>
-                                <option value="E" <% if(campaignlist[i].CAMPAIGN_ING == "E") { %>selected<%}%>>완료</option>
-                            </select>
-                        </td>
-                        <td><%=moment(campaignlist[i].CAMPAIGN_STARTDATE).format("YYYY-MM-DD hh:mm")%></td>
-                        <td><%=moment(campaignlist[i].CAMPAIGN_ENDDATE).format("YYYY-MM-DD hh:mm")%></td>
-                        <td><%=campaignlist[i].JOIN_CNT%></td>
-                        <td>0</td>
-                        <td><%=moment(campaignlist[i].MODIFY_DATETIME).format("YYYY-MM-DD hh:mm")%></td>
-                        <td class="text-center">
-                            <button class="btn btn-xs btn-warning deleteBtn">삭제</button>
-                            <button class="btn btn-xs btn-primary modifyBtn"><a href="/campaign/write/<%=campaignlist[i].CAMPAIGN_CODE%>" class="text-white" >수정</a></button>
-                        </td>
-                    </tr>
+                        <%if (campaignlist[i].CAMPAIGN_CODE != "9999999001"){%>
+                        <tr id="<%=campaignlist[i].CAMPAIGN_CODE%>" class="text-center push-10 push-10-t">
+                            <td><a href="/campaign/write/<%=campaignlist[i].CAMPAIGN_CODE%>" class="btn btn-danger btn-block btn-xs"><%=campaignlist[i].CAMPAIGN_CODE%></a></td>
+                            <td><%=campaignlist[i].CATEGORY_NAME_KO%></td>
+                            <td><%=campaignlist[i].CAMPAIGN_TITLE%></td>
+                            <td>
+                                <select class="status">
+                                    <option value="N" <% if(campaignlist[i].CAMPAIGN_ING == "N") { %>selected<%}%>>대기</option>
+                                    <option value="S" <% if(campaignlist[i].CAMPAIGN_ING == "S") { %>selected<%}%>>진행중</option>
+                                    <option value="E" <% if(campaignlist[i].CAMPAIGN_ING == "E") { %>selected<%}%>>완료</option>
+                                </select>
+                            </td>
+                            <td><a href="/campaign/write/<%=campaignlist[i].CAMPAIGN_CODE%>" ><%=moment(campaignlist[i].CAMPAIGN_STARTDATE).format("YYYY-MM-DD hh:mm")%></a></td>
+                            <td><a href="/campaign/write/<%=campaignlist[i].CAMPAIGN_CODE%>" ><%=moment(campaignlist[i].CAMPAIGN_ENDDATE).format("YYYY-MM-DD hh:mm")%></a></td>
+                            <td><a href="/campaign/setting/<%=campaignlist[i].CAMPAIGN_CODE%>"><%=campaignlist[i].JOIN_CNT%></a></td>
+                            <td>0</td>
+                            <td><%=moment(campaignlist[i].MODIFY_DATETIME).format("YYYY-MM-DD hh:mm")%></td>
+                            <td class="text-center">
+                                <button class="btn btn-xs btn-warning deleteBtn">삭제</button>
+                                <button class="btn btn-xs btn-primary modifyBtn"><a href="/campaign/write/<%=campaignlist[i].CAMPAIGN_CODE%>" class="text-white" >수정</a></button>
+                            </td>
+                        </tr>
+                        <%}%>
                     <% } %>
                 <% } else{%>
                     <tr>

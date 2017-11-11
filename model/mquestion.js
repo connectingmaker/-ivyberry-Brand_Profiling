@@ -22,6 +22,34 @@ var mquestion = {
         connection.end();
         return data;
     }
+
+    ,sp_QUESTION_GROUP_DELETE: function(group_code, callback) {
+        var connection = mysql_dbc.init();
+        var query = " call sp_QUESTION_GROUP_DELETE(?) ";
+
+        var params = [];
+
+        params.push(group_code);
+
+        var data = connection.query(query,params, callback);
+        connection.end();
+        return data;
+    }
+/*
+    ,get_gruopCategorySelect: function(group_code, callback) {
+        var connection = mysql_dbc.init();
+        var query = " SELECT ";
+        query += " * ";
+        query += " ,0 AS CNT ";
+        query += " FROM QUESTION_GROUP WHERE GROUP_CODE = ? ";
+        var params = [];
+        params.push(group_code);
+
+        var data = connection.query(query,params,callback);
+        connection.end();
+        return data;
+    }
+    */
     ,getCodeQuestionTypeList: function(callback) {
         var connection = mysql_dbc.init();
         var query = " SELECT * FROM CODE_QUESTION_TYPE ORDER BY QUESTION_TYPE ASC ";
@@ -33,8 +61,10 @@ var mquestion = {
     }
     ,getQuestionGroupList: function(callback) {
         var connection = mysql_dbc.init();
-        var query = " SELECT QG.*, CQT.QUESTION_TYPE_NAME FROM ";
+        var query = " SELECT QG.*, CQT.QUESTION_TYPE_NAME,COUNT(QQ.GROUP_CODE) Q_CNT FROM ";
         query += " QUESTION_GROUP QG INNER JOIN CODE_QUESTION_TYPE CQT ON(QG.QUESTION_TYPE = CQT.QUESTION_TYPE) ";
+        query += " INNER JOIN QUESTION_Q QQ ON(QQ.GROUP_CODE = QG.GROUP_CODE)";
+        query +=" GROUP BY QQ.GROUP_CODE";
         query += " ORDER BY QG.GROUP_CODE ASC ";
         var params = [];
 
@@ -68,6 +98,10 @@ var mquestion = {
         connection.end();
         return data;
     }
+
+
+
+
     ,sp_QUESTION_Q_DELETE: function(q_code, callback) {
         var connection = mysql_dbc.init();
         var query = " call sp_QUESTION_Q_DELETE(?) ";
