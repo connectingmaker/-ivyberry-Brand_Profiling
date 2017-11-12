@@ -1,0 +1,12 @@
+<script>
+    setTimeout(function () {
+        var json = {
+            ERR_CODE : "<%=ERR_CODE%>"
+            ,ERR_MSG : "<%=ERR_MSG%>"
+            ,SURVEY_TYPE : "<%=SURVEY_TYPE%>"
+        }
+
+        postMessage(JSON.stringify(json), '*');
+    }, 0);
+
+</script>

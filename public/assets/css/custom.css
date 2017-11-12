@@ -2,6 +2,19 @@ body {
     background-color:#ccc;
 }
 
+.container_survey { min-height:100% }
+.container_survey .content { min-height: 100%;
+    position: relative;
+    padding-bottom: 19px; }
+.footer_survey {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    color: white;
+    background-color: #333333;
+}
+
 .Textcolor{color:#DA4211}
 .bgline{background-color: #4d4d4d; height: 1px; margin-bottom: 10px; margin-top: 10px;}
 /*********** 상단 색상 ******************/

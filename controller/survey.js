@@ -28,16 +28,17 @@ router.get("/start", function(req, res) {
             }
 
             var survey = rows[0];
-            console.log(survey);
             switch (survey[0]._ERR_CODE) {
                 case "000":
                     //console.log("OK");
-                    //res.redirect("/survey/brand?campaign_code=" + campaign_code + "&uid=" + uid + "&quest_num=" + quest_num + "&seq=" + survey[0]._SEQ);
+                    res.redirect("/survey/brand?campaign_code=" + campaign_code + "&uid=" + uid + "&quest_num=" + quest_num + "&seq=" + survey[0]._SEQ);
+                    /*
                     res.render('survey/start', {
                         layout: 'layout/single_page',
                         "layout extractScripts": true,
                         ERR_CODE: "999"
                     });
+                    */
 
                     break;
 
@@ -296,6 +297,8 @@ router.get("/page", function(req, res) {
     var page = req.param("page");
     var seq = req.param("seq");
 
+    console.log(campaign_code + "///" + quest_num + "///" + page);
+
     msurvey.surveyPage(campaign_code, quest_num, page, function(err, rows) {
         if(err)
         {
@@ -377,6 +380,7 @@ router.get("/surveyEnd", function(req, res) {
     var uid = req.param("uid");
     var seq = req.param("seq");
 
+    /*
     msurvey.surveyEnd(campaign_code, quest_num, seq, function(err, rows) {
         if(err) {
             console.log(err);
@@ -389,6 +393,21 @@ router.get("/surveyEnd", function(req, res) {
         res.send("1111");
         console.log(data);
     });
+    */
+    var json = {
+        ERR_CODE : "000"
+        ,ERR_MSG : "OK"
+    }
+
+
+    res.render('survey/surveyEnd', {
+        layout: 'layout/single_page',
+        "layout extractScripts": true,
+        ERR_CODE: json.ERR_CODE
+        ,ERR_MSG : json.ERR_MSG
+        ,SURVEY_TYPE : "END"
+    });
+
 });
 
 
