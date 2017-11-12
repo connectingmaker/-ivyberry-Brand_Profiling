@@ -49,7 +49,7 @@
                             <option value="N" <% if(grouplist[i].USE_YN == "N") { %>selected<% } %>>사용안함</option>
                         </select>
                     </td>
-                    <td>
+                    <td class="text-center">
                         <button class="btn btn-xs btn-warning deleteBtn">삭제</button>
                         <button class="btn btn-xs btn-primary modifyBtn">수정</button>
                         <button class="btn btn-xs btn-info detailBtn"><a href="/question/group/detail/<%=grouplist[i].GROUP_CODE%>" class="text-white">세부</a></button>
