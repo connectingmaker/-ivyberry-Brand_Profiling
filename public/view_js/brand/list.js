@@ -29,13 +29,13 @@ $(function() {
 
             if(dataReturn.DB_TYPE == "INSERT") {
                 var template = "<tr id=\"" + dataReturn.CATEGORY_CODE + "\">";
-                template += "<td>" + dataReturn.CATEGORY_CODE + "</td>";
-                template += "<td><a href=\"/brand/detail/" + dataReturn.CATEGORY_CODE+ "\">" + dataReturn.CATEGORY_NAME_KO + "</a></td>";
-                template += "<td>" + dataReturn.MEMO + "</td>";
-                template += "<td>" + dataReturn.CATEGORY_NAME_EN + "</td>";
-                template += "<td>" + dataReturn.CATEGORY_NAME_CN + "</td>";
-                template += "<td>" + dataReturn.ETC + "</td>";
-                template += "<td>" + string.dateTime(dataReturn.MODIFY_DATETIME) + "</td>";
+                template += "<td class='text-center'>" + dataReturn.CATEGORY_CODE + "</td>";
+                template += "<td class='text-center'><a href=\"/brand/detail/" + dataReturn.CATEGORY_CODE+ "\">" + dataReturn.CATEGORY_NAME_KO + "</a></td>";
+                template += "<td class='text-center'>" + dataReturn.MEMO + "</td>";
+                template += "<td class='text-center'>" + dataReturn.CATEGORY_NAME_EN + "</td>";
+                template += "<td class='text-center'>" + dataReturn.CATEGORY_NAME_CN + "</td>";
+                template += "<td class='text-center'>" + dataReturn.ETC + "</td>";
+                template += "<td class='text-center'>" + string.dateTime(dataReturn.MODIFY_DATETIME) + "</td>";
                 template += "<td class='text-center'><button class=\"btn btn-xs btn-warning deleteBtn\">삭제</button>&nbsp;<button class=\"btn btn-xs btn-primary modifyBtn\">수정</button>&nbsp;<button class=\"btn btn-xs btn-info detailBtn\"><a href=\"/brand/detail/"+ dataReturn.CATEGORY_CODE+"\" class='text-white'>세부</a></button>";
                 template += "</tr>";
 

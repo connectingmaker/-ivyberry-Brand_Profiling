@@ -61,10 +61,8 @@ var mquestion = {
     }
     ,getQuestionGroupList: function(callback) {
         var connection = mysql_dbc.init();
-        var query = " SELECT QG.*, CQT.QUESTION_TYPE_NAME,COUNT(QQ.GROUP_CODE) Q_CNT FROM ";
+        var query = " SELECT QG.*, CQT.QUESTION_TYPE_NAME,(SELECT COUNT(*) FROM QUESTION_Q QQ WHERE QG.GROUP_CODE =QQ.GROUP_CODE) Q_CNT FROM ";
         query += " QUESTION_GROUP QG INNER JOIN CODE_QUESTION_TYPE CQT ON(QG.QUESTION_TYPE = CQT.QUESTION_TYPE) ";
-        query += " INNER JOIN QUESTION_Q QQ ON(QQ.GROUP_CODE = QG.GROUP_CODE)";
-        query +=" GROUP BY QQ.GROUP_CODE";
         query += " ORDER BY QG.GROUP_CODE ASC ";
         var params = [];
 
