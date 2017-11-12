@@ -55,9 +55,10 @@ router.post('/group', function(req, res) {
     var group_name_cn = req.body.group_name_cn;
     var memo = req.body.memo;
     var etc = req.body.etc;
+    var use_yn = req.body.use_yn;
     var question_type = req.body.question_type;
 
-    mquestion.sp_QUESTION_GROUP_SAVE(group_code, group_name_ko, group_name_en, group_name_cn, memo, etc, question_type, function(err, rows) {
+    mquestion.sp_QUESTION_GROUP_SAVE(group_code, group_name_ko, group_name_en, group_name_cn, memo, etc, use_yn, question_type, function(err, rows) {
         if(err) {
             console.log(err);
         }
