@@ -45,14 +45,15 @@ $(function() {
 
             if(dataReturn.DB_TYPE == "INSERT") {
                 template = "<tr id='"+dataReturn.GROUP_CODE+"'>";
-                template += "<td><a href='/question/group/detail/"+dataReturn.GROUP_CODE+"'>"+dataReturn.GROUP_CODE+"</a></td>";
+                template += "<td class='text-center'><a href='/question/group/detail/"+dataReturn.GROUP_CODE+"' class='btn btn-rounded btn-info btn-xs'>"+dataReturn.GROUP_CODE+"</a></td>";
                 template += "<td><a href='/question/group/detail/"+dataReturn.GROUP_CODE+"'>"+dataReturn.GROUP_NAME_KO+"</a></td>";
-                template += "<td>"+dataReturn.MEMO+"</td>";
-                template += "<td>0</td>";
-                template += "<td>"+dataReturn.QUESTION_TYPE_NAME+"</td>";
-                template += "<td>"+dataReturn.ETC+"</td>";
-                template += "<td>"+dataReturn.MODIFY_DATETIME+"</td>";
+                template += "<td class='text-center'>"+dataReturn.MEMO+"</td>";
+                template += "<td class='text-center'>0</td>";
+                template += "<td class='text-center'>"+dataReturn.QUESTION_TYPE_NAME+"</td>";
+                template += "<td class='text-center'>"+dataReturn.ETC+"</td>";
+                template += "<td class='text-center'>"+moment(dataReturn.MODIFY_DATETIME).format("YYYY-MM-DD hh:mm")+"</td>";
                 template += "<td>"+select+"</td>";
+                template += "<td class='text-center'><button class=\"btn btn-xs btn-warning deleteBtn\">삭제</button>&nbsp;<button class=\"btn btn-xs btn-primary modifyBtn\">수정</button>&nbsp;<button class=\"btn btn-xs btn-info detailBtn\"><a href=\"/question/group/detail/"+ dataReturn.GROUP_CODE+"\">세부</a></button>";
                 template += "</tr>";
                 $("#list tbody").append(template);
             }else{

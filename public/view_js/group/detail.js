@@ -121,6 +121,23 @@ survey_template += "</div>";
 
 $(function() {
 
+    $(document).on("change", ".use_yn", function() {
+        var id = $(this).parents("tr").attr("id");
+        var use_yn = $(this).val()
+        var params = {
+            group_code: id
+            ,use_yn : use_yn
+        };
+
+
+        common.ajax.send("/question/groupUseYnUpdate", params);
+        common.ajax.return = function(data) {
+
+        }
+
+
+    });
+
     /*********** 파일 업로드 *****************/
 
     $(document).on('click', '.fileupload', function() {

@@ -87,6 +87,7 @@ router.get('/group/detail/:code', function(req, res) {
             }
 
             var grouplist = rows[0];
+            console.log(grouplist);
 
             res.render('question/group/detail', { group_code : group_code, question_type_list : question_type_list, grouplist: grouplist, moment: moment  });
         });
