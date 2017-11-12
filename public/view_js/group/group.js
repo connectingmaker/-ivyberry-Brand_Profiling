@@ -21,7 +21,7 @@ $(function() {
         var question_type = inputRadioCheckReturn("question_type");
 
         var jsonData = {
-            group_code : ""
+            group_code : $("#group_code").val()
             ,group_name_ko : $("#group_name_ko").val()
             ,group_name_en : $("#group_name_en").val()
             ,group_name_cn : $("#group_name_cn").val()
@@ -34,6 +34,7 @@ $(function() {
         common.ajax.send('/question/group', jsonData);
         common.ajax.return = function(data) {
             var dataReturn = eval("(" + data + ")");
+
             dataReturn = dataReturn[0];
             var template = "";
             var select = "<select class='form-control use_yn'>";
@@ -55,13 +56,14 @@ $(function() {
                 template += "</tr>";
                 $("#list tbody").append(template);
             }else{
-                $("#"+dataReturn.GROUP_CODE+" td:eq(0)").text(dataReturn.GROUP_CODE);
+                //$("#"+dataReturn.GROUP_CODE+" td:eq(0)").text(dataReturn.GROUP_CODE);
                 $("#"+dataReturn.GROUP_CODE+" td:eq(1)").find("a").text(dataReturn.CATEGORY_NAME_KO);
                 $("#"+dataReturn.GROUP_CODE+" td:eq(2)").text(dataReturn.MEMO);
-                $("#"+dataReturn.GROUP_CODE+" td:eq(3)").text(dataReturn.QUESTION_TYPE_NAME);
-                $("#"+dataReturn.GROUP_CODE+" td:eq(4)").text(dataReturn.ETC);
-                $("#"+dataReturn.GROUP_CODE+" td:eq(5)").text(string.dateTime(dataReturn.MODIFY_DATETIME));
-                $("#"+dataReturn.GROUP_CODE+" td:eq(6)").text(select);
+                $("#"+dataReturn.GROUP_CODE+" td:eq(3)").text(0);
+                $("#"+dataReturn.GROUP_CODE+" td:eq(4)").text(dataReturn.QUESTION_TYPE_NAME);
+                $("#"+dataReturn.GROUP_CODE+" td:eq(5)").text(dataReturn.ETC);
+                $("#"+dataReturn.GROUP_CODE+" td:eq(6)").text(string.dateTime(dataReturn.MODIFY_DATETIME));
+                $("#"+dataReturn.GROUP_CODE+" td:eq(7)").html(select);
             }
 
 
@@ -88,24 +90,44 @@ $(function() {
 
     });
 
+    $(document).on("change", ".use_yn", function() {
+        var id = $(this).parents("tr").attr("id");
+        var use_yn = $(this).val()
+        var params = {
+            group_code: id
+            ,use_yn : use_yn
+        };
+
+
+        common.ajax.send("/question/groupUseYnUpdate", params);
+        common.ajax.return = function(data) {
+
+        }
+
+
+    });
+
     $(document).on('click', '.modifyBtn', function() {
         var id = $(this).parents("tr").attr("id");
         var params = {
             group_code : id
         };
 
+
         common.ajax.send("/question/questionSelect", params);
         common.ajax.return = function(data) {
             var jsonData = eval("("+data+")");
             console.log(jsonData);
 
-            $("#group_code").val(jsonData.CATEGORY_CODE);
+            $("#group_code").val(jsonData.GROUP_CODE);
             $("#group_name_ko").val(jsonData.GROUP_NAME_KO);
             $("#memo").val(jsonData.MEMO);
             $("#group_name_en").val(jsonData.GROUP_NAME_EN);
             $("#group_name_cn").val(jsonData.GROUP_NAME_CN);
             $("#etc").val(jsonData.ETC);
-            $("#question_type").val(jsonData.QUESTION_TYPE);
+            $("#"+jsonData.QUESTION_TYPE).prop("checked", true);
+
+
 
 
             $('#groupModal').modal('show');

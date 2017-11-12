@@ -47,6 +47,15 @@ var mapi = {
         connection.end();
         return data;
     }
+    ,bankList: function(callback) {
+        var connection = mysql_dbc.init();
+        var query = " SELECT * FROM CODE_BANK ORDER BY BANK_CODE ASC ";
+        var params = [];
+
+        var data = connection.query(query, params, callback);
+        connection.end();
+        return data;
+    }
     ,campaignList: function(uid, callback) {
         var connection = mysql_dbc.init();
         var query = " call sp_API_CAMPAIGN_LIST(?) ";

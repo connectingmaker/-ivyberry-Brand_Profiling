@@ -28,15 +28,22 @@ router.get("/start", function(req, res) {
             }
 
             var survey = rows[0];
+            console.log(survey);
             switch (survey[0]._ERR_CODE) {
                 case "000":
-                    console.log("OK");
-                    res.redirect("/survey/brand?campaign_code=" + campaign_code + "&uid=" + uid + "&quest_num=" + quest_num + "&seq=" + survey[0]._SEQ);
-                    //res.render('survey/page', {layout: 'layout/single_page', "layout extractScripts": true, survey: survey});
+                    //console.log("OK");
+                    //res.redirect("/survey/brand?campaign_code=" + campaign_code + "&uid=" + uid + "&quest_num=" + quest_num + "&seq=" + survey[0]._SEQ);
+                    res.render('survey/start', {
+                        layout: 'layout/single_page',
+                        "layout extractScripts": true,
+                        ERR_CODE: "999"
+                    });
+
                     break;
 
                 case "999":
                     //console.log("1111");
+
                     res.render('survey/start', {
                         layout: 'layout/single_page',
                         "layout extractScripts": true,

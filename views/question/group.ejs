@@ -1,3 +1,5 @@
+<input type="hidden" id="group_code" value="">
+
 <div class="row">
     <div class="col-xs-12 bg-white box round_box">
         <div class="row">
@@ -44,7 +46,7 @@
                     <td><%=grouplist[i].ETC%></td>
                     <td class="text-center"><%=moment(grouplist[i].MODIFY_DATETIME).format("YYYY-MM-DD hh:mm")%></td>
                     <td>
-                        <select class="form-control">
+                        <select class="form-control use_yn">
                             <option value="Y" <% if(grouplist[i].USE_YN == "Y") { %>selected<% } %>>사용중</option>
                             <option value="N" <% if(grouplist[i].USE_YN == "N") { %>selected<% } %>>사용안함</option>
                         </select>
@@ -139,8 +141,8 @@
                         </thead>
                         <tbody>
                             <% for(var i = 0; i<question_type_list.length; i++) { %>
-                            <tr id="question_type">
-                                <td class="text-center"><input type="radio" class="question_type" name="question_type" value="<%=question_type_list[i].QUESTION_TYPE%>"></td>
+                            <tr>
+                                <td class="text-center"><input id="<%=question_type_list[i].QUESTION_TYPE%>" type="radio" class="question_type" name="question_type" value="<%=question_type_list[i].QUESTION_TYPE%>"></td>
                                 <td><%=question_type_list[i].QUESTION_TYPE_NAME%></td>
                                 <td><%=question_type_list[i].QUESTION_TYPE_DESC%></td>
                             </tr>

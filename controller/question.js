@@ -120,6 +120,24 @@ router.post("/qlist", function(req, res) {
 });
 
 
+router.post("/groupUseYnUpdate", function(req, res) {
+    var group_code = req.body.group_code;
+    var use_yn = req.body.use_yn;
+
+    mquestion.set_groupUseYNUpdate(group_code, use_yn, function(err, rows) {
+        if(err) {
+            console.log(err);
+            throw err;
+        }
+
+        var json = {
+            "ERR" : "000"
+        }
+
+        res.send(json);
+    });
+});
+
 router.post("/groupDelete", function(req, res) {
     var group_code = req.body.group_code;
 

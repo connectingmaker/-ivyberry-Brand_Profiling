@@ -212,6 +212,19 @@ var mquestion = {
         connection.end();
         return data;
     }
+    ,set_groupUseYNUpdate: function(group_code, use_yn, callback) {
+        var connection = mysql_dbc.init();
+        var query = " UPDATE QUESTION_GROUP SET USE_YN = ? WHERE GROUP_CODE = ? ";
+
+        var params = [];
+
+        params.push(use_yn);
+        params.push(group_code);
+
+        var data = connection.query(query,params, callback);
+        connection.end();
+        return data;
+    }
 };
 
 module.exports = mquestion;

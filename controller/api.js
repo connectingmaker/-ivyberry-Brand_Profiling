@@ -108,11 +108,40 @@ router.post("/memberSelect", function(req, res) {
     });
 });
 
+/****************** 회원조회 ***************************/
+router.post("/memberSelectBank", function(req, res) {
+    var useremail = req.body.useremail;
+    var userpasswd = req.body.userpasswd;
+
+    mapi.userSelect(useremail, userpasswd, function(err, rows) {
+        if(err) {
+            console.log(err);
+            throw err;
+        }
+
+        var objToJson = rows[0];
+        mapi.bankList(function(err, rows) {
+            if(err) {
+                console.log(err);
+                throw err;
+            }
+
+            var dataJson = JSON.stringify(objToJson);
+            var json = {
+                user : objToJson
+                ,bank : rows
+            }
+            res.send(JSON.stringify(json));
+        });
+
+    });
+});
+
 
 /****************** 캠페인리스트 ***************************/
-router.get("/campaignList", function(req, res) {
-    //var uid = req.body.uid;
-    var uid = "20170926181112gz0317";
+router.get("/campaignList/:code", function(req, res) {
+    var uid = req.params.code;
+    //var uid = "20170926181112gz0317";
     mapi.campaignList(uid, function(err,rows) {
         if(err) {
             console.log(err);
@@ -127,10 +156,11 @@ router.get("/campaignList", function(req, res) {
 });
 
 /****************** 포인트 히스토리 ***************************/
-router.get("/pointHistory", function(req, res) {
+router.get("/pointHistory/:code", function(req, res) {
     //var uid = req.body.uid;
     //var code_point = req.body.code_point;
-    var uid = "20170926181112gz0317";
+    //var uid = "20170926181112gz0317";
+    var uid = req.params.code;
     var code_type = 'IN';
 
     mapi.userPoint(uid, function(err,rows) {
@@ -138,7 +168,11 @@ router.get("/pointHistory", function(req, res) {
             console.log(err);
             throw err;
         }
+
+        console.log(rows);
+
         var userPoint = rows[0][0].POINT;
+
         mapi.pointHistoryList(uid, code_type, function(err,rows) {
             if(err) {
                 console.log(err);
