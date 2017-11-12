@@ -35,7 +35,7 @@
                     <th class="text-center">질문그룹 중문</th>
                     <th class="text-center">참조</th>
                     <th class="text-center">최근수정일</th>
-                    <th class="text-center">상태</th>
+                    <!--<th class="text-center">상태</th>-->
                 </tr>
                 </thead>
                 <tbody>
@@ -48,12 +48,12 @@
                     <td class="text-center"><%=grouplist.GROUP_NAME_CN%></td>
                     <td class="text-center"><%=grouplist.ETC%></td>
                     <td class="text-center"><%=moment(grouplist.MODIFY_DATETIME).format("YYYY-MM-DD hh:ss")%></td>
-                    <td>
+                    <!--<td>
                         <select class="form-control use_yn">
                             <option value="Y">사용중</option>
                             <option value="N">사용안함</option>
                         </select>
-                    </td>
+                    </td>-->
                 </tr>
                 </tbody>
             </table>
