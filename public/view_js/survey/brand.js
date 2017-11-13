@@ -18,8 +18,11 @@ $(function() {
             if($(this).is(":checked") == true) {
                 checkCnt++;
             }
-            $("#selectCnt").html(checkCnt);
+
         });
+
+        $("#selectCnt").html(checkCnt);
+        $("#textselectCnt").html(checkCnt + "개가 선택되었습니다.");
     });
 
 
