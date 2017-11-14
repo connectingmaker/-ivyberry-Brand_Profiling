@@ -1,12 +1,20 @@
 $(function() {
     $(".qaList").click(function() {
         $(".qaList").each(function() {
-            $(this).removeClass("btn-danger");
-            $(this).addClass("btn-default");
+            $(this).removeClass("btn-select");
+            $(this).addClass("btn-white");
+
+            var src = $(this).find(".pull-left").find("img").attr("src");
+            src = src.replace("_on","_off");
+            $(this).find(".pull-left").find("img").attr("src", src);
         });
 
-        $(this).removeClass("btn-default");
-        $(this).addClass("btn-danger");
+        $(this).removeClass("btn-white");
+        $(this).addClass("btn-select");
+
+        var src = $(this).find(".pull-left").find("img").attr("src");
+        src = src.replace("_off","_on");
+        $(this).find(".pull-left").find("img").attr("src", src);
 
         var money = $(this).attr("money");
 

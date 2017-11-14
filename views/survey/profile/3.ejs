@@ -1,5 +1,5 @@
 <input type="hidden" id="campaign_code" name="campaign_code" value="<%=campaign_code%>">
-<input type="hidden" id="seq" name="seq" value="">
+<input type="hidden" id="seq" name="seq" value="<%=seq%>">
 <input type="hidden" id="uid" name="uid" value="<%=uid%>">
 <input type="hidden" id="quest_num" value="<%=quest_num%>">
 <input type="hidden" id="step" value="<%=step%>">
@@ -8,24 +8,24 @@
 <div class="row" style="padding:10px 40px;">
     <div clss="col-xs-12">
 
-        <div class="row" style="background-color:#fff; padding:10px 10px 15px 10px;">
+        <div class="row titleBox">
             <div class="col-xs-12 push-5-t">
-                <b>3. 출생연도를 입력해주세요. 설문을 추천하거나 통계를 분석할 때 활용됩니다.</b>
+                3. <span class="Textcolor">출생연도</span>를 입력해주세요. 설문을 추천하거나 통계를 분석할 때 활용됩니다.
             </div>
 
 
         </div>
     </div>
 
-    <div class="row push-30-t push-20" style="padding:20px;">
-        <input type="text" name="data" id="data" class="form-control">
+    <div class="row push-20-t push-20 surveyContents">
+        <input type="text" name="data" id="data" class="form-control input-lg" placeholder="예)2000">
     </div>
 
 
 </div>
-<div class="row" style="background-color:#000;text-align:right; color:#fff; padding:10px 20px;">
+<div class="row footer_survey" style="background-color:#000;text-align:right; color:#fff; padding:10px 20px;">
     <div class="col-xs-12">
-        <a href="javascript:void(0);" style="color:#fff;" class="nextStep">다음단계</a>
+        <a href="javascript:void(0);" style="color:#fff;" class="nextStep">다음단계 ></a>
     </div>
 </div>
 
