@@ -260,16 +260,53 @@ router.post('/pointProcess', function(req, res, next) {
 });
 
 router.get("/pointRequest", function(req, res) {
-    muser.sp_MEMBER_POINT_REQUEST(function(err, rows) {
+
+    var startDay = req.param("startDay");
+    var endDay = req.param("endDay");
+
+    if(startDay == undefined) {
+        startDay = 0;
+    }
+
+    if(endDay == undefined) {
+        endDay = 0;
+    }
+
+    muser.sp_MEMBER_POINT_REQUEST(startDay,endDay,function(err, rows) {
         if(err) {
             console.log(err);
             throw err;
         }
         var request = rows[0];
 
-        res.render("users/pointRequest", {request : request});
+
+
+        res.render("users/pointRequest", {request : request,moment : moment});
+
     });
 
+});
+
+router.post("/pointRequestUpdate", function(req, res) {
+    var seq = req.body.seq;
+    var request = req.body.request;
+
+    muser.set_pointRequestUpdate(seq,request, function(err, rows) {
+        if(err) {
+            console.log(err);
+            throw err;
+        }
+
+        var data = rows[0];
+
+        var json = {
+            "ERR_CODE" : data[0].ERR_CODE
+            ,"ERR_MSG" : data[0].ERR_MSG
+            ,"CODE_TYPE" : data[0].CODE_TYPE
+        }
+
+        res.send(json);
+    });
 });
 
 module.exports = router;

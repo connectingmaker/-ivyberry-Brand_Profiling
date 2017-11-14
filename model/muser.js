@@ -135,12 +135,26 @@ var muser = {
         connection.end();
         return data;
     }
-    ,sp_MEMBER_POINT_REQUEST: function(callback) {
+    ,sp_MEMBER_POINT_REQUEST: function(startDay,endDay,callback) {
         var connection = mysql_dbc.init();
-        var query = " call sp_MEMBER_POINT_REQUEST()";
+        var query = " call sp_MEMBER_POINT_REQUEST(?,?)";
         var params = [];
+        params.push(startDay);
+        params.push(endDay);
 
         var data = connection.query(query,params,callback);
+        connection.end();
+        return data;
+    }
+    ,set_pointRequestUpdate: function(seq,request, callback) {
+        var connection = mysql_dbc.init();
+        var query = " call sp_POINT_REQUEST_UPDATE(?,?)";
+
+        var params = [];
+        params.push(seq);
+        params.push(request);
+
+        var data = connection.query(query,params, callback);
         connection.end();
         return data;
     }
