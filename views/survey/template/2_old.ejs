@@ -1,0 +1,98 @@
+<input type="hidden" id="campaign_code" name="campaign_code" value="<%=campaign_code%>">
+<input type="hidden" id="seq" name="seq" value="<%=seq%>">
+<input type="hidden" id="uid" name="uid" value="<%=uid%>">
+<input type="hidden" id="quest_num" value="<%=quest_num%>">
+<input type="hidden" id="q_code" value="<%=surveyQ.Q_CODE%>">
+<input type="hidden" id="page" value="<%=page%>">
+
+
+<div id="container_survey" style="min-height:100%;">
+    <div class="content">
+        <div class="row" style="padding:10px 40px;">
+            <div clss="col-xs-12">
+                <div class="row" style="background-color:#f1f1f1; padding:10px;">
+
+                    <div class="col-xs-12 text-center">
+                        <h2> <span id="selectCnt" class="Textcolor">0</span> / <%=brandList.length%></h2>
+
+                        <small><span id="textselectCnt" class="Textcolor">0개가 선택되었습니다</span></small>
+                    </div>
+                </div>
+                <div class="row" style="background-color:#fff; padding:10px;">
+                    <div class="col-xs-12 push-5-t">
+                        <b><%=surveyQ.Q_TITLE_KO%></b>
+                    </div>
+
+                    <div class="col-xs-12 push-10-t push-10" style="background-color:#f1f1f1;height:1px;">
+
+                    </div>
+
+                    <div class="col-xs-12 push-10">
+                        <table border="0" cellpadding="0" cellspacing="0">
+                            <col width="40%">
+                            <col width="20%">
+                            <col width="40%">
+                            <tr>
+                                <td class="imgbg">
+                                    <img src="<%=surveyQA[0].IMG%>" width="100%">
+                                </td>
+                                <td align="center">
+                                    <code>VS</code>
+                                </td>
+                                <td class="imgbg">
+                                    <img src="<%=surveyQA[1].IMG%>" width="100%">
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+
+                </div>
+
+
+
+                <div class="row"></div>
+
+            </div>
+
+            <input type="hidden" id="brandCnt" value="<%=brandList.length%>">
+            <% for(var brandNum = 0; brandNum<brandList.length; brandNum++) { %>
+            <div class="row push-30-t push-20">
+
+                <div class="col-xs-12">
+                    <div class="col-xs-12 bg-white" style="padding:15px 20px;">
+                        <%=brandList[brandNum].BRAND_NAME_KO%>
+                    </div>
+                    <div class="col-xs-12" style="padding:10px 20px; background-color:#f1f1f1;">
+                        <table width="100%">
+                            <tr>
+                                <% for(var i = 1; i<=7; i++) { %>
+                                <td class="text-center">
+                                    <label class="css-input css-radio css-radio-danger">
+                                        <input type="radio" name="qa[<%=brandNum%>]" brandCode="<%=brandList[brandNum].DETAIL_BRAND_CODE%>" class="qaData qaData_<%=brandNum%>" value="<%=i%>"><span></span>
+                                    </label>
+                                </td>
+                                <% } %>
+
+                            </tr>
+                        </table>
+                    </div>
+
+                </div>
+
+            </div>
+            <% } %>
+
+
+        </div>
+    </div>
+</div>
+
+
+<div class="row footer_survey" style="background-color:#000;text-align:right; color:#fff; padding:10px 20px;">
+    <div class="col-xs-12">
+        <a href="javascript:void(0);" style="color:#fff;" class="nextStep">다음단계</a>
+    </div>
+</div>
+
+
+<script language="javascript" src="/view_js/survey/1.js"></script>

@@ -25,16 +25,20 @@ $(function() {
                 return;
             } else {
                 $(".qaData_"+i).each(function() {
-                    if($(this).is(":checked") == true) {
-                        var data = {
-                            "brandCode": $(this).attr("brand_code")
-                            , "qaCode": $(this).val()
+                    $(this).each(function() {
+                        if($(this).is(":checked") == true) {
+                            var data = {
+                                "brandCode": $(this).attr("brand_code")
+                                , "qaCode": $(this).val()
+                            }
+                            qaData.push(data);
                         }
-                        qaData.push(data);
-                    }
+                    });
+
                 });
             }
         }
+
 
 
         var json = {
@@ -47,11 +51,10 @@ $(function() {
             ,qaData : JSON.stringify(qaData)
         };
 
-        console.log(json);
-
 
         common.ajax.send('/survey/multiProcess', json);
         common.ajax.return = function(data) {
+
 
             if(data.PAGE == 0) {
                 location.replace("/survey/surveyEnd?campaign_code="+$("#campaign_code").val()+"&uid="+$("#uid").val()+"&seq="+$("#seq").val()+"&quest_num="+$("#quest_num").val());
@@ -60,8 +63,6 @@ $(function() {
             }
 
 
-            console.log(data);
-            //
         }
 
 

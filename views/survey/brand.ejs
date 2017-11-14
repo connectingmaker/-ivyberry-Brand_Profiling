@@ -1,6 +1,5 @@
 
-<div id="container_survey" style="min-height:100%;">
-    <div class="content">
+
         <form id="brandForm" method="post" action="/survey/brandProcess">
         <div class="row" style="padding:10px 40px;">
             <input type="hidden" id="campaign_code" name="campaign_code" value="<%=campaign_code%>">
@@ -8,44 +7,33 @@
             <input type="hidden" id="uid" name="uid" value="<%=uid%>">
             <input type="hidden" id="quest_num" value="<%=quest_num%>">
             <div clss="col-xs-12">
-                <div class="row" style="background-color:#f1f1f1; padding:10px;">
+                <div class="row titleBox2">
 
-                    <div class="col-xs-12 text-center">
+                    <div class="col-xs-12 text-center titleCountBg">
                         <h2> <span id="selectCnt" class="Textcolor">0</span> / <%=brand.length%></h2>
 
                         <small><span id="textselectCnt" class="Textcolor">0개가 선택되었습니다</span></small>
                     </div>
-                </div>
-                <div class="row" style="background-color:#fff; padding:10px;">
-                    <div class="col-xs-12 text-center">
+
+                    <div class="col-xs-12 text-center titleSelectBg">
                         <small>설문에 응답하실 알고 계신 브랜드를 선택해주세요.</small>
                     </div>
                 </div>
-            </div>
 
-            <div class="row push-30-t push-20">
-                <% for(var i = 0; i<brand.length; i++) { %>
-                <div class="col-xs-12">
-                    <input type="checkbox" name="brand[]" id="<%=brand[i].DETAIL_CATEGORY_CODE%>" class="chk_brand" value="<%=brand[i].DETAIL_CATEGORY_CODE%>" style="display:none;">
-                    <button class="brandList btn btn-default push-5-r push-10 btn-block btn-md" brand_code="<%=brand[i].DETAIL_CATEGORY_CODE%>" type="button">
-                        <span class="pull-left"><i class="fa fa-check"></i>&nbsp;&nbsp;&nbsp;<%=brand[i].BRAND_NAME_KO%></span>
-                    </button>
+                <div class="row push-30-t push-20">
+                    <% for(var i = 0; i<brand.length; i++) { %>
+                    <div class="col-xs-12">
+                        <input type="checkbox" name="brand[]" id="<%=brand[i].DETAIL_CATEGORY_CODE%>" class="chk_brand" value="<%=brand[i].DETAIL_CATEGORY_CODE%>" style="display:none;">
+                        <button class="brandList btn btn-white push-5-r push-10 btn-block btn-md" brand_code="<%=brand[i].DETAIL_CATEGORY_CODE%>" type="button">
+                            <span class="pull-left"><img src="/img/survey/checkBox_icon_off.png">&nbsp;&nbsp;&nbsp;<%=brand[i].BRAND_NAME_KO%></span>
+                        </button>
+                    </div>
+                    <% } %>
                 </div>
-                <% } %>
+
+
+
             </div>
-
-
-
         </div>
-
-
         </form>
-    </div>
-</div>
-<div class="row footer_survey" style="background-color:#000;text-align:right; color:#fff; padding:10px 20px;">
-    <div class="col-xs-12">
-        <a href="javascript:void(0);" style="color:#fff;" class="nextStep">다음단계</a>
-    </div>
-</div>
-
 <script language="javascript" src="/view_js/survey/brand.js"></script>
