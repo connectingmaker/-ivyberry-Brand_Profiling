@@ -1,16 +1,53 @@
 $(function() {
 
+    $(".qaList").click(function() {
+        $(".qaList").each(function() {
+            $(this).removeClass("btn-select");
+            $(this).addClass("btn-white");
+
+            var src = $(this).find(".pull-left").find("img").attr("src");
+            src = src.replace("_on","_off");
+            $(this).find(".pull-left").find("img").attr("src", src);
+
+
+        });
+
+        $(this).removeClass("btn-white");
+        $(this).addClass("btn-select");
+
+        var src = $(this).find(".pull-left").find("img").attr("src");
+        src = src.replace("_off","_on");
+        $(this).find(".pull-left").find("img").attr("src", src);
+
+
+
+
+        var sex = $(this).attr("sex");
+
+        $("#data").val(sex);
+    });
+
     $(".brandList").click(function() {
         var brand_code = $(this).attr("brand_code");
 
+
         if($("#"+brand_code).is(":checked") == false) {
             $("#"+brand_code).prop("checked", true);
-            $(this).removeClass("btn-default");
-            $(this).addClass("btn-danger");
+            $(this).removeClass("btn-white");
+            $(this).addClass("btn-select");
+
+            var src = $(this).find(".pull-left").find("img").attr("src");
+            src = src.replace("_off","_on");
+            $(this).find(".pull-left").find("img").attr("src", src);
         } else {
             $("#"+brand_code).prop("checked", false);
-            $(this).removeClass("btn-danger");
+            $(this).removeClass("btn-select");
             $(this).addClass("btn-default");
+
+
+            var src = $(this).find(".pull-left").find("img").attr("src");
+            src = src.replace("_on","_off");
+            $(this).find(".pull-left").find("img").attr("src", src);
         }
 
         var checkCnt = 0;
