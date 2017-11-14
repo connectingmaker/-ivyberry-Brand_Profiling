@@ -109,7 +109,8 @@ var mcampaign = {
     }
     ,delCampaign: function(campaign_code, callback) {
         var connection = mysql_dbc.init();
-        var query = " DELETE FROM CAMPAIGN WHERE CAMPAIGN_CODE = ? ";
+        //var query = " DELETE FROM CAMPAIGN WHERE CAMPAIGN_CODE = ? ";
+        var query = "call sp_CAMPAIGN_DELETE(?)";
         var params = [];
         params.push(campaign_code);
 
