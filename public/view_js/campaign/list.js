@@ -11,8 +11,16 @@ $(function() {
 
             common.ajax.return = function(data) {
                 var dataJson = data;
-                $("#"+dataJson.campaign_code).remove();
-                //console.log(dataJson.campaign_code);
+
+                switch(dataJson.ERR_CODE) {
+                    case "000":
+                        $("#"+dataJson.campaign_code).remove();
+                        break;
+                    default:
+                        alert("ERR : "+dataJson.ERR_CODE+"\n\n"+dataJson.ERR_MSG);
+                        break;
+                }
+
             };
 
         }

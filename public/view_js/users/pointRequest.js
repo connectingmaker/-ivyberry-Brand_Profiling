@@ -1,9 +1,7 @@
 $(function() {
 
-    //alert("OK");
     $(".search").click(function() {
 
-        //alert("ok");
         if(inputTextCheck("startDay", "검색할 시작일자를 선택해주세요") == false) {
             return;
         }
@@ -63,4 +61,21 @@ $(function() {
 
     });
 
+    $(".requestExcel").click(function() {
+
+        var params = {
+            starDay : $("#startDay").val()
+            ,endDay : $("#endDay").val()
+
+        }
+        common.ajax.send('/users/requestExcel', params);
+        common.ajax.return = function(data) {
+            console.log(data);
+            if(data.err == "000") {
+                location.reload();
+            } else {
+                alert("DB 오류 발생");
+            }
+        }
+    });
 });

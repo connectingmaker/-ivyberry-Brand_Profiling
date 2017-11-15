@@ -333,6 +333,7 @@ router.post("/settingProcess", function(req, res) {
                     var data = {
                         err : err
                     };
+
                 }
 
                 err = "000";
@@ -354,9 +355,6 @@ router.post("/settingProcess", function(req, res) {
 
 router.post("/campaignDelete", function(req, res) {
     var campaign_code = req.body.campaign_code;
-    var jsonData = {
-        campaign_code : campaign_code
-    };
 
     mcampaign.delCampaign(campaign_code, function(err, rows) {
         if(err) {
@@ -364,9 +362,16 @@ router.post("/campaignDelete", function(req, res) {
             throw err;
         }
 
+        console.log(rows);
+
+        var data = rows[0];
+        console.log(data);
         var jsonData = {
             campaign_code : campaign_code
+            ,ERR_CODE : data[0].ERR_CODE
+            ,ERR_MSG : data[0].ERR_MSG
         };
+
 
         res.send(jsonData);
     });

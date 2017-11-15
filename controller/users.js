@@ -6,6 +6,9 @@ var muser = require("../model/muser");
 var moment = require('moment');
 var pagination = require('pagination');
 
+var nodeExcel=require('excel-export');
+//var dateFormat = require('dateformat');
+
 /* GET users listing. */
 
 router.get('/list', function(req, res, next) {
@@ -307,6 +310,95 @@ router.post("/pointRequestUpdate", function(req, res) {
 
         res.send(json);
     });
+});
+
+router.post('/requestExcel',function(req,res){
+    console.log("ok");
+    var startDay = req.param("startDay");
+    var endDay = req.param("endDay");
+
+    if(startDay == undefined) {
+        startDay = 0;
+    }
+
+    if(endDay == undefined) {
+        endDay = 0;
+    }
+
+    var conf={}
+    conf.cols=[{
+        caption:'UID',
+        type:'string',
+        width:20
+        },
+        {
+            caption:'NAME',
+            type:'string',
+            width:20
+        },
+        {
+            caption:'EMAIL',
+            type:'string',
+            width:20
+        },
+        {
+            caption:'MSG',
+            type:'string',
+            width:20
+        },
+        {
+            caption:'BANK',
+            type:'string',
+            width:20
+        },
+        {
+            caption:'COUNT',
+            type:'string',
+            width:20
+        },
+        {
+            caption:'MONEY',
+            type:'string',
+            width:20
+        },
+        {
+            caption:'DATE',
+            type:'string',
+            width:20
+        }
+    ];
+
+
+    muser.sp_MEMBER_POINT_REQUEST(startDay,endDay,function(err, rows) {
+        if(err) {
+            console.log(err);
+            throw err;
+        }
+        var request = rows[0];
+
+        arr=[];
+        for(i=0;i<request.length;i++){
+            UID = request[i].UID;
+            USERNAME = request[i].USERNAME;
+            USEREMAIL = request[i].USEREMAIL;
+            POINT_MSG =request[i].POINT_MSG;
+            BANK_NAME =request[i].BANK_NAME;
+            BANK_NUM =request[i].BANK_NUM;
+            POINT =request[i].POINT;
+            INSERT_DATETIME =request[i].INSERT_DATETIME;
+            requestDownload=[UID,USERNAME,USEREMAIL,POINT_MSG,BANK_NAME,BANK_NUM,POINT,INSERT_DATETIME];
+            arr.push(requestDownload);
+        }
+        conf.rows=arr;
+
+        var result=nodeExcel.execute(conf);
+        res.setHeader('Content-Type','application/vnd.openxmlformates');
+        res.setHeader("Content-Disposition","attachment;filename="+"pointRequest.xlsx");
+        res.end(result,'binary');
+
+
+    });
+
 });
 
 module.exports = router;
