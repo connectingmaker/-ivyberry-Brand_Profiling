@@ -118,7 +118,11 @@ var msurvey = {
             params.push(seq);
             params.push(q_code);
             params.push(qa_code[i].qaCode);
-            params.push('');
+            if(qa_code[i].qaText == undefined) {
+                params.push('');
+            } else {
+                params.push(qa_code[i].qaText);
+            }
             params.push('');
             params.push(qa_code[i].brandCode)
             params.push(quest_num);

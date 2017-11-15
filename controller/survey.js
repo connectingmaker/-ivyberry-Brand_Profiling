@@ -352,6 +352,10 @@ router.post("/multiProcess", function(req, res) {
     var qaData = eval("("+req.body.qaData+")");
     msurvey.rowDataDel(seq, q_code, function(err, rows) {
         msurvey.multirowData(seq, q_code, qaData, '', quest_num, '5', function(err,rows) {
+            if(err) {
+                console.log(err);
+                throw err;
+            }
             msurvey.surveyPageCheck(campaign_code, quest_num, page, function(err, rows) {
                 if(err) {
                     console.log(err);

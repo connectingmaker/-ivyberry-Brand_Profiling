@@ -41,6 +41,7 @@ $(function() {
 
 
 
+
         var json = {
             campaign_code : $("#campaign_code").val()
             ,uid : $("#uid").val()
@@ -50,6 +51,7 @@ $(function() {
             ,q_code : $("#q_code").val()
             ,qaData : JSON.stringify(qaData)
         };
+
 
 
         common.ajax.send('/survey/multiProcess', json);
