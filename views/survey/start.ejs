@@ -1,3 +1,10 @@
+<% if(DEBUG == "true") { %>
+<script>
+    alert("ERR_CODE:<%=ERR_CODE%>\n<%=ERR_MSG%>");
+
+</script>
+
+<% } else { %>
 <script>
     setTimeout(function () {
         var json = {
@@ -8,3 +15,6 @@
     }, 0);
 
 </script>
+<% } %>
+
+<%=ERR_CODE%>

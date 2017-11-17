@@ -69,7 +69,7 @@ table tr .check { color:#DA4211; font-size:9px; padding-left:5px; }
 
 /************ MAIN 컨텐츠 ******************/
 #main-container {min-width:1004px;}
-#main-container .contents { width:1004px; margin:0 auto; padding:26px 0px; height:564px; }
+#main-container .contents { width:1004px; margin:0 auto; padding:26px 0px; }
 #main-container .contents .c01 { }
 #main-container .contents .c01 .left_box { width:239px; height:250px;  position: relative; float:left; }
 #main-container .contents .c01 .center_box { width:494px; height:250px; position: relative; left:16px; border:1px solid #dadada; float:left; background-color:#fff; }

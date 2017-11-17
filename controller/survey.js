@@ -25,7 +25,6 @@ router.get("/start", function(req, res) {
 
 
             var survey = rows[0];
-            console.log(survey);
             res.redirect("/survey/profile?campaign_code=" + campaign_code + "&uid=" + uid + "&quest_num=" + quest_num + "&seq=" + survey[0]._SEQ+"&step=1"+debugurl);
         });
         //res.redirect("/survey/profile?campaign_code=" + campaign_code + "&uid=" + uid + "&quest_num=" + quest_num +"&step=1");
@@ -37,9 +36,9 @@ router.get("/start", function(req, res) {
             }
 
             var survey = rows[0];
-            switch (survey[0]._ERR_CODE) {
+            console.log(survey);
+            switch (survey[0].ERR_CODE) {
                 case "000":
-                    //console.log("OK");
                     res.redirect("/survey/brand?campaign_code=" + campaign_code + "&uid=" + uid + "&quest_num=" + quest_num + "&seq=" + survey[0]._SEQ+debugurl);
                     /*
                     res.render('survey/start', {
@@ -70,6 +69,16 @@ router.get("/start", function(req, res) {
                         });
                     }
 
+                    break;
+                default:
+                    res.render('survey/start', {
+                        layout: 'layout/single_page',
+                        "layout extractScripts": true
+                       , ERR_CODE: survey[0].ERR_CODE
+                       , ERR_MSG:survey[0].ERR_MSG
+                        ,DEBUG: debug
+
+                    });
                     break;
             }
         });
