@@ -23,7 +23,8 @@ $(function() {
         });
 
         var jsonData = {
-            quest: JSON.stringify(questData)
+            campaign_code : $("#campaign_code").val()
+            ,quest: JSON.stringify(questData)
         }
 
         common.ajax.send("/campaign/questionProcess", jsonData);

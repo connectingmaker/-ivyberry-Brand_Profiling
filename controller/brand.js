@@ -104,9 +104,11 @@ router.post("/categoryDelete", function(req, res, next) {
         if(err) {
             console.log(err);
         }
-
+        var data = rows[0];
         data = {
             category_code : category_code
+            ,ERR_CODE : data[0].ERR_CODE
+            ,ERR_MSG : data[0].ERR_MSG
         };
 
         res.send(data)

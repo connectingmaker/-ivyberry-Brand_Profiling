@@ -69,16 +69,21 @@ $(function() {
                         ,qaData : JSON.stringify(qaData)
                     };
 
-                    console.log(json);
+                    var debugUrl = "";
+
+                    if($("#debug").val() == "true") {
+                        debugUrl = "&debug=true";
+                    }
+
 
 
                     common.ajax.send('/survey/multiProcess', json);
                     common.ajax.return = function(data) {
 
                         if(data.PAGE == 0) {
-                            location.replace("/survey/surveyEnd?campaign_code="+$("#campaign_code").val()+"&uid="+$("#uid").val()+"&seq="+$("#seq").val()+"&quest_num="+$("#quest_num").val());
+                            location.replace("/survey/surveyEnd?campaign_code="+$("#campaign_code").val()+"&uid="+$("#uid").val()+"&seq="+$("#seq").val()+"&quest_num="+$("#quest_num").val()+debugUrl);
                         } else {
-                            location.replace("/survey/page?campaign_code="+$("#campaign_code").val()+"&uid="+$("#uid").val()+"&seq="+$("#seq").val()+"&quest_num="+$("#quest_num").val()+"&page="+data.PAGE);
+                            location.replace("/survey/page?campaign_code="+$("#campaign_code").val()+"&uid="+$("#uid").val()+"&seq="+$("#seq").val()+"&quest_num="+$("#quest_num").val()+"&page="+data.PAGE+debugUrl);
                         }
 
 

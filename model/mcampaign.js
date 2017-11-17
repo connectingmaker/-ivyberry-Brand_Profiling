@@ -287,6 +287,36 @@ var mcampaign = {
         connection.end();
         return data;
     }
+    ,sp_CAMPAIGN_RAWDATA: function(campaign_code, callback) {
+        var connection = mysql_dbc.init();
+        var query = " call sp_CAMPAIGN_RAWDATA(?) ";
+        var params = [];
+        params.push(campaign_code);
+
+        var data = connection.query(query,params,callback);
+        connection.end();
+        return data;
+    }
+    ,sp_CAMPAIGN_LIST_END: function(callback) {
+        var connection = mysql_dbc.init();
+        var query = " call sp_CAMPAIGN_LIST_END() ";
+        var params = [];
+
+        var data = connection.query(query,params,callback);
+        connection.end();
+        return data;
+    }
+    ,del_CAMPAIGN_QUEST: function(campaign_code, callback) {
+        var connection = mysql_dbc.init();
+        var query = " DELETE FROM CAMPAIGN_QUEST WHERE CAMPAIGN_CODE = ? ";
+        var params = [];
+
+        params.push(campaign_code);
+
+        var data = connection.query(query,params,callback);
+        connection.end();
+        return data;
+    }
 }
 
 module.exports = mcampaign;

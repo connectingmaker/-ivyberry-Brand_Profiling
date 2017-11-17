@@ -63,7 +63,7 @@ img_template += '</tr>';
 
 var survey_template = "";
 
-survey_template += "<div class=\"col-xs-12 bg-white box round_box push-30-t\" id='[_Q_CODE_ID_]'>";
+survey_template += "<div class=\"col-xs-12 bg-white box round_box push-10-t\" id='[_Q_CODE_ID_]'>";
 survey_template += "<div class='row'>";
 survey_template += "<div class='col-xs-8 title'>[_Q_TYPE_]</div>";
 survey_template += "<div class=\"col-xs-4 text-right\">";
@@ -940,10 +940,15 @@ $(function() {
             }
             common.ajax.send("/question/qDelete", json);
             common.ajax.return = function(data) {
-                /*
-                console.log(data);
-                */
-                $("#"+data.q_code).remove();
+                switch(data.ERR_CODE) {
+                    case "000":
+                        $("#"+data.q_code).remove();
+                        break;
+                    default:
+                        alert("ERR_CODE: " + data.ERR_CODE + "\n"+data.ERR_MSG);
+                        break;
+                }
+
             }
         }
     });

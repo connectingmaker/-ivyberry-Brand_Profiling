@@ -1,50 +1,29 @@
+<input type="hidden" id="campaign_code" value="<%=campaign_code%>">
+<input type="hidden" id="group_code" value="<%=group_code%>">
 <div class="row">
     <div class="row">
         <div class="col-xs-12">
             <div class="wizard">
                 <a href="/statistics/campaign"><span class="badge">1</span> 완료된 설문</a>
-                <a href="#" class="current"><span class="badge badge-inverse">2</span> 질문 그룹별 통계</a>
+                <a href="#"><span class="badge">2</span> 질문 그룹별 통계</a>
+                <a href="#" class="current"><span class="badge badge-inverse">3</span> 질문별 통계</a>
 
             </div>
         </div>
     </div>
-    <div class="col-xs-12 push-10-t bg-white box round_box">
-        <div class="row">
-            <div class="col-xs-10 title">
-                질문 그룹별 통계
+
+    <% for(var i = 0; i<data.length; i++) { %>
+        <div class="col-xs-12 bg-white box round_box push-30-t">
+            <b><%=data[i].Q_NAME%></b>
+
+            <div id="<%=data[i].Q_CODE%>" question_type="<%=data[i].QUESTION_TYPE%>" class="row col-xs-12 push-10-t chartList">
+                <table id="data_<%=data[i].Q_CODE%>">
+                </table>
+
+                <canvas id="chart_<%=data[i].Q_CODE%>" width="400" height="100"></canvas>
             </div>
         </div>
-        <div class="contents_list">
-            <table id="list" class="table table-bordered fontsize">
-                <thead>
-                <tr>
-                    <th>질문그룹ID</th>
-                    <th>질문그룹 이름</th>
-                    <th>메모</th>
-                    <th>질문수</th>
-                    <th>유형</th>
-                    <th>퀘스트</th>
-                    <th>참조</th>
-                    <th>최근수정일</th>
-                </tr>
-                </thead>
-                <tbody>
-                    <% for(var i = 0; i<groupList.length; i++) { %>
-                    <tr>
-                        <td><%=groupList[i].GROUP_CODE%></td>
-                        <td><a href="/statistics/group/<%=groupList[i].GROUP_CODE%>"><%=groupList[i].GROUP_NAME_KO%></a></td>
-                        <td><%=groupList[i].MEMO%></td>
-                        <td><%=groupList[i].Q_CNT%></td>
-                        <td>7점척도</td>
-                        <td><%=groupList[i].QUEST_NUM%></td>
-                        <td><%=groupList[i].ETC%></td>
-                        <td class="text-center"><a href="/statistics/groupData/<%=campaign_code%>/<%=groupList[i].GROUP_CODE%>" class="btn btn-xs btn-danger">통계보기</a></td>
-                    </tr>
-                    <% } %>
-                </tbody>
-            </table>
-        </div>
-    </div>
+    <% } %>
 
 
 
@@ -157,5 +136,5 @@
 
 
 
-<script language="javascript" src="/view_js/statistics/group.js"></script>
-<script src="/assets/js/plugins/chartjs/Chart.min.js"></script>
+<script src="/assets/js/chart.js"></script>
+<script src="/view_js/statistics/groupData.js"></script>

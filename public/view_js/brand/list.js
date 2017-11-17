@@ -72,7 +72,15 @@ $(function() {
 
             common.ajax.send("/brand/categoryDelete", params);
             common.ajax.return = function (data) {
-                $("#" + data.category_code).remove();
+                switch(data.ERR_CODE) {
+                    case "000":
+                        $("#" + data.category_code).remove();
+                        break;
+                    default:
+                        alert("ERR_CODE: " + data.ERR_CODE + "\n"+data.ERR_MSG);
+                        break;
+                }
+
             }
         }
 

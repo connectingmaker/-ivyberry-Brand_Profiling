@@ -111,7 +111,7 @@ var mbrand = {
     /**** 브랜드 대분류 삭제 ***********/
     ,del_BrandCategory: function(category_code, callback) {
         var connection = mysql_dbc.init();
-        var query = "DELETE FROM BRAND_CATEGORY WHERE CATEGORY_CODE = ? ";
+        var query = "call sp_BRAND_CATEGORY_DELETE(?) ";
         var params = [];
         params.push(category_code);
 

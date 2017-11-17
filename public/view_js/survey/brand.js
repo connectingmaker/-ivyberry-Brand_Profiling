@@ -64,6 +64,11 @@ $(function() {
 
 
     $(".nextStep").click(function() {
+        var debugUrl = "";
+
+        if($("#debug").val() == "true") {
+            debugUrl = "&debug=true";
+        }
         if($(".chk_brand").is(":checked") == false) {
             alert("브랜드를 선택해주세요.");
         } else {
@@ -87,7 +92,7 @@ $(function() {
 
             common.ajax.send('/survey/brandProcess', json);
             common.ajax.return = function(data) {
-                location.replace("/survey/page?campaign_code="+$("#campaign_code").val()+"&uid="+$("#uid").val()+"&seq="+$("#seq").val()+"&quest_num="+$("#quest_num").val()+"&page=1");
+                location.replace("/survey/page?campaign_code="+$("#campaign_code").val()+"&uid="+$("#uid").val()+"&seq="+$("#seq").val()+"&quest_num="+$("#quest_num").val()+"&page=1"+debugUrl);
             }
             //$("#brandForm").submit();
         }

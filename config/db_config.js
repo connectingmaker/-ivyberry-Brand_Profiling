@@ -1,21 +1,21 @@
 module.exports = (function () {
     return {
         local: { // localhost
-            host: 'carin.c-maker.co.kr',
+            host: '220.230.120.251',
             port: '3306',
             user: 'brand',
             password: 'profiling',
             database: 'brand'
         },
         real: { // real server db info
-            host: 'carin.c-maker.co.kr',
+            host: '220.230.120.251',
             port: '3306',
             user: 'brand',
             password: 'profiling',
             database: 'brand'
         },
         dev: { // dev server db info
-            host: 'carin.c-maker.co.kr',
+            host: '220.230.120.251',
             port: '3306',
             user: 'brand',
             password: 'profiling',

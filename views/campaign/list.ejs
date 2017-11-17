@@ -19,12 +19,11 @@
                 <col width="8%">
                 <col width="15%">
                 <col width="5%">
-                <col width="15%">
-                <col width="15%">
-                <col width="5%">
-                <col width="5%">
-                <col width="14%">
+                <col width="12%">
+                <col width="12%">
                 <col width="10%">
+                <col width="14%">
+                <col width="16%">
                 <thead>
                 <tr>
                     <th class="text-center">설문ID</th>
@@ -33,8 +32,7 @@
                     <th class="text-center">상태</th>
                     <th class="text-center">시작일</th>
                     <th class="text-center">종료일</th>
-                    <th class="text-center">제한<br>인원</th>
-                    <th class="text-center">참여<br>인원</th>
+                    <th class="text-center">참여 / 제한</th>
                     <th class="text-center">최종수정일</th>
                     <th class="text-center">관리</th>
                 </tr>
@@ -56,10 +54,10 @@
                             </td>
                             <td><a href="/campaign/write/<%=campaignlist[i].CAMPAIGN_CODE%>" ><%=moment(campaignlist[i].CAMPAIGN_STARTDATE).format("YYYY-MM-DD hh:mm")%></a></td>
                             <td><a href="/campaign/write/<%=campaignlist[i].CAMPAIGN_CODE%>" ><%=moment(campaignlist[i].CAMPAIGN_ENDDATE).format("YYYY-MM-DD hh:mm")%></a></td>
-                            <td><a href="/campaign/setting/<%=campaignlist[i].CAMPAIGN_CODE%>"><%=campaignlist[i].JOIN_CNT%></a></td>
-                            <td>0</td>
+                            <td><a href="/campaign/setting/<%=campaignlist[i].CAMPAIGN_CODE%>"><%=campaignlist[i].JOIN_CNT%> / 0</a></td>
                             <td><%=moment(campaignlist[i].MODIFY_DATETIME).format("YYYY-MM-DD hh:mm")%></td>
                             <td class="text-center">
+                                <a href="/survey/start?campaign_code=<%=campaignlist[i].CAMPAIGN_CODE%>&uid=99999999999999999001&quest_num=1&debug=true" target="_blank" class="btn btn-xs btn-success">테스트</a>
                                 <button class="btn btn-xs btn-warning deleteBtn">삭제</button>
                                 <button class="btn btn-xs btn-primary modifyBtn"><a href="/campaign/write/<%=campaignlist[i].CAMPAIGN_CODE%>" class="text-white" >수정</a></button>
                             </td>

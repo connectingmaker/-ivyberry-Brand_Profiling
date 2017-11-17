@@ -85,7 +85,15 @@ $(function() {
 
             common.ajax.send("/question/groupDelete", params);
             common.ajax.return = function (data) {
-                $("#" + data.group_code).remove();
+                switch(data.ERR_CODE) {
+                    case "000":
+                        $("#" + data.group_code).remove();
+                        break;
+                    default:
+                        alert("ERR_CODE: " + data.ERR_CODE + "\n"+data.ERR_MSG);
+                        break;
+                }
+                //$("#" + data.group_code).remove();
             }
         }
 

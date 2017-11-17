@@ -9,6 +9,12 @@ router.get("/start", function(req, res) {
     var campaign_code = req.param("campaign_code");
     var quest_num = req.param("quest_num");
     var uid = req.param("uid");
+    var debug = req.param("debug");
+    var debugurl = "";
+    if(debug == "true") {
+
+        debugurl = "&debug=true";
+    }
     if(campaign_code.trim() == "9999999001") {
         msurvey.surveyStart(campaign_code, uid, quest_num, function (err, rows) {
             if (err) {
@@ -20,7 +26,7 @@ router.get("/start", function(req, res) {
 
             var survey = rows[0];
             console.log(survey);
-            res.redirect("/survey/profile?campaign_code=" + campaign_code + "&uid=" + uid + "&quest_num=" + quest_num + "&seq=" + survey[0]._SEQ+"&step=1");
+            res.redirect("/survey/profile?campaign_code=" + campaign_code + "&uid=" + uid + "&quest_num=" + quest_num + "&seq=" + survey[0]._SEQ+"&step=1"+debugurl);
         });
         //res.redirect("/survey/profile?campaign_code=" + campaign_code + "&uid=" + uid + "&quest_num=" + quest_num +"&step=1");
     } else {
@@ -34,7 +40,7 @@ router.get("/start", function(req, res) {
             switch (survey[0]._ERR_CODE) {
                 case "000":
                     //console.log("OK");
-                    res.redirect("/survey/brand?campaign_code=" + campaign_code + "&uid=" + uid + "&quest_num=" + quest_num + "&seq=" + survey[0]._SEQ);
+                    res.redirect("/survey/brand?campaign_code=" + campaign_code + "&uid=" + uid + "&quest_num=" + quest_num + "&seq=" + survey[0]._SEQ+debugurl);
                     /*
                     res.render('survey/start', {
                         layout: 'layout/single_page',
@@ -46,13 +52,24 @@ router.get("/start", function(req, res) {
                     break;
 
                 case "999":
-                    //console.log("1111");
+                    if(debug == "true") {
+                        msurvey.sp_RAWDATA_DELETE(campaign_code, uid, function(err, rows) {
+                            if(err) {
+                                console.log(err);
+                                throw err;
+                            }
 
-                    res.render('survey/start', {
-                        layout: 'layout/single_page',
-                        "layout extractScripts": true,
-                        ERR_CODE: "999"
-                    });
+                            res.redirect("/survey/brand?campaign_code=" + campaign_code + "&uid=" + uid + "&quest_num=" + quest_num + "&seq=" + survey[0]._SEQ+debugurl);
+                        });
+                    } else {
+                        res.render('survey/start', {
+                            layout: 'layout/single_page',
+                            "layout extractScripts": true,
+                            ERR_CODE: "999"
+
+                        });
+                    }
+
                     break;
             }
         });
@@ -65,13 +82,18 @@ router.get("/profile", function(req,res) {
     var uid = req.param("uid");
     var step = req.param("step");
     var seq = req.param("seq");
+    var debug = req.param("debug");
+
+    if(debug == undefined) {
+        debug = "";
+    }
 
     switch(step) {
         case "1":
-            res.render('survey/profile/1', {layout: 'layout/survey_page', "layout extractScripts": true, campaign_code: campaign_code, quest_num: quest_num, uid: uid, seq: seq, step: step});
+            res.render('survey/profile/1', {layout: 'layout/survey_page', "layout extractScripts": true, campaign_code: campaign_code, quest_num: quest_num, uid: uid, seq: seq, step: step, debug : debug});
             break;
         default:
-            res.render('survey/profile/'+step, {layout: 'layout/survey_page', "layout extractScripts": true, campaign_code: campaign_code, quest_num: quest_num, uid: uid , seq: seq,  step: step});
+            res.render('survey/profile/'+step, {layout: 'layout/survey_page', "layout extractScripts": true, campaign_code: campaign_code, quest_num: quest_num, uid: uid , seq: seq,  step: step, debug : debug});
             break;
     }
 });
@@ -256,6 +278,10 @@ router.get("/brand", function(req, res) {
     var quest_num = req.param("quest_num");
     var uid = req.param("uid");
     var seq = req.param("seq");
+    var debug = req.param("debug");
+    if(debug == undefined) {
+        debug = "";
+    }
 
 
     msurvey.brandList(campaign_code, seq, function(err, rows) {
@@ -265,7 +291,7 @@ router.get("/brand", function(req, res) {
         }
 
         var brand = rows[0];
-        res.render('survey/brand', {layout: 'layout/survey_page', "layout extractScripts": true, campaign_code: campaign_code, quest_num: quest_num, uid: uid, seq: seq, brand: brand});
+        res.render('survey/brand', {layout: 'layout/survey_page', "layout extractScripts": true, campaign_code: campaign_code, quest_num: quest_num, uid: uid, seq: seq, brand: brand, debug : debug});
     });
 });
 
@@ -300,8 +326,12 @@ router.get("/page", function(req, res) {
     var uid = req.param("uid");
     var page = req.param("page");
     var seq = req.param("seq");
+    var debug = req.param("debug");
 
-    console.log(campaign_code + "///" + quest_num + "///" + page);
+    if(debug == undefined) {
+        debug = "";
+    }
+
 
     msurvey.surveyPage(campaign_code, quest_num, page, function(err, rows) {
         if(err)
@@ -335,6 +365,7 @@ router.get("/page", function(req, res) {
                         , surveyQ : surveyQ
                         , surveyQA : surveyQA
                         , brandList: brandList
+                        , debug : debug
                     });
             });
 
@@ -387,6 +418,10 @@ router.get("/surveyEnd", function(req, res) {
     var quest_num = req.param("quest_num");
     var uid = req.param("uid");
     var seq = req.param("seq");
+    var debug = req.param("debug");
+    if(debug == undefined){
+        debug = "";
+    }
 
 
     msurvey.surveyEnd(campaign_code, quest_num, seq, function(err, rows) {
@@ -414,6 +449,7 @@ router.get("/surveyEnd", function(req, res) {
             ERR_CODE: json.ERR_CODE
             ,ERR_MSG : json.ERR_MSG
             ,SURVEY_TYPE : "END"
+            ,debug : debug
         });
     });
 

@@ -149,8 +149,12 @@ router.post("/groupDelete", function(req, res) {
             throw err;
         }
 
+        var data = rows[0];
+
         var jsonData = {
             group_code : group_code
+            ,ERR_CODE : data[0].ERR_CODE
+            ,ERR_MSG : data[0].ERR_MSG
         }
 
         res.send(jsonData);
@@ -167,8 +171,12 @@ router.post("/qDelete", function(req, res) {
             throw err;
         }
 
+        var data = rows[0];
+
         var jsonData = {
             q_code : q_code
+            ,ERR_CODE : data[0].ERR_CODE
+            ,ERR_MSG : data[0].ERR_MSG
         }
 
         res.send(jsonData);

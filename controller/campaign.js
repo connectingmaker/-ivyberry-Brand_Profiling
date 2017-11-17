@@ -7,6 +7,7 @@ var router = express.Router();
 var mbrand = require("../model/mbrand");
 var mcampaign = require("../model/mcampaign");
 var moment = require('moment');
+var nodeExcel = require('excel-export');
 
 
 router.get('/list', function(req, res, next) {
@@ -208,25 +209,35 @@ router.get("/question/:code", function(req, res) {
 
 router.post("/questionProcess", function(req, res) {
     var quest = eval("("+req.body.quest+")");
+    var campaign_code = req.body.campaign_code;
     var data = {};
 
-    mcampaign.sp_CAMPAIGN_QUESTION_GROUP_SAVE(quest, function(err, rows) {
+
+    mcampaign.del_CAMPAIGN_QUEST(campaign_code, function(err, rows) {
         if(err) {
             console.log(err);
             throw err;
-            data = {
-                err: "DB_ERR"
+        }
+
+        mcampaign.sp_CAMPAIGN_QUESTION_GROUP_SAVE(quest, function(err, rows) {
+            if(err) {
+                console.log(err);
+                throw err;
+                data = {
+                    err: "DB_ERR"
+                }
             }
-        }
 
-        data = {
-            err: "000"
-        }
+            data = {
+                err: "000"
+            }
 
-        console.log(data);
+            console.log(data);
 
-        res.send(data);
+            res.send(data);
+        });
     });
+
 
 
 });
@@ -378,5 +389,164 @@ router.post("/campaignDelete", function(req, res) {
 
 
 });
+
+
+router.get("/campaignRawData/:code", function(req, res) {
+    var campaign_code = req.params.code;
+
+    mcampaign.sp_CAMPAIGN_RAWDATA(campaign_code, function(err, rows) {
+        if(err) {
+            console.log(err);
+            throw err;
+        }
+
+        var data = rows[0];
+
+        var conf ={};
+        conf.name = "mysheet";
+        conf.cols = [];
+
+        var dataArry = [];
+        data.forEach( function( v, i ){
+            var uid = v.UID;
+            var username = v.USERNAME;
+            var email = v.USEREMAIL;
+            var age = v.AGE;
+            var sex = v.SEX;
+            var city = v.CITY;
+            var brand_q = v.BRAND_Q;
+            var data_qa = v.DATA_QA;
+            var dataArrQA = [];
+
+            dataArrQA.push(uid);
+            dataArrQA.push(username);
+            dataArrQA.push(email);
+            dataArrQA.push(age);
+            dataArrQA.push(sex);
+            dataArrQA.push(city);
+
+            if(i == 0) {
+                var header_UID = {
+                    caption:'UID',
+                    type:'string'
+                };
+                conf.cols.push(header_UID);
+
+                var header_USERNAME = {
+                    caption:'이름',
+                    type:'string'
+                };
+                conf.cols.push(header_USERNAME);
+
+
+                var header_USEREMAIL = {
+                    caption:'이메일',
+                    type:'string'
+                };
+                conf.cols.push(header_USEREMAIL);
+
+                var header_AGE = {
+                    caption:'연령',
+                    type:'string'
+                };
+                conf.cols.push(header_AGE);
+
+                var header_SEX = {
+                    caption:'성별',
+                    type:'string'
+                };
+                conf.cols.push(header_SEX);
+
+                var header_CITY = {
+                    caption:'지역',
+                    type:'string'
+                };
+                conf.cols.push(header_CITY);
+
+                var brand_temp = brand_q.split("///");
+
+                brand_temp.forEach( function( q_data, key ){
+                    header_Q = {
+                        caption:q_data.replace(",", ""),
+                        type:'string'
+                    }
+
+                    conf.cols.push(header_Q);
+                });
+            }
+
+            var data_qa_temp = data_qa.split("///");
+
+            data_qa_temp.forEach(function(qa_data, key) {
+                dataArrQA.push(qa_data.replace(",", ""));
+            });
+
+            dataArry.push(dataArrQA);
+        });
+
+        conf.rows = dataArry;
+
+        var result = nodeExcel.execute(conf);
+        res.setHeader('Content-Type', 'application/vnd.openxmlformats');
+        res.setHeader("Content-Disposition", "attachment; filename=" +campaign_code+"_rawdata.xlsx");
+        res.end(result, 'binary');
+        /*
+        var result = nodeExcel.execute(conf);
+        res.setHeader('Content-Type', 'application/vnd.openxmlformats');
+        res.setHeader("Content-Disposition", "attachment; filename=" + "Report.xlsx");
+        res.end(result, 'binary');
+        */
+
+        /*
+        conf.cols = [{
+            caption:'string',
+            type:'string',
+            beforeCellWrite:function(row, cellData){
+                return cellData.toUpperCase();
+            },
+            width:28.7109375
+        },{
+            caption:'date',
+            type:'date',
+            beforeCellWrite:function(){
+                var originDate = new Date(Date.UTC(1899,11,30));
+                return function(row, cellData, eOpt){
+                    if (eOpt.rowNum%2){
+                        eOpt.styleIndex = 1;
+                    }
+                    else{
+                        eOpt.styleIndex = 2;
+                    }
+                    if (cellData === null){
+                        eOpt.cellType = 'string';
+                        return 'N/A';
+                    } else
+                        return (cellData - originDate) / (24 * 60 * 60 * 1000);
+                }
+            }()
+        },{
+            caption:'bool',
+            type:'bool'
+        },{
+            caption:'number',
+            type:'number'
+        }];
+        conf.rows = [
+            ['pi', new Date(Date.UTC(2013, 4, 1)), true, 3.14],
+            ["e", new Date(2012, 4, 1), false, 2.7182],
+            ["M&M<>'", new Date(Date.UTC(2013, 6, 9)), false, 1.61803],
+            ["null date", null, true, 1.414]
+        ];
+        var result = nodeExcel.execute(conf);
+        res.setHeader('Content-Type', 'application/vnd.openxmlformats');
+        res.setHeader("Content-Disposition", "attachment; filename=" + "Report.xlsx");
+        res.end(result, 'binary');
+        */
+
+
+
+        //console.log(rows[0]);
+    });
+})
 
 module.exports = router;
