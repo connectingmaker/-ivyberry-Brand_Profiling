@@ -1,6 +1,7 @@
 var emailCheck = false;
 
 $(function() {
+
     $("#emailSearch").click(function() {
         if(inputEmailCheck("useremail", "이메일을 입력해주세요") == false) {
             return;
@@ -28,26 +29,29 @@ $(function() {
         if(inputEmailCheck("useremail", "이메일을 입력해주세요") == false) {
             return;
         }
+        if($("#uid").val() == false) {
+            if(emailCheck == false) {
+                alert("이메일을 조회해주세요.");
+                return;
+            }
 
-        if(emailCheck == false) {
-            alert("이메일을 조회해주세요.");
-            return;
+            if(inputTextCheck("passwd1", "패스워드를 입력해주세요.") == false) {
+                return;
+            }
+
+
+            if(inputTextCheck("passwd2", "패스워드를 입력해주세요.") == false) {
+                return;
+            }
+
+            if($("#passwd1").val() != $("#passwd2").val()) {
+                alert("패스워드가 일치하지 않습니다");
+                $("#passwd2").val("");
+                return;
+            }
         }
 
-        if(inputTextCheck("passwd1", "패스워드를 입력해주세요.") == false) {
-            return;
-        }
 
-
-        if(inputTextCheck("passwd2", "패스워드를 입력해주세요.") == false) {
-            return;
-        }
-
-        if($("#passwd1").val() != $("#passwd2").val()) {
-            alert("패스워드가 일치하지 않습니다");
-            $("#passwd2").val("");
-            return;
-        }
 
         if(inputTextCheck("username", "이름을 입력해주세요") == false) {
             return;

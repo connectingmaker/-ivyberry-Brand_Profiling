@@ -49,4 +49,12 @@ $(function() {
         };
 
     });
+
+    $("#allchk").click(function() {
+        if($(this).is(":checked") == true) {
+            $(".brandpool").prop("checked", true);
+        } else {
+            $(".brandpool").prop("checked", false);
+        }
+    });
 });

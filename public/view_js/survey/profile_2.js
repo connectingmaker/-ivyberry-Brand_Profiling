@@ -39,6 +39,7 @@ $(function() {
             ,quest_num : $("#quest_num").val()
             ,step : $("#step").val()
             ,data : $("#data").val()
+            ,seq : $("#seq").val()
         };
 
 

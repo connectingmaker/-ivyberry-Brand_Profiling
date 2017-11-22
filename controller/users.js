@@ -105,6 +105,7 @@ router.get('/write/:code', function(req, res) {
             var sex = rows[0].SEX;
             var birthday = rows[0].BIRTHDAY;
             var point = rows[0].POINT;
+            var phone = rows[0].DECODE_PHONE;
             var last_login = rows[0].LAST_LOGIN;
 
             var userData = {
@@ -116,6 +117,7 @@ router.get('/write/:code', function(req, res) {
                 , birthday: birthday
                 , point: point
                 , last_login: last_login
+                , phone : phone
             };
 
             res.render('users/write', { gradelist : gradelist, userData: userData });
@@ -155,6 +157,24 @@ router.post("/emailCheck", function(req, res) {
         res.send(dataJson);
     });
 
+});
+
+router.post("/userDelete", function(req, res) {
+    var uid = req.body.uid;
+
+    muser.sp_MEMBER_DELETE(uid, function(err, rows) {
+        if(err) {
+            console.log(err);
+            throw err;
+        }
+
+        var data = rows[0];
+        var json = {
+            "ERR_CODE" : data[0].ERR_CODE
+            ,"ERR_MSG" : data[0].ERR_MSG
+        }
+        res.send(json);
+    })
 });
 
 

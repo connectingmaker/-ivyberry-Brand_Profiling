@@ -24,7 +24,7 @@
 
                             <input class="form-control" type="text" id="useremail" placeholder="email" value="<%=userData.useremail%>">
                             <span class="input-group-btn">
-                            <button id="emailSearch" class="btn btn-default btn-danger" type="button"><i class="fa fa-search"></i> 조회</button>
+                            <button id="emailSearch" class="btn btn-default btn-danger" <% if(userData.uid != "") { %>disabled<% } %> type="button"><i class="fa fa-search"></i> 조회</button>
                             </span>
                         </div>
                     </td>
@@ -71,7 +71,7 @@
                 <tr>
                     <th>핸드폰번호</th>
                     <td>
-                        <input id="userphone" type="text" class="form-control" value="">
+                        <input id="userphone" type="text" class="form-control" value="<%=userData.phone%>">
                     </td>
                     <th>최근 로그인</th>
                     <td>

@@ -66,6 +66,16 @@ var mapi = {
         connection.end();
         return data;
     }
+    ,mycampaignList: function(uid, callback) {
+        var connection = mysql_dbc.init();
+        var query = " call sp_API_MY_CAMPAIGN_LIST(?) ";
+        var params = [];
+        params.push(uid);
+
+        var data = connection.query(query, params, callback);
+        connection.end();
+        return data;
+    }
 
     ,userPoint:function(uid, callback) {
         var connection = mysql_dbc.init();
@@ -178,6 +188,52 @@ var mapi = {
         var query = " call sp_API_PWD_CHANGE(?, ?) ";
         var params = [];
         params.push(uid);
+        params.push(pwd);
+
+        var data = connection.query(query, params, callback);
+        connection.end();
+        return data;
+    }
+    ,sp_API_POINT_BANK: function(point, bank_code, bankaccount, uid, callback) {
+        var connection = mysql_dbc.init();
+        var query = " call sp_API_POINT_BANK(?, ?, ?, ?) ";
+        var params = [];
+        params.push(point);
+        params.push(bank_code);
+        params.push(bankaccount);
+        params.push(uid);
+
+        var data = connection.query(query, params, callback);
+        connection.end();
+        return data;
+    }
+    ,sp_API_USER_EMAIL_SEARCH: function(phone, callback) {
+        var connection = mysql_dbc.init();
+        var query = " call sp_API_USER_EMAIL_SEARCH(?) ";
+        var params = [];
+        params.push(phone);
+
+        var data = connection.query(query, params, callback);
+        connection.end();
+        return data;
+    }
+    ,sp_API_USER_IDPHONE_SEARCH: function(email, phone, callback) {
+        var connection = mysql_dbc.init();
+        var query = " call sp_API_USER_IDPHONE_SEARCH(?, ?) ";
+        var params = [];
+        params.push(email);
+        params.push(phone);
+
+        var data = connection.query(query, params, callback);
+        connection.end();
+        return data;
+    }
+    ,sp_API_USER_PWD_UPDATE: function(email, phone, pwd, callback) {
+        var connection = mysql_dbc.init();
+        var query = " call sp_API_USER_PWD_UPDATE(?, ?, ?) ";
+        var params = [];
+        params.push(email);
+        params.push(phone);
         params.push(pwd);
 
         var data = connection.query(query, params, callback);

@@ -9,7 +9,16 @@ $(function() {
 
             common.ajax.send("/users/userDelete", params);
             common.ajax.return = function (data) {
-                $("#" + data.uid).remove();
+                console.log(data);
+                switch(data.ERR_CODE) {
+                    case "000":
+                        $("#" + data.uid).remove();
+                        break;
+                    default:
+                        alert("ERR_CODE: " + data.ERR_CODE +"\n"+data.ERR_MSG);
+                        break;
+                }
+
             }
         }
 

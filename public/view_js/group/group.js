@@ -57,8 +57,7 @@ $(function() {
                 template += "</tr>";
                 $("#list tbody").append(template);
             }else{
-                //$("#"+dataReturn.GROUP_CODE+" td:eq(0)").text(dataReturn.GROUP_CODE);
-                $("#"+dataReturn.GROUP_CODE+" td:eq(1)").find("a").text(dataReturn.CATEGORY_NAME_KO);
+                $("#"+dataReturn.GROUP_CODE+" td:eq(1) a").text(dataReturn.GROUP_NAME_KO);
                 $("#"+dataReturn.GROUP_CODE+" td:eq(2)").text(dataReturn.MEMO);
                 $("#"+dataReturn.GROUP_CODE+" td:eq(3)").text(0);
                 $("#"+dataReturn.GROUP_CODE+" td:eq(4)").text(dataReturn.QUESTION_TYPE_NAME);

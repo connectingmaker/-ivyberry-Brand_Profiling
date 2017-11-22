@@ -407,89 +407,95 @@ router.get("/campaignRawData/:code", function(req, res) {
         conf.cols = [];
 
         var dataArry = [];
-        data.forEach( function( v, i ){
-            var uid = v.UID;
-            var username = v.USERNAME;
-            var email = v.USEREMAIL;
-            var age = v.AGE;
-            var sex = v.SEX;
-            var city = v.CITY;
-            var brand_q = v.BRAND_Q;
-            var data_qa = v.DATA_QA;
-            var dataArrQA = [];
+        if(data.length != 0) {
+            data.forEach(function (v, i) {
+                var uid = v.UID;
+                var username = v.USERNAME;
+                var email = v.USEREMAIL;
+                var age = v.AGE;
+                var sex = v.SEX;
+                var city = v.CITY;
+                var brand_q = v.BRAND_Q;
+                var data_qa = v.DATA_QA;
+                var dataArrQA = [];
 
-            dataArrQA.push(uid);
-            dataArrQA.push(username);
-            dataArrQA.push(email);
-            dataArrQA.push(age);
-            dataArrQA.push(sex);
-            dataArrQA.push(city);
+                dataArrQA.push(uid);
+                dataArrQA.push(username);
+                dataArrQA.push(email);
+                dataArrQA.push(age);
+                dataArrQA.push(sex);
+                dataArrQA.push(city);
 
-            if(i == 0) {
-                var header_UID = {
-                    caption:'UID',
-                    type:'string'
-                };
-                conf.cols.push(header_UID);
+                if (i == 0) {
+                    var header_UID = {
+                        caption: 'UID',
+                        type: 'string'
+                    };
+                    conf.cols.push(header_UID);
 
-                var header_USERNAME = {
-                    caption:'이름',
-                    type:'string'
-                };
-                conf.cols.push(header_USERNAME);
+                    var header_USERNAME = {
+                        caption: '이름',
+                        type: 'string'
+                    };
+                    conf.cols.push(header_USERNAME);
 
 
-                var header_USEREMAIL = {
-                    caption:'이메일',
-                    type:'string'
-                };
-                conf.cols.push(header_USEREMAIL);
+                    var header_USEREMAIL = {
+                        caption: '이메일',
+                        type: 'string'
+                    };
+                    conf.cols.push(header_USEREMAIL);
 
-                var header_AGE = {
-                    caption:'연령',
-                    type:'string'
-                };
-                conf.cols.push(header_AGE);
+                    var header_AGE = {
+                        caption: '연령',
+                        type: 'string'
+                    };
+                    conf.cols.push(header_AGE);
 
-                var header_SEX = {
-                    caption:'성별',
-                    type:'string'
-                };
-                conf.cols.push(header_SEX);
+                    var header_SEX = {
+                        caption: '성별',
+                        type: 'string'
+                    };
+                    conf.cols.push(header_SEX);
 
-                var header_CITY = {
-                    caption:'지역',
-                    type:'string'
-                };
-                conf.cols.push(header_CITY);
+                    var header_CITY = {
+                        caption: '지역',
+                        type: 'string'
+                    };
+                    conf.cols.push(header_CITY);
+                    if(uid != null) {
+                        var brand_temp = brand_q.split("///");
 
-                var brand_temp = brand_q.split("///");
+                        brand_temp.forEach(function (q_data, key) {
+                            header_Q = {
+                                caption: q_data.replace(",", ""),
+                                type: 'string'
+                            }
 
-                brand_temp.forEach( function( q_data, key ){
-                    header_Q = {
-                        caption:q_data.replace(",", ""),
-                        type:'string'
+                            conf.cols.push(header_Q);
+                        });
                     }
+                }
+                if(uid != null) {
+                    var data_qa_temp = data_qa.split("///");
 
-                    conf.cols.push(header_Q);
-                });
-            }
+                    data_qa_temp.forEach(function (qa_data, key) {
+                        dataArrQA.push(qa_data.replace(",", ""));
+                    });
 
-            var data_qa_temp = data_qa.split("///");
-
-            data_qa_temp.forEach(function(qa_data, key) {
-                dataArrQA.push(qa_data.replace(",", ""));
+                    dataArry.push(dataArrQA);
+                }
             });
 
-            dataArry.push(dataArrQA);
-        });
+            conf.rows = dataArry;
 
-        conf.rows = dataArry;
-
-        var result = nodeExcel.execute(conf);
-        res.setHeader('Content-Type', 'application/vnd.openxmlformats');
-        res.setHeader("Content-Disposition", "attachment; filename=" +campaign_code+"_rawdata.xlsx");
-        res.end(result, 'binary');
+            var result = nodeExcel.execute(conf);
+            res.setHeader('Content-Type', 'application/vnd.openxmlformats');
+            res.setHeader("Content-Disposition", "attachment; filename=" + campaign_code + "_rawdata.xlsx");
+            res.end(result, 'binary');
+        } else {
+            res.send("데이터가 존재하지 않습니다.");
+        }
         /*
         var result = nodeExcel.execute(conf);
         res.setHeader('Content-Type', 'application/vnd.openxmlformats');

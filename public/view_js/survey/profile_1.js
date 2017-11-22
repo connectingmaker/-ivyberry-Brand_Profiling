@@ -12,6 +12,7 @@ $(function() {
             ,quest_num : $("#quest_num").val()
             ,step : $("#step").val()
             ,data : $("#username").val()
+            ,seq : $("#seq").val()
         };
 
 

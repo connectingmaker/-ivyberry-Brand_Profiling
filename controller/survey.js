@@ -349,36 +349,43 @@ router.get("/page", function(req, res) {
             throw err;
         }
 
-        var surveyQ = rows[0][0];
 
 
-        msurvey.surveyQA(surveyQ.Q_CODE, function(err, rows) {
-            var surveyQA = rows;
+        if(rows[0].length == 0) {
+            res.send("설문지가 존재하지 않습니다. 질문세부 비활성 여부를 확인해주세요.");
+        } else {
+            var surveyQ = rows[0][0];
 
-            msurvey.brandListSelect(seq, campaign_code, function(err, rows) {
-                if(err) {
-                    console.log(err);
-                    throw err;
-                }
-                var brandList = rows[0];
 
-                console.log(brandList);
-                res.render('survey/template/'+surveyQ.QUESTION_TYPE
-                    , { layout: 'layout/survey_page'
-                        , "layout extractScripts": true
-                        , campaign_code: campaign_code
-                        , quest_num: quest_num
-                        , uid: uid
-                        , seq: seq
-                        , page : page
-                        , surveyQ : surveyQ
-                        , surveyQA : surveyQA
-                        , brandList: brandList
-                        , debug : debug
-                    });
+            msurvey.surveyQA(surveyQ.Q_CODE, function (err, rows) {
+                var surveyQA = rows;
+
+                msurvey.brandListSelect(seq, campaign_code, function (err, rows) {
+                    if (err) {
+                        console.log(err);
+                        throw err;
+                    }
+                    var brandList = rows[0];
+
+                    console.log(brandList);
+                    res.render('survey/template/' + surveyQ.QUESTION_TYPE
+                        , {
+                            layout: 'layout/survey_page'
+                            , "layout extractScripts": true
+                            , campaign_code: campaign_code
+                            , quest_num: quest_num
+                            , uid: uid
+                            , seq: seq
+                            , page: page
+                            , surveyQ: surveyQ
+                            , surveyQA: surveyQA
+                            , brandList: brandList
+                            , debug: debug
+                        });
+                });
+
             });
-
-        });
+        }
     });
 });
 

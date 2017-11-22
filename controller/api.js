@@ -155,6 +155,21 @@ router.get("/campaignList/:code", function(req, res) {
     });
 });
 
+router.get("/mycampaignList/:code", function(req, res) {
+    var uid = req.params.code;
+    mapi.mycampaignList(uid, function(err,rows) {
+        if(err) {
+            console.log(err);
+            throw err;
+
+        }
+        var objToJson = rows[0];
+        var dataJson = JSON.stringify(objToJson);
+        res.send(dataJson);
+
+    });
+});
+
 /****************** 포인트 히스토리 ***************************/
 router.get("/pointHistory/:code", function(req, res) {
     //var uid = req.body.uid;
@@ -299,5 +314,102 @@ router.post("/pwdChange", function(req, res) {
 
 });
 
+
+router.post("/pointSend", function(req, res) {
+    var cashBankPoint = req.body.cashBankPoint;
+    var bankSelect = req.body.bankSelect;
+    var cashBankAccount = req.body.cashBankAccount;
+    var uid = req.body.uid;
+
+
+    mapi.sp_API_POINT_BANK(cashBankPoint, bankSelect, cashBankAccount, uid, function(err, rows) {
+        if(err) {
+            console.log(err);
+            throw err;
+        }
+
+        var data = rows[0];
+
+        var json = {
+            ERR_CODE : data[0].ERR_CODE
+            ,ERR_MSG : data[0].ERR_MSG
+            ,BANK_NAME : data[0].BANK_NAME
+            ,BANK_ACCOUNT : data[0].BANK_ACCOUNT
+            ,POINT : data[0].POINT
+        };
+
+        res.send(JSON.stringify(json));
+    })
+
+});
+
+router.post("/memberEmailSearch", function(req, res) {
+    var userphone = req.body.userphone;
+    mapi.sp_API_USER_EMAIL_SEARCH(userphone, function (err, rows) {
+       if(err) {
+           console.log(err);
+           throw err;
+       }
+
+       var data = rows[0];
+
+       var json = {
+           ERR_CODE : data[0].ERR_CODE
+           ,ERR_MSG : data[0].ERR_MSG
+           ,USEREMAIL : data[0].USEREMAIL
+       }
+
+       console.log(json);
+
+       res.send(JSON.stringify(json));
+
+    });
+});
+
+router.post("/memberIdPhoneSearch", function(req, res) {
+    var email = req.body.useremail;
+    var phone = req.body.userphone;
+    mapi.sp_API_USER_IDPHONE_SEARCH(email, phone, function(err, rows) {
+        if(err) {
+            console.log(err);
+            throw err;
+        }
+
+        var data = rows[0];
+
+        var json = {
+            ERR_CODE : data[0].ERR_CODE
+            ,ERR_MSG : data[0].ERR_MSG
+            ,AUTHCODE : data[0].RAND_CODE
+        }
+
+        console.log(json);
+
+        res.send(json);
+    })
+});
+router.post("/memberPwUpdate", function(req, res) {
+    var email = req.body.useremail;
+    var phone = req.body.userphone;
+    var userpw = req.body.userpw;
+    console.log(email + "///" + phone + "///" + userpw);
+    mapi.sp_API_USER_PWD_UPDATE(email, phone, userpw, function(err, rows) {
+        if(err) {
+            console.log(err);
+            throw err;
+        }
+
+        var data = rows[0];
+
+        var json = {
+            ERR_CODE : data[0].ERR_CODE
+            ,ERR_MSG : data[0].ERR_MSG
+        }
+
+        console.log(json);
+
+        res.send(json);
+    })
+});
 
 module.exports = router;

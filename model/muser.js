@@ -21,7 +21,7 @@ var muser = {
     }
     ,getMemberSelect: function(uid, callback) {
         var connection = mysql_dbc.init();
-        var query = " SELECT * FROM MEMBER WHERE UID = ?";
+        var query = " SELECT *, fn_DECKEY(USERPHONE) DECODE_PHONE FROM MEMBER WHERE UID = ?";
         var params = [];
         params.push(uid);
 
@@ -87,6 +87,16 @@ var muser = {
         params.push(sex);
         params.push(birthday);
         params.push(mysql_dbc.enckey());
+
+        var data = connection.query(query,params,callback);
+        connection.end();
+        return data;
+    }
+    ,sp_MEMBER_DELETE: function(uid, callback) {
+        var connection = mysql_dbc.init();
+        var query = " call sp_MEMBER_DELETE(?)";
+        var params = [];
+        params.push(uid);
 
         var data = connection.query(query,params,callback);
         connection.end();
