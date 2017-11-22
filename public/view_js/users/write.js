@@ -57,7 +57,14 @@ $(function() {
             return;
         }
 
+        /*
         if(inputTextCheck("code_grade", "권한을 선택해주세요.") == false) {
+            return;
+        }
+        */
+
+        if($("#code_grade").val() == "") {
+            alert("권한을 선택해주세요.");
             return;
         }
 
