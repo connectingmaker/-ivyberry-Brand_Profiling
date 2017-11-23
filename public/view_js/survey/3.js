@@ -100,6 +100,8 @@ $(function() {
             }
 
         }
+
+        $("body").focus();
     });
 
 
@@ -128,6 +130,8 @@ $(function() {
         $(this).find(".imgBox_check img").attr("src", check);
 
         imgSelect++;
+
+        $("body").focus();
 
 
         $(".brandImg_"+nextBrand+" #selectCnt").html(imgSelect);

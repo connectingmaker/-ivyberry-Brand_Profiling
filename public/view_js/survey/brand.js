@@ -24,6 +24,8 @@ $(function() {
 
         var sex = $(this).attr("sex");
 
+        $("body").focus();
+
         $("#data").val(sex);
     });
 
@@ -42,7 +44,7 @@ $(function() {
         } else {
             $("#"+brand_code).prop("checked", false);
             $(this).removeClass("btn-select");
-            $(this).addClass("btn-default");
+            $(this).addClass("btn-white");
 
 
             var src = $(this).find(".pull-left").find("img").attr("src");
@@ -57,6 +59,8 @@ $(function() {
             }
 
         });
+
+        $('body').focus();
 
         $("#selectCnt").html(checkCnt);
         $("#textselectCnt").html(checkCnt + "개가 선택되었습니다.");

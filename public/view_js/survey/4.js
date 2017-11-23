@@ -12,6 +12,8 @@ $(function() {
         $("#selectCnt").html(checkedCnt);
         $("#textselectCnt").html(checkedCnt + "개가 선택되었습니다.");
 
+        $("body").focus();
+
 
     });
     $(".nextStep").click(function() {
@@ -26,7 +28,7 @@ $(function() {
         for(var i = 0; i<brandCnt; i++){
 
             if($(".qaData_"+i).is(":checked") == false) {
-                alert("선택해주세요.");
+                alert("응답하지 않은 설문이 있습니다.");
                 return;
             } else {
                 $(".qaData_"+i).each(function() {
