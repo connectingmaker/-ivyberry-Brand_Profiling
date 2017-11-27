@@ -78,7 +78,7 @@ router.post("/memberInsert", function(req,res) {
     var userpasswd = req.body.userpasswd;
     var birthday = "";
 
-    muser.sp_MEMBER_SAVE('', code_grade, '', useremail, userphone, userpasswd, 'N', '', function(err,rows) {
+    muser.sp_MEMBER_SAVE('', code_grade, '', useremail, userphone, userpasswd, 'N', '', 0, function(err,rows) {
         if(err) {
             console.log(err);
             throw err;
@@ -90,21 +90,81 @@ router.post("/memberInsert", function(req,res) {
     });
 });
 
+router.post("/memberFaceBook", function(req, res) {
+    var username = req.body.username;
+    var useremail = req.body.useremail;
+    var facebook_id = req.body.facebook_id;
+    var userToken = req.body.userToken;
+    var os = req.body.os;
+    var version = req.body.version;
+
+
+
+
+
+    mapi.getFacebookCheck(facebook_id, function(err, rows) {
+        if(err) {
+            console.log(err);
+            throw err;
+        }
+
+        var data = rows;
+
+        if(rows.length == 0) {
+            muser.sp_MEMBER_SAVE('', 0, username, useremail, '', 'facebook', 'N', '', facebook_id, function(err,rows) {
+                if(err) {
+                    console.log(err);
+                    throw err;
+                }
+
+                var objToJson = rows[0];
+                var dataJson = JSON.stringify(objToJson);
+                res.send(dataJson);
+            });
+        } else {
+            var objToJson = data;
+            muser.sp_MEMBER_TOKEN(data[0].UID, userToken, os, version, function(err, rows) {
+                if(err) {
+                    console.log(err);
+                }
+
+
+                var dataJson = JSON.stringify(objToJson);
+                res.send(dataJson);
+            });
+
+        }
+
+
+    });
+
+});
+
 
 /****************** 회원조회 ***************************/
 router.post("/memberSelect", function(req, res) {
     var useremail = req.body.useremail;
     var userpasswd = req.body.userpasswd;
+    var userToken = req.body.userToken;
+    var os = req.body.os;
+    var version = req.body.version;
 
     mapi.userSelect(useremail, userpasswd, function(err, rows) {
         if(err) {
             console.log(err);
             throw err;
         }
-
         var objToJson = rows[0];
-        var dataJson = JSON.stringify(objToJson);
-        res.send(dataJson);
+        muser.sp_MEMBER_TOKEN(objToJson[0].UID, userToken, os, version, function(err, rows) {
+            if(err) {
+                console.log(err);
+                throw err;
+            }
+            var dataJson = JSON.stringify(objToJson);
+            res.send(dataJson);
+        });
+
+
     });
 });
 
@@ -408,6 +468,22 @@ router.post("/memberPwUpdate", function(req, res) {
 
         console.log(json);
 
+        res.send(json);
+    })
+});
+
+router.get("/memberDrop/:code", function(req, res) {
+    var uid = req.params.code;
+    muser.set_dropMember(uid, function(err, rows) {
+        if(err) {
+            console.log(err);
+            throw err;
+        }
+
+        var json = {
+            "ERR_CODE" : "000"
+            ,"ERR_MSG": "OK"
+        }
         res.send(json);
     })
 });

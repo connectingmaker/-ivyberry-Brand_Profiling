@@ -68,7 +68,7 @@ button { box-shadow: 0px 0px 10px 1px #ccc; }
     background-color: #fff;
     margin:-2px 5px 0 0px;
     vertical-align:middle;
-    background:url('/img/survey/radio_checkbox_bg.png') -48px no-repeat;
+    background:url('/img/survey/radio_checkbox_bg.png') -49px no-repeat;
 
     cursor:pointer;
 }

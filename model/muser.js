@@ -56,12 +56,13 @@ var muser = {
         query += " , M.BIRTHDAY ";
         query += " , M.POINT ";
         query += " , M.JOIN_SURVEY_CNT ";
-        query += " , AES_DECRYPT(UNHEX(M.USERPHONE), '"+mysql_dbc.enckey()+"') AS USERPHONE "
+        query += " , fn_DECKEY(M.USERPHONE) USERPHONE "
         query += " , FROM_UNIXTIME(M.LAST_LOGIN) AS LAST_LOGIN ";
         query += " , FROM_UNIXTIME(M.INSERT_DATETIME) AS INSERT_DATETIME ";
         query += " , CG.CODE_GRADE ";
         query += " , CG.CODE_NAME ";
         query += " , CG.CODE_DESC ";
+        query += " , (SELECT COUNT(*) FROM DATA_JOIN WHERE UID = M.UID AND ENDTYPE='E') JOIN_TOTAL"
         query += " FROM MEMBER M INNER JOIN CODE_GRADE CG ON(M.CODE_GRADE = CG.CODE_GRADE) ";
         query += " ORDER BY M.INSERT_DATETIME DESC ";
         query += " LIMIT "+page+", 10";
@@ -74,9 +75,9 @@ var muser = {
         connection.end();
         return data;
     }
-    ,sp_MEMBER_SAVE: function(uid, code_grade, username, useremail, userphone, userpasswd, sex, birthday, callback) {
+    ,sp_MEMBER_SAVE: function(uid, code_grade, username, useremail, userphone, userpasswd, sex, birthday, facebook_id, callback) {
         var connection = mysql_dbc.init();
-        var query = " call sp_MEMBER_SAVE(?, ?, ?, ?, ?, ?, ?, ?)";
+        var query = " call sp_MEMBER_SAVE(?, ?, ?, ?, ?, ?, ?, ?, ?)";
         var params = [];
         params.push(uid);
         params.push(code_grade);
@@ -86,6 +87,21 @@ var muser = {
         params.push(userpasswd);
         params.push(sex);
         params.push(birthday);
+        params.push(facebook_id);
+        params.push(mysql_dbc.enckey());
+
+        var data = connection.query(query,params,callback);
+        connection.end();
+        return data;
+    }
+    ,sp_MEMBER_TOKEN: function(uid, token, os, version, callback) {
+        var connection = mysql_dbc.init();
+        var query = " call sp_MEMBER_TOKEN(?, ?, ?, ?)";
+        var params = [];
+        params.push(uid);
+        params.push(token);
+        params.push(os);
+        params.push(version);
         params.push(mysql_dbc.enckey());
 
         var data = connection.query(query,params,callback);
@@ -163,6 +179,19 @@ var muser = {
         var params = [];
         params.push(seq);
         params.push(request);
+
+        var data = connection.query(query,params, callback);
+        connection.end();
+        return data;
+    }
+
+    ,set_dropMember: function(uid, callback) {
+        var connection = mysql_dbc.init();
+        var query = " UPDATE MEMBER SET MEMBER_DROP = ? WHERE UID = ?";
+
+        var params = [];
+        params.push("Y");
+        params.push(uid);
 
         var data = connection.query(query,params, callback);
         connection.end();

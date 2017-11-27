@@ -38,7 +38,6 @@ router.get('/list', function(req, res, next) {
                     return html;
                 }
                 prelink = this.preparePreLink(result.prelink);
-                console.log(prelink);
                 if(result.previous) {
                     html += '<li><a href="./?page=' + result.previous + '">' + this.options.translator('PREVIOUS') + '</a></li>';
                 }
@@ -190,64 +189,73 @@ router.get("/pointHistory/:code", function(req, res) {
     var start = 0;
     var viewCnt = 10;
 
-    muser.get_pointHistoryCnt(uid, function(err,rows) {
+    muser.getMemberSelect(uid, function(err, rows) {
         if(err) {
             console.log(err);
             throw err;
         }
+        var userdata = rows[0];
 
-        var total = rows[0].TOTAL;
-        start = viewCnt * (page - 1);
-
-
-        var boostrapPaginator = new pagination.TemplatePaginator({
-            prelink:'/users/pointHistory', current: page, rowsPerPage: 10,
-            totalResult: total, slashSeparator: true,
-            template: function(result) {
-                var i, len, prelink;
-                var html = '<div><ul class="pagination">';
-                if(result.pageCount < 2) {
-                    html += '</ul></div>';
-                    return html;
-                }
-                prelink = this.preparePreLink(result.prelink);
-                console.log(prelink);
-                if(result.previous) {
-                    html += '<li><a href="./'+uid+'?page=' + result.previous + '">' + this.options.translator('PREVIOUS') + '</a></li>';
-                }
-                if(result.range.length) {
-                    for( i = 0, len = result.range.length; i < len; i++) {
-                        if(result.range[i] === result.current) {
-                            html += '<li class="active"><a href="./'+uid+'?page=' + result.range[i] + '">' + result.range[i] + '</a></li>';
-                        } else {
-                            html += '<li><a href="./'+uid+'?page=' + result.range[i] + '">' + result.range[i] + '</a></li>';
-                        }
-                    }
-                }
-                if(result.next) {
-                    html += '<li><a href="./'+uid+'?page=' + result.next + '" class="paginator-next">' + this.options.translator('NEXT') + '</a></li>';
-                }
-                html += '</ul></div>';
-                return html;
-            }
-        });
-        muser.get_codePointList(function(err, rows) {
+        muser.get_pointHistoryCnt(uid, function(err,rows) {
             if(err) {
                 console.log(err);
                 throw err;
             }
 
-            var codeList = rows;
-            muser.sp_MEMBER_POINT_HISTORY_LIST(uid, page, function(err, rows) {
+            var total = rows[0].TOTAL;
+            start = viewCnt * (page - 1);
+
+
+            var boostrapPaginator = new pagination.TemplatePaginator({
+                prelink:'/users/pointHistory', current: page, rowsPerPage: 10,
+                totalResult: total, slashSeparator: true,
+                template: function(result) {
+                    var i, len, prelink;
+                    var html = '<div><ul class="pagination">';
+                    if(result.pageCount < 2) {
+                        html += '</ul></div>';
+                        return html;
+                    }
+                    prelink = this.preparePreLink(result.prelink);
+                    console.log(prelink);
+                    if(result.previous) {
+                        html += '<li><a href="./'+uid+'?page=' + result.previous + '">' + this.options.translator('PREVIOUS') + '</a></li>';
+                    }
+                    if(result.range.length) {
+                        for( i = 0, len = result.range.length; i < len; i++) {
+                            if(result.range[i] === result.current) {
+                                html += '<li class="active"><a href="./'+uid+'?page=' + result.range[i] + '">' + result.range[i] + '</a></li>';
+                            } else {
+                                html += '<li><a href="./'+uid+'?page=' + result.range[i] + '">' + result.range[i] + '</a></li>';
+                            }
+                        }
+                    }
+                    if(result.next) {
+                        html += '<li><a href="./'+uid+'?page=' + result.next + '" class="paginator-next">' + this.options.translator('NEXT') + '</a></li>';
+                    }
+                    html += '</ul></div>';
+                    return html;
+                }
+            });
+            muser.get_codePointList(function(err, rows) {
                 if(err) {
                     console.log(err);
                     throw err;
                 }
-                var pointList = rows[0];
 
-                res.render("users/pointHistory", { pageHtml: boostrapPaginator, moment:moment, uid: uid, pointList : pointList, codeList : codeList });
+                var codeList = rows;
+                muser.sp_MEMBER_POINT_HISTORY_LIST(uid, page, function(err, rows) {
+                    if(err) {
+                        console.log(err);
+                        throw err;
+                    }
+                    var pointList = rows[0];
+
+                    res.render("users/pointHistory", { pageHtml: boostrapPaginator, moment:moment, uid: uid, pointList : pointList, codeList : codeList, userdata: userdata });
+                });
             });
         });
+
     });
 
 

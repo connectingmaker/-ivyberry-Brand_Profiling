@@ -4,7 +4,17 @@
 var mysql_dbc = require('../module/db_con')();
 
 var mapi = {
-    userCheck: function(email, userpw, callback) {
+    getFacebookCheck: function(facebook_id, callback) {
+        var connection = mysql_dbc.init();
+        var query = " SELECT * FROM MEMBER WHERE FACEBOOK_ID = ? ";
+        var params = [];
+        params.push(facebook_id);
+
+        var data = connection.query(query, params, callback);
+        connection.end();
+        return data;
+    }
+    ,userCheck: function(email, userpw, callback) {
         var connection = mysql_dbc.init();
         var query = " call sp_API_USER_CHECK(?, ?) ";
         var params = [];
