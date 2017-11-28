@@ -8,8 +8,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require("express-session");
-
-
+var vhost = require('vhost');
 
 
 
@@ -57,6 +56,7 @@ app.use(expressLayouts);
 
 
 /* default setting */
+
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));

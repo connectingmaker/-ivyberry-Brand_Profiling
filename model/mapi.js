@@ -250,5 +250,15 @@ var mapi = {
         connection.end();
         return data;
     }
+    ,get_pushSelect: function(uid, callback) {
+        var connection = mysql_dbc.init();
+        var query = " SELECT * FROM MEMBER_PUSH_YN WHERE UID = ? ";
+        var params = [];
+        params.push(uid);
+
+        var data = connection.query(query, params, callback);
+        connection.end();
+        return data;
+    }
 }
 module.exports = mapi;

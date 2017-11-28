@@ -1,25 +1,25 @@
 module.exports = (function () {
     return {
         local: { // localhost
-            host: '220.230.120.251',
+            host: '58.229.254.100',
             port: '3306',
-            user: 'brand',
-            password: 'profiling',
-            database: 'brand'
+            user: 'bp2',
+            password: 'Perception.bp2@',
+            database: 'bp2'
         },
         real: { // real server db info
-            host: '220.230.120.251',
+            host: '58.229.254.100',
             port: '3306',
-            user: 'brand',
-            password: 'profiling',
-            database: 'brand'
+            user: 'bp2',
+            password: 'Perception.bp2@',
+            database: 'bp2'
         },
         dev: { // dev server db info
-            host: '220.230.120.251',
+            host: '58.229.254.100',
             port: '3306',
-            user: 'brand',
-            password: 'profiling',
-            database: 'brand'
+            user: 'bp2',
+            password: 'Perception.bp2@',
+            database: 'bp2'
         }
     }
 })();

@@ -170,10 +170,13 @@ router.post("/memberSelect", function(req, res) {
 
 /****************** 회원조회 ***************************/
 router.post("/memberSelectBank", function(req, res) {
+    /*
     var useremail = req.body.useremail;
     var userpasswd = req.body.userpasswd;
+    */
+    var uid = req.body.uid;
 
-    mapi.userSelect(useremail, userpasswd, function(err, rows) {
+    mapi.userPoint(uid, function(err, rows) {
         if(err) {
             console.log(err);
             throw err;
@@ -300,8 +303,9 @@ router.get("/memberSelect/:code", function(req, res) {
             ,SEX: data[0].SEX
             ,BRITHDAY: data[0].BRITHDAY
             ,AGE : data[0].AGE
+            ,ALL_PUSH_YN : data[0].ALL_PUSH_YN
+            ,SURVEY_PUSH_YN : data[0].SURVEY_PUSH_YN
         };
-        console.log(json);
 
         res.send(json);
     });
@@ -486,6 +490,43 @@ router.get("/memberDrop/:code", function(req, res) {
         }
         res.send(json);
     })
+});
+
+router.get("/memberPush/:code", function (req, res) {
+    var uid = req.params.code;
+    mapi.get_pushSelect(uid, function(err, rows) {
+        if(err) {
+            console.log(err);
+            throw err;
+        }
+        var json = {
+            allYN : true
+            ,surveyYN: true
+        }
+        if(rows.length == 0) {
+            res.send(json);
+        } else {
+            var allpush = false;
+            if(rows[0].ALL_PUSH_YN == "Y") {
+                allpush = true;
+            } else {
+                allpush = false;
+            }
+
+            var surveypush = false;
+            if(rows[0].SURVEY_PUSH_YN == "Y") {
+                surveypush = true;
+            } else {
+                surveypush = false;
+            }
+            var json = {
+                allYN : allpush
+                ,surveyYN: surveypush
+            }
+
+            res.send(json);
+        }
+    });
 });
 
 module.exports = router;
