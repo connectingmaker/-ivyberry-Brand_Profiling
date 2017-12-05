@@ -10,6 +10,7 @@ $(function() {
 
         if($(".notice_yn").is(":checked") == false) {
             alert("노출여부를 선택해주세요.");
+            return;
         }
 
         if(inputTextCheck('notice_contents', '공지사항 내용을 입력해주세요.') == false) {
