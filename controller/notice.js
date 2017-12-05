@@ -3,17 +3,66 @@ var router = express.Router();
 
 var mnotice = require("../model/mnotice");
 var moment = require('moment');
+var pagination = require('pagination');
 
 /* GET users listing. */
 router.get('/list', function(req, res, next) {
 
-    mnotice.get_notice_list(function(err, rows) {
-        var noticelist = rows;
-        console.log(rows);
-        res.render('notice/list', { title: 'Express',moment: moment, noticelist : noticelist });
+    var page = req.query.page;
+    if(page == undefined) {
+        page = 1;
+    }
+
+    var total = 0;
+    var start = 0;
+    var viewCnt = 10;
+
+
+    mnotice.getNoticeCount(function(err, count_rows) {
+        total = count_rows[0].TOTAL;
+        start = viewCnt * (page - 1);
+
+
+        var boostrapPaginator = new pagination.TemplatePaginator({
+            prelink:'/notice/list', current: page, rowsPerPage: 10,
+            totalResult: total, slashSeparator: true,
+            template: function(result) {
+                var i, len, prelink;
+                var html = '<div><ul class="pagination">';
+                if(result.pageCount < 2) {
+                    html += '</ul></div>';
+                    return html;
+                }
+                prelink = this.preparePreLink(result.prelink);
+                if(result.previous) {
+                    html += '<li><a href="./?page=' + result.previous + '">' + this.options.translator('PREVIOUS') + '</a></li>';
+                }
+                if(result.range.length) {
+                    for( i = 0, len = result.range.length; i < len; i++) {
+                        if(result.range[i] === result.current) {
+                            html += '<li class="active"><a href="?page=' + result.range[i] + '">' + result.range[i] + '</a></li>';
+                        } else {
+                            html += '<li><a href="?page=' + result.range[i] + '">' + result.range[i] + '</a></li>';
+                        }
+                    }
+                }
+                if(result.next) {
+                    html += '<li><a href="?page=' + result.next + '" class="paginator-next">' + this.options.translator('NEXT') + '</a></li>';
+                }
+                html += '</ul></div>';
+                return html;
+            }
+        });
+        mnotice.get_notice_list(start,function(err, rows) {
+            var noticelist = rows;
+            console.log(rows);
+            res.render('notice/list', { title: 'Express',moment: moment, noticelist : noticelist,pageHtml: boostrapPaginator });
+        });
+
     });
 
-    /*res.render('notice/list', { title: 'Express' });*/
+
+
 });
 
 router.get('/write', function(req, res) {

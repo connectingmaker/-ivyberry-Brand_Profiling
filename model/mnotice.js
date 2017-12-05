@@ -20,10 +20,10 @@ var mnotice = {
         connection.end();
         return data;
     }
-    ,get_notice_list: function(callback) {
+    ,get_notice_list: function(page,callback) {
     var connection = mysql_dbc.init();
 
-        var query = " SELECT SEQ,SUBJECT,CONTENTS,USE_YN,INSERT_DATETIME,CASE USE_YN WHEN 'N' THEN '미노출' WHEN 'Y' THEN '노출' END USE_YN_TEXT FROM NOTICE ORDER BY INSERT_DATETIME DESC";
+        var query = " SELECT SEQ,SUBJECT,CONTENTS,USE_YN,INSERT_DATETIME,CASE USE_YN WHEN 'N' THEN '미노출' WHEN 'Y' THEN '노출' END USE_YN_TEXT FROM NOTICE ORDER BY INSERT_DATETIME DESC LIMIT "+page+", 10";
         var params = [];
         params.push();
 
@@ -50,6 +50,13 @@ var mnotice = {
         params.push(seq);
 
         var data = connection.query(query,params,callback);
+        connection.end();
+        return data;
+    }
+    ,getNoticeCount: function(callback) {
+        var connection = mysql_dbc.init();
+        var query = " SELECT COUNT(*) AS TOTAL FROM NOTICE ";
+        var data = connection.query(query,[],callback);
         connection.end();
         return data;
     }
