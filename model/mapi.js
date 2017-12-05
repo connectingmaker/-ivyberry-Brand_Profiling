@@ -260,5 +260,14 @@ var mapi = {
         connection.end();
         return data;
     }
+    ,sp_API_NOTICE: function(callback) {
+        var connection = mysql_dbc.init();
+        var query = " call sp_API_NOTICE() ";
+        var params = [];
+
+        var data = connection.query(query, params, callback);
+        connection.end();
+        return data;
+    }
 }
 module.exports = mapi;
