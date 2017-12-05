@@ -1,12 +1,13 @@
 
 <div class="row">
+    <input type="hidden" id="seq" value="<%=seq%>">
     <div class="col-xs-12 bg-white box round_box">
         <div class="row">
             <div class="col-xs-10 title">
                 <h3 class="block-title">공지사항 등록</h3>
             </div>
             <div class="col-xs-2 text-right">
-                <a href="/notice/write" class="btn btn-danger btn-block btn-xs btn-rounded">공지사항 추가</a>
+               <!-- <a href="/notice/write" class="btn btn-danger btn-block btn-xs btn-rounded">공지사항 추가</a> -->
             </div>
         </div>
         <div class="contents_list">
@@ -16,20 +17,20 @@
                 <tbody>
                 <tr>
                     <th class="text-center">노출여부</th>
-                    <td><input type="radio"> 노출&nbsp;&nbsp;&nbsp;<input type="radio"> 미노출</td>
+                    <td><input name="use_yn" class='notice_yn' type="radio" <% if(use_yn == "Y") { %> checked <% } %> value = "Y"> 노출&nbsp;&nbsp;&nbsp;<input name="use_yn" type="radio" class='notice_yn' <% if(use_yn == "N") { %>  checked <% } %> value = "N"> 미노출</td>
                 </tr>
                 <tr>
 
                     <th class="text-center">제목</th>
                     <td>
-                        <input type="text" class="form-control">
+                        <input id="notice_subject" type="text" class="form-control" value="<%=subject%>">
                     </td>
                 </tr>
                 <tr>
 
                     <th class="text-center">내용</th>
                     <td>
-                        <textarea class="form-control" rows="10"></textarea>
+                        <textarea id="notice_contents" class="form-control" rows="10" ><%=contents%></textarea>
                     </td>
                 </tr>
 

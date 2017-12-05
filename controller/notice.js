@@ -16,23 +16,24 @@ router.get('/list', function(req, res, next) {
     /*res.render('notice/list', { title: 'Express' });*/
 });
 
+router.get('/write', function(req, res) {
 
+    res.render('notice/write', {title: 'Express',moment: moment,seq: "", subject: "", contents:"", insert_datetime: "", use_yn: ""});
+
+
+});
 
 router.get('/write/:code', function(req, res, next) {
     var seq = req.params.code;
 
-
-    var noticelist = rows;
     mnotice.get_notice_select(seq, function(err, notice_rows){
-        var campaign_title = notice_rows[0].CAMPAIGN_TITLE;
-        var campaign_desc = notice_rows[0].CAMPAIGN_DESC;
-        var category_code = notice_rows[0].CATEGORY_CODE;
-        var campaign_startdate = notice_rows[0].CAMPAIGN_STARTDATE;
-        var campaign_enddate = notice_rows[0].CAMPAIGN_ENDDATE;
-        var campaign_ing = notice_rows[0].CAMPAIGN_ING;
-        console.log(campaign_rows[0]);
+        var subject = notice_rows[0].SUBJECT;
+        var contents = notice_rows[0].CONTENTS;
+        var insert_datetime = notice_rows[0].INSERT_DATETIME;
+        var use_yn = notice_rows[0].USE_YN;
+        console.log(notice_rows[0]);
 
-        res.render('notice/write', { moment: moment, brandlist: brandlist, campaign_code: campaign_code, campaign_title: campaign_title, campaign_desc:campaign_desc, category_code : category_code, campaign_startdate: campaign_startdate, campaign_enddate: campaign_enddate, campaign_ing : campaign_ing});
+        res.render('notice/write', { moment: moment, seq: seq, subject: subject, contents:contents, insert_datetime: insert_datetime, use_yn: use_yn});
     });
 
 
@@ -63,6 +64,27 @@ router.post("/noticeDelete", function(req, res) {
     });
 
 
+});
+
+router.post('/writeProcess', function(req, res) {
+    var seq = req.body.seq;
+    var subject = req.body.subject;
+    var contents = req.body.contents;
+    var use_yn = req.body.use_yn;
+
+    console.log(use_yn);
+
+    mnotice.sp_NOTICE_SAVE(seq, subject, contents, use_yn, function(err, rows) {
+        if(err) {
+            console.log(err);
+        }
+
+
+        var objToJson = rows[0];
+        var dataJson = JSON.stringify(objToJson);
+        console.log(dataJson);
+        res.send(dataJson);
+    });
 });
 
 module.exports = router;
