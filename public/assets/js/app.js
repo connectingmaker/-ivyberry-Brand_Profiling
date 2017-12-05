@@ -1136,7 +1136,7 @@ var App = function() {
             var $input = jQuery(this);
 
             $input.datetimepicker({
-                format: $input.data('format') ? $input.data('format') : false,
+                format: "YYYY-MM-DD HH:mm",
                 useCurrent: $input.data('use-current') ? $input.data('use-current') : false,
                 locale: moment.locale('' + ($input.data('locale') ? $input.data('locale') : '') +''),
                 showTodayButton: $input.data('show-today-button') ? $input.data('show-today-button') : false,

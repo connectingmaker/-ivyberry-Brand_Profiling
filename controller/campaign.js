@@ -44,7 +44,7 @@ router.post("/listStats", function(req, res) {
 router.get('/write', function(req, res) {
     mbrand.get_BrandCategoryList_BRAND(function(err,rows) {
         var brandlist = rows;
-        res.render('campaign/write', { moment: moment, brandlist: brandlist , campaign_code: "", campaign_title: "", campaign_desc:"", category_code : "", campaign_startdate: "", campaign_enddate: ""});
+        res.render('campaign/write', { moment: moment, brandlist: brandlist , campaign_code: "", campaign_title: "", campaign_desc:"", category_code : "", campaign_startdate: "", campaign_enddate: "", campaign_ing:"N"});
     });
 
 });
@@ -55,15 +55,16 @@ router.get('/write/:code', function(req, res) {
     mbrand.get_BrandCategoryList_BRAND(function(err,rows) {
         var brandlist = rows;
         mcampaign.get_campaign_select(campaign_code, function(err, campaign_rows){
-            //var campaignlist = campaign_rows[0];
+            //var campaignlist = campai
             var campaign_title = campaign_rows[0].CAMPAIGN_TITLE;
             var campaign_desc = campaign_rows[0].CAMPAIGN_DESC;
             var category_code = campaign_rows[0].CATEGORY_CODE;
             var campaign_startdate = campaign_rows[0].CAMPAIGN_STARTDATE;
             var campaign_enddate = campaign_rows[0].CAMPAIGN_ENDDATE;
+            var campaign_ing = campaign_rows[0].CAMPAIGN_ING;
             console.log(campaign_rows[0]);
 
-            res.render('campaign/write', { moment: moment, brandlist: brandlist, campaign_code: campaign_code, campaign_title: campaign_title, campaign_desc:campaign_desc, category_code : category_code, campaign_startdate: campaign_startdate, campaign_enddate: campaign_enddate});
+            res.render('campaign/write', { moment: moment, brandlist: brandlist, campaign_code: campaign_code, campaign_title: campaign_title, campaign_desc:campaign_desc, category_code : category_code, campaign_startdate: campaign_startdate, campaign_enddate: campaign_enddate, campaign_ing : campaign_ing});
         });
 
     });
@@ -77,6 +78,8 @@ router.post('/writeProcess', function(req, res) {
     var campaign_startdate = req.body.campaign_startdate;
     var campaign_enddate = req.body.campaign_enddate;
     var category_code = req.body.category_code;
+
+
 
     var startdate_timesteamp = new Date(campaign_startdate).getTime() / 1000.0;
     var enddate_timesteamp = new Date(campaign_enddate).getTime() / 1000.0;
@@ -213,29 +216,38 @@ router.post("/questionProcess", function(req, res) {
     var data = {};
 
 
+
     mcampaign.del_CAMPAIGN_QUEST(campaign_code, function(err, rows) {
         if(err) {
             console.log(err);
             throw err;
+
         }
-
-        mcampaign.sp_CAMPAIGN_QUESTION_GROUP_SAVE(quest, function(err, rows) {
-            if(err) {
-                console.log(err);
-                throw err;
-                data = {
-                    err: "DB_ERR"
-                }
-            }
-
+        if(quest.length == 0) {
             data = {
                 err: "000"
             }
 
-            console.log(data);
 
             res.send(data);
-        });
+        } else {
+            mcampaign.sp_CAMPAIGN_QUESTION_GROUP_SAVE(quest, function (err, rows) {
+                if (err) {
+                    console.log(err);
+                    throw err;
+                    data = {
+                        err: "DB_ERR"
+                    }
+                }
+
+                data = {
+                    err: "000"
+                }
+
+
+                res.send(data);
+            });
+        }
     });
 
 

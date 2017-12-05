@@ -8,7 +8,6 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require("express-session");
-var vhost = require('vhost');
 
 
 
@@ -27,6 +26,7 @@ var question = require("./controller/question");
 var statistics = require('./controller/statistics');
 var survey = require('./controller/survey');
 var api = require("./controller/api");
+var notice = require("./controller/notice");
 /* router import end */
 
 
@@ -76,6 +76,7 @@ app.use('/question', question);
 app.use('/statistics', statistics);
 app.use('/api', api);
 app.use('/survey',survey);
+app.use('/notice',notice);
 
 
 
@@ -110,9 +111,9 @@ app.use(function(err, req, res, next) {
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-    backURL=req.header('Referer') || '/';
+    //backURL=req.header('Referer') || '/';
     // do your thang
-    res.redirect(backURL);
+    //res.redirect(backURL);
    // res.status(err.status || 500);
    //res.render('error');
 });

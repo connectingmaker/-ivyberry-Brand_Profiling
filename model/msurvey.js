@@ -35,7 +35,8 @@ var msurvey = {
         connection.end();
         return data;
     }
-    ,surveyQA: function(q_code, callback) {
+    ,
+    surveyQA: function(q_code, callback) {
         var connection = mysql_dbc.init();
         var query = " SELECT * FROM QUESTION_QA WHERE Q_CODE = ? ORDER BY QA_ORDER ASC";
         var params = [];
@@ -54,25 +55,31 @@ var msurvey = {
         connection.end();
         return data;
     }
-    ,brandDel: function(seq, callback) {
+    ,brandDel: function(uid, quest_num, campaign_code, callback) {
         var connection = mysql_dbc.init();
-        var query = " call sp_SURVEY_BRAND_DEL(?)";
+        var query = " call sp_SURVEY_BRAND_DEL(?, ?, ?)";
 
         var params = [];
-        params.push(seq);
+        params.push(uid);
+
+        params.push(quest_num);
+        params.push(campaign_code);
 
         var data = connection.query(query, params, callback);
         connection.end();
         return data;
     }
-    ,brandSave: function(seq, brandData, callback) {
+    ,brandSave: function(seq, campaign_code, uid, quest_num, brandData, callback) {
         var connection = mysql_dbc.init();
-        var query = " call sp_SURVEY_BRAND_SAVE(?, ?) ";
+        var query = " call sp_SURVEY_BRAND_SAVE(?, ?, ?, ?, ?) ";
 
         var params = [];
         for(var i = 0; i<brandData.length; i++) {
             params = [];
             params.push(seq);
+            params.push(campaign_code);
+            params.push(uid);
+            params.push(quest_num);
             params.push(brandData[i].brand_code);
 
 
@@ -86,11 +93,12 @@ var msurvey = {
             }
         }
     }
-    ,brandListSelect: function(seq, campaign_code, callback) {
+    ,brandListSelect: function(uid, quest_num, campaign_code, callback) {
         var connection = mysql_dbc.init();
-        var query = " call sp_SURVEY_BRAND_SELECT(?, ?) ";
+        var query = " call sp_SURVEY_BRAND_SELECT(?, ?, ?) ";
         var params = [];
-        params.push(seq);
+        params.push(uid);
+        params.push(quest_num);
         params.push(campaign_code)
 
         var data = connection.query(query, params, callback);

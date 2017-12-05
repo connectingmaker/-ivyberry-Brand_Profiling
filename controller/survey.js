@@ -39,7 +39,11 @@ router.get("/start", function(req, res) {
             console.log(survey);
             switch (survey[0].ERR_CODE) {
                 case "000":
-                    res.redirect("/survey/brand?campaign_code=" + campaign_code + "&uid=" + uid + "&quest_num=" + quest_num + "&seq=" + survey[0]._SEQ+debugurl);
+                    if(quest_num == 1) {
+                        res.redirect("/survey/brand?campaign_code=" + campaign_code + "&uid=" + uid + "&quest_num=" + quest_num + "&seq=" + survey[0]._SEQ+debugurl);
+                    } else {
+                        res.redirect("/survey/page?campaign_code=" + campaign_code + "&uid=" + uid + "&quest_num=" + quest_num + "&page=1&seq=" + survey[0]._SEQ+debugurl);
+                    }
                     /*
                     res.render('survey/start', {
                         layout: 'layout/single_page',
@@ -57,8 +61,11 @@ router.get("/start", function(req, res) {
                                 console.log(err);
                                 throw err;
                             }
-
-                            res.redirect("/survey/brand?campaign_code=" + campaign_code + "&uid=" + uid + "&quest_num=" + quest_num + "&seq=" + survey[0]._SEQ+debugurl);
+                            if(quest_num == 1) {
+                                res.redirect("/survey/brand?campaign_code=" + campaign_code + "&uid=" + uid + "&quest_num=" + quest_num + "&seq=" + survey[0]._SEQ + debugurl);
+                            } else {
+                                res.redirect("/survey/page?campaign_code=" + campaign_code + "&uid=" + uid + "&quest_num=" + quest_num + "&page=1&seq=" + survey[0]._SEQ+debugurl);
+                            }
                         });
                     } else {
                         res.render('survey/start', {
@@ -306,18 +313,22 @@ router.get("/brand", function(req, res) {
 
 router.post("/brandProcess", function(req, res) {
     var seq = req.body.seq;
+    var campaign_code = req.body.campaign_code;
     var uid = req.body.uid;
+    var quest_num = req.body.quest_num;
     var brand = eval("("+req.body.brandData+")");
 
+    console.log(campaign_code + "///" + uid + "///" + quest_num);
 
 
-    msurvey.brandDel(seq, function(err,rows) {
+
+    msurvey.brandDel(uid, quest_num, campaign_code, function(err,rows) {
         if(err) {
             console.log(err);
             throw err;
         }
 
-        msurvey.brandSave(seq, brand, function(err, rows) {
+        msurvey.brandSave(seq, campaign_code, uid, quest_num, brand, function(err, rows) {
             var json = {
                 ERR_CODE : "000"
             };
@@ -330,16 +341,17 @@ router.post("/brandProcess", function(req, res) {
 
 router.get("/page", function(req, res) {
 
-    var campaign_code = req.param("campaign_code");
-    var quest_num = req.param("quest_num");
-    var uid = req.param("uid");
-    var page = req.param("page");
-    var seq = req.param("seq");
-    var debug = req.param("debug");
+    var campaign_code = req.query["campaign_code"];
+    var quest_num = req.query["quest_num"];
+    var uid = req.query["uid"];
+    var page = req.query["page"];
+    var seq = req.query["seq"];
+    var debug = req.query["debug"];
 
     if(debug == undefined) {
         debug = "";
     }
+
 
 
     msurvey.surveyPage(campaign_code, quest_num, page, function(err, rows) {
@@ -351,42 +363,83 @@ router.get("/page", function(req, res) {
 
 
 
+
         if(rows[0].length == 0) {
             res.send("설문지가 존재하지 않습니다. 질문세부 비활성 여부를 확인해주세요.");
         } else {
+
             var surveyQ = rows[0][0];
 
-
             msurvey.surveyQA(surveyQ.Q_CODE, function (err, rows) {
+
                 var surveyQA = rows;
+                console.log(surveyQA);
+                if(quest_num == 1) {
+                    msurvey.brandListSelect(uid, quest_num, campaign_code, function (err, rows) {
+                        if(err) {
+                            console.log(err);
+                        }
 
-                msurvey.brandListSelect(seq, campaign_code, function (err, rows) {
-                    if (err) {
-                        console.log(err);
-                        throw err;
-                    }
-                    var brandList = rows[0];
+                        console.log(rows[0]);
 
-                    console.log(brandList);
-                    res.render('survey/template/' + surveyQ.QUESTION_TYPE
-                        , {
-                            layout: 'layout/survey_page'
-                            , "layout extractScripts": true
-                            , campaign_code: campaign_code
-                            , quest_num: quest_num
-                            , uid: uid
-                            , seq: seq
-                            , page: page
-                            , surveyQ: surveyQ
-                            , surveyQA: surveyQA
-                            , brandList: brandList
-                            , debug: debug
-                        });
-                });
+                        var brandList = rows[0];
+
+
+
+                        res.render('survey/template/' + surveyQ.QUESTION_TYPE
+                            , {
+                                layout: 'layout/survey_page'
+                                , campaign_code: campaign_code
+                                , quest_num: quest_num
+                                , uid: uid
+                                , seq: seq
+                                , page: page
+                                , surveyQ: surveyQ
+                                , surveyQA: surveyQA
+                                , brandList: brandList
+                                , debug: debug
+                            });
+
+                    });
+                } else {
+
+                    msurvey.brandListSelect(uid, 1, campaign_code, function (err, rows) {
+                        if(err) {
+                            console.log(err);
+                        }
+
+                        console.log(rows[0]);
+
+                        var brandList = rows[0];
+
+
+
+                        res.render('survey/template/' + surveyQ.QUESTION_TYPE
+                            , {
+                                layout: 'layout/survey_page'
+                                , campaign_code: campaign_code
+                                , quest_num: quest_num
+                                , uid: uid
+                                , seq: seq
+                                , page: page
+                                , surveyQ: surveyQ
+                                , surveyQA: surveyQA
+                                , brandList: brandList
+                                , debug: debug
+                            });
+
+                    });
+
+                }
+
+
+
+
 
             });
         }
     });
+
 });
 
 router.post("/multiProcess", function(req, res) {
@@ -414,10 +467,12 @@ router.post("/multiProcess", function(req, res) {
 
 
 
+
                 var json = {
                     ERR_CODE: err_code
                     ,PAGE : pageCheck.PAGE
                 }
+
 
 
                 res.send(json);

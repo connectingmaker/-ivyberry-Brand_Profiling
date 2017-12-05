@@ -7,16 +7,20 @@ $(function() {
     $("#settingBtn").click(function() {
         var grade_code = "";
         questArr = [];
-
-        $(".grade_code").each(function() {
-            if($(this).is(":checked") == true) {
-                if(grade_code == "") {
-                    grade_code = $(this).val();
-                } else {
-                    grade_code += ","+$(this).val();
+        if($(".grade_code").is(":checked") == false) {
+            alert("참여대상을 선택해주세요.");
+            return;
+        } else {
+            $(".grade_code").each(function () {
+                if ($(this).is(":checked") == true) {
+                    if (grade_code == "") {
+                        grade_code = $(this).val();
+                    } else {
+                        grade_code += "," + $(this).val();
+                    }
                 }
-            }
-        });
+            });
+        }
 
         if(inputTextCheck("join_cnt", "최대인원을 입력해주세요") == false) {
             return;

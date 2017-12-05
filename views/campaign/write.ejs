@@ -76,7 +76,7 @@
                 <tbody>
                     <% for(var i = 0; i<brandlist.length; i++){ %>
                     <tr>
-                        <td class="text-center"><input type="radio" name="category_code" class="category_code" value="<%=brandlist[i].CATEGORY_CODE%>" <% if(category_code == brandlist[i].CATEGORY_CODE) { %>checked<% } %>></td>
+                        <td class="text-center"><input type="radio" name="category_code" class="category_code" value="<%=brandlist[i].CATEGORY_CODE%>" <% if(campaign_ing != "N") { %>disabled<% } %> <% if(category_code == brandlist[i].CATEGORY_CODE) { %>checked<% } %>></td>
                         <td class="text-center"><%=brandlist[i].CATEGORY_CODE%></td>
                         <td><%=brandlist[i].CATEGORY_NAME_KO%></td>
                         <td><%=brandlist[i].MEMO%></td>
@@ -116,14 +116,14 @@
                     <th class="text-center">시작일시</th>
                     <td>
                         <div class="js-datetimepicker input-group date" data-show-today-button="true" data-show-clear="true" data-show-close="true" data-side-by-side="true">
-                            <input class="form-control input-group-addon" type="text" id="campaign_startdate" name="example-datetimepicker4" value="<% if(campaign_startdate != "") { %><%=moment(campaign_startdate).format("MM/DD/YYYY hh:mm")%><% } %>" placeholder="시작일시를 입력해주세요.">
+                            <input class="form-control input-group-addon" type="text" id="campaign_startdate" name="example-datetimepicker4" value="<% if(campaign_startdate != "") { %><%=moment(campaign_startdate).format("YYYY-MM-DD HH:mm")%><% } %>" placeholder="시작일시를 입력해주세요.">
                             <span class="input-group-addon"><span class="fa fa-calendar"></span></span>
                         </div>
                     </td>
                     <th class="text-center">종료일시</th>
                     <td>
                         <div class="js-datetimepicker input-group date" data-show-today-button="true" data-show-clear="true" data-show-close="true" data-side-by-side="true">
-                            <input class="form-control input-group-addon" type="text" id="campaign_enddate" name="example-datetimepicker4" value="<% if(campaign_enddate != "") { %><%=moment(campaign_enddate).format("MM/DD/YYYY hh:mm")%><% } %>" placeholder="종료일시를 입력해주세요.">
+                            <input class="form-control input-group-addon" type="text" id="campaign_enddate" name="example-datetimepicker4" value="<% if(campaign_enddate != "") { %><%=moment(campaign_enddate).format("YYYY-MM-DD HH:mm")%><% } %>" placeholder="종료일시를 입력해주세요.">
                             <span class="input-group-addon"><span class="fa fa-calendar"></span></span>
                         </div>
                     </td>

@@ -1,6 +1,16 @@
 $(function() {
     <!-- 질문 그룹  추가하기 -->
     $("#groupCreate").click(function() {
+        $("#memo").val("");
+        $("#group_name_ko").val("");
+        $("#group_name_en").val("");
+        $("#group_name_ch").val("");
+        $("#etc").val("");
+        $(".question_type").prop("checked", false);
+        $(".question_type").each(function() {
+            $(this).attr("disabled", false);
+        });
+        //$(".question_type").attr("disabled", false);
         $('#groupModal').modal('show');
     });
 
@@ -14,7 +24,7 @@ $(function() {
         if(inputTextCheck("group_name_ko", "질문그룹이름을 입력해주세요.") == false) {
             return;
         }
-        if(inputTextCheck("memo", "질문그룹이름을 입력해주세요.") == false) {
+        if(inputTextCheck("memo", "메모명을 입력해주세요.") == false) {
             return;
         }
 
@@ -122,10 +132,10 @@ $(function() {
         };
 
 
+
         common.ajax.send("/question/questionSelect", params);
         common.ajax.return = function(data) {
             var jsonData = eval("("+data+")");
-            console.log(jsonData);
 
             $("#group_code").val(jsonData.GROUP_CODE);
             $("#group_name_ko").val(jsonData.GROUP_NAME_KO);
@@ -133,8 +143,12 @@ $(function() {
             $("#group_name_en").val(jsonData.GROUP_NAME_EN);
             $("#group_name_cn").val(jsonData.GROUP_NAME_CN);
             $("#etc").val(jsonData.ETC);
-            $("#"+jsonData.QUESTION_TYPE).prop("checked", true);
+            $(".question_type").each(function() {
+                $(this).attr("disabled", true);
+            });
 
+            $("#question_type_"+jsonData.QUESTION_TYPE).prop("checked", true);
+            $("#question_type_"+jsonData.QUESTION_TYPE).attr("disabled", true);
 
 
 

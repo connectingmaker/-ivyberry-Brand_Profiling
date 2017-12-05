@@ -370,7 +370,7 @@ router.post("/scaleProcess", function(req, res) {
     var memo = req.body.memo;
     var qaData = eval("("+req.body.qaJson+")");
 
-    mquestion.sp_QUESTION_Q_SAVE(q_code, group_code, q_name, q_title_ko, q_title_en, q_title_cn, etc, memo, q_img_min, q_img_max, q_text_min, q_text_min, function(err, rows) {
+    mquestion.sp_QUESTION_Q_SAVE(q_code, group_code, q_name, q_title_ko, q_title_en, q_title_cn, etc, memo, q_img_min, q_img_max, q_text_min, q_text_max, function(err, rows) {
         if(err) {
             console.log(err);
             throw err;

@@ -1,6 +1,9 @@
 $(function() {
 
     $(".qaList").click(function() {
+
+
+
         $(".qaList").each(function() {
             $(this).removeClass("btn-select");
             $(this).addClass("btn-white");
@@ -31,6 +34,17 @@ $(function() {
 
     $(".brandList").click(function() {
         var brand_code = $(this).attr("brand_code");
+        var chkTotal = 0;
+        $(".chk_brand").each(function() {
+            if($(this).is(":checked") == true) {
+                chkTotal++;
+            }
+        });
+
+        if(chkTotal > 9) {
+            alert("10개 이상 선택할 수 없습니다.");
+            return;
+        }
 
 
         if($("#"+brand_code).is(":checked") == false) {
@@ -60,6 +74,7 @@ $(function() {
 
         });
 
+
         $('body').focus();
 
         $("#selectCnt").html(checkCnt);
@@ -76,6 +91,13 @@ $(function() {
         if($(".chk_brand").is(":checked") == false) {
             alert("브랜드를 선택해주세요.");
         } else {
+
+            var totalCnt = 0;
+            totalCnt = parseInt($("#selectCnt").html());
+            if(totalCnt > 10) {
+                alert("10개 이상 선택할 수 없습니다.");
+                return;
+            }
             var brandData = [];
             $(".chk_brand").each(function() {
                 if($(this).is(":checked") == true) {
@@ -90,12 +112,13 @@ $(function() {
                 campaign_code : $("#campaign_code").val()
                 ,uid : $("#uid").val()
                 ,seq : $("#seq").val()
+                ,quest_num : $("#quest_num").val()
                 ,brandData : JSON.stringify(brandData)
             }
-            console.log(json);
 
             common.ajax.send('/survey/brandProcess', json);
             common.ajax.return = function(data) {
+                console.log(data);
                 location.replace("/survey/page?campaign_code="+$("#campaign_code").val()+"&uid="+$("#uid").val()+"&seq="+$("#seq").val()+"&quest_num="+$("#quest_num").val()+"&page=1"+debugUrl);
             }
             //$("#brandForm").submit();

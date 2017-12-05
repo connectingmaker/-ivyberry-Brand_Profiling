@@ -142,7 +142,7 @@
                         <tbody>
                             <% for(var i = 0; i<question_type_list.length; i++) { %>
                             <tr>
-                                <td class="text-center"><input id="<%=question_type_list[i].QUESTION_TYPE%>" type="radio" class="question_type" name="question_type" value="<%=question_type_list[i].QUESTION_TYPE%>"></td>
+                                <td class="text-center"><input id="question_type_<%=question_type_list[i].QUESTION_TYPE%>" type="radio" class="question_type" name="question_type" value="<%=question_type_list[i].QUESTION_TYPE%>"></td>
                                 <td><%=question_type_list[i].QUESTION_TYPE_NAME%></td>
                                 <td><%=question_type_list[i].QUESTION_TYPE_DESC%></td>
                             </tr>

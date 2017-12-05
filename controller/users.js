@@ -96,16 +96,18 @@ router.get('/write/:code', function(req, res) {
     var uid = req.params.code;
     mcode.getCodeGradeList(function(err, grade_row) {
         var gradelist = grade_row;
-        muser.getMemberSelect(uid, function (err, rows) {
-            var uid = rows[0].UID;
-            var username = rows[0].USERNAME;
-            var code_grade = rows[0].CODE_GRADE;
-            var useremail = rows[0].USEREMAIL;
-            var sex = rows[0].SEX;
-            var birthday = rows[0].BIRTHDAY;
-            var point = rows[0].POINT;
-            var phone = rows[0].DECODE_PHONE;
-            var last_login = rows[0].LAST_LOGIN;
+        muser.sp_MEMBER_SELECT(uid, function (err, rows) {
+            console.log(rows[0][0]);
+            var data = rows[0];
+            var uid = data[0].UID;
+            var username = data[0].USERNAME;
+            var code_grade = data[0].CODE_GRADE;
+            var useremail = data[0].USEREMAIL;
+            var sex = data[0].SEX;
+            var birthday = data[0].BRITHDAY;
+            var point = data[0].POINT;
+            var phone = data[0].USERPHONE;
+            var last_login = data[0].LAST_LOGIN;
 
             var userData = {
                 uid: uid
@@ -135,7 +137,7 @@ router.post("/writeProcess", function(req, res) {
     var userphone = req.body.userphone;
     var userpasswd = req.body.userpasswd;
 
-    muser.sp_MEMBER_SAVE(uid, code_grade, username, useremail, userphone, userpasswd, sex, birthday, function(err, rows) {
+    muser.sp_MEMBER_SAVE(uid, code_grade, username, useremail, userphone, userpasswd, sex, birthday, '', function(err, rows) {
         if(err) {
             console.log(err);
         }
@@ -184,6 +186,8 @@ router.get("/pointHistory/:code", function(req, res) {
     if(page == undefined) {
         page = 1;
     }
+
+
 
     var total = 0;
     var start = 0;
@@ -292,8 +296,8 @@ router.post('/pointProcess', function(req, res, next) {
 
 router.get("/pointRequest", function(req, res) {
 
-    var startDay = req.param("startDay");
-    var endDay = req.param("endDay");
+    var startDay = req.query.startDay;
+    var endDay = req.query.endDay;
 
     if(startDay == undefined) {
         startDay = 0;
@@ -302,6 +306,9 @@ router.get("/pointRequest", function(req, res) {
     if(endDay == undefined) {
         endDay = 0;
     }
+
+    console.log(startDay);
+    console.log(endDay);
 
     muser.sp_MEMBER_POINT_REQUEST(startDay,endDay,function(err, rows) {
         if(err) {

@@ -42,9 +42,13 @@
                 </thead>
                 <tbody>
                 <% for(var i = 0; i<brandList.length; i++) { %>
-                <% console.log(brandList[i]); %>
                 <tr>
+                    <% if(brandList[i].CHK == 1) { %>
+                    <td class="text-center"><input type="checkbox" class="brandpool" name="brandpool" value="<%=brandList[i].DETAIL_CATEGORY_CODE%>" checked disabled></td>
+                    <% } else { %>
                     <td class="text-center"><input type="checkbox" class="brandpool" name="brandpool" value="<%=brandList[i].DETAIL_CATEGORY_CODE%>" <% if(brandList[i].SELECTED != 0) { %>checked<% } %>></td>
+                    <% } %>
+
                     <td><%=brandList[i].DETAIL_CATEGORY_CODE%></td>
                     <td><%=brandList[i].BRAND_NAME_KO%></td>
                     <td><%=brandList[i].MEMO%></td>

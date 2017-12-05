@@ -29,6 +29,16 @@ var muser = {
         connection.end();
         return data;
     }
+    ,sp_MEMBER_SELECT: function(uid, callback) {
+        var connection = mysql_dbc.init();
+        var query = " call sp_MEMBER_SELECT(?)";
+        var params = [];
+        params.push(uid);
+
+        var data = connection.query(query,params,callback);
+        connection.end();
+        return data;
+    }
     ,getEmailCount: function(useremail, callback) {
         var connection = mysql_dbc.init();
         var query = " SELECT COUNT(*) AS TOTAL FROM MEMBER WHERE USEREMAIL = ? ";

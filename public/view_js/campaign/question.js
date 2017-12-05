@@ -1,5 +1,6 @@
 $(function() {
     var questData = [];
+    var questCheck = false;
     $("#questBtn").click(function() {
         questData = [];
         $(".questQ").each(function() {
@@ -18,9 +19,20 @@ $(function() {
                 }
 
                 questData.push(data);
+                if(quest_num == "1") {
+                    questCheck = true;
+                }
 
             }
         });
+
+        if(questCheck == false) {
+            alert("퀘스트1을 선택해주세요");
+            return;
+        }
+
+
+
 
         var jsonData = {
             campaign_code : $("#campaign_code").val()

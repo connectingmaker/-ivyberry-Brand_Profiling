@@ -556,6 +556,16 @@ $(function() {
             return;
         }
 
+        if(inputTextCheck("scale_qa_title_ko1", "좌측내용을 입력해주세요.") == false) {
+            return;
+        }
+        if(inputTextCheck("scale_qa_title_ko3", "우측내용을 입력해주세요.") == false) {
+            return;
+        }
+
+
+
+
         var qaJson = [];
         var qaStringData = {};
 
