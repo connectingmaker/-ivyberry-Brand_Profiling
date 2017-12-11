@@ -208,6 +208,64 @@ var muser = {
         return data;
     }
 
+    ,getPanelCount: function(callback) {
+        var connection = mysql_dbc.init();
+        var query = " SELECT COUNT(*) AS TOTAL FROM PANEL ";
+        var data = connection.query(query,[],callback);
+        connection.end();
+        return data;
+    }
+    ,getPanelList: function(page, callback) {
+        var connection = mysql_dbc.init();
+        var query = " SELECT ";
+        query += " M.UID ";
+        query += " , M.USERNAME ";
+        query += " , M.USEREMAIL ";
+        query += " , fn_DECKEY(M.USERPHONE) USERPHONE "
+        query += " , FROM_UNIXTIME(P.INSERT_DATETIME) AS INSERT_DATETIME ";
+        query += " , P.Q1";
+        query += " , P.Q2";
+        query += " , P.Q3";
+        query += " , P.Q4";
+        query += " , (SELECT COUNT(*) FROM PANEL WHERE UID = M.UID) PANEL_TOTAL"
+        query += " FROM MEMBER M INNER JOIN PANEL P ON(M.UID = P.UID) ";
+        query += " ORDER BY P.INSERT_DATETIME DESC ";
+        query += " LIMIT "+page+", 10";
+
+
+
+        var params = [];
+
+        var data = connection.query(query,params,callback);
+        connection.end();
+        return data;
+    }
+    ,sp_PANEL_DELETE: function(uid, callback) {
+        var connection = mysql_dbc.init();
+        var query = " DELETE * FROM PANEL WHERE UID = ? ";
+        var params = [];
+        var data = connection.query(query,params,callback);
+        connection.end();
+        return data;
+    }
+
+    // ,sp_PANEL_SAVE: function(uid, q1,q2,q3,q4,status, callback) {
+    //     var connection = mysql_dbc.init();
+    //     var query = " call sp_PANEL_SAVE(?, ?, ?, ?, ?, ?)";
+    //     var params = [];
+    //     params.push(uid);
+    //     params.push(q1);
+    //     params.push(q2);
+    //     params.push(q3);
+    //     params.push(q4);
+    //     params.push(status);
+    //     params.push(mysql_dbc.enckey());
+    //
+    //     var data = connection.query(query,params,callback);
+    //     connection.end();
+    //     return data;
+    // }
+
 }
 
 module.exports = muser;

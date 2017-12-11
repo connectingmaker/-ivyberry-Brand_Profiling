@@ -59,7 +59,12 @@ $(function() {
                 if($(this).is(":checked") == true) {
                     sex += parseInt($(this).val());
                 }
+
+
             });
+
+
+
         }
 
         if($("#startAge").val() == "") {
@@ -167,3 +172,10 @@ $(function() {
         }
     });
 });
+
+function multionoff(onoff) {
+    if (onoff == "off") {
+        $(".multioff").attr("checked", false);
+
+    }
+}

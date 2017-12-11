@@ -77,11 +77,11 @@
                     <td>
                         <table border="0" cellpadding="0" cellspacing="0">
                             <tr>
-                                <td style="padding-left:10px;"><label style="font-size:11px;"><input type="checkbox" id="allSex"> 모든 성별 </label></td>
+                                <td style="padding-left:10px;"><label style="font-size:11px;"><input type="checkbox" id="allSex" class="multioff"> 모든 성별 </label></td>
                             </tr>
                             <tr>
                                 <% for(var sexI = 0; sexI<sexQuota.length; sexI++) { %>
-                                <td style="padding-left:10px;"><label style="font-size:11px;"><input type="checkbox" class="sex" name="sex" value="<%=sexQuota[sexI].CODE%>" <% if(sexQuota[sexI].CHECKED != 0) { %>checked<%}%>> <%=sexQuota[sexI].CODE_NAME%></label></td>
+                                <td style="padding-left:10px;"><label style="font-size:11px;"><input type="checkbox" class="sex" name="sex" onclick="javascript:multionoff('off');" value="<%=sexQuota[sexI].CODE%>" <% if(sexQuota[sexI].CHECKED != 0) { %>checked<%}%>> <%=sexQuota[sexI].CODE_NAME%></label></td>
                                 <% } %>
                             </tr>
                         </table>
@@ -132,11 +132,11 @@
                     <td>
                         <table border="0" cellpadding="0" cellspacing="0">
                             <tr>
-                                <td style="padding-left:10px;"><label style="font-size:11px;"><input type="checkbox" id="allArea"> 모든 지역</label></td>
+                                <td style="padding-left:10px;"><label style="font-size:11px;"><input type="checkbox" id="allArea" class="multioff"> 모든 지역</label></td>
                             </tr>
                             <tr>
                                 <% for(var areaI = 0; areaI<areaQuota.length; areaI++) { %>
-                                <td style="padding-left:10px;"><label style="font-size:11px;"><input type="checkbox" name="area" class="area" value="<%=areaQuota[areaI].CODE_AREA%>" <% if(areaQuota[areaI].CHECKED != 0) { %>checked<%}%>> <%=areaQuota[areaI].AREA_NAME%></label></td>
+                                <td style="padding-left:10px;"><label style="font-size:11px;"><input type="checkbox" name="area" class="area" onclick="javascript:multionoff('off');" value="<%=areaQuota[areaI].CODE_AREA%>" <% if(areaQuota[areaI].CHECKED != 0) { %>checked<%}%>> <%=areaQuota[areaI].AREA_NAME%></label></td>
                                 <% } %>
                             </tr>
                         </table>
