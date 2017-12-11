@@ -155,14 +155,20 @@ router.post("/memberSelect", function(req, res) {
             throw err;
         }
         var objToJson = rows[0];
-        muser.sp_MEMBER_TOKEN(objToJson[0].UID, userToken, os, version, function(err, rows) {
-            if(err) {
-                console.log(err);
-                throw err;
-            }
+        if(objToJson[0].ERR_CODE != "000") {
             var dataJson = JSON.stringify(objToJson);
             res.send(dataJson);
-        });
+        } else {
+            muser.sp_MEMBER_TOKEN(objToJson[0].UID, userToken, os, version, function(err, rows) {
+                if(err) {
+                    console.log(err);
+                    throw err;
+                }
+                var dataJson = JSON.stringify(objToJson);
+                res.send(dataJson);
+            });
+        }
+
 
 
     });
@@ -316,6 +322,10 @@ router.post("/pwdUserCheck", function(req, res) {
     var uid = req.body.uid;
     var email = req.body.emailString;
     var phone = req.body.phoneNumber;
+
+    console.log(uid);
+    console.log(email);
+    console.log(phone);
 
 
 

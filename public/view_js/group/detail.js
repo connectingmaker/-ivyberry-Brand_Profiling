@@ -338,6 +338,32 @@ $(function() {
     });
 
 
+    <!--선택형 질문 추가하기 -->
+    $("#radioCreate").click(function() {
+        var code = Math.floor(Math.random() * 99999999999999) + 1;
+
+        /*
+        $("#multi_q_name").val("");
+        $("#multi_q_title_ko").val("");
+        $("#multi_q_title_en").val("");
+        $("#multi_q_title_cn").val("");
+        $("#multi_etc").val("");
+        $("#multi_memo").val("");
+
+
+        var multi_template_temp = multi_template.replace("[_ID_]", code);
+        multi_template_temp = multi_template_temp.replace("[_QA_CODE_]", "");
+        multi_template_temp = multi_template_temp.replace("[_QA_TITLE_KO_]", "");
+        multi_template_temp = multi_template_temp.replace("[_QA_TITLE_EN_]", "");
+        multi_template_temp = multi_template_temp.replace("[_QA_TITLE_CN_]", "");
+        $("#multiTable #template").html(multi_template_temp);
+        $("#q_code").val("");
+        $('#multiModal').modal('show');
+        */
+        $('#radioModal').modal('show');
+    });
+
+
     /************ 양자택일 저장 클릭 *******************************/
     $("#singleSave").click(function() {
         if(inputTextCheck("single_q_name", "질문이름을 입력해주세요.") == false) {
@@ -539,6 +565,107 @@ $(function() {
                 htmlObj.find("tr").eq(1).find("td").eq(0).html(dataJson.Q_TITLE_KO);
 
                 $('#multiModal').modal('hide');
+
+            }
+        };
+
+
+    });
+
+
+    $("#radioSave").click(function() {
+        if(inputTextCheck("radio_q_name", "질문이름을 입력해주세요.") == false) {
+            return;
+        }
+
+        if(inputTextCheck("radio_q_title_ko", "질문 내용을 입력해주세요.") == false) {
+            return;
+        }
+
+        var qaJson = [];
+        var qaStringData = {};
+
+        var checkBool = false;
+
+        $(".qa_title_ko").each(function() {
+
+            if($(this).val() == false) {
+                alert("보기 국문을 입력해주세요.");
+                checkBool = true;
+                $(this).focus();
+                return false;
+            } else {
+                var id = $(this).parents("tr").attr("id");
+                qaStringData = {
+                    qa_code : $("#template #"+id+" .qa_code").val()
+                    ,qa_title_ko : $("#template #"+id+" .qa_title_ko").val()
+                    ,qa_title_en : $("#template #"+id+" .qa_title_en").val()
+                    ,qa_title_cn : $("#template #"+id+" .qa_title_cn").val()
+                    ,img: ""
+                }
+
+                qaJson.push(qaStringData);
+
+            }
+        });
+
+
+
+        if(checkBool == true) {
+            return;
+        }
+
+
+
+
+        var jsonData = {
+            q_code : $("#q_code").val()
+            ,group_code : $("#group_code").val()
+            ,q_name : $("#radio_q_name").val()
+            ,q_title_ko : $("#radio_q_title_ko").val()
+            ,q_title_en : $("#radio_q_title_en").val()
+            ,q_title_cn : $("#radio_q_title_cn").val()
+            ,etc : $("#radio_etc").val()
+            ,memo : $("#radio_memo").val()
+            ,qaJson : JSON.stringify(qaJson)
+        };
+
+        common.ajax.send('/question/multiProcess', jsonData);
+        common.ajax.return = function(data) {
+            var dataJson = eval("("+data+")");
+            dataJson = dataJson[0];
+
+            if($("#"+dataJson.Q_CODE).html() == undefined) {
+                var survey_template_temp = survey_template;
+                survey_template_temp = survey_template_temp.replace("[_Q_TYPE_]", $("#question_type").html());
+                survey_template_temp = survey_template_temp.replace("[_Q_CODE_ID_]", dataJson.Q_CODE);
+                survey_template_temp = survey_template_temp.replace("[_Q_CODE_]", dataJson.Q_CODE);
+                survey_template_temp = survey_template_temp.replace("[_Q_NAME_]", dataJson.Q_NAME);
+                survey_template_temp = survey_template_temp.replace("[_MEMO_]", dataJson.MEMO);
+                survey_template_temp = survey_template_temp.replace("[_ETC_]", dataJson.ETC);
+                survey_template_temp = survey_template_temp.replace("[_Q_INSERT_DATETIME_]", string.dateTime(dataJson.INSERT_DATETIME));
+                survey_template_temp = survey_template_temp.replace("[_Q_TITLE_KO_]", dataJson.Q_TITLE_KO);
+                survey_template_temp = survey_template_temp.replace("[_Q_TITLE_EN_]", dataJson.Q_TITLE_EN);
+                survey_template_temp = survey_template_temp.replace("[_Q_TITLE_CN_]", dataJson.Q_TITLE_CN);
+                survey_template_temp = survey_template_temp.replace("[_SET_USE_YN_]", dataJson.USE_YN);
+                if(dataJson.USE_YN == "Y") {
+                    survey_template_temp = survey_template_temp.replace("[_USE_YN_TEXT_]", "활성화중");
+                    survey_template_temp = survey_template_temp.replace("[_USE_YN_]", "사용함");
+                } else {
+                    survey_template_temp = survey_template_temp.replace("[_USE_YN_TEXT_]", "비활성");
+                    survey_template_temp = survey_template_temp.replace("[_USE_YN_]", "사용안함");
+                }
+                $('#multiModal').modal('hide');
+
+                $("#questionList").append(survey_template_temp);
+            } else {
+                var htmlObj = $("#"+dataJson.Q_CODE+" .contents_list tbody");
+                htmlObj.find("tr").eq(0).find("td").eq(1).html(dataJson.Q_NAME);
+                htmlObj.find("tr").eq(0).find("td").eq(2).html(dataJson.MEMO);
+                htmlObj.find("tr").eq(0).find("td").eq(3).html(dataJson.ETC);
+                htmlObj.find("tr").eq(1).find("td").eq(0).html(dataJson.Q_TITLE_KO);
+
+                $('#radioModal').modal('hide');
 
             }
         };
@@ -908,6 +1035,18 @@ $(function() {
         multi_template_temp = multi_template_temp.replace("[_QA_TITLE_EN_]", "");
         multi_template_temp = multi_template_temp.replace("[_QA_TITLE_CN_]", "");
         $("#multiTable #template").append(multi_template_temp);
+    });
+
+
+
+    $("#qaBtn_radio").click(function() {
+        var code = Math.floor(Math.random() * 99999999999999) + 1;
+        var multi_template_temp = multi_template.replace("[_ID_]", code);
+        multi_template_temp = multi_template_temp.replace("[_QA_CODE_]", "");
+        multi_template_temp = multi_template_temp.replace("[_QA_TITLE_KO_]", "");
+        multi_template_temp = multi_template_temp.replace("[_QA_TITLE_EN_]", "");
+        multi_template_temp = multi_template_temp.replace("[_QA_TITLE_CN_]", "");
+        $("#radioTable #template").append(multi_template_temp);
     });
 
 
