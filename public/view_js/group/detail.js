@@ -286,33 +286,22 @@ $(function() {
 
     <!--양자택일형 질문 추가하기 -->
     $("#radioCreate").click(function() {
+        var code = Math.floor(Math.random() * 99999999999999) + 1;
+
+        $("#radio_q_name").val("");
+        $("#radio_q_title_ko").val("");
+        $("#radio_q_title_en").val("");
+        $("#radio_q_title_cn").val("");
+        $("#radio_etc").val("");
+        $("#radio_memo").val("");
+
+        var multi_template_temp = multi_template.replace("[_ID_]", code);
+        multi_template_temp = multi_template_temp.replace("[_QA_CODE_]", "");
+        multi_template_temp = multi_template_temp.replace("[_QA_TITLE_KO_]", "");
+        multi_template_temp = multi_template_temp.replace("[_QA_TITLE_EN_]", "");
+        multi_template_temp = multi_template_temp.replace("[_QA_TITLE_CN_]", "");
+        $("#radioTable #template").html(multi_template_temp);
         $("#q_code").val("");
-        $("#single_q_name").val("");
-        $("#single_q_title_ko").val("");
-        $("#single_q_title_en").val("");
-        $("#single_q_title_cn").val("");
-        $("#single_etc").val("");
-
-        $("#single_qa_title_ko1").attr("qa_code", "");
-        $("#single_qa_title_ko1").val("");
-        $("#single_qa_title_ko2").attr("qa_code", "");
-        $("#single_qa_title_ko2").val("");
-
-
-        $("#single_qa_title_en1").attr("qa_code", "");
-        $("#single_qa_title_en1").val("");
-        $("#single_qa_title_en2").attr("qa_code", "");
-        $("#single_qa_title_en2").val("");
-
-
-        $("#single_qa_title_cn1").attr("qa_code", "");
-        $("#single_qa_title_cn1").val("");
-        $("#single_qa_title_cn2").attr("qa_code", "");
-        $("#single_qa_title_cn2").val("");
-
-
-
-
         $('#radioModal').modal('show');
     });
     <!--선택형 질문 추가하기 -->
@@ -496,10 +485,10 @@ $(function() {
             } else {
                 var id = $(this).parents("tr").attr("id");
                 qaStringData = {
-                    qa_code : $("#template #"+id+" .qa_code").val()
-                    ,qa_title_ko : $("#template #"+id+" .qa_title_ko").val()
-                    ,qa_title_en : $("#template #"+id+" .qa_title_en").val()
-                    ,qa_title_cn : $("#template #"+id+" .qa_title_cn").val()
+                    qa_code : $("#multiTable #template #"+id+" .qa_code").val()
+                    ,qa_title_ko : $("#multiTable #template #"+id+" .qa_title_ko").val()
+                    ,qa_title_en : $("#multiTable #template #"+id+" .qa_title_en").val()
+                    ,qa_title_cn : $("#multiTable #template #"+id+" .qa_title_cn").val()
                     ,img: ""
                 }
 
@@ -597,10 +586,10 @@ $(function() {
             } else {
                 var id = $(this).parents("tr").attr("id");
                 qaStringData = {
-                    qa_code : $("#template #"+id+" .qa_code").val()
-                    ,qa_title_ko : $("#template #"+id+" .qa_title_ko").val()
-                    ,qa_title_en : $("#template #"+id+" .qa_title_en").val()
-                    ,qa_title_cn : $("#template #"+id+" .qa_title_cn").val()
+                    qa_code : $("#radioTable #template #"+id+" .qa_code").val()
+                    ,qa_title_ko : $("#radioTable #template #"+id+" .qa_title_ko").val()
+                    ,qa_title_en : $("#radioTable #template #"+id+" .qa_title_en").val()
+                    ,qa_title_cn : $("#radioTable #template #"+id+" .qa_title_cn").val()
                     ,img: ""
                 }
 
@@ -630,6 +619,7 @@ $(function() {
             ,qaJson : JSON.stringify(qaJson)
         };
 
+
         common.ajax.send('/question/multiProcess', jsonData);
         common.ajax.return = function(data) {
             var dataJson = eval("("+data+")");
@@ -655,7 +645,7 @@ $(function() {
                     survey_template_temp = survey_template_temp.replace("[_USE_YN_TEXT_]", "비활성");
                     survey_template_temp = survey_template_temp.replace("[_USE_YN_]", "사용안함");
                 }
-                $('#multiModal').modal('hide');
+                $('#radioModal').modal('hide');
 
                 $("#questionList").append(survey_template_temp);
             } else {
@@ -1133,6 +1123,7 @@ $(function() {
     /****************** 선택형 클릭 ************************************/
     $(document).on('click', '.modifyQBtn', function() {
         var id = $(this).parents("div").parents("div").parents("div").attr("id");
+
         $("#q_code").val(id);
         var question_type = $("#question_type").val();
         switch(question_type) {
@@ -1356,6 +1347,55 @@ $(function() {
 
 
             break;
+
+
+            case "6":
+
+                var json = {
+                    q_code: id
+                }
+                common.ajax.send("/question/qSelectMulti", json);
+                common.ajax.return = function (data) {
+                    var jsonData = eval("("+data+")");
+                    console.log(jsonData);
+
+                    $("#radio_q_name").val(jsonData.q[0].Q_NAME);
+                    $("#radio_q_title_ko").val(jsonData.q[0].Q_TITLE_KO);
+                    $("#radio_q_title_en").val(jsonData.q[0].Q_TITLE_EN);
+                    $("#radio_q_title_cn").val(jsonData.q[0].Q_TITLE_CN);
+                    $("#radio_etc").val(jsonData.q[0].ETC);
+                    $("#radio_memo").val(jsonData.q[0].MEMO);
+
+
+
+
+                    var qaTemplate = multi_template;
+                    var realTemplate = "";
+
+
+
+                    for(var i = 0; i<jsonData.qa.length; i++) {
+                        qaTemplate = multi_template;
+                        qaTemplate = qaTemplate.replace("[_ID_]", jsonData.qa[i].QA_CODE);
+                        qaTemplate = qaTemplate.replace("[_QA_CODE_]", jsonData.qa[i].QA_CODE);
+                        qaTemplate = qaTemplate.replace("[_QA_TITLE_KO_]", jsonData.qa[i].QA_TITLE_KO);
+                        qaTemplate = qaTemplate.replace("[_QA_TITLE_EN_]", jsonData.qa[i].QA_TITLE_EN);
+                        qaTemplate = qaTemplate.replace("[_QA_TITLE_CN_]", jsonData.qa[i].QA_TITLE_CN);
+                        realTemplate += qaTemplate;
+
+                    }
+
+
+                    $("#radioTable #template").html("");
+                    $("#radioTable #template").append(realTemplate);
+
+                    $('#radioModal').modal('show');
+
+                }
+
+
+
+                break;
         }
     });
 
