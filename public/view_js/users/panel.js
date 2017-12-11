@@ -10,6 +10,7 @@ $(function() {
                 uid: uid
             };
 
+
             common.ajax.send("/users/panelDelete", params);
             common.ajax.return = function (data) {
                 console.log(data);
