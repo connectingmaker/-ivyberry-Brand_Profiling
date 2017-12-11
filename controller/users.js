@@ -504,10 +504,9 @@ router.post("/panelDelete", function(req, res) {
             throw err;
         }
 
-        var data = rows[0];
         var json = {
-            "ERR_CODE" : data[0].ERR_CODE
-            ,"ERR_MSG" : data[0].ERR_MSG
+            "ERR_CODE" : "000"
+            ,"ERR_MSG" : "OK"
         }
         res.send(json);
     })

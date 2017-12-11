@@ -17,12 +17,9 @@
                     <th class="text-center">이름</th>
                     <th class="text-center">이메일</th>
                     <th class="text-center">전화번호</th>
-                    <!--<th>자기소개</th>-->
-                    <!--<th>흥미카테고리</th>-->
-                    <!--<th>브랜드 전문성</th>-->
-                    <!--<th>운영중인 곳 소개</th>-->
+
                     <th class="text-center">패널 신청일</th>
-                    <th class="text-center">상태</th>
+
                     <th class="text-center">관리</th>
                 </tr>
                 </thead>
@@ -38,29 +35,29 @@
                     <!--<td><%=userData[i].Q3%></td>-->
                     <!--<td><%=userData[i].Q4%></td>-->
                     <td><%=moment(userData[i].INSERT_DATETIME).format("YYYY-MM-DD hh:mm")%></td>
-                    <td class="text-center">
-                        <select>
-                            <option>전문패널 신청</option>
-                            <option>전문패널 선정</option>
-                        </select>
-                    </td>
-                    <td class="btn btn-warning btn-xs text-center deleteBtn">삭제</td>
+                    <!--<td class="text-center">-->
+                        <!--<select>-->
+                            <!--<option value="N">전문패널 신청</option>-->
+                            <!--<option value="Y">전문패널 선정</option>-->
+                        <!--</select>-->
+                    <!--</td>-->
+                    <td class="text-center"><a class="btn btn-warning deleteBtn" >삭제</a> </td>
                 </tr>
                 <tr>
                     <th>자기소개</th>
-                    <td colspan="6"><%=userData[i].Q1%></td>
+                    <td colspan="5"><%=userData[i].Q1%></td>
                 </tr>
                 <tr>
                     <th>흥미 카테고리</th>
-                    <td colspan="6"><%=userData[i].Q2%></td>
+                    <td colspan="5"><%=userData[i].Q2%></td>
                 </tr>
                 <tr>
                     <th>브랜드 전문성</th>
-                    <td colspan="6"><%=userData[i].Q3%></td>
+                    <td colspan="5"><%=userData[i].Q3%></td>
                 </tr>
                 <tr>
                     <th>운영중인 곳 소개</th>
-                    <td colspan="6"><%=userData[i].Q4%></td>
+                    <td colspan="5"><%=userData[i].Q4%></td>
                 </tr>
                 <% } %>
                 </tbody>
