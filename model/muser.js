@@ -249,22 +249,23 @@ var muser = {
         return data;
     }
 
-    // ,sp_PANEL_SAVE: function(uid, q1,q2,q3,q4,status, callback) {
-    //     var connection = mysql_dbc.init();
-    //     var query = " call sp_PANEL_SAVE(?, ?, ?, ?, ?, ?)";
-    //     var params = [];
-    //     params.push(uid);
-    //     params.push(q1);
-    //     params.push(q2);
-    //     params.push(q3);
-    //     params.push(q4);
-    //     params.push(status);
-    //     params.push(mysql_dbc.enckey());
-    //
-    //     var data = connection.query(query,params,callback);
-    //     connection.end();
-    //     return data;
-    // }
+    ,sp_PANEL_SAVE: function(uid, q1,q2,q3,q4,status, callback) {
+        var connection = mysql_dbc.init();
+        var query = " call sp_PANEL_SAVE(?, ?, ?, ?, ?, ?)";
+        var params = [];
+        params.push(uid);
+        params.push(q1);
+        params.push(q2);
+        params.push(q3);
+        params.push(q4);
+        params.push(status);
+        params.push(mysql_dbc.enckey());
+
+        var data = connection.query(query,params,callback);
+        connection.end();
+        return data;
+    }
+
 
 }
 

@@ -1,0 +1,54 @@
+<input type="hidden" id="campaign_code" name="campaign_code" value="<%=campaign_code%>">
+<input type="hidden" id="seq" name="seq" value="<%=seq%>">
+<input type="hidden" id="uid" name="uid" value="<%=uid%>">
+<input type="hidden" id="quest_num" value="<%=quest_num%>">
+<input type="hidden" id="q_code" value="<%=surveyQ.Q_CODE%>">
+<input type="hidden" id="page" value="<%=page%>">
+<input type="hidden" id="brandCnt" value="<%=brandList.length%>">
+<input type="hidden" id="debug" value="<%=debug%>">
+<div class="row" style="padding:10px 40px;">
+    <div clss="col-xs-12">
+        <div class="row titleBox2">
+
+            <div class="col-xs-12 text-center titleCountBg">
+                <h2> <span id="selectCnt" class="Textcolor">0</span> / <%=brandList.length%></h2>
+
+                <small><span id="textselectCnt" class="Textcolor">0개가 선택되었습니다</span></small>
+            </div>
+
+            <div class="col-xs-12 text-center titleSelectBg">
+                <small><%=surveyQ.Q_TITLE_KO%></small>
+            </div>
+        </div>
+
+    </div>
+
+    <div clss="col-xs-12" style="padding:10px 0px;">
+        <% for(var brandNum = 0; brandNum<brandList.length; brandNum++) { %>
+        <div class="row push-10-t titleBox3">
+
+            <div class="col-xs-12 titleSelectBg" style="padding:10px 5px;">
+                <%=brandList[brandNum].BRAND_NAME_KO%>
+            </div>
+
+            <div class="col-xs-12 titleCountBg text-center">
+
+                <table width="100%">
+                    <tr>
+                        <% for(var i = 0; i<surveyQA.length; i++) { %>
+                        <td class="text-center">
+                            <label class="css-input checkbox">
+                                <input type='radio' name="qa[<%=brandNum%>]" brand_code="<%=brandList[brandNum].DETAIL_BRAND_CODE%>" class="qaData qaData_<%=brandNum%>" value="<%=surveyQA[i].QA_CODE%>"><span></span> <%=surveyQA[i].QA_TITLE_KO%>
+                            </label>
+                        </td>
+                        <% } %>
+
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <% } %>
+
+    </div>
+</div>
+<script language="javascript" src="/view_js/survey/6.js"></script>
