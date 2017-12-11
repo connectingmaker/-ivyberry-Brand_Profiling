@@ -155,14 +155,20 @@ router.post("/memberSelect", function(req, res) {
             throw err;
         }
         var objToJson = rows[0];
-        muser.sp_MEMBER_TOKEN(objToJson[0].UID, userToken, os, version, function(err, rows) {
-            if(err) {
-                console.log(err);
-                throw err;
-            }
+        if(objToJson[0].ERR_CODE != "000") {
             var dataJson = JSON.stringify(objToJson);
             res.send(dataJson);
-        });
+        } else {
+            muser.sp_MEMBER_TOKEN(objToJson[0].UID, userToken, os, version, function(err, rows) {
+                if(err) {
+                    console.log(err);
+                    throw err;
+                }
+                var dataJson = JSON.stringify(objToJson);
+                res.send(dataJson);
+            });
+        }
+
 
 
     });
@@ -311,11 +317,40 @@ router.get("/memberSelect/:code", function(req, res) {
     });
 });
 
+/****************** 패널 신청 ***************************/
+router.post("/panelInsert", function(req,res) {
+    var uid = req.body.uid;
+    var q1 = req.body.q1;
+    var q2 = req.body.q2;
+    var q3 = req.body.q3;
+    var q4 = req.body.q4;
+
+
+    muser.sp_PANEL_SAVE(uid, q1, q2, q3, q4, 'N', function(err,rows) {
+        if(err) {
+            console.log(err);
+            throw err;
+        }
+
+        var objToJson = rows[0];
+        var json = {
+            ERR_CODE : objToJson[0].ERR_CODE
+            ,ERR_MSG : objToJson[0].ERR_MSG
+        }
+        res.send(json);
+    });
+});
+
+
 /****************** 패스워드 변경  회원조회 ***************************/
 router.post("/pwdUserCheck", function(req, res) {
     var uid = req.body.uid;
     var email = req.body.emailString;
     var phone = req.body.phoneNumber;
+
+    console.log(uid);
+    console.log(email);
+    console.log(phone);
 
 
 

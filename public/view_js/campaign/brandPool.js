@@ -52,9 +52,20 @@ $(function() {
 
     $("#allchk").click(function() {
         if($(this).is(":checked") == true) {
-            $(".brandpool").prop("checked", true);
+            $(".brandpool").each(function() {
+
+                if($(this).attr("disabled") != "disabled") {
+                    $(this).prop("checked", true);
+                }
+            });
+
         } else {
-            $(".brandpool").prop("checked", false);
+            $(".brandpool").each(function() {
+                if($(this).attr("disabled") != "disabled") {
+                    $(this).prop("checked", false);
+                }
+            });
+            //$(".brandpool").prop("checked", false);
         }
     });
 });

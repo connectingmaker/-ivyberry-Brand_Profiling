@@ -41,13 +41,17 @@ $(function() {
             }
         });
 
-        if(chkTotal > 9) {
-            alert("10개 이상 선택할 수 없습니다.");
-            return;
-        }
 
 
         if($("#"+brand_code).is(":checked") == false) {
+
+            if(chkTotal > 9) {
+                alert("10개 이상 선택할 수 없습니다.");
+                return;
+            }
+
+
+
             $("#"+brand_code).prop("checked", true);
             $(this).removeClass("btn-white");
             $(this).addClass("btn-select");
