@@ -7,6 +7,7 @@
 <input type="hidden" id="brandCnt" value="<%=brandList.length%>">
 <input type="hidden" id="debug" value="<%=debug%>">
 <div class="row" style="padding:10px 40px;">
+    <% for(var brandNum = 0; brandNum<brandList.length; brandNum++) { %>
     <div clss="col-xs-12">
         <div class="row titleBox2">
 
@@ -16,39 +17,32 @@
                 <small><span id="textselectCnt" class="Textcolor">0개가 선택되었습니다</span></small>
             </div>
 
-            <div class="col-xs-12 text-center titleSelectBg">
-                <small><%=surveyQ.Q_TITLE_KO%></small>
+            <div class="col-xs-12 text-left titleSelectBg" style="padding-left:10px;">
+                <%=brandList[brandNum].BRAND_NAME_KO%> - <small><%=surveyQ.Q_TITLE_KO%></small>
             </div>
         </div>
 
     </div>
 
-    <div clss="col-xs-12" style="padding:10px 0px;">
-        <% for(var brandNum = 0; brandNum<brandList.length; brandNum++) { %>
-        <div class="row push-10-t titleBox3">
+    <div clss="col-xs-12" style="padding:30px 0px;">
 
-            <div class="col-xs-12 titleSelectBg" style="padding:10px 5px;">
-                <%=brandList[brandNum].BRAND_NAME_KO%>
+
+        <div class="row">
+            <% for(var i = 0; i<surveyQA.length; i++) { %>
+
+            <div class="col-xs-6">
+                <input type='checkbox' name="qa[<%=brandNum%>]" brand_code="<%=brandList[brandNum].DETAIL_BRAND_CODE%>" class="qaData qaData_<%=brandNum%>" style="display:none;">
+                <button class="brandList btn btn-white push-5-r push-10 btn-block btn-md" type="button">
+                <span class="pull-left"><img src="/img/survey/checkBox_icon_off.png">&nbsp;&nbsp;&nbsp;<%=surveyQA[i].QA_TITLE_KO%></span>
+                </button>
             </div>
 
-            <div class="col-xs-12 titleCountBg text-center">
+            <% } %>
 
-                <table width="100%">
-                    <tr>
-                        <% for(var i = 0; i<surveyQA.length; i++) { %>
-                        <td class="text-center">
-                            <label class="css-input checkbox">
-                                <input type='checkbox' name="qa[<%=brandNum%>]" brand_code="<%=brandList[brandNum].DETAIL_BRAND_CODE%>" class="qaData qaData_<%=brandNum%>" value="<%=surveyQA[i].QA_CODE%>"><span></span> <%=surveyQA[i].QA_TITLE_KO%>
-                            </label>
-                        </td>
-                        <% } %>
-
-                    </tr>
-                </table>
-            </div>
         </div>
-        <% } %>
 
     </div>
+
+    <% } %>
 </div>
 <script language="javascript" src="/view_js/survey/5.js"></script>
