@@ -102,6 +102,57 @@ button { box-shadow: 0px 0px 10px 1px #ccc; }
 }
 
 
+.scale {
+    /* position: relative; */
+    /* display: inline-block; */
+    /* margin: 2px 0; */
+    font-weight: 400;
+    cursor: pointer;
+}
+
+.scale input {
+    position: absolute;
+    opacity: 0;
+}
+
+.scale input + span {
+    width: 18px;
+    height: 18px;
+    background-color: #fff;
+    margin:-2px 5px 0 0px;
+    vertical-align:middle;
+    background:url('/img/survey/scaleoff.png') 2px no-repeat;
+    cursor:pointer;
+}
+
+
+.scale input + span:after {
+    top: 2px;
+    right: 2px;
+    bottom: 2px;
+    left: 2px;
+    background-color: #fff;
+    opacity: 0;
+    -webkit-transition: opacity 0.2s ease-out;
+    transition: opacity 0.2s ease-out;
+}
+.scale input:checked + span:after {
+    opacity: 1;
+}
+.scale:hover input + span {
+    border-color: #ccc;
+}
+.scale input:checked + span:after {
+    width: 19px;
+    height: 19px;
+    background-color: #fff;
+    margin:-2px 5px 0 -2px;
+    vertical-align:middle;
+    background:url('/img/survey/scaleon.png') -1px no-repeat;
+    cursor:pointer;
+}
+
+
 .checkbox {
     /* position: relative; */
     /* display: inline-block; */

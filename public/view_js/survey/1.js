@@ -1,6 +1,7 @@
 $(function() {
     var brandCnt = $("#brandCnt").val();
     $(".qaData").click(function() {
+        var brandNum = $(this).attr("brandNum");
         var checkedCnt = 0;
         for(var i = 0; i<brandCnt; i++) {
             if($(".qaData_"+i).is(":checked") == true) {
@@ -9,6 +10,9 @@ $(function() {
         }
 
 
+        $("#NotQuestionBtn_"+brandNum).removeClass("btn-danger");
+        $("#NotQuestionBtn_"+brandNum).addClass("btn-default");
+
         $("#selectCnt").html(checkedCnt);
         $("#textselectCnt").html(checkedCnt + "개가 선택되었습니다.");
         $("body").focus();
@@ -16,8 +20,21 @@ $(function() {
 
     });
 
+    $(".NotQuestion").click(function() {
+        var brandNum = $(this).attr("brandNum");
+
+        $("#NotQuestion_"+brandNum).prop("checked", "checked");
+
+        $(this).removeClass("btn-default");
+        $(this).addClass("btn-danger");
+    });
+
     $(".qaList").click(function() {
+
         var qa_code = $(this).attr("qa_code");
+
+
+
 
         if($("#"+qa_code).is(":checked") == false) {
             $("#"+qa_code).prop("checked", true);

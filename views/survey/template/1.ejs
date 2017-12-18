@@ -16,22 +16,23 @@
                 <small><span id="textselectCnt" class="Textcolor">0개가 선택되었습니다</span></small>
             </div>
 
-            <div class="col-xs-12 text-center titleSelectBg">
-                <small><%=surveyQ.Q_TITLE_KO%></small>
+            <div class="col-xs-12 text-left titleSelectBg" style="padding:10px 20px;">
+                <small style="font-size:1em;"><%=surveyQ.Q_TITLE_KO%></small>
             </div>
 
-            <div class="col-xs-12 push-10-t" style="border-top:1px solid #ccc;padding-top:20px;">
+            <div class="col-xs-12 push-10-t" style="padding-top:20px;">
                 <table width="100%">
+
                     <tr>
-                        <td class="Textcolor text-left"><%=surveyQA[0].QA_TITLE_KO%></td>
-
-                        <td class="Textcolor text-center"><%=surveyQA[1].QA_TITLE_KO%></td>
-
-                        <td class="Textcolor text-right"><%=surveyQA[2].QA_TITLE_KO%></td>
-
+                        <td colspan="3" class="text-center" style="padding:10px 5px 0px 5px;"><img src="/img/survey/scaleTitle3.png" width="100%"></td>
                     </tr>
                     <tr>
-                        <td colspan="3" class="text-center" style="padding:10px 5px 0px 5px;"><img src="/img/survey/imgBg_Footer.png" width="100%"></td>
+                        <td class="Textcolor text-left" style="padding-top:10px; padding-bottom:20px;"><%=surveyQA[0].QA_TITLE_KO%></td>
+
+                        <td class="Textcolor text-center" style="padding-top:10px; padding-bottom:20px;"><%=surveyQA[1].QA_TITLE_KO%></td>
+
+                        <td class="Textcolor text-right" style="padding-top:10px; padding-bottom:20px;"><%=surveyQA[2].QA_TITLE_KO%></td>
+
                     </tr>
                 </table>
             </div>
@@ -49,22 +50,27 @@
                     <%=brandList[brandNum].BRAND_NAME_KO%>
                 </div>
                 <div class="col-xs-5 text-right">
-                    <label class="css-input radio">
-                        <input type="radio" name="qa[<%=brandNum%>]" brand_code="<%=brandList[brandNum].DETAIL_BRAND_CODE%>" class="qaData qaData_<%=brandNum%>" value="99"><span></span> 모르겠음
-                    </label>
+                    <div style="display:none;">
+                    <input type="radio" name="qa[<%=brandNum%>]" id="NotQuestion_<%=brandNum%>" brand_code="<%=brandList[brandNum].DETAIL_BRAND_CODE%>" class="qaData qaData_<%=brandNum%>" value="99"><span></span> 모르겠음
+                    </div>
+                    <button id="NotQuestionBtn_<%=brandNum%>" class="btn btn-default NotQuestion" brandNum="<%=brandNum%>">
+                        모르겠음
+                    </button>
                 </div>
 
             </div>
 
 
             <div class="col-xs-12 titleCountBg text-center">
-
+                <div style="position:absolute; top:21px; text-align:center; height:2px; width:100%;padding-left:30px; padding-right:30px;">
+                    <div style="background:url('/img/survey/scalebg.png');width:100%;height:2px;"></div>
+                </div>
                 <table width="100%">
                     <tr>
                         <% for(var i = 1; i<=7; i++) { %>
                         <td class="text-center">
-                            <label class="css-input radio">
-                                <input type="radio" name="qa[<%=brandNum%>]" brand_code="<%=brandList[brandNum].DETAIL_BRAND_CODE%>" class="qaData qaData_<%=brandNum%>" value="1"><span></span>
+                            <label class="css-input scale">
+                                <input type="radio" name="qa[<%=brandNum%>]" brand_code="<%=brandList[brandNum].DETAIL_BRAND_CODE%>" brandNum="<%=brandNum%>" class="qaData qaData_<%=brandNum%>" value="1"><span></span>
                             </label>
                         </td>
                         <% } %>
