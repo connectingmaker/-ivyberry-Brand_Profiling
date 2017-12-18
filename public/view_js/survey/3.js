@@ -40,7 +40,7 @@ $(function() {
 
 
             if(parseInt(min_text) > checkText) {
-                alert("최소 "+min_text+"를 입력해주세요.");
+                alert("최소 "+min_text+"개를 입력해주세요.");
                 $(".brandText_"+nextBrand).show();
                 return;
 

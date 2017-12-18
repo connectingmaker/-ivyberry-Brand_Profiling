@@ -6,6 +6,12 @@ $(function() {
             return;
         }
 
+        if($("#data").val() < 4) {
+            alert("출생년도 4자리를 입력해주세요.");
+            $("#data").focus();
+            return;
+        }
+
         var json = {
             campaign_code : $("#campaign_code").val()
             ,uid : $("#uid").val()
