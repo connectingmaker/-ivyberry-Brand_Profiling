@@ -11,7 +11,7 @@ $(function() {
 
 
         $("#NotQuestionBtn_"+brandNum).removeClass("btn-danger");
-        $("#NotQuestionBtn_"+brandNum).addClass("btn-default");
+        $("#NotQuestionBtn_"+brandNum).addClass("btn-white");
 
         $("#selectCnt").html(checkedCnt);
         $("#textselectCnt").html(checkedCnt + "개가 선택되었습니다.");
@@ -25,7 +25,7 @@ $(function() {
 
         $("#NotQuestion_"+brandNum).prop("checked", "checked");
 
-        $(this).removeClass("btn-default");
+        $(this).removeClass("btn-white");
         $(this).addClass("btn-danger");
     });
 
