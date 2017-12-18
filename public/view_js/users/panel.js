@@ -17,7 +17,7 @@ $(function() {
                 switch(data.ERR_CODE) {
                     case "000":
                         alert("삭제되었습니다.");
-                        $("#" + uid).remove();
+                        location.reload();
                         break;
                     default:
                         alert("ERR_CODE: " + data.ERR_CODE +"\n"+data.ERR_MSG);
