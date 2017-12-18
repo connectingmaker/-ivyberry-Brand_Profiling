@@ -8,7 +8,7 @@
 <input type="hidden" id="debug" value="<%=debug%>">
     <% var brandNumCheck = 1; %>
     <% for(var brandNum = 0; brandNum<brandList.length; brandNum++) { %>
-    <div class="row" id="brand<%=brandNumCheck%>" style="padding:10px 40px;">
+    <div class="row" id="brand<%=brandNumCheck%>" style="padding:10px 40px; <% if(brandNum != 0) { %>display:none;<%}%>">
         <div clss="col-xs-12">
             <div class="row titleBox2">
 

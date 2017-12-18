@@ -1,7 +1,7 @@
 $(function() {
     var brandCnt = $("#brandCnt").val();
     $(".qaData").click(function() {
-
+        /*
         var checkedCnt = 0;
         for(var i = 0; i<brandCnt; i++) {
             if($(".qaData_"+i).is(":checked") == true) {
@@ -12,6 +12,24 @@ $(function() {
         $("#selectCnt").html(checkedCnt);
         $("#textselectCnt").html(checkedCnt + "개가 선택되었습니다.");
         $("body").focus();
+        */
+        $(".qaData").each(function() {
+            $(this).removeClass("btn-select");
+            $(this).addClass("btn-white");
+
+            var src = $(this).find(".pull-left").find("img").attr("src");
+            src = src.replace("_on","_off");
+            $(this).find(".pull-left").find("img").attr("src", src);
+
+
+        });
+
+        $(this).removeClass("btn-white");
+        $(this).addClass("btn-select");
+
+        var src = $(this).find(".pull-left").find("img").attr("src");
+        src = src.replace("_off","_on");
+        $(this).find(".pull-left").find("img").attr("src", src);
 
 
     });
