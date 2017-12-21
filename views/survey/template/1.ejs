@@ -16,8 +16,8 @@
                 <small><span id="textselectCnt" class="Textcolor">0개가 선택되었습니다</span></small>
             </div>
 
-            <div class="col-xs-12 text-left titleSelectBg" style="padding:10px 20px;">
-                <small style="font-size:1em;"><%=surveyQ.Q_TITLE_KO%></small>
+            <div class="col-xs-12 text-left titleSelectBg" style="padding:10px 20px;font-size:1.2em;">
+                <%=surveyQ.Q_TITLE_KO%>
             </div>
 
             <div class="col-xs-12 push-10-t" style="padding-top:20px;">
@@ -46,14 +46,14 @@
         <div class="row push-10-t titleBox3">
 
             <div class="col-xs-12 titleSelectBg" style="padding:10px 0px;">
-                <div class="col-xs-7">
+                <div class="col-xs-9">
                     <%=brandList[brandNum].BRAND_NAME_KO%>
                 </div>
-                <div class="col-xs-5 text-right">
+                <div class="col-xs-3 text-right">
                     <div style="display:none;">
                     <input type="radio" name="qa[<%=brandNum%>]" id="NotQuestion_<%=brandNum%>" brand_code="<%=brandList[brandNum].DETAIL_BRAND_CODE%>" class="qaData qaData_<%=brandNum%>" value="99"><span></span> 모르겠음
                     </div>
-                    <button id="NotQuestionBtn_<%=brandNum%>" class="btn btn-default NotQuestion" brandNum="<%=brandNum%>">
+                    <button id="NotQuestionBtn_<%=brandNum%>" class="btn btn-sm btn-default NotQuestion" brandNum="<%=brandNum%>">
                         모르겠음
                     </button>
                 </div>
