@@ -370,10 +370,13 @@ router.get("/page", function(req, res) {
 
             var surveyQ = rows[0][0];
 
-            msurvey.surveyQA(surveyQ.Q_CODE, function (err, rows) {
+            msurvey.surveyQA(594, function(err, rows) {
+                if(err) {
+                    console.log(err);
+                }
+                console.log(rows);
 
                 var surveyQA = rows;
-                console.log(surveyQA);
                 if(quest_num == 1) {
                     msurvey.brandListSelect(uid, quest_num, campaign_code, function (err, rows) {
                         if(err) {
@@ -408,9 +411,8 @@ router.get("/page", function(req, res) {
                             console.log(err);
                         }
 
-                        console.log(rows[0]);
-
                         var brandList = rows[0];
+
 
 
 

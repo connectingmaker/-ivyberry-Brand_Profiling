@@ -99,6 +99,9 @@ router.post("/memberFaceBook", function(req, res) {
     var version = req.body.version;
 
 
+    if(useremail == undefined) {
+        useremail = "";
+    }
 
 
 

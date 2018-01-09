@@ -300,15 +300,13 @@ router.get("/pointRequest", function(req, res) {
     var endDay = req.query.endDay;
 
     if(startDay == undefined) {
-        startDay = 0;
+        startDay = "";
     }
 
     if(endDay == undefined) {
-        endDay = 0;
+        endDay = "";
     }
 
-    console.log(startDay);
-    console.log(endDay);
 
     muser.sp_MEMBER_POINT_REQUEST(startDay,endDay,function(err, rows) {
         if(err) {
