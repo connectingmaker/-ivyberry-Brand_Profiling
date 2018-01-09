@@ -1,17 +1,61 @@
 $(function() {
     var brandCnt = $("#brandCnt").val();
-    $(".qaData").click(function() {
+    $(".qaList").click(function() {
+        var brandNum = $(this).attr("brandNum");
+        var qaCode = $(this).attr("qaCode");
+
+        $("#qaData_"+brandNum+qaCode).prop("checked", "checked");
+        $(".qaList").each(function() {
+            var tempbrandNum = $(this).attr("brandNum");
+            var tempqaCode = $(this).attr("qaCode");
+
+            if($("#qaData_"+tempbrandNum+tempqaCode).is(":checked") == true) {
+                $(this).removeClass("btn-white");
+                $(this).addClass("btn-select");
+                var src = $(this).find(".pull-left").find("img").attr("src");
+                src = src.replace("_off", "_on");
+                $(this).find(".pull-left").find("img").attr("src", src);
+                $("#qaData_"+tempbrandNum+tempqaCode).prop("checked", "checked");
+
+            } else {
+                $(this).removeClass("btn-select");
+                $(this).addClass("btn-white");
+                var src = $(this).find(".pull-left").find("img").attr("src");
+                src = src.replace("_on", "_off");
+                $(this).find(".pull-left").find("img").attr("src", src);
+                $("#qaData_"+tempbrandNum+tempqaCode).prop("checked", false);
+            }
+        });
+
+        /*
+        if($("#qaData_"+brandNum+qaCode).is(":checked") == false) {
+            $(this).removeClass("btn-white");
+            $(this).addClass("btn-select");
+            var src = $(this).find(".pull-left").find("img").attr("src");
+            src = src.replace("_off", "_on");
+            $(this).find(".pull-left").find("img").attr("src", src);
+            $("#qaData_"+brandNum+qaCode).prop("checked", "checked");
+
+        } else {
+            $(this).removeClass("btn-select");
+            $(this).addClass("btn-white");
+            var src = $(this).find(".pull-left").find("img").attr("src");
+            src = src.replace("_on", "_off");
+            $(this).find(".pull-left").find("img").attr("src", src);
+            $("#qaData_"+brandNum+qaCode).prop("checked", false);
+        }
+        */
 
         var checkedCnt = 0;
-        for(var i = 0; i<brandCnt; i++) {
-            if($(".qaData_"+i).is(":checked") == true) {
+        $(".qaData_"+brandNum).each(function() {
+
+            if($(this).is(":checked") == true) {
                 checkedCnt++;
             }
-        }
+        });
 
-        $("#selectCnt").html(checkedCnt);
-        $("#textselectCnt").html(checkedCnt + "개가 선택되었습니다.");
-        $("body").focus();
+        $("#textselectCnt_"+brandNum).html(checkedCnt+"개가 선택되었습니다.");
+
 
 
     });

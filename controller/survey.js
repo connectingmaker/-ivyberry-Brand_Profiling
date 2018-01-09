@@ -370,7 +370,7 @@ router.get("/page", function(req, res) {
 
             var surveyQ = rows[0][0];
 
-            msurvey.surveyQA(594, function(err, rows) {
+            msurvey.surveyQA(surveyQ.Q_CODE, function(err, rows) {
                 if(err) {
                     console.log(err);
                 }
