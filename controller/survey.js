@@ -23,7 +23,6 @@ router.get("/start", function(req, res) {
             }
 
 
-
             var survey = rows[0];
             res.redirect("/survey/profile?campaign_code=" + campaign_code + "&uid=" + uid + "&quest_num=" + quest_num + "&seq=" + survey[0]._SEQ+"&step=1"+debugurl);
         });
@@ -84,7 +83,6 @@ router.get("/start", function(req, res) {
                        , ERR_CODE: survey[0].ERR_CODE
                        , ERR_MSG:survey[0].ERR_MSG
                         ,DEBUG: debug
-
                     });
                     break;
             }
@@ -433,9 +431,6 @@ router.get("/page", function(req, res) {
                     });
 
                 }
-
-
-
 
 
             });

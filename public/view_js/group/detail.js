@@ -285,15 +285,15 @@ $(function() {
     });
 
     <!--양자택일형 질문 추가하기 -->
-    $("#signleCreate").click(function() {
+    $("#singleCreate").click(function() {
         var code = Math.floor(Math.random() * 99999999999999) + 1;
 
-        $("#radio_q_name").val("");
-        $("#radio_q_title_ko").val("");
-        $("#radio_q_title_en").val("");
-        $("#radio_q_title_cn").val("");
-        $("#radio_etc").val("");
-        $("#radio_memo").val("");
+        $("#single_q_name").val("");
+        $("#single_q_title_ko").val("");
+        $("#single_q_title_en").val("");
+        $("#single_q_title_cn").val("");
+        $("#single_etc").val("");
+        $("#single_memo").val("");
 
         var multi_template_temp = multi_template.replace("[_ID_]", code);
         multi_template_temp = multi_template_temp.replace("[_QA_CODE_]", "");
@@ -327,17 +327,17 @@ $(function() {
     });
 
 
-    <!--선택형 질문 추가하기 -->
+    <!--단일선택형 질문 추가하기 -->
     $("#radioCreate").click(function() {
         var code = Math.floor(Math.random() * 99999999999999) + 1;
 
-        /*
-        $("#multi_q_name").val("");
-        $("#multi_q_title_ko").val("");
-        $("#multi_q_title_en").val("");
-        $("#multi_q_title_cn").val("");
-        $("#multi_etc").val("");
-        $("#multi_memo").val("");
+
+        $("#radio_q_name").val("");
+        $("#radio_q_title_ko").val("");
+        $("#radio_q_title_en").val("");
+        $("#radio_q_title_cn").val("");
+        $("#radio_etc").val("");
+        $("#radio_memo").val("");
 
 
         var multi_template_temp = multi_template.replace("[_ID_]", code);
@@ -347,8 +347,7 @@ $(function() {
         multi_template_temp = multi_template_temp.replace("[_QA_TITLE_CN_]", "");
         $("#multiTable #template").html(multi_template_temp);
         $("#q_code").val("");
-        $('#multiModal').modal('show');
-        */
+
         $('#radioModal').modal('show');
     });
 
@@ -1259,6 +1258,8 @@ $(function() {
                 var json = {
                     q_code: id
                 }
+
+                console.log(json);
                 common.ajax.send("/question/qSelectMulti", json);
                 common.ajax.return = function (data) {
                     var jsonData = eval("("+data+")");
@@ -1293,7 +1294,7 @@ $(function() {
 
 
 
-                    $('#radioModal').modal('show');
+                    $('#singleModal').modal('show');
 
 
                 }

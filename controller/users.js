@@ -271,9 +271,10 @@ router.post('/pointProcess', function(req, res, next) {
     var code_point = req.body.code_point;
     var point = req.body.point;
     var point_msg = req.body.point_msg;
+    var quest_num ='0';
     var err = "";
 
-    muser.sp_MEMBER_POINT_HISTORY_SAVE(uid, point, code_point, point_msg, "", function(err, rows) {
+    muser.sp_MEMBER_POINT_HISTORY_SAVE(uid, point, code_point, point_msg, "",quest_num, function(err, rows) {
         if(err) {
             console.log(err);
             throw err;

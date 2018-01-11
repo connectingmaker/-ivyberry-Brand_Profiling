@@ -138,15 +138,16 @@ var muser = {
         connection.end();
         return data;
     }
-    ,sp_MEMBER_POINT_HISTORY_SAVE: function(uid, point, point_type, point_msg, campaign_code, callback) {
+    ,sp_MEMBER_POINT_HISTORY_SAVE: function(uid, point, point_type, point_msg, campaign_code, quest_num, callback) {
         var connection = mysql_dbc.init();
-        var query = " call sp_MEMBER_POINT_HISTORY(?, ?, ?, ?, ?)";
+        var query = " call sp_MEMBER_POINT_HISTORY(?, ?, ?, ?, ?, ?)";
         var params = [];
         params.push(uid);
         params.push(point);
         params.push(point_type);
         params.push(point_msg);
         params.push(campaign_code);
+        params.push(quest_num);
 
         var data = connection.query(query,params,callback);
         connection.end();
