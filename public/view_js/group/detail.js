@@ -285,7 +285,7 @@ $(function() {
     });
 
     <!--양자택일형 질문 추가하기 -->
-    $("#radioCreate").click(function() {
+    $("#signleCreate").click(function() {
         var code = Math.floor(Math.random() * 99999999999999) + 1;
 
         $("#radio_q_name").val("");
@@ -302,7 +302,7 @@ $(function() {
         multi_template_temp = multi_template_temp.replace("[_QA_TITLE_CN_]", "");
         $("#radioTable #template").html(multi_template_temp);
         $("#q_code").val("");
-        $('#radioModal').modal('show');
+        $('#singleModal').modal('show');
     });
     <!--선택형 질문 추가하기 -->
     $("#multiCreate").click(function() {
