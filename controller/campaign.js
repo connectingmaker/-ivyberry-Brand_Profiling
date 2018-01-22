@@ -8,18 +8,120 @@ var mbrand = require("../model/mbrand");
 var mcampaign = require("../model/mcampaign");
 var moment = require('moment');
 var nodeExcel = require('excel-export');
+var pagination = require('pagination');
 
 
 router.get('/list', function(req, res, next) {
-    var type = req.param("type");
+    var type = req.query.type
     if(type == undefined) {
         type = "";
     }
-    mcampaign.get_campaign_list(type, function(err, rows) {
-        var campaignlist = rows;
-        console.log(rows);
-        res.render('campaign/list', { moment: moment, campaignlist : campaignlist, type : type });
+
+    var page = req.query.page;
+    var searchName = req.query.searchName;
+    if(page == undefined) {
+        page = 1;
+    }
+
+    if(searchName == undefined) {
+        searchName = "";
+    }
+
+    var total = 0;
+    var start = 0;
+    var viewCnt = 10;
+
+
+
+    mcampaign.get_campaign_count(type, searchName, function(err, count_rows) {
+
+        total = count_rows[0].TOTAL;
+        start = viewCnt * (page - 1);
+
+        var boostrapPaginator = new pagination.TemplatePaginator({
+            prelink:'/users/list', current: page, rowsPerPage: 10,
+            totalResult: total, slashSeparator: true,
+            template: function(result) {
+                var i, len, prelink;
+                var html = '<div><ul class="pagination">';
+                if(result.pageCount < 2) {
+                    html += '</ul></div>';
+                    return html;
+                }
+                prelink = this.preparePreLink(result.prelink);
+                if(result.previous) {
+                    html += '<li><a href="./?page=' + result.previous + '">' + this.options.translator('PREVIOUS') + '</a></li>';
+                }
+                if(result.range.length) {
+                    for( i = 0, len = result.range.length; i < len; i++) {
+                        if(result.range[i] === result.current) {
+                            html += '<li class="active"><a href="?page=' + result.range[i] + '&type='+type+'">' + result.range[i] + '</a></li>';
+                        } else {
+                            html += '<li><a href="?page=' + result.range[i] + '&type='+type+'">' + result.range[i] + '</a></li>';
+                        }
+                    }
+                }
+                if(result.next) {
+                    html += '<li><a href="?page=' + result.next + '&type='+type+'" class="paginator-next">' + this.options.translator('NEXT') + '</a></li>';
+                }
+                html += '</ul></div>';
+                return html;
+            }
+        });
+
+
+        mcampaign.get_campaign_list(type, start, searchName, function(err, rows) {
+            var campaignlist = rows;
+            res.render('campaign/list', { moment: moment, campaignlist : campaignlist, type : type, pageHtml: boostrapPaginator });
+        });
+
+
+        /*
+        total = count_rows[0].TOTAL;
+        start = viewCnt * (page - 1);
+
+
+
+        var boostrapPaginator = new pagination.TemplatePaginator({
+            prelink:'/users/list', current: page, rowsPerPage: 10,
+            totalResult: total, slashSeparator: true,
+            template: function(result) {
+                var i, len, prelink;
+                var html = '<div><ul class="pagination">';
+                if(result.pageCount < 2) {
+                    html += '</ul></div>';
+                    return html;
+                }
+                prelink = this.preparePreLink(result.prelink);
+                if(result.previous) {
+                    html += '<li><a href="./?page=' + result.previous + '">' + this.options.translator('PREVIOUS') + '</a></li>';
+                }
+                if(result.range.length) {
+                    for( i = 0, len = result.range.length; i < len; i++) {
+                        if(result.range[i] === result.current) {
+                            html += '<li class="active"><a href="?page=' + result.range[i] + '">' + result.range[i] + '</a></li>';
+                        } else {
+                            html += '<li><a href="?page=' + result.range[i] + '">' + result.range[i] + '</a></li>';
+                        }
+                    }
+                }
+                if(result.next) {
+                    html += '<li><a href="?page=' + result.next + '" class="paginator-next">' + this.options.translator('NEXT') + '</a></li>';
+                }
+                html += '</ul></div>';
+                return html;
+            }
+        });
+
+
+        mcampaign.get_campaign_list(type, function(err, rows) {
+            var campaignlist = rows;
+            console.log(rows);
+            res.render('campaign/list', { moment: moment, campaignlist : campaignlist, type : type });
+        });
+        */
     });
+
 
 });
 
@@ -385,15 +487,35 @@ router.post("/campaignDelete", function(req, res) {
             throw err;
         }
 
-        console.log(rows);
 
         var data = rows[0];
-        console.log(data);
         var jsonData = {
             campaign_code : campaign_code
             ,ERR_CODE : data[0].ERR_CODE
             ,ERR_MSG : data[0].ERR_MSG
         };
+
+
+        res.send(jsonData);
+    });
+
+
+});
+
+router.post("/campaignHidden", function(req, res) {
+    var campaign_code = req.body.campaign_code;
+
+
+    mcampaign.hiddenCampaign(campaign_code, function(err, rows) {
+        if(err) {
+            console.log(err);
+            throw err;
+        }
+
+        var jsonData = {
+            campaign_code : campaign_code
+        };
+
 
 
         res.send(jsonData);

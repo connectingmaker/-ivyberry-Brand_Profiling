@@ -1,4 +1,4 @@
-/**
+    /**
  * Created by kwangheejung on 2017. 9. 21..
  */
 $(function() {

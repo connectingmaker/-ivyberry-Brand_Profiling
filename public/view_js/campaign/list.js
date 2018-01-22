@@ -26,6 +26,27 @@ $(function() {
         }
     });
 
+    $(document).on('click', '.hiddenBtn', function() {
+        if(confirm("해당 설문을 정말로 숨기겠습니까?") == true) {
+            var id = $(this).parents("tr").attr("id");
+            var params = {
+                campaign_code: id
+            };
+
+
+
+            common.ajax.send("/campaign/campaignHidden", params);
+
+            common.ajax.return = function(data) {
+                var dataJson = data;
+
+                $("#"+dataJson.campaign_code).remove();
+
+            };
+
+        }
+    });
+
 
 
     $(".status").change(function() {
@@ -43,5 +64,12 @@ $(function() {
         }
 
     });
+
+    $("#searchBtn").click(function() {
+        $("#searchForm").submit();
+    });
+
+
+
 
 });

@@ -34,10 +34,14 @@ var mcampaign = {
         connection.end();
         return data;
     }
-    ,get_campaign_list: function(campaign_ing, callback) {
+    ,get_campaign_count: function(campaign_ing, searchName, callback) {
         var connection = mysql_dbc.init();
         if(campaign_ing == "") {
-            var query = " SELECT C.CAMPAIGN_CODE, C.CAMPAIGN_TITLE, C.CAMPAIGN_DESC, C.CATEGORY_CODE, FROM_UNIXTIME(C.CAMPAIGN_STARTDATE) AS CAMPAIGN_STARTDATE, FROM_UNIXTIME(C.CAMPAIGN_ENDDATE) AS CAMPAIGN_ENDDATE, C.CAMPAIGN_ING, CASE C.CAMPAIGN_ING WHEN 'N' THEN '대기' WHEN 'S' THEN '진행중' WHEN 'E' THEN '완료' END CAMPAIGN_ING_TEXT, C.VIRTUAL_YN, C.JOIN_CNT, BC.CATEGORY_NAME_KO, C.INSERT_DATETIME, C.MODIFY_DATETIME FROM CAMPAIGN C JOIN BRAND_CATEGORY BC ON(C.CATEGORY_CODE = BC.CATEGORY_CODE) ORDER BY C.INSERT_DATETIME DESC ";
+            var query = " SELECT COUNT(*) TOTAL FROM CAMPAIGN C JOIN BRAND_CATEGORY BC ON(C.CATEGORY_CODE = BC.CATEGORY_CODE) WHERE C.USE_YN='N' ";
+            if(searchName != "") {
+                query += " AND C.CAMPAIGN_TITLE LIKE '" + searchName + "%' ";
+            }
+            query += " ORDER BY C.INSERT_DATETIME DESC ";
             var params = [];
             params.push();
 
@@ -45,7 +49,42 @@ var mcampaign = {
             connection.end();
             return data;
         } else {
-            var query = " SELECT C.CAMPAIGN_CODE, C.CAMPAIGN_TITLE, C.CAMPAIGN_DESC, C.CATEGORY_CODE, FROM_UNIXTIME(C.CAMPAIGN_STARTDATE) AS CAMPAIGN_STARTDATE, FROM_UNIXTIME(C.CAMPAIGN_ENDDATE) AS CAMPAIGN_ENDDATE, C.CAMPAIGN_ING, CASE C.CAMPAIGN_ING WHEN 'N' THEN '대기' WHEN 'S' THEN '진행중' WHEN 'E' THEN '완료' END CAMPAIGN_ING_TEXT, C.VIRTUAL_YN, C.JOIN_CNT, BC.CATEGORY_NAME_KO, C.INSERT_DATETIME, C.MODIFY_DATETIME FROM CAMPAIGN C JOIN BRAND_CATEGORY BC ON(C.CATEGORY_CODE = BC.CATEGORY_CODE) WHERE C.CAMPAIGN_ING = ? ORDER BY C.INSERT_DATETIME DESC ";
+            var query = " SELECT COUNT(*) TOTAL FROM CAMPAIGN C JOIN BRAND_CATEGORY BC ON(C.CATEGORY_CODE = BC.CATEGORY_CODE) WHERE C.CAMPAIGN_ING = ? AND C.USE_YN='N' ";
+            if(searchName != "") {
+                query += " AND C.CAMPAIGN_TITLE LIKE '" + searchName + "%' ";
+            }
+            query += " ORDER BY C.INSERT_DATETIME DESC ";
+            var params = [];
+            params.push(campaign_ing);
+
+            var data = connection.query(query, params, callback);
+            connection.end();
+            return data;
+        }
+    }
+    ,get_campaign_list: function(campaign_ing, page, searchName, callback) {
+        var connection = mysql_dbc.init();
+        if(campaign_ing == "") {
+            var query = " SELECT C.CAMPAIGN_CODE, C.CAMPAIGN_TITLE, C.CAMPAIGN_DESC, C.CATEGORY_CODE, FROM_UNIXTIME(C.CAMPAIGN_STARTDATE) AS CAMPAIGN_STARTDATE, FROM_UNIXTIME(C.CAMPAIGN_ENDDATE) AS CAMPAIGN_ENDDATE, C.CAMPAIGN_ING, CASE C.CAMPAIGN_ING WHEN 'N' THEN '대기' WHEN 'S' THEN '진행중' WHEN 'E' THEN '완료' END CAMPAIGN_ING_TEXT, C.VIRTUAL_YN, C.JOIN_CNT, BC.CATEGORY_NAME_KO, C.INSERT_DATETIME, C.MODIFY_DATETIME, (SELECT COUNT(*) FROM DATA_JOIN WHERE CAMPAIGN_CODE = C.CAMPAIGN_CODE AND ENDTYPE='E') JOIN_DATA FROM CAMPAIGN C JOIN BRAND_CATEGORY BC ON(C.CATEGORY_CODE = BC.CATEGORY_CODE) ";
+            query += " WHERE C.USE_YN='N' ";
+            if(searchName != "") {
+                query += " AND C.CAMPAIGN_TITLE LIKE '" + searchName + "%' ";
+            }
+            query += " ORDER BY C.INSERT_DATETIME DESC LIMIT "+page+", 10 ";
+            var params = [];
+            params.push();
+
+            var data = connection.query(query, params, callback);
+            connection.end();
+            return data;
+        } else {
+            var query = " SELECT C.CAMPAIGN_CODE, C.CAMPAIGN_TITLE, C.CAMPAIGN_DESC, C.CATEGORY_CODE, FROM_UNIXTIME(C.CAMPAIGN_STARTDATE) AS CAMPAIGN_STARTDATE, FROM_UNIXTIME(C.CAMPAIGN_ENDDATE) AS CAMPAIGN_ENDDATE, C.CAMPAIGN_ING, CASE C.CAMPAIGN_ING WHEN 'N' THEN '대기' WHEN 'S' THEN '진행중' WHEN 'E' THEN '완료' END CAMPAIGN_ING_TEXT, C.VIRTUAL_YN, C.JOIN_CNT, BC.CATEGORY_NAME_KO, C.INSERT_DATETIME, C.MODIFY_DATETIME , (SELECT COUNT(*) FROM DATA_JOIN WHERE CAMPAIGN_CODE = C.CAMPAIGN_CODE AND ENDTYPE='E') JOIN_DATA FROM CAMPAIGN C JOIN BRAND_CATEGORY BC ON(C.CATEGORY_CODE = BC.CATEGORY_CODE) ";
+            query += " WHERE C.CAMPAIGN_ING = ? ";
+            query += " AND C.USE_YN='N' ";
+            if(searchName != "") {
+                query += " AND C.CAMPAIGN_TITLE LIKE '" + searchName + "%' ";
+            }
+            query += " ORDER BY C.INSERT_DATETIME DESC LIMIT "+page+", 10 ";
             var params = [];
             params.push(campaign_ing);
 
@@ -111,6 +150,18 @@ var mcampaign = {
         var connection = mysql_dbc.init();
         //var query = " DELETE FROM CAMPAIGN WHERE CAMPAIGN_CODE = ? ";
         var query = "call sp_CAMPAIGN_DELETE(?)";
+        var params = [];
+        params.push(campaign_code);
+
+        var data = connection.query(query,params,callback);
+        connection.end();
+        return data;
+    }
+    ,hiddenCampaign: function(campaign_code, callback) {
+        var connection = mysql_dbc.init();
+        //var query = " DELETE FROM CAMPAIGN WHERE CAMPAIGN_CODE = ? ";
+        var query = "UPDATE CAMPAIGN SET USE_YN = 'Y' WHERE CAMPAIGN_CODE = ?";
+
         var params = [];
         params.push(campaign_code);
 
