@@ -49,14 +49,18 @@ var muser = {
         connection.end();
         return data;
     }
-    ,getMemberCount: function(callback) {
+    ,getMemberCount: function(searchName, callback) {
         var connection = mysql_dbc.init();
         var query = " SELECT COUNT(*) AS TOTAL FROM MEMBER ";
+        if(searchName != "") {
+            query += " WHERE (USERNAME LIKE '"+searchName+"%' OR USEREMAIL LIKE '%"+searchName+"%')";
+
+        }
         var data = connection.query(query,[],callback);
         connection.end();
         return data;
     }
-    ,getMemberList: function(page, callback) {
+    ,getMemberList: function(page, searchName, callback) {
         var connection = mysql_dbc.init();
         var query = " SELECT ";
         query += " M.UID ";
@@ -74,6 +78,10 @@ var muser = {
         query += " , CG.CODE_DESC ";
         query += " , (SELECT COUNT(*) FROM DATA_JOIN WHERE UID = M.UID AND ENDTYPE='E') JOIN_TOTAL"
         query += " FROM MEMBER M INNER JOIN CODE_GRADE CG ON(M.CODE_GRADE = CG.CODE_GRADE) ";
+        if(searchName != "") {
+            query += " WHERE (M.USERNAME LIKE '"+searchName+"%' OR M.USEREMAIL LIKE '%"+searchName+"%')";
+
+        }
         query += " ORDER BY M.INSERT_DATETIME DESC ";
         query += " LIMIT "+page+", 10";
 

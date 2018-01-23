@@ -17,12 +17,17 @@ router.get('/list', function(req, res, next) {
         page = 1;
     }
 
+    var searchName = req.query.searchName;
+    if(searchName == undefined) {
+        searchName = "";
+    }
+
     var total = 0;
     var start = 0;
     var viewCnt = 10;
 
 
-    muser.getMemberCount(function(err, count_rows) {
+    muser.getMemberCount(searchName, function(err, count_rows) {
         total = count_rows[0].TOTAL;
         start = viewCnt * (page - 1);
 
@@ -39,19 +44,19 @@ router.get('/list', function(req, res, next) {
                 }
                 prelink = this.preparePreLink(result.prelink);
                 if(result.previous) {
-                    html += '<li><a href="./?page=' + result.previous + '">' + this.options.translator('PREVIOUS') + '</a></li>';
+                    html += '<li><a href="./?page=' + result.previous + '&searchName='+searchName+'">' + this.options.translator('PREVIOUS') + '</a></li>';
                 }
                 if(result.range.length) {
                     for( i = 0, len = result.range.length; i < len; i++) {
                         if(result.range[i] === result.current) {
-                            html += '<li class="active"><a href="?page=' + result.range[i] + '">' + result.range[i] + '</a></li>';
+                            html += '<li class="active"><a href="?page=' + result.range[i] + '&searchName='+searchName+'">' + result.range[i] + '</a></li>';
                         } else {
-                            html += '<li><a href="?page=' + result.range[i] + '">' + result.range[i] + '</a></li>';
+                            html += '<li><a href="?page=' + result.range[i] + '&searchName='+searchName+'">' + result.range[i] + '</a></li>';
                         }
                     }
                 }
                 if(result.next) {
-                    html += '<li><a href="?page=' + result.next + '" class="paginator-next">' + this.options.translator('NEXT') + '</a></li>';
+                    html += '<li><a href="?page=' + result.next + '&searchName='+searchName+'" class="paginator-next">' + this.options.translator('NEXT') + '</a></li>';
                 }
                 html += '</ul></div>';
                 return html;
@@ -60,7 +65,7 @@ router.get('/list', function(req, res, next) {
 
 
 
-        muser.getMemberList(start, function(err, rows) {
+        muser.getMemberList(start, searchName, function(err, rows) {
             if(err) {
                 console.log(err);
             }
