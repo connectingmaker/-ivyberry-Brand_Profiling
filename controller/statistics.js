@@ -7,6 +7,8 @@ var mquestion = require("../model/mquestion");
 var mstatistics = require("../model/mstatistics");
 var mcampaign = require("../model/mcampaign");
 
+var pagination = require('pagination');
+
 
 /* GET users listing. */
 router.get('/category', function(req, res, next) {
@@ -15,14 +17,69 @@ router.get('/category', function(req, res, next) {
 
 
 router.get("/campaign", function(req, res) {
-    mcampaign.sp_CAMPAIGN_LIST_END(function(err,rows) {
-        if(err) {
-            console.log(err);
-            throw err;
-        }
-        var campaignList = rows[0];
-        res.render('statistics/campaign', { moment: moment, campaignList: campaignList });
+
+    var page = req.query.page;
+    if(page == undefined) {
+        page = 1;
+    }
+
+    var searchName = req.query.searchName;
+    if(searchName == undefined) {
+        searchName = "";
+    }
+
+    var total = 0;
+    var start = 0;
+    var viewCnt = 40;
+
+
+    mcampaign.sp_CAMPAIGN_LIST_END_CNT(searchName,function(err,count_rows) {
+        var total = count_rows[0][0].TOTAL;
+
+        start = viewCnt * (page - 1);
+
+        var boostrapPaginator = new pagination.TemplatePaginator({
+            prelink:'/users/list', current: page, rowsPerPage: 40,
+            totalResult: total, slashSeparator: true,
+            template: function(result) {
+                var i, len, prelink;
+                var html = '<div><ul class="pagination">';
+                if(result.pageCount < 2) {
+                    html += '</ul></div>';
+                    return html;
+                }
+                prelink = this.preparePreLink(result.prelink);
+                if(result.previous) {
+                    html += '<li><a href="./?page=' + result.previous + '&searchName='+searchName+'">' + this.options.translator('PREVIOUS') + '</a></li>';
+                }
+                if(result.range.length) {
+                    for( i = 0, len = result.range.length; i < len; i++) {
+                        if(result.range[i] === result.current) {
+                            html += '<li class="active"><a href="?page=' + result.range[i] + '&searchName='+searchName+'">' + result.range[i] + '</a></li>';
+                        } else {
+                            html += '<li><a href="?page=' + result.range[i] + '&searchName='+searchName+'">' + result.range[i] + '</a></li>';
+                        }
+                    }
+                }
+                if(result.next) {
+                    html += '<li><a href="?page=' + result.next + '&searchName='+searchName+'" class="paginator-next">' + this.options.translator('NEXT') + '</a></li>';
+                }
+                html += '</ul></div>';
+                return html;
+            }
+        });
+
+
+        mcampaign.sp_CAMPAIGN_LIST_END(start, searchName, function(err,rows) {
+            if(err) {
+                console.log(err);
+                throw err;
+            }
+            var campaignList = rows[0];
+            res.render('statistics/campaign', { moment: moment, campaignList: campaignList, pageHtml: boostrapPaginator });
+        });
     });
+
 
 });
 

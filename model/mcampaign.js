@@ -338,20 +338,36 @@ var mcampaign = {
         connection.end();
         return data;
     }
-    ,sp_CAMPAIGN_RAWDATA: function(campaign_code, callback) {
+    ,sp_CAMPAIGN_RAWDATA: function(campaign_code, quest_num, callback) {
         var connection = mysql_dbc.init();
-        var query = " call sp_CAMPAIGN_RAWDATA(?) ";
+        var query = " call sp_CAMPAIGN_RAWDATA(?, ?) ";
         var params = [];
         params.push(campaign_code);
+        params.push(quest_num);
+
 
         var data = connection.query(query,params,callback);
         connection.end();
         return data;
     }
-    ,sp_CAMPAIGN_LIST_END: function(callback) {
+    ,sp_CAMPAIGN_LIST_END_CNT: function(searchName, callback) {
         var connection = mysql_dbc.init();
-        var query = " call sp_CAMPAIGN_LIST_END() ";
+        var query = " call sp_CAMPAIGN_LIST_END_CNT(?) ";
         var params = [];
+        params.push(searchName);
+
+        var data = connection.query(query,params,callback);
+        connection.end();
+        return data;
+    }
+
+
+    ,sp_CAMPAIGN_LIST_END: function(start, searchName, callback) {
+        var connection = mysql_dbc.init();
+        var query = " call sp_CAMPAIGN_LIST_END_20180123(?,?) ";
+        var params = [];
+        params.push(start);
+        params.push(searchName);
 
         var data = connection.query(query,params,callback);
         connection.end();

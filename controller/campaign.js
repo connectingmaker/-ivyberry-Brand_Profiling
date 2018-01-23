@@ -525,10 +525,12 @@ router.post("/campaignHidden", function(req, res) {
 });
 
 
-router.get("/campaignRawData/:code", function(req, res) {
+router.get("/campaignRawData/:code/:quest_num", function(req, res) {
     var campaign_code = req.params.code;
+    var quest_num = req.params.quest_num;
 
-    mcampaign.sp_CAMPAIGN_RAWDATA(campaign_code, function(err, rows) {
+
+    mcampaign.sp_CAMPAIGN_RAWDATA(campaign_code, quest_num, function(err, rows) {
         if(err) {
             console.log(err);
             throw err;

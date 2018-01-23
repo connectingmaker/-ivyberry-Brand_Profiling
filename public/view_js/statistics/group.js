@@ -6,4 +6,8 @@ $(function() {
     menu += "<li>질문그룹별 통계</li></ul>";
 
    $(".top_gnb_menu_sub .menu .menu_btn").append(menu);
+
+    $("#searchBtn").click(function() {
+        $("#searchForm").submit();
+    });
 });
