@@ -83,8 +83,24 @@ router.get("/campaign", function(req, res) {
 
 });
 
-router.get('/group/:code', function(req, res, next) {
+router.post('/campaignData', function(req, res) {
+    var campaign_code = req.body.campaign_code;
+    console.log(campaign_code);
+
+    mcampaign.sp_CAMPAIGN_LIST_END_DATA(campaign_code, function(err,rows) {
+        if(err) {
+            console.log(err);
+            throw err;
+        }
+
+        var data = rows[0];
+        res.send(data);
+    });
+});
+
+router.get('/group/:code/:quest_num', function(req, res, next) {
     var campaign_code = req.params.code;
+    var quest_num = req.params.quest_num;
     mstatistics.sp_STATISTICS_QUESTION(campaign_code, function(err, rows) {
         if(err) {
             console.log(err);

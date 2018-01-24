@@ -364,10 +364,20 @@ var mcampaign = {
 
     ,sp_CAMPAIGN_LIST_END: function(start, searchName, callback) {
         var connection = mysql_dbc.init();
-        var query = " call sp_CAMPAIGN_LIST_END_20180123(?,?) ";
+        var query = " call sp_CAMPAIGN_LIST_END(?,?) ";
         var params = [];
         params.push(start);
         params.push(searchName);
+
+        var data = connection.query(query,params,callback);
+        connection.end();
+        return data;
+    }
+    ,sp_CAMPAIGN_LIST_END_DATA: function(campaign_code, callback) {
+        var connection = mysql_dbc.init();
+        var query = " call sp_CAMPAIGN_LIST_END_DATA(?) ";
+        var params = [];
+        params.push(campaign_code);
 
         var data = connection.query(query,params,callback);
         connection.end();
