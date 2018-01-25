@@ -418,6 +418,7 @@ router.post("/settingProcess", function(req, res) {
     var campaign_code = req.body.campaign_code;
     var grade_code = req.body.grade_code;
     var join_cnt = req.body.join_cnt;
+    var point_limit = req.body.point_limit;
     var startAge = req.body.startAge;
     var endAge = req.body.endAge;
     var area = req.body.area;
@@ -429,7 +430,7 @@ router.post("/settingProcess", function(req, res) {
     var questData = eval("("+req.body.questData+")");
     var err = "";
 
-    mcampaign.sp_CAMPAIGN_GRADE_IN_JOIN_CNT_UPDATE(campaign_code, join_cnt, grade_code, function(err, rows) {
+    mcampaign.sp_CAMPAIGN_GRADE_IN_JOIN_CNT_UPDATE(campaign_code, join_cnt, grade_code, point_limit, function(err, rows) {
         if(err) {
             console.log(err);
             throw err;

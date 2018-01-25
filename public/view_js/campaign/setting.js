@@ -79,6 +79,7 @@ $(function() {
             return;
         }
 
+
         if($(".area").is(":checked") == false) {
             alert("지역을 선택해주세요");
             return;
@@ -97,13 +98,17 @@ $(function() {
 
 
 
-
+        if($("#point_limit").val() == "") {
+            alert("포인트제한을 입력해주세요.");
+            return;
+        }
 
 
         var jsonData = {
             campaign_code : campaign_code
             ,grade_code : grade_code
             ,join_cnt : $("#join_cnt").val()
+            ,point_limit : $("#point_limit").val()
             ,questData : JSON.stringify(questArr)
             ,sex : sex
             ,startAge : $("#startAge").val()

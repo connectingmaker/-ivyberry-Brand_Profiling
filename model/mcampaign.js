@@ -95,7 +95,7 @@ var mcampaign = {
     }
     ,get_campaign_select: function(campaign_code, callback) {
         var connection = mysql_dbc.init();
-        var query = " SELECT CAMPAIGN_CODE, CAMPAIGN_TITLE, CAMPAIGN_DESC, CATEGORY_CODE, FROM_UNIXTIME(CAMPAIGN_STARTDATE) AS CAMPAIGN_STARTDATE, FROM_UNIXTIME(CAMPAIGN_ENDDATE) AS CAMPAIGN_ENDDATE, CAMPAIGN_ING, VIRTUAL_YN, JOIN_CNT, INSERT_DATETIME, MODIFY_DATETIME FROM CAMPAIGN WHERE CAMPAIGN_CODE = ? ";
+        var query = " SELECT CAMPAIGN_CODE, CAMPAIGN_TITLE, CAMPAIGN_DESC, CATEGORY_CODE, FROM_UNIXTIME(CAMPAIGN_STARTDATE) AS CAMPAIGN_STARTDATE, FROM_UNIXTIME(CAMPAIGN_ENDDATE) AS CAMPAIGN_ENDDATE, CAMPAIGN_ING, VIRTUAL_YN, JOIN_CNT, POINT_LIMIT, INSERT_DATETIME, MODIFY_DATETIME FROM CAMPAIGN WHERE CAMPAIGN_CODE = ? ";
         var params = [];
         params.push(campaign_code);
 
@@ -222,13 +222,14 @@ var mcampaign = {
         connection.end();
         return data;
     }
-    ,sp_CAMPAIGN_GRADE_IN_JOIN_CNT_UPDATE: function(campaign_code, join_cnt, grade_text, callback) {
+    ,sp_CAMPAIGN_GRADE_IN_JOIN_CNT_UPDATE: function(campaign_code, join_cnt, grade_text, point_limit, callback) {
         var connection = mysql_dbc.init();
-        var query = " call sp_CAMPAIGN_GRADE_IN_JOIN_CNT_UPDATE(?, ?, ?) ";
+        var query = " call sp_CAMPAIGN_GRADE_IN_JOIN_CNT_UPDATE(?, ?, ?, ?) ";
         var params = [];
         params.push(campaign_code);
         params.push(join_cnt);
         params.push(grade_text);
+        params.push(point_limit);
 
         var data = connection.query(query,params,callback);
         connection.end();
