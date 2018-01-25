@@ -10,7 +10,7 @@ var mstatistics = {
     /************ 질문그룹별 통계 ***********/
     sp_STATISTICS_QUESTION: function(campaign_code, callback) {
         var connection = mysql_dbc.init();
-        var query = " call sp_STATISTICS_QUESTION(?)";
+        var query = " call sp_STATISTICS_QUESTION(?, ?)";
         var params = [];
         params.push(campaign_code);
         var data = connection.query(query,params,callback);
