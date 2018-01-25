@@ -176,6 +176,15 @@ $(function() {
             $(".area").prop("checked", false);
         }
     });
+
+    $(".survey_time").keyup(function() {
+        var q_cnt = $(this).attr("q_cnt");
+        var quest_num = $(this).attr("quest")
+        var point_sum = Math.round($(this).val() * 50,0);
+
+        $("#point_"+quest_num).val(point_sum);
+
+    });
 });
 
 function multionoff(onoff) {

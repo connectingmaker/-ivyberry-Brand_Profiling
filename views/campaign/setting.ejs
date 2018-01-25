@@ -250,17 +250,28 @@
                     </tr>
                 </thead>
                 <tbody>
-                <% var totalPoint = 0; %>
+                <%
+                var totalPoint = 0;
+                var questTime = 0;
+                var questPoint = 0;
+                %>
                 <% for(var i = 0; i<questList.length; i++) { %>
                 <%
                 totalPoint += questList[i].POINT;
+                questTime =  (questList[i].Q_CNT * 25) / 60;
+                questPoint = questTime.toFixed(1) * 50;
+
                 %>
 
                 <tr>
                     <th class="text-center">퀘스트<%=questList[i].QUEST_NUM%></th>
                     <td><input type="text" id="point_<%=questList[i].QUEST_NUM%>" quest="<%=questList[i].QUEST_NUM%>" group_code="<%=questList[i].GROUP_CODE%>" class="form-control input-sm point" value="<%=questList[i].POINT%>"></td>
-                    <th class="text-center">예상소요시간(분)</th>
-                    <td><input type="text" id="survey_time_<%=questList[i].QUEST_NUM%>" quest="<%=questList[i].QUEST_NUM%>" group_code="<%=questList[i].GROUP_CODE%>" class="form-control input-sm survey_time" value="<%=questList[i].SURVEY_TIME%>"></td>
+                    <th class="text-left">
+                        예상소요시간(분)
+                        <br>질문수 : <%=questList[i].Q_CNT%>
+                        <br>예상 : <%=questTime.toFixed(1)%>분 = <%=questPoint%>P
+                    </th>
+                    <td><input type="text" id="survey_time_<%=questList[i].QUEST_NUM%>" quest="<%=questList[i].QUEST_NUM%>" group_code="<%=questList[i].GROUP_CODE%>" q_cnt="<%=questList[i].Q_CNT%>" class="form-control input-sm survey_time" value="<%=questList[i].SURVEY_TIME%>"></td>
                     <th>
                         <% if(questList[i].Q_LIST == "") { %>
                         <div class="row">
