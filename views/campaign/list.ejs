@@ -53,7 +53,7 @@
                 <%if(campaignlist.length > 0){%>
                     <% for(var i = 0; i<campaignlist.length; i++) { %>
                         <%if (campaignlist[i].CAMPAIGN_CODE != "9999999001"){%>
-                        <tr id="<%=campaignlist[i].CAMPAIGN_CODE%>" class="text-center push-10 push-10-t">
+                        <tr id="<%=campaignlist[i].CAMPAIGN_CODE%>" class="text-center push-10 push-10-t dataViewtd">
                             <td><a href="/campaign/write/<%=campaignlist[i].CAMPAIGN_CODE%>" class="btn btn-danger btn-block btn-xs"><%=campaignlist[i].CAMPAIGN_CODE%></a></td>
                             <td><%=campaignlist[i].CATEGORY_NAME_KO%></td>
                             <td><%=campaignlist[i].CAMPAIGN_TITLE%></td>
@@ -64,16 +64,52 @@
                                     <option value="E" <% if(campaignlist[i].CAMPAIGN_ING == "E") { %>selected<%}%>>완료</option>
                                 </select>
                             </td>
-                            <td><a href="/campaign/write/<%=campaignlist[i].CAMPAIGN_CODE%>" ><%=moment(campaignlist[i].CAMPAIGN_STARTDATE).format("YYYY-MM-DD HH:mm")%></a></td>
-                            <td><a href="/campaign/write/<%=campaignlist[i].CAMPAIGN_CODE%>" ><%=moment(campaignlist[i].CAMPAIGN_ENDDATE).format("YYYY-MM-DD HH:mm")%></a></td>
-                            <td><a href="/campaign/setting/<%=campaignlist[i].CAMPAIGN_CODE%>"><%=campaignlist[i].JOIN_CNT%> / <%=campaignlist[i].JOIN_DATA%></a></td>
+                            <td><%=moment(campaignlist[i].CAMPAIGN_STARTDATE).format("YYYY-MM-DD HH:mm")%></td>
+                            <td><%=moment(campaignlist[i].CAMPAIGN_ENDDATE).format("YYYY-MM-DD HH:mm")%></td>
+                            <td><%=campaignlist[i].JOIN_CNT%> / <%=campaignlist[i].JOIN_DATA%></td>
                             <td><%=moment(campaignlist[i].MODIFY_DATETIME).format("YYYY-MM-DD HH:mm")%></td>
                             <td class="text-center">
+                                <!--
                                 <a href="/survey/start?campaign_code=<%=campaignlist[i].CAMPAIGN_CODE%>&uid=99999999999999999001&quest_num=1&debug=true" target="_blank" class="btn btn-xs btn-success">테스트</a>
+                                -->
 
-                                <button class="btn btn-xs btn-primary modifyBtn"><a href="/campaign/write/<%=campaignlist[i].CAMPAIGN_CODE%>" class="text-white" >수정</a></button>
+                                <!--<button class="btn btn-xs btn-primary modifyBtn"><a href="/campaign/write/<%=campaignlist[i].CAMPAIGN_CODE%>" class="text-white" >수정</a></button>-->
                                 <button class="btn btn-xs btn-danger deleteBtn">삭제</button>
+
                                 <button class="btn btn-xs btn-warning hiddenBtn">숨기기</button>
+
+                                <button class="btn btn-xs btn-success data">퀘스트 보기</button>
+                            </td>
+                        </tr>
+                        <tr id="dataView_<%=campaignlist[i].CAMPAIGN_CODE%>" class="dataView" style="display:none;">
+                            <td colspan="9" style="background-color:#f9f9f9; padding-top:10px; padding-bottom:10px;">
+                                <div>
+                                    <table class="table table-bordered fontsize">
+                                        <col width="20%">
+                                        <col width="20%">
+                                        <col width="20%">
+                                        <col width="40%">
+                                        <thead>
+                                        <tr>
+                                            <td colspan="4" class="text-center" style="background-color: #ccc; color:#fff;">맥주 브랜드 설문</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-center" style="background-color: #ccc; color:#fff;">퀘스트</td>
+                                            <td class="text-center" style="background-color: #ccc; color:#fff;">참여인원</td>
+                                            <td class="text-center" style="background-color: #ccc; color:#fff;">지급포인트</td>
+                                            <td class="text-center" style="background-color: #ccc; color:#fff;">DATA</td>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td class="text-center"></td>
+                                            <td class="text-center"></td>
+                                            <td class="text-center"></td>
+                                            <td class="text-center"></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </td>
                         </tr>
                         <%}%>
