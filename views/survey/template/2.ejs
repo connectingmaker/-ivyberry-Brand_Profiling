@@ -54,25 +54,31 @@
         <div class="row push-10-t titleBox3">
 
             <div class="col-xs-12 titleSelectBg" style="padding:10px 0px;">
-                <div class="col-xs-7">
+                <div class="col-xs-9">
                     <%=brandList[brandNum].BRAND_NAME_KO%>
                 </div>
-                <div class="col-xs-5 text-right">
-                    <label class="css-input radio">
-                        <input type="radio" name="qa[<%=brandNum%>]" brand_code="<%=brandList[brandNum].DETAIL_BRAND_CODE%>" class="qaData qaData_<%=brandNum%>" value="99"><span></span> 모르겠음
-                    </label>
+                <div class="col-xs-3 text-right">
+                    <div style="display:none;">
+                        <input type="radio" name="qa[<%=brandNum%>]" id="NotQuestion_<%=brandNum%>" brand_code="<%=brandList[brandNum].DETAIL_BRAND_CODE%>" class="qaData qaData_<%=brandNum%>" value="99"><span></span> 모르겠음
+                    </div>
+                    <button id="NotQuestionBtn_<%=brandNum%>" class="btn btn-sm btn-default NotQuestion" brandNum="<%=brandNum%>">
+                        모르겠음
+                    </button>
                 </div>
 
             </div>
 
-            <div class="col-xs-12 titleCountBg text-center">
 
+            <div class="col-xs-12 titleCountBg text-center">
+                <div style="position:absolute; top:21px; text-align:center; height:2px; width:100%;padding-left:30px; padding-right:30px;">
+                    <div style="background:url('/img/survey/scalebg.png');width:100%;height:2px;"></div>
+                </div>
                 <table width="100%">
                     <tr>
                         <% for(var i = 1; i<=7; i++) { %>
                         <td class="text-center">
-                            <label class="css-input radio">
-                                <input type="radio" name="qa[<%=brandNum%>]" brand_code="<%=brandList[brandNum].DETAIL_BRAND_CODE%>" class="qaData qaData_<%=brandNum%>" value="<%=i%>"><span></span>
+                            <label class="css-input scale">
+                                <input type="radio" name="qa[<%=brandNum%>]" brand_code="<%=brandList[brandNum].DETAIL_BRAND_CODE%>" brandNum="<%=brandNum%>" class="qaData qaData_<%=brandNum%>" value="1"><span></span>
                             </label>
                         </td>
                         <% } %>

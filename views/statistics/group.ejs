@@ -35,7 +35,7 @@
                         <td><a href="/statistics/group/<%=groupList[i].GROUP_CODE%>"><%=groupList[i].GROUP_NAME_KO%></a></td>
                         <td><%=groupList[i].MEMO%></td>
                         <td><%=groupList[i].Q_CNT%></td>
-                        <td>7점척도</td>
+                        <td><%=groupList[i].QUESTION_TYPE_NAME%></td>
                         <td><%=groupList[i].QUEST_NUM%></td>
                         <td><%=groupList[i].ETC%></td>
                         <td class="text-center"><a href="/statistics/groupData/<%=campaign_code%>/<%=groupList[i].GROUP_CODE%>" class="btn btn-xs btn-danger">통계보기</a></td>
