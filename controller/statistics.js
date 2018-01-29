@@ -142,6 +142,8 @@ router.post("/groupData", function(req, res) {
     var q_code = req.body.q_code;
     var quest_num = req.body.quest_num;
 
+    console.log(campaign_code + "///" + group_code + "///" + q_code + "///" + quest_num);
+
     mstatistics.sp_STATISTICS_QUESTION_GROUP_DATA_20180126(campaign_code, group_code, q_code, quest_num, function(err, rows) {
         if(err) {
             console.log(err);
