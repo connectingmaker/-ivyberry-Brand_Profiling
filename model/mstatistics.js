@@ -40,6 +40,18 @@ var mstatistics = {
         connection.end();
         return data;
     }
+    ,sp_STATISTICS_QUESTION_GROUP_DATA_20180126: function(campaign_code, group_code, q_code, quest_num, callback) {
+        var connection = mysql_dbc.init();
+        var query = " call sp_STATISTICS_QUESTION_GROUP_DATA_20180126(?, ?, ?, ?)";
+        var params = [];
+        params.push(campaign_code);
+        params.push(group_code);
+        params.push(q_code);
+        params.push(quest_num);
+        var data = connection.query(query,params,callback);
+        connection.end();
+        return data;
+    }
 }
 
 module.exports = mstatistics;

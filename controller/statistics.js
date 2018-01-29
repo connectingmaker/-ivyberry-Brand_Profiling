@@ -113,9 +113,12 @@ router.get('/group/:code/:quest_num', function(req, res, next) {
 
 });
 
-router.get("/groupData/:campaign_code/:group_code", function(req, res) {
+router.get("/groupData/:campaign_code/:group_code/:quest_num", function(req, res) {
     var campaign_code = req.params.campaign_code;
     var group_code = req.params.group_code;
+    var quest_num = req.params.quest_num;
+
+
 
     mstatistics.sp_STATISTICS_QUESTION_GROUP_LIST(campaign_code, group_code, function(err, rows) {
         if(err) {
@@ -128,7 +131,7 @@ router.get("/groupData/:campaign_code/:group_code", function(req, res) {
 
 
 
-        res.render("statistics/groupData", {data : data, campaign_code:campaign_code, group_code:group_code });
+        res.render("statistics/groupData", {data : data, campaign_code:campaign_code, group_code:group_code, quest_num: quest_num });
     });
 
 });
@@ -137,8 +140,9 @@ router.post("/groupData", function(req, res) {
     var campaign_code = req.body.campaign_code;
     var group_code = req.body.group_code;
     var q_code = req.body.q_code;
+    var quest_num = req.body.quest_num;
 
-    mstatistics.sp_STATISTICS_QUESTION_GROUP_DATA(campaign_code, group_code, q_code, function(err, rows) {
+    mstatistics.sp_STATISTICS_QUESTION_GROUP_DATA_20180126(campaign_code, group_code, q_code, quest_num, function(err, rows) {
         if(err) {
             console.log(err);
             throw err;
