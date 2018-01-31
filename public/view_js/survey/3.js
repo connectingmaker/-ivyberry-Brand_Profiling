@@ -13,7 +13,8 @@ $(function() {
             var src = $(".brandImg_"+nextBrand+ " .imgBox_on").find("img").eq(1).attr("src");
             console.log($(".brandImg_"+nextBrand+ " .imgBox_on").find("img"));
             if(src == undefined) {
-                alert("이미지를 선택해주세요.");
+                //alert("이미지를 선택해주세요.");
+                bootbox.alert("이미지를 선택해주세요.");
                 $(".brandImg_" + nextBrand).show();
                 return false;
 
@@ -40,7 +41,7 @@ $(function() {
 
 
             if(parseInt(min_text) > checkText) {
-                alert("최소 "+min_text+"개를 입력해주세요.");
+                bootbox.alert("최소 "+min_text+"개를 입력해주세요.");
                 $(".brandText_"+nextBrand).show();
                 return;
 

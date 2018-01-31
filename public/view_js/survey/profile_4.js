@@ -23,7 +23,8 @@ $(function() {
 
     $(".nextStep").click(function() {
         if($("#data").val() == false) {
-            alert("지역을 선택해주세요.");
+            //alert("지역을 선택해주세요.");
+            bootbox.alert("지역을 선택해주세요.");
             $("#data").focus();
             return;
         }

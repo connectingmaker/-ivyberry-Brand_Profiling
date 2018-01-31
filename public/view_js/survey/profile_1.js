@@ -1,7 +1,8 @@
 $(function() {
     $(".nextStep").click(function() {
         if($("#username").val() == false) {
-            alert("이름을 입력해주세요.");
+            //alert("이름을 입력해주세요.");
+            bootbox.alert("이름을 입력해주세요.");
             $("#username").focus();
             return;
         }

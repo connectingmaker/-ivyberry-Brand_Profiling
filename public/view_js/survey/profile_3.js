@@ -1,13 +1,15 @@
 $(function() {
     $(".nextStep").click(function() {
         if($("#data").val() == false) {
-            alert("출생연도를 입력해주세요.");
+            //alert("출생연도를 입력해주세요.");
+            bootbox.alert("출생연도를 입력해주세요.");
             $("#data").focus();
             return;
         }
 
         if($("#data").val() < 4) {
-            alert("출생년도 4자리를 입력해주세요.");
+            //alert("출생년도 4자리를 입력해주세요.");
+            bootbox.alert("출생년도 4자리를 입력해주세요.");
             $("#data").focus();
             return;
         }
