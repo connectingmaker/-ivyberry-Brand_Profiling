@@ -4,6 +4,31 @@ $(function() {
     var quest = [];
 
 
+    $("#point_default").keyup(function() {
+        var point_default = $(this).val();
+        var quest_num = "";
+        var totalPoint = 0;
+        $(".survey_time").each(function() {
+
+
+            quest_num = $(this).attr("quest");
+
+            var questTime = $(this).val();
+            var questPoint = questTime * point_default;
+
+
+            $("#point_"+quest_num).val(questPoint);
+
+            totalPoint = totalPoint + questPoint;
+        });
+
+
+
+        $("#total_point").val(totalPoint);
+
+    });
+
+
     $("#settingBtn").click(function() {
         var grade_code = "";
         questArr = [];
