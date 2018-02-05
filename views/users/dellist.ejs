@@ -1,0 +1,108 @@
+<div class="row">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="wizard">
+                <a href="/users/list"><span class="badge">1</span> 사용자관리</a>
+                <a href="/users/pointRequest"><span class="badge">2</span> 환급(현금이체)요청 관리 </a>
+                <a href="/users/dellist" class="current"><span class="badge badge-inverse">3</span> 탈퇴 회원 </a>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xs-12 bg-white box round_box push-20-t">
+        <div class="row">
+            <div class="col-xs-10 title">
+                <h3 class="block-title">사용자 목록</h3>
+            </div>
+            <div class="col-xs-2 text-right">
+                <a href="/users/write" class="btn btn-sm btn-danger btn-rounded">회원 추가</a>
+            </div>
+
+        </div>
+
+        <div class="row push-10-t">
+            <div class="col-xs-12">
+                <form name="searchForm" id="searchForm" method="get" action="/users/list">
+                    <div class="input-group">
+                        <input class="form-control" type="text" id="searchName" name="searchName" placeholder="검색해주세요.">
+                        <span class="input-group-btn">
+                        <button id="searchBtn" class="btn btn-default" type="button"><i class="fa fa-search"></i> 검색</button>
+                    </span>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="contents_list">
+            <table id="list" class="table table-bordered fontsize">
+                <thead>
+                <tr>
+                    <th>UID</th>
+                    <th>등급</th>
+                    <th>이름</th>
+                    <th>이메일</th>
+                    <th>전화번호</th>
+                    <th>포인트</th>
+                    <th>참여설문</th>
+                    <th>최근접속</th>
+                    <th>기능</th>
+                </tr>
+                </thead>
+                <tbody>
+                <% for(var i = 0; i<userData.length; i++) { %>
+                <tr id="<%=userData[i].UID%>">
+                    <td class="text-center"><a href="/users/write/<%=userData[i].UID%>" class="btn btn-xs btn-danger"><%=userData[i].UID%></a></td>
+                    <td><%=userData[i].CODE_NAME%></td>
+                    <td><%=userData[i].USERNAME%></td>
+                    <td><%=userData[i].USEREMAIL%></td>
+                    <td><%=userData[i].USERPHONE%></td>
+                    <td><a href="/users/pointHistory/<%=userData[i].UID%>" class="btn btn-xs btn-success historyBtn"><%=userData[i].POINT%></a></td>
+                    <td><%=userData[i].JOIN_TOTAL%></td>
+                    <td><%=moment(userData[i].LAST_LOGIN).format("YYYY-MM-DD hh:mm")%></td>
+                    <td class="text-center">
+                        <button class="btn btn-xs btn-warning deleteBtn">삭제</button>
+                        <button class="btn btn-xs btn-primary modifyBtn"><a href="/users/write/<%=userData[i].UID%>" class="text-white" >수정</a></button>
+                    </td>
+                </tr>
+                <% } %>
+                </tbody>
+            </table>
+
+            <div class="col-xs-12 text-center">
+
+                <!--
+                <ul class="pagination pagination-md">
+                    <li>
+                        <a href="javascript:void(0)"><i class="fa fa-angle-left"></i></a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">1</a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">2</a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">3</a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">4</a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">5</a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)"><i class="fa fa-angle-right"></i></a>
+                    </li>
+                </ul>-->
+                <%- pageHtml.render() %>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+
+
+
+<script language="javascript" src="/view_js/users/list.js"></script>

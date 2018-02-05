@@ -81,6 +81,13 @@ $(function() {
             return;
         }
 
+        var member_drop = "N";
+
+        if($("#member_drop").val() == "") {
+        } else {
+            member_drop = $("#member_drop option:selected").val();
+        }
+
 
 
         var json = {
@@ -92,14 +99,16 @@ $(function() {
             ,sex : $("#sex").val()
             ,birthday : $("#birthday").val()
             ,userphone : $("#userphone").val()
+            ,member_drop : member_drop
         }
         common.ajax.send('/users/writeProcess', json);
         common.ajax.return = function(data) {
             var dataJson = eval("("+data+")");
+            alert("저장되었습니다.");
             //console.log(dataJson[0]);
 
             //location.replace("/users/write/"+dataJson[0].UID);
-            location.replace("/users/list");
+            //location.replace("/users/list");
         }
     });
 

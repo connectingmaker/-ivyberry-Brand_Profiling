@@ -76,6 +76,70 @@ router.get('/list', function(req, res, next) {
 });
 
 
+router.get("/dellist", function(req, res, next) {
+    var page = req.query.page;
+    if(page == undefined) {
+        page = 1;
+    }
+
+    var searchName = req.query.searchName;
+    if(searchName == undefined) {
+        searchName = "";
+    }
+
+    var total = 0;
+    var start = 0;
+    var viewCnt = 10;
+
+
+    muser.getDropMemberCount(searchName, function(err, count_rows) {
+        total = count_rows[0].TOTAL;
+        start = viewCnt * (page - 1);
+
+
+        var boostrapPaginator = new pagination.TemplatePaginator({
+            prelink:'/users/list', current: page, rowsPerPage: 10,
+            totalResult: total, slashSeparator: true,
+            template: function(result) {
+                var i, len, prelink;
+                var html = '<div><ul class="pagination">';
+                if(result.pageCount < 2) {
+                    html += '</ul></div>';
+                    return html;
+                }
+                prelink = this.preparePreLink(result.prelink);
+                if(result.previous) {
+                    html += '<li><a href="./?page=' + result.previous + '&searchName='+searchName+'">' + this.options.translator('PREVIOUS') + '</a></li>';
+                }
+                if(result.range.length) {
+                    for( i = 0, len = result.range.length; i < len; i++) {
+                        if(result.range[i] === result.current) {
+                            html += '<li class="active"><a href="?page=' + result.range[i] + '&searchName='+searchName+'">' + result.range[i] + '</a></li>';
+                        } else {
+                            html += '<li><a href="?page=' + result.range[i] + '&searchName='+searchName+'">' + result.range[i] + '</a></li>';
+                        }
+                    }
+                }
+                if(result.next) {
+                    html += '<li><a href="?page=' + result.next + '&searchName='+searchName+'" class="paginator-next">' + this.options.translator('NEXT') + '</a></li>';
+                }
+                html += '</ul></div>';
+                return html;
+            }
+        });
+
+
+
+        muser.getDropMemberList(start, searchName, function(err, rows) {
+            if(err) {
+                console.log(err);
+            }
+            var userData = rows;
+            res.render('users/dellist', { moment:moment, pageHtml: boostrapPaginator, userData: userData });
+        });
+    });
+});
+
 
 router.get('/write', function(req, res) {
     mcode.getCodeGradeList(function(err, rows) {
@@ -92,6 +156,7 @@ router.get('/write', function(req, res) {
             , birthday: ""
             , point: ""
             , last_login: ""
+            , member_drop : ""
         };
         res.render('users/write', { gradelist : gradelist, userData: userData });
     });
@@ -113,6 +178,7 @@ router.get('/write/:code', function(req, res) {
             var point = data[0].POINT;
             var phone = data[0].USERPHONE;
             var last_login = data[0].LAST_LOGIN;
+            var member_drop = data[0].MEMBER_DROP;
 
             var userData = {
                 uid: uid
@@ -124,6 +190,7 @@ router.get('/write/:code', function(req, res) {
                 , point: point
                 , last_login: last_login
                 , phone : phone
+                , member_drop : member_drop
             };
 
             res.render('users/write', { gradelist : gradelist, userData: userData });
@@ -141,16 +208,26 @@ router.post("/writeProcess", function(req, res) {
     var birthday = req.body.birthday;
     var userphone = req.body.userphone;
     var userpasswd = req.body.userpasswd;
+    var member_drop = req.body.member_drop;
 
     muser.sp_MEMBER_SAVE(uid, code_grade, username, useremail, userphone, userpasswd, sex, birthday, '', function(err, rows) {
         if(err) {
             console.log(err);
         }
 
-        var objToJson = rows[0];
-        var dataJson = JSON.stringify(objToJson);
-        console.log(dataJson);
-        res.send(dataJson);
+        muser.set_MEMBER_DROP(uid, member_drop, function(err, rows2) {
+            if(err) {
+                console.log(err);
+            }
+
+
+            var objToJson = rows[0];
+            var dataJson = JSON.stringify(objToJson);
+            console.log(dataJson);
+            res.send(dataJson);
+        });
+
+
     });
 });
 

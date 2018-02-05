@@ -1,0 +1,114 @@
+<div class="row">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="wizard">
+                <a href="/statistics/campaign" class="current"><span class="badge badge-inverse">1</span> 완료된 설문</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 push-10-t bg-white box round_box">
+        <div class="row">
+            <div class="col-xs-10 title">
+                통계조회
+            </div>
+        </div>
+
+        <div class="row push-10-t">
+            <div class="col-xs-12">
+                <form name="searchForm" id="searchForm" method="get" action="/statistics/campaign">
+                    <div class="input-group">
+                        <input class="form-control" type="text" id="searchName" name="searchName" placeholder="검색해주세요.">
+                        <span class="input-group-btn">
+                        <button id="searchBtn" class="btn btn-default" type="button"><i class="fa fa-search"></i> 검색</button>
+                    </span>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+
+        <div class="contents_list">
+            <table id="list" class="table table-bordered fontsize">
+                <thead>
+                <tr>
+                    <th>설문ID</th>
+                    <th>카테고리</th>
+                    <th>설문 제목</th>
+                    <th>시작일</th>
+                    <th>종료일</th>
+                    <th>보기</th>
+                    <!--
+                    <th>참여인원</th>
+                    <th class="text-center">DATA</th>
+                    -->
+                </tr>
+                </thead>
+                <tbody>
+                <% for(var i = 0; i<campaignList.length; i++) { %>
+
+                <tr class="<%=campaignList[i].CAMPAIGN_CODE%> dataViewtd">
+                    <td><%=campaignList[i].CAMPAIGN_CODE%></td>
+                    <td><%=campaignList[i].CATEGORY_NAME_KO%></td>
+                    <td><%=campaignList[i].CAMPAIGN_TITLE%></td>
+                    <td class="text-center"><%=moment(campaignList[i].CAMPAIGN_STARTDATE).format("YYYY-MM-DD hh:mm")%></td>
+                    <td class="text-center"><%=moment(campaignList[i].CAMPAIGN_ENDDATE).format("YYYY-MM-DD hh:mm")%></td>
+                    <td class="text-center">
+                        <a href="#" campaign_code="<%=campaignList[i].CAMPAIGN_CODE%>" class="data btn btn-xs btn-danger">데이터보기</a>
+                    </td>
+                    <!--<td class="text-center"><%=campaignList[i].JOIN_CNT%> / <%=campaignList[i].COMPLATE%></td>-->
+                    <!--<td class="text-center">
+                        <a href="/campaign/campaignRawData/<%=campaignList[i].CAMPAIGN_CODE%>/<%=campaignList[i].QUEST_NUM%>" class="btn btn-xs btn-danger">다운로드</a>
+                        <a href="/statistics/group/<%=campaignList[i].CAMPAIGN_CODE%>" class="btn btn-xs btn-danger">통계</a>
+                    </td>
+                    -->
+                </tr>
+                <tr id="<%=campaignList[i].CAMPAIGN_CODE%>" class="dataView" style="display:none;">
+                    <td colspan="6" style="background-color:#f9f9f9; padding-top:10px; padding-bottom:10px;">
+                        <div>
+                            <table class="table table-bordered fontsize">
+                                <col width="20%">
+                                <col width="20%">
+                                <col width="20%">
+                                <col width="40%">
+                                <thead>
+                                <tr>
+                                    <td colspan="4" class="text-center" style="background-color: #ccc; color:#fff;">맥주 브랜드 설문</td>
+                                </tr>
+                                <tr>
+                                    <td class="text-center" style="background-color: #ccc; color:#fff;">퀘스트</td>
+                                    <td class="text-center" style="background-color: #ccc; color:#fff;">참여인원</td>
+                                    <td class="text-center" style="background-color: #ccc; color:#fff;">지급포인트</td>
+                                    <td class="text-center" style="background-color: #ccc; color:#fff;">DATA</td>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td class="text-center"></td>
+                                    <td class="text-center"></td>
+                                    <td class="text-center"></td>
+                                    <td class="text-center"></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </td>
+                </tr>
+                <% } %>
+                </tbody>
+            </table>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 text-center">
+                <%-pageHtml.render()%>
+            </div>
+        </div>
+    </div>
+
+
+
+</div>
+
+
+
+<script language="javascript" src="/view_js/statistics/group.js"></script>
+<script src="/assets/js/plugins/chartjs/Chart.min.js"></script>

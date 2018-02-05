@@ -73,9 +73,14 @@
                     <td>
                         <input id="userphone" type="text" class="form-control" value="<%=userData.phone%>">
                     </td>
-                    <th>최근 로그인</th>
+                    <th>탈퇴여부</th>
                     <td>
-                        <input id="last_login" type="text" class="form-control" value="<%=userData.last_login%>" disabled>
+
+                        <select id="member_drop" class="form-control" <%if(userData.member_drop == "") { %>disabled<%}%>>
+                            <option value="">-선택-</option>
+                            <option value="Y" <% if(userData.member_drop == "Y") { %>selected<% } %>>탈퇴회원</option>
+                            <option value="N" <% if(userData.member_drop == "N") { %>selected<% } %>>미탈퇴회원</option>
+                        </select>
                     </td>
                 </tr>
                 </tbody>
