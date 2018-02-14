@@ -90,9 +90,24 @@ router.post("/memberInsert", function(req,res) {
     });
 });
 
+router.post("/memberFaceBookCheck", function(req, res) {
+    var facebook_id = req.body.facebook_id;
+    mapi.getFacebookCheck(facebook_id, function(err, rows) {
+        if (err) {
+            console.log(err);
+            throw err;
+        }
+
+        var data = rows;
+
+        res.send(JSON.stringify(data));
+    });
+});
+
 router.post("/memberFaceBook", function(req, res) {
     var username = req.body.username;
     var useremail = req.body.useremail;
+    var userphone = req.body.phone;
     var facebook_id = req.body.facebook_id;
     var userToken = req.body.userToken;
     var os = req.body.os;
@@ -101,6 +116,10 @@ router.post("/memberFaceBook", function(req, res) {
 
     if(useremail == undefined) {
         useremail = "";
+    }
+
+    if(userphone == undefined) {
+        userphone = "";
     }
 
 
@@ -114,7 +133,7 @@ router.post("/memberFaceBook", function(req, res) {
         var data = rows;
 
         if(rows.length == 0) {
-            muser.sp_MEMBER_SAVE('', 0, username, useremail, '', 'facebook', 'N', '', facebook_id, function(err,rows) {
+            muser.sp_MEMBER_SAVE('', 0, username, useremail, userphone, 'facebook', 'N', '', facebook_id, function(err,rows) {
                 if(err) {
                     console.log(err);
                     throw err;
@@ -416,7 +435,7 @@ router.post("/pwdChange", function(req, res) {
 
 });
 
-
+/******** 현금이체 구버전 **********************/
 router.post("/pointSend", function(req, res) {
     var cashBankPoint = req.body.cashBankPoint;
     var bankSelect = req.body.bankSelect;
@@ -444,6 +463,36 @@ router.post("/pointSend", function(req, res) {
     })
 
 });
+
+router.post("/pointSend_V1_01", function(req, res) {
+    var cashBankPoint = req.body.cashBankPoint;
+    var bankSelect = req.body.bankSelect;
+    var cashBankAccount = req.body.cashBankAccount;
+    var uid = req.body.uid;
+    var jumin = req.body.jumin;
+
+
+    mapi.sp_API_POINT_BANK_V1_01(cashBankPoint, bankSelect, cashBankAccount, uid, jumin, function(err, rows) {
+        if(err) {
+            console.log(err);
+            throw err;
+        }
+
+        var data = rows[0];
+
+        var json = {
+            ERR_CODE : data[0].ERR_CODE
+            ,ERR_MSG : data[0].ERR_MSG
+            ,BANK_NAME : data[0].BANK_NAME
+            ,BANK_ACCOUNT : data[0].BANK_ACCOUNT
+            ,POINT : data[0].POINT
+        };
+
+        res.send(JSON.stringify(json));
+    })
+
+});
+
 
 router.post("/memberEmailSearch", function(req, res) {
     var userphone = req.body.userphone;

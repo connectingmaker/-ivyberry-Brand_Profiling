@@ -71,6 +71,7 @@ var muser = {
         query += " , M.POINT ";
         query += " , M.JOIN_SURVEY_CNT ";
         query += " , fn_DECKEY(M.USERPHONE) USERPHONE "
+        query += " , FACEBOOK_ID "
         query += " , FROM_UNIXTIME(M.LAST_LOGIN) AS LAST_LOGIN ";
         query += " , FROM_UNIXTIME(M.INSERT_DATETIME) AS INSERT_DATETIME ";
         query += " , CG.CODE_GRADE ";

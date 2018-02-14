@@ -217,6 +217,21 @@ var mapi = {
         connection.end();
         return data;
     }
+
+    ,sp_API_POINT_BANK_V1_01: function(point, bank_code, bankaccount, uid, jumin, callback) {
+        var connection = mysql_dbc.init();
+        var query = " call sp_API_POINT_BANK_V1_01(?, ?, ?, ?, ?) ";
+        var params = [];
+        params.push(point);
+        params.push(bank_code);
+        params.push(bankaccount);
+        params.push(uid);
+        params.push(jumin);
+
+        var data = connection.query(query, params, callback);
+        connection.end();
+        return data;
+    }
     ,sp_API_USER_EMAIL_SEARCH: function(phone, callback) {
         var connection = mysql_dbc.init();
         var query = " call sp_API_USER_EMAIL_SEARCH(?) ";

@@ -39,6 +39,7 @@
                 <tr>
                     <th>UID</th>
                     <th>등급</th>
+                    <th>회원유형</th>
                     <th>이름</th>
                     <th>이메일</th>
                     <th>전화번호</th>
@@ -52,6 +53,14 @@
                 <% for(var i = 0; i<userData.length; i++) { %>
                 <tr id="<%=userData[i].UID%>">
                     <td class="text-center"><a href="/users/write/<%=userData[i].UID%>" class="btn btn-xs btn-danger"><%=userData[i].UID%></a></td>
+                    <td>
+
+                        <% if(userData[i].FACEBOOK_ID == 0) { %>
+                        <span class="label label-primary">일반회원</span>
+                        <% } else { %>
+                        <span class="label label-success">페이스북</span>
+                        <% } %>
+                    </td>
                     <td><%=userData[i].CODE_NAME%></td>
                     <td><%=userData[i].USERNAME%></td>
                     <td><%=userData[i].USEREMAIL%></td>
