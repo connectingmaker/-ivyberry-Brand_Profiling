@@ -39,7 +39,7 @@ var mcampaign = {
         if(campaign_ing == "") {
             var query = " SELECT COUNT(*) TOTAL FROM CAMPAIGN C JOIN BRAND_CATEGORY BC ON(C.CATEGORY_CODE = BC.CATEGORY_CODE) WHERE C.USE_YN='N' ";
             if(searchName != "") {
-                query += " AND C.CAMPAIGN_TITLE LIKE '" + searchName + "%' ";
+                query += " AND C.CAMPAIGN_TITLE LIKE '%" + searchName + "%' ";
             }
             query += " ORDER BY C.INSERT_DATETIME DESC ";
             var params = [];
@@ -51,7 +51,7 @@ var mcampaign = {
         } else {
             var query = " SELECT COUNT(*) TOTAL FROM CAMPAIGN C JOIN BRAND_CATEGORY BC ON(C.CATEGORY_CODE = BC.CATEGORY_CODE) WHERE C.CAMPAIGN_ING = ? AND C.USE_YN='N' ";
             if(searchName != "") {
-                query += " AND C.CAMPAIGN_TITLE LIKE '" + searchName + "%' ";
+                query += " AND C.CAMPAIGN_TITLE LIKE '%" + searchName + "%' ";
             }
             query += " ORDER BY C.INSERT_DATETIME DESC ";
             var params = [];
@@ -68,7 +68,7 @@ var mcampaign = {
             var query = " SELECT C.CAMPAIGN_CODE, C.CAMPAIGN_TITLE, C.CAMPAIGN_DESC, C.CATEGORY_CODE, FROM_UNIXTIME(C.CAMPAIGN_STARTDATE) AS CAMPAIGN_STARTDATE, FROM_UNIXTIME(C.CAMPAIGN_ENDDATE) AS CAMPAIGN_ENDDATE, C.CAMPAIGN_ING, CASE C.CAMPAIGN_ING WHEN 'N' THEN '대기' WHEN 'S' THEN '진행중' WHEN 'E' THEN '완료' END CAMPAIGN_ING_TEXT, C.VIRTUAL_YN, C.JOIN_CNT, BC.CATEGORY_NAME_KO, C.INSERT_DATETIME, C.MODIFY_DATETIME, (SELECT COUNT(*) FROM DATA_JOIN WHERE CAMPAIGN_CODE = C.CAMPAIGN_CODE AND ENDTYPE='E' AND QUEST_NUM=1) JOIN_DATA FROM CAMPAIGN C JOIN BRAND_CATEGORY BC ON(C.CATEGORY_CODE = BC.CATEGORY_CODE) ";
             query += " WHERE C.USE_YN='N' ";
             if(searchName != "") {
-                query += " AND C.CAMPAIGN_TITLE LIKE '" + searchName + "%' ";
+                query += " AND C.CAMPAIGN_TITLE LIKE '%" + searchName + "%' ";
             }
             query += " ORDER BY C.INSERT_DATETIME DESC LIMIT "+page+", 10 ";
             var params = [];
@@ -82,7 +82,7 @@ var mcampaign = {
             query += " WHERE C.CAMPAIGN_ING = ? ";
             query += " AND C.USE_YN='N' ";
             if(searchName != "") {
-                query += " AND C.CAMPAIGN_TITLE LIKE '" + searchName + "%' ";
+                query += " AND C.CAMPAIGN_TITLE LIKE '%" + searchName + "%' ";
             }
             query += " ORDER BY C.INSERT_DATETIME DESC LIMIT "+page+", 10 ";
             var params = [];
