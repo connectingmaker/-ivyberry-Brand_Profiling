@@ -238,25 +238,45 @@ router.post("/brandPoolProcess", function(req, res) {
     var brandList = req.body.brandList;
     var err = "";
     var jsonData = {};
+    console.log("DATA");
 
-    mcampaign.sp_CAMPAIGN_BRAND_POOL_SAVE(campaign_code, brandList, function(err, rows) {
+    mcampaign.del_CAMPAIGN_BRAND_POOL(campaign_code, function(err, rows) {
+        console.log(err);
         if(err) {
             console.log(err);
-            err = "err";
+        }
+
+
+        mcampaign.save_CAMPAIGN_BRAND_POOL_SAVE(campaign_code, brandList, function(err, rows) {
+
             jsonData = {
-                err : "INSERT_DB_ERR"
+                err : "000"
             }
+
             res.send(jsonData);
-        }
+        });
+    });
 
-        jsonData = {
-            err : "000"
-        }
+    console.log("OK");
 
-        res.send(jsonData);
-
-
-    })
+    // mcampaign.sp_CAMPAIGN_BRAND_POOL_SAVE(campaign_code, brandList, function(err, rows) {
+    //     if(err) {
+    //         console.log(err);
+    //         err = "err";
+    //         jsonData = {
+    //             err : "INSERT_DB_ERR"
+    //         }
+    //         res.send(jsonData);
+    //     }
+    //
+    //     jsonData = {
+    //         err : "000"
+    //     }
+    //
+    //     res.send(jsonData);
+    //
+    //
+    // })
 });
 
 router.post("/brandProcess", function(req, res) {

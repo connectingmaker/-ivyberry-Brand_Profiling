@@ -135,6 +135,41 @@ var mcampaign = {
         connection.end();
         return data;
     }
+    ,del_CAMPAIGN_BRAND_POOL: function(campaign_code) {
+        console.log(campaign_code);
+        var connection = mysql_dbc.init();
+        var query = " DELETE FROM CAMPAIGN_BRAND_POOL WHERE CAMPAIGN_CODE = ? ";
+        var params = [];
+        params.push(campaign_code);
+
+        var data = connection.query(query,params,callback);
+        connection.end();
+        return data;
+    }
+    ,save_CAMPAIGN_BRAND_POOL_SAVE: function(campaign_code, detail_brand_code, callback) {
+
+        var connection = mysql_dbc.init();
+        var query = " INSERT INTO CAMPAIGN_BRAND_POOL SELECT ?, ? ";
+
+        var params = [];
+        var data = detail_brand_code.split(",");
+        console.log(data);
+        for(var i = 0; i<data.length; i++) {
+            params.push(campaign_code);
+            params.push(data[i]);
+
+            if(i == data.length - 1) {
+                var data = connection.query(query, params, callback);
+                connection.end();
+                return true;
+            } else {
+                connection.query(query, params);
+            }
+
+
+        }
+
+    }
     ,sp_CAMPAIGN_BRAND_POOL_SAVE: function(campaign_code, detail_brand_code, callback) {
         var connection = mysql_dbc.init();
         var query = " call sp_CAMPAIGN_BRAND_POOL_SAVE(?, ?) ";
