@@ -129,6 +129,7 @@ $(function() {
     var urlData = location.pathname;
     var tempPath = urlData.split('/');
     var controller = tempPath[1];
+    var value = tempPath[2];
 
     if(controller == 'campaign'){
         $(".campaign").addClass("active");
@@ -137,7 +138,11 @@ $(function() {
         $(".statistics").addClass("active");
     }
     if(controller == 'users'){
-        $(".users").addClass("active");
+        if(value == "pointRequest") {
+            $(".point").addClass("active");
+        } else {
+            $(".users").addClass("active");
+        }
     }
     if(controller == 'brand'){
         $(".brand").addClass("active");

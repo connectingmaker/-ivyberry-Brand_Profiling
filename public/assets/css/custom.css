@@ -31,7 +31,7 @@ body {
 .top_gnb_menu .logo { width:130px; float:left;  }
 .top_gnb_menu .menu_btn { width:670px; float:left;}
 .top_gnb_menu .menu_btn ul { padding-top:3px; }
-.top_gnb_menu .menu_btn ul li { display:inline; padding-left:20px; color:#4F4F4F; }
+.top_gnb_menu .menu_btn ul li { display:inline; padding-left:10px; color:#4F4F4F; }
 .top_gnb_menu .menu_btn .active {color:#DA4211;  }
 .top_gnb_menu .menu_btn ul a:hover {color:#DA4211;  }
 .top_gnb_menu .logout { float:right; padding-top:2px; font-size:12px;}
