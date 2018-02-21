@@ -135,28 +135,32 @@ var mcampaign = {
         connection.end();
         return data;
     }
-    ,del_CAMPAIGN_BRAND_POOL: function(campaign_code) {
-        console.log(campaign_code);
+    ,del_CAMPAIGN_BRAND_POOL: function(campaign_code, callback) {
         var connection = mysql_dbc.init();
         var query = " DELETE FROM CAMPAIGN_BRAND_POOL WHERE CAMPAIGN_CODE = ? ";
         var params = [];
         params.push(campaign_code);
-
+        console.log("쿼리실행");
         var data = connection.query(query,params,callback);
         connection.end();
+
+        console.log("쿼리성공");
         return data;
     }
     ,save_CAMPAIGN_BRAND_POOL_SAVE: function(campaign_code, detail_brand_code, callback) {
-
+        console.log("상세데이터 INSERT");
         var connection = mysql_dbc.init();
         var query = " INSERT INTO CAMPAIGN_BRAND_POOL SELECT ?, ? ";
 
         var params = [];
         var data = detail_brand_code.split(",");
-        console.log(data);
         for(var i = 0; i<data.length; i++) {
+            params = [];
             params.push(campaign_code);
             params.push(data[i]);
+
+
+            console.log(campaign_code + "///" + data[i]);
 
             if(i == data.length - 1) {
                 var data = connection.query(query, params, callback);

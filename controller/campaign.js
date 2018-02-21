@@ -241,23 +241,24 @@ router.post("/brandPoolProcess", function(req, res) {
     console.log("DATA");
 
     mcampaign.del_CAMPAIGN_BRAND_POOL(campaign_code, function(err, rows) {
-        console.log(err);
+        console.log("성공");
         if(err) {
             console.log(err);
         }
 
-
         mcampaign.save_CAMPAIGN_BRAND_POOL_SAVE(campaign_code, brandList, function(err, rows) {
+            if(err) {
+                console.log(err);
+            }
 
             jsonData = {
                 err : "000"
             }
 
             res.send(jsonData);
-        });
-    });
+        })
 
-    console.log("OK");
+    });
 
     // mcampaign.sp_CAMPAIGN_BRAND_POOL_SAVE(campaign_code, brandList, function(err, rows) {
     //     if(err) {
