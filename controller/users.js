@@ -590,6 +590,17 @@ router.post("/levelUpdate", function(req, res) {
 
 });
 
+router.post("/panelSuccessUpdate", function(req, res) {
+    var uid = req.body.uid;
+    muser.setPanelState(uid, "Y", function(err, rows) {
+        var json = {
+            "ERR_CODE" : "000"
+            ,"ERR_MSG" : "OK"
+        }
+        res.send(json);
+    });
+});
+
 router.post("/panelDelete", function(req, res) {
     var uid = req.body.uid;
 

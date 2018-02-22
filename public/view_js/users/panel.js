@@ -29,6 +29,30 @@ $(function() {
 
     });
 
+    $(document).on('click', '.successBtn', function() {
+            var uid = $(this).parents("tr").attr("id");
+            var params = {
+                uid: uid
+            };
+
+
+            common.ajax.send("/users/panelSuccessUpdate", params);
+            common.ajax.return = function (data) {
+                console.log(data);
+                switch(data.ERR_CODE) {
+                    case "000":
+                        alert("저장되었습니다.");
+                        location.reload();
+                        break;
+                    default:
+                        alert("ERR_CODE: " + data.ERR_CODE +"\n"+data.ERR_MSG);
+                        break;
+                }
+
+            }
+
+    });
+
     $(".level").change(function() {
         var value = $(this).val();
         var uid = $(this).parents("tr").attr("id");

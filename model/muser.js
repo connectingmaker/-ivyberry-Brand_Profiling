@@ -297,6 +297,7 @@ var muser = {
         query += " , P.Q2";
         query += " , P.Q3";
         query += " , P.Q4";
+        query += " , P.STATUS ";
         query += " , (SELECT COUNT(*) FROM PANEL WHERE UID = M.UID) PANEL_TOTAL"
         query += " FROM MEMBER M INNER JOIN PANEL P ON(M.UID = P.UID) ";
         query += " ORDER BY P.INSERT_DATETIME DESC ";
@@ -347,7 +348,16 @@ var muser = {
         connection.end();
         return data;
     }
-
+    ,setPanelState: function(uid, state, callback) {
+        var connection = mysql_dbc.init();
+        var query = " UPDATE PANEL SET STATUS = ? WHERE UID = ? ";
+        var params = [];
+        params.push(state);
+        params.push(uid);
+        var data = connection.query(query,params,callback);
+        connection.end();
+        return data;
+    }
 
 }
 
