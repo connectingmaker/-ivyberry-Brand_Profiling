@@ -64,8 +64,11 @@ $(function() {
                 ,point : point
                 ,survey_time : survey_time
             };
+            console.log(questJson);
+            if(quest != undefined) {
+                questArr.push(questJson);
+            }
 
-            questArr.push(questJson);
         });
 
         var sex = 0;
@@ -143,7 +146,7 @@ $(function() {
             ,money_end : $("#month_money_end").val()
         };
 
-
+        console.log(jsonData);
 
         common.ajax.send("/campaign/settingProcess", jsonData);
         common.ajax.return = function(data) {

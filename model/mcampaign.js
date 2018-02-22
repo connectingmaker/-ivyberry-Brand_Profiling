@@ -278,6 +278,8 @@ var mcampaign = {
         var connection = mysql_dbc.init();
         var query = " call sp_CAMPAIGN_QUESTION_GROUP_UPDATE(?, ?, ?, ?) ";
 
+        console.log(jsonData);
+
         var params = [];
         for(var i = 0; i<jsonData.length; i++) {
             params = [];
