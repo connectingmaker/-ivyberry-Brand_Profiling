@@ -290,6 +290,7 @@ var muser = {
         query += " M.UID ";
         query += " , M.USERNAME ";
         query += " , M.USEREMAIL ";
+        query += " , M.CODE_GRADE ";
         query += " , fn_DECKEY(M.USERPHONE) USERPHONE "
         query += " , FROM_UNIXTIME(P.INSERT_DATETIME) AS INSERT_DATETIME ";
         query += " , P.Q1";
@@ -331,6 +332,17 @@ var muser = {
         params.push(status);
         params.push(mysql_dbc.enckey());
 
+        var data = connection.query(query,params,callback);
+        connection.end();
+        return data;
+    }
+
+    ,setGradeUpdate: function(uid, grade, callback) {
+        var connection = mysql_dbc.init();
+        var query = " UPDATE MEMBER SET CODE_GRADE = ? WHERE UID = ? ";
+        var params = [];
+        params.push(grade);
+        params.push(uid);
         var data = connection.query(query,params,callback);
         connection.end();
         return data;

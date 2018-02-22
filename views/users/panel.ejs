@@ -10,10 +10,16 @@
         <div class="contents_list">
             <% for(var i = 0; i<userData.length; i++) { %>
             <table class="table table-bordered fontsize">
-
+                <col width="20%">
+                <col width="10%">
+                <col width="10%">
+                <col width="20%">
+                <col width="10%">
+                <col width="15%">
                 <thead>
                 <tr>
                     <th class="text-center">UID</th>
+                    <th class="text-center">권한</th>
                     <th class="text-center">이름</th>
                     <th class="text-center">이메일</th>
                     <th class="text-center">전화번호</th>
@@ -28,6 +34,16 @@
 
                 <tr id="<%=userData[i].UID%>">
                     <td class="text-center"><%=userData[i].UID%></td>
+                    <td>
+                        <select class="form-control level">
+                            <option value="0">레벨0</option>
+                            <option value="1" <% if(userData[i].CODE_GRADE == 1) { %>selected<%}%>>레벨1</option>
+                            <option value="2" <% if(userData[i].CODE_GRADE == 2) { %>selected<%}%>>레벨2</option>
+                            <option value="3" <% if(userData[i].CODE_GRADE == 3) { %>selected<%}%>>레벨3</option>
+                            <option value="4" <% if(userData[i].CODE_GRADE == 4) { %>selected<%}%>>레벨4</option>
+                            <option value="5" <% if(userData[i].CODE_GRADE == 5) { %>selected<%}%>>레벨5</option>
+                        </select>
+                    </td>
                     <td><%=userData[i].USERNAME%></td>
                     <td><%=userData[i].USEREMAIL%></td>
                     <td><%=userData[i].USERPHONE%></td>

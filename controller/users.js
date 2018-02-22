@@ -576,6 +576,20 @@ router.get('/panel', function(req, res, next) {
     });
 });
 
+router.post("/levelUpdate", function(req, res) {
+    var uid = req.body.uid;
+    var grade = req.body.grade;
+
+    muser.setGradeUpdate(uid, grade, function(err, row) {
+        var json = {
+            "ERR_CODE" : "000"
+            ,"ERR_MSG" : "OK"
+        }
+        res.send(json);
+    });
+
+});
+
 router.post("/panelDelete", function(req, res) {
     var uid = req.body.uid;
 
