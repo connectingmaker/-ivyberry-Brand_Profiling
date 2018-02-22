@@ -249,7 +249,9 @@ $(function() {
         $("#scale_etc").val("");
         $("#scale_qa_title_ko1").attr("qa_code", "");
         $("#scale_qa_title_ko1").val("");
+        $("#scale_qa_title_ko2").attr("qa_code", "");
         $("#scale_qa_title_ko2").val("");
+        $("#scale_qa_title_ko3").attr("qa_code", "");
         $("#scale_qa_title_ko3").val("");
 
         $("#scale_qa_title_en1").attr("qa_code", "");
@@ -724,6 +726,7 @@ $(function() {
             ,memo : $("#scale_memo").val()
             ,qaJson : JSON.stringify(qaJson)
         };
+
 
 
         common.ajax.send('/question/scaleProcess', jsonData);
