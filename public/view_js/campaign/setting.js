@@ -64,7 +64,6 @@ $(function() {
                 ,point : point
                 ,survey_time : survey_time
             };
-            console.log(questJson);
             if(quest != undefined) {
                 questArr.push(questJson);
             }

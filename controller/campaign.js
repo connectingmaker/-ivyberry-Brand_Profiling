@@ -31,96 +31,107 @@ router.get('/list', function(req, res, next) {
     var start = 0;
     var viewCnt = 10;
 
+    if(type == "HIDE") {
+        mcampaign.get_campaign_count_hide(searchName, function (err, count_rows) {
 
+            total = count_rows[0].TOTAL;
+            start = viewCnt * (page - 1);
 
-    mcampaign.get_campaign_count(type, searchName, function(err, count_rows) {
-
-        total = count_rows[0].TOTAL;
-        start = viewCnt * (page - 1);
-
-        var boostrapPaginator = new pagination.TemplatePaginator({
-            prelink:'/users/list', current: page, rowsPerPage: 10,
-            totalResult: total, slashSeparator: true,
-            template: function(result) {
-                var i, len, prelink;
-                var html = '<div><ul class="pagination">';
-                if(result.pageCount < 2) {
+            var boostrapPaginator = new pagination.TemplatePaginator({
+                prelink: '/users/list', current: page, rowsPerPage: 10,
+                totalResult: total, slashSeparator: true,
+                template: function (result) {
+                    var i, len, prelink;
+                    var html = '<div><ul class="pagination">';
+                    if (result.pageCount < 2) {
+                        html += '</ul></div>';
+                        return html;
+                    }
+                    prelink = this.preparePreLink(result.prelink);
+                    if (result.previous) {
+                        html += '<li><a href="./?page=' + result.previous + '">' + this.options.translator('PREVIOUS') + '</a></li>';
+                    }
+                    if (result.range.length) {
+                        for (i = 0, len = result.range.length; i < len; i++) {
+                            if (result.range[i] === result.current) {
+                                html += '<li class="active"><a href="?page=' + result.range[i] + '&type=' + type + '">' + result.range[i] + '</a></li>';
+                            } else {
+                                html += '<li><a href="?page=' + result.range[i] + '&type=' + type + '">' + result.range[i] + '</a></li>';
+                            }
+                        }
+                    }
+                    if (result.next) {
+                        html += '<li><a href="?page=' + result.next + '&type=' + type + '" class="paginator-next">' + this.options.translator('NEXT') + '</a></li>';
+                    }
                     html += '</ul></div>';
                     return html;
                 }
-                prelink = this.preparePreLink(result.prelink);
-                if(result.previous) {
-                    html += '<li><a href="./?page=' + result.previous + '">' + this.options.translator('PREVIOUS') + '</a></li>';
-                }
-                if(result.range.length) {
-                    for( i = 0, len = result.range.length; i < len; i++) {
-                        if(result.range[i] === result.current) {
-                            html += '<li class="active"><a href="?page=' + result.range[i] + '&type='+type+'">' + result.range[i] + '</a></li>';
-                        } else {
-                            html += '<li><a href="?page=' + result.range[i] + '&type='+type+'">' + result.range[i] + '</a></li>';
+            });
+
+
+            mcampaign.get_campaign_list_hide(start, searchName, function (err, rows) {
+                var campaignlist = rows;
+                res.render('campaign/list', {
+                    moment: moment,
+                    campaignlist: campaignlist,
+                    type: type,
+                    pageHtml: boostrapPaginator
+                });
+            });
+
+
+        });
+    } else {
+        mcampaign.get_campaign_count(type, searchName, function (err, count_rows) {
+
+            total = count_rows[0].TOTAL;
+            start = viewCnt * (page - 1);
+
+            var boostrapPaginator = new pagination.TemplatePaginator({
+                prelink: '/users/list', current: page, rowsPerPage: 10,
+                totalResult: total, slashSeparator: true,
+                template: function (result) {
+                    var i, len, prelink;
+                    var html = '<div><ul class="pagination">';
+                    if (result.pageCount < 2) {
+                        html += '</ul></div>';
+                        return html;
+                    }
+                    prelink = this.preparePreLink(result.prelink);
+                    if (result.previous) {
+                        html += '<li><a href="./?page=' + result.previous + '">' + this.options.translator('PREVIOUS') + '</a></li>';
+                    }
+                    if (result.range.length) {
+                        for (i = 0, len = result.range.length; i < len; i++) {
+                            if (result.range[i] === result.current) {
+                                html += '<li class="active"><a href="?page=' + result.range[i] + '&type=' + type + '">' + result.range[i] + '</a></li>';
+                            } else {
+                                html += '<li><a href="?page=' + result.range[i] + '&type=' + type + '">' + result.range[i] + '</a></li>';
+                            }
                         }
                     }
-                }
-                if(result.next) {
-                    html += '<li><a href="?page=' + result.next + '&type='+type+'" class="paginator-next">' + this.options.translator('NEXT') + '</a></li>';
-                }
-                html += '</ul></div>';
-                return html;
-            }
-        });
-
-
-        mcampaign.get_campaign_list(type, start, searchName, function(err, rows) {
-            var campaignlist = rows;
-            res.render('campaign/list', { moment: moment, campaignlist : campaignlist, type : type, pageHtml: boostrapPaginator });
-        });
-
-
-        /*
-        total = count_rows[0].TOTAL;
-        start = viewCnt * (page - 1);
-
-
-
-        var boostrapPaginator = new pagination.TemplatePaginator({
-            prelink:'/users/list', current: page, rowsPerPage: 10,
-            totalResult: total, slashSeparator: true,
-            template: function(result) {
-                var i, len, prelink;
-                var html = '<div><ul class="pagination">';
-                if(result.pageCount < 2) {
+                    if (result.next) {
+                        html += '<li><a href="?page=' + result.next + '&type=' + type + '" class="paginator-next">' + this.options.translator('NEXT') + '</a></li>';
+                    }
                     html += '</ul></div>';
                     return html;
                 }
-                prelink = this.preparePreLink(result.prelink);
-                if(result.previous) {
-                    html += '<li><a href="./?page=' + result.previous + '">' + this.options.translator('PREVIOUS') + '</a></li>';
-                }
-                if(result.range.length) {
-                    for( i = 0, len = result.range.length; i < len; i++) {
-                        if(result.range[i] === result.current) {
-                            html += '<li class="active"><a href="?page=' + result.range[i] + '">' + result.range[i] + '</a></li>';
-                        } else {
-                            html += '<li><a href="?page=' + result.range[i] + '">' + result.range[i] + '</a></li>';
-                        }
-                    }
-                }
-                if(result.next) {
-                    html += '<li><a href="?page=' + result.next + '" class="paginator-next">' + this.options.translator('NEXT') + '</a></li>';
-                }
-                html += '</ul></div>';
-                return html;
-            }
-        });
+            });
 
 
-        mcampaign.get_campaign_list(type, function(err, rows) {
-            var campaignlist = rows;
-            console.log(rows);
-            res.render('campaign/list', { moment: moment, campaignlist : campaignlist, type : type });
+            mcampaign.get_campaign_list(type, start, searchName, function (err, rows) {
+                var campaignlist = rows;
+                res.render('campaign/list', {
+                    moment: moment,
+                    campaignlist: campaignlist,
+                    type: type,
+                    pageHtml: boostrapPaginator
+                });
+            });
+
+
         });
-        */
-    });
+    }
 
 
 });

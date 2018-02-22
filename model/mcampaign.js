@@ -93,6 +93,36 @@ var mcampaign = {
             return data;
         }
     }
+    ,get_campaign_count_hide: function(searchName, callback) {
+        var connection = mysql_dbc.init();
+
+        var query = " SELECT COUNT(*) TOTAL FROM CAMPAIGN C JOIN BRAND_CATEGORY BC ON(C.CATEGORY_CODE = BC.CATEGORY_CODE) WHERE C.USE_YN='Y' ";
+        if(searchName != "") {
+            query += " AND C.CAMPAIGN_TITLE LIKE '%" + searchName + "%' ";
+        }
+        query += " ORDER BY C.INSERT_DATETIME DESC ";
+        var params = [];
+
+        var data = connection.query(query, params, callback);
+        connection.end();
+        return data;
+    }
+    ,get_campaign_list_hide: function(page, searchName, callback) {
+        var connection = mysql_dbc.init();
+
+        var query = " SELECT C.CAMPAIGN_CODE, C.CAMPAIGN_TITLE, C.CAMPAIGN_DESC, C.CATEGORY_CODE, FROM_UNIXTIME(C.CAMPAIGN_STARTDATE) AS CAMPAIGN_STARTDATE, FROM_UNIXTIME(C.CAMPAIGN_ENDDATE) AS CAMPAIGN_ENDDATE, C.CAMPAIGN_ING, CASE C.CAMPAIGN_ING WHEN 'N' THEN '대기' WHEN 'S' THEN '진행중' WHEN 'E' THEN '완료' END CAMPAIGN_ING_TEXT, C.VIRTUAL_YN, C.JOIN_CNT, BC.CATEGORY_NAME_KO, C.INSERT_DATETIME, C.MODIFY_DATETIME , (SELECT COUNT(*) FROM DATA_JOIN WHERE CAMPAIGN_CODE = C.CAMPAIGN_CODE AND ENDTYPE='E' AND QUEST_NUM=1) JOIN_DATA FROM CAMPAIGN C JOIN BRAND_CATEGORY BC ON(C.CATEGORY_CODE = BC.CATEGORY_CODE) ";
+        query += " WHERE C.USE_YN='Y' ";
+        if(searchName != "") {
+            query += " AND C.CAMPAIGN_TITLE LIKE '%" + searchName + "%' ";
+        }
+        query += " ORDER BY C.INSERT_DATETIME DESC LIMIT "+page+", 10 ";
+        console.log(query);
+        var params = [];
+        var data = connection.query(query, params, callback);
+        connection.end();
+        return data;
+
+    }
     ,get_campaign_select: function(campaign_code, callback) {
         var connection = mysql_dbc.init();
         var query = " SELECT CAMPAIGN_CODE, CAMPAIGN_TITLE, CAMPAIGN_DESC, CATEGORY_CODE, FROM_UNIXTIME(CAMPAIGN_STARTDATE) AS CAMPAIGN_STARTDATE, FROM_UNIXTIME(CAMPAIGN_ENDDATE) AS CAMPAIGN_ENDDATE, CAMPAIGN_ING, VIRTUAL_YN, JOIN_CNT, POINT_LIMIT, INSERT_DATETIME, MODIFY_DATETIME FROM CAMPAIGN WHERE CAMPAIGN_CODE = ? ";
@@ -278,7 +308,6 @@ var mcampaign = {
         var connection = mysql_dbc.init();
         var query = " call sp_CAMPAIGN_QUESTION_GROUP_UPDATE(?, ?, ?, ?) ";
 
-        console.log(jsonData);
 
         var params = [];
         for(var i = 0; i<jsonData.length; i++) {
@@ -287,7 +316,6 @@ var mcampaign = {
             params.push(jsonData[i].quest);
             params.push(jsonData[i].point);
             params.push(jsonData[i].survey_time);
-            console.log(params);
 
             if(i == jsonData.length - 1) {
                 var data = connection.query(query, params, callback);
