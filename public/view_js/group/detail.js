@@ -354,6 +354,23 @@ $(function() {
     });
 
 
+    <!--단일선택형 질문 추가하기 -->
+    $("#textCreate").click(function() {
+        var code = Math.floor(Math.random() * 99999999999999) + 1;
+
+
+        $("#text_q_name").val("");
+        $("#text_q_title_ko").val("");
+        $("#text_q_title_en").val("");
+        $("#text_q_title_cn").val("");
+        $("#text_etc").val("");
+        $("#text_memo").val("");
+        $("#q_code").val("");
+
+        $('#textModal').modal('show');
+    });
+
+
     /************ 양자택일 저장 클릭 *******************************/
     $("#singleSave").click(function() {
         if(inputTextCheck("single_q_name", "질문이름을 입력해주세요.") == false) {
@@ -460,6 +477,69 @@ $(function() {
 
     });
 
+    $("#textSave").click(function() {
+        if(inputTextCheck("text_q_name", "질문이름을 입력해주세요.") == false) {
+            return;
+        }
+
+        if(inputTextCheck("textg_q_title_ko", "질문 내용을 입력해주세요.") == false) {
+            return;
+        }
+
+        var jsonData = {
+            q_code : $("#q_code").val()
+            ,group_code : $("#group_code").val()
+            ,q_name : $("#text_q_name").val()
+            ,q_title_ko : $("#text_q_title_ko").val()
+            ,q_title_en : $("#text_q_title_en").val()
+            ,q_title_cn : $("#text_q_title_cn").val()
+            ,etc : $("#text_etc").val()
+            ,memo : $("#text_memo").val()
+        };
+
+        common.ajax.send('/question/textProcess', jsonData);
+        common.ajax.return = function(data) {
+            var dataJson = eval("("+data+")");
+            dataJson = dataJson[0];
+
+            if($("#"+dataJson.Q_CODE).html() == undefined) {
+                var survey_template_temp = survey_template;
+                survey_template_temp = survey_template_temp.replace("[_Q_TYPE_]", $("#question_type").html());
+                survey_template_temp = survey_template_temp.replace("[_Q_CODE_ID_]", dataJson.Q_CODE);
+                survey_template_temp = survey_template_temp.replace("[_Q_CODE_]", dataJson.Q_CODE);
+                survey_template_temp = survey_template_temp.replace("[_Q_NAME_]", dataJson.Q_NAME);
+                survey_template_temp = survey_template_temp.replace("[_MEMO_]", dataJson.MEMO);
+                survey_template_temp = survey_template_temp.replace("[_ETC_]", dataJson.ETC);
+                survey_template_temp = survey_template_temp.replace("[_Q_INSERT_DATETIME_]", string.dateTime(dataJson.INSERT_DATETIME));
+                survey_template_temp = survey_template_temp.replace("[_Q_TITLE_KO_]", dataJson.Q_TITLE_KO);
+                survey_template_temp = survey_template_temp.replace("[_Q_TITLE_EN_]", dataJson.Q_TITLE_EN);
+                survey_template_temp = survey_template_temp.replace("[_Q_TITLE_CN_]", dataJson.Q_TITLE_CN);
+                survey_template_temp = survey_template_temp.replace("[_SET_USE_YN_]", dataJson.USE_YN);
+                if(dataJson.USE_YN == "Y") {
+                    survey_template_temp = survey_template_temp.replace("[_USE_YN_TEXT_]", "활성화중");
+                    survey_template_temp = survey_template_temp.replace("[_USE_YN_]", "사용함");
+                } else {
+                    survey_template_temp = survey_template_temp.replace("[_USE_YN_TEXT_]", "비활성");
+                    survey_template_temp = survey_template_temp.replace("[_USE_YN_]", "사용안함");
+                }
+                $('#textModal').modal('hide');
+
+                $("#questionList").append(survey_template_temp);
+            } else {
+                var htmlObj = $("#"+dataJson.Q_CODE+" .contents_list tbody");
+                htmlObj.find("tr").eq(0).find("td").eq(1).html(dataJson.Q_NAME);
+                htmlObj.find("tr").eq(0).find("td").eq(2).html(dataJson.MEMO);
+                htmlObj.find("tr").eq(0).find("td").eq(3).html(dataJson.ETC);
+                htmlObj.find("tr").eq(1).find("td").eq(0).html(dataJson.Q_TITLE_KO);
+
+                $('#textModal').modal('hide');
+
+            }
+        };
+
+
+        console.log(jsonData);
+    });
 
     /************ 선택형 저장 클릭 ******************************/
     $("#multiSave").click(function() {
@@ -604,9 +684,6 @@ $(function() {
         if(checkBool == true) {
             return;
         }
-
-
-
 
         var jsonData = {
             q_code : $("#q_code").val()
@@ -1394,6 +1471,34 @@ $(function() {
                     $("#radioTable #template").append(realTemplate);
 
                     $('#radioModal').modal('show');
+
+                }
+
+
+
+                break;
+
+            case "7":
+
+                var json = {
+                    q_code: id
+                }
+                common.ajax.send("/question/qSelectMulti", json);
+                common.ajax.return = function (data) {
+                    var jsonData = eval("("+data+")");
+                    console.log(jsonData);
+
+                    $("#text_q_name").val(jsonData.q[0].Q_NAME);
+                    $("#text_q_title_ko").val(jsonData.q[0].Q_TITLE_KO);
+                    $("#text_q_title_en").val(jsonData.q[0].Q_TITLE_EN);
+                    $("#text_q_title_cn").val(jsonData.q[0].Q_TITLE_CN);
+                    $("#text_etc").val(jsonData.q[0].ETC);
+                    $("#text_memo").val(jsonData.q[0].MEMO);
+
+
+
+
+                    $('#textModal').modal('show');
 
                 }
 

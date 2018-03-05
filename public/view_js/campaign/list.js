@@ -76,7 +76,6 @@ $(function() {
         };
         common.ajax.send("/statistics/campaignData", json);
         common.ajax.return = function(returnData) {
-            console.log(returnData);
             $(".dataViewtd").css({"background-color":"#fff", "color": "#646464"});
             $("#"+campaign_code).css({
                 "background-color":"#DA420B"
