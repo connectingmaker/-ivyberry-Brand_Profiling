@@ -103,6 +103,39 @@ var muser = {
         connection.end();
         return data;
     }
+    ,getMemberListDown: function(searchName, callback) {
+        var connection = mysql_dbc.init();
+        var query = " SELECT ";
+        query += " M.UID ";
+        query += " , M.USERNAME ";
+        query += " , M.USEREMAIL ";
+        query += " , M.SEX ";
+        query += " , M.BIRTHDAY ";
+        query += " , M.POINT ";
+        query += " , M.JOIN_SURVEY_CNT ";
+        query += " , fn_DECKEY(M.USERPHONE) USERPHONE "
+        query += " , FACEBOOK_ID "
+        query += " , FROM_UNIXTIME(M.LAST_LOGIN) AS LAST_LOGIN ";
+        query += " , FROM_UNIXTIME(M.INSERT_DATETIME) AS INSERT_DATETIME ";
+        query += " , CG.CODE_GRADE ";
+        query += " , CG.CODE_NAME ";
+        query += " , CG.CODE_DESC ";
+        query += " , (SELECT COUNT(*) FROM DATA_JOIN WHERE UID = M.UID AND ENDTYPE='E') JOIN_TOTAL"
+        query += " FROM MEMBER M INNER JOIN CODE_GRADE CG ON(M.CODE_GRADE = CG.CODE_GRADE) ";
+        if(searchName != "") {
+            query += " WHERE (M.USERNAME LIKE '"+searchName+"%' OR M.USEREMAIL LIKE '%"+searchName+"%')";
+
+        }
+        query += " ORDER BY M.INSERT_DATETIME DESC ";
+
+
+
+        var params = [];
+
+        var data = connection.query(query,params,callback);
+        connection.end();
+        return data;
+    }
     ,getDropMemberCount: function(searchName, callback) {
         var connection = mysql_dbc.init();
         var query = " SELECT COUNT(*) AS TOTAL FROM MEMBER ";

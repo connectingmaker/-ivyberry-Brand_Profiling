@@ -28,6 +28,21 @@ $(function() {
     $("#searchBtn").click(function() {
         $("#searchForm").submit();
     });
+
+    $("#excelDown").click(function() {
+        /*
+        var params = {
+            searchName : $("#searchNameTemp").val()
+        };
+        common.ajax.send("/users/excelDown", params);
+        common.ajax.return = function (data) {
+
+
+        }
+        */
+
+        location.href = "/users/excelDown?searchName="+$("#searchNameTemp").val();
+    });
     
 
 });

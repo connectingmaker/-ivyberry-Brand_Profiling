@@ -72,11 +72,113 @@ router.get('/list', function(req, res, next) {
                     console.log(err);
                 }
                 var userData = rows;
-                res.render('users/list', { moment:moment, pageHtml: boostrapPaginator, userData: userData, totalData: totalData });
+                res.render('users/list', { moment:moment, pageHtml: boostrapPaginator, userData: userData, totalData: totalData, searchName : searchName });
             });
         });
     });
 
+});
+
+router.get("/excelDown", function(req, res) {
+    var searchName = req.query.searchName;
+    if(searchName == undefined) {
+        searchName = "";
+    }
+
+    var conf={}
+    conf.cols=[
+        {
+            caption:'UID',
+            type:'string',
+            width:40
+        },
+        {
+            caption:'등급',
+            type:'string',
+            width:40
+        },
+        {
+            caption:'회원유형',
+            type:'string',
+            width:50
+        },
+        {
+            caption:'이름',
+            type:'string',
+            width:30
+        },
+        {
+            caption:'이메일',
+            type:'string',
+            width:50
+        },
+        {
+            caption:'전화번호',
+            type:'string',
+            width:30
+        },
+        {
+            caption:'포인트',
+            type:'int',
+            width:20
+        },
+        {
+            caption:'참여설문',
+            type:'int',
+            width:20
+        }
+    ];
+
+
+
+    muser.getMemberListDown(searchName, function(err, rows) {
+
+        var data = rows;
+
+        var dataArry = [];
+        if(data.length != 0) {
+            var arr = [];
+            data.forEach(function (v, i) {
+
+                var UID = v.UID;
+                var facebook = v.FACEBOOK_ID;
+                var membertype = "";
+                if(facebook == 0) {
+                    membertype = "일반회원";
+                } else {
+                    membertype = "페이스북";
+                }
+
+                var code_grade = v.CODE_NAME;
+                var username = v.USERNAME;
+                var useremail = v.USEREMAIL;
+                var userphone = v.USERPHONE;
+                var userpoint = v.POINT;
+                if(userpoint == "") {
+                    userpoint = 0;
+                }
+                var joinsurvey = v.JOIN_TOTAL;
+                if(joinsurvey == "") {
+                    joinsurvey = 0;
+                }
+
+                requestDownload=[UID,membertype,code_grade,username,useremail,userphone,String(userpoint),String(joinsurvey)];
+                console.log(requestDownload);
+                arr.push(requestDownload);
+            });
+
+            console.log(arr);
+
+            conf.rows = arr;
+
+            var result = nodeExcel.execute(conf);
+            res.setHeader('Content-Type', 'application/vnd.openxmlformats');
+            res.setHeader("Content-Disposition","attachment;filename=MEMBERDATA.xlsx");
+            res.end(result, 'binary');
+        } else {
+            res.send("데이터가 존재하지 않습니다.");
+        }
+    });
 });
 
 

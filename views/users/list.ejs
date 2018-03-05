@@ -1,3 +1,5 @@
+<input type="hidden" id="searchNameTemp" value="<%=searchName%>">
+
 <div class="row">
     <div class="row">
         <div class="col-xs-12">
@@ -11,18 +13,14 @@
     </div>
 
     <div class="col-xs-12 bg-white box round_box push-20-t">
-
         <div class="row">
-            <div class="col-xs-10 title">
-                <h3 class="block-title">사용자 목록</h3>
-            </div>
-            <div class="col-xs-2 text-right">
-                <a href="/users/write" class="btn btn-sm btn-danger btn-rounded">회원 추가</a>
+            <div class="col-xs-12 title">
+                <h3 class="block-title">사용자 통계</h3>
             </div>
 
         </div>
 
-        <div class="row push-10-t">
+        <div class="row push-20-t">
             <div class="col-xs-4">
                 <table id="list" class="table table-bordered fontsize">
                     <col width="33%">
@@ -78,17 +76,33 @@
                     <col width="50%">
                     <thead>
                     <tr>
-                        <th>가입(오늘)</th>
-                        <th>탈퇴</th>
+                        <th class="text-center">가입(오늘)</th>
+                        <th class="text-center">탈퇴</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <td><%=totalData.TODAY_JOIN%></td>
-                    <td><%=totalData.DROP_CNT%></td>
+                    <td class="text-center"><%=totalData.TODAY_JOIN%></td>
+                    <td class="text-center"><%=totalData.DROP_CNT%></td>
                     </tbody>
                 </table>
             </div>
         </div>
+    </div>
+
+    <div class="col-xs-12 bg-white box round_box push-20-t">
+
+        <div class="row">
+            <div class="col-xs-8 title">
+                <h3 class="block-title">사용자 목록</h3>
+            </div>
+            <div class="col-xs-4 text-right">
+                <a href="#" id="excelDown" class="btn btn-sm btn-success btn-rounded">엑셀 다운로드</a>
+                <a href="/users/write" class="btn btn-sm btn-danger btn-rounded">회원 추가</a>
+            </div>
+
+        </div>
+
+
 
         <div class="row push-10-t">
             <div class="col-xs-12">
