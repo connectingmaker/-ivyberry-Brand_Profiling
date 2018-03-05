@@ -27,52 +27,56 @@ router.get('/list', function(req, res, next) {
     var viewCnt = 10;
 
 
-    muser.getMemberCount(searchName, function(err, count_rows) {
-        total = count_rows[0].TOTAL;
-        start = viewCnt * (page - 1);
+    muser.sp_MEMBER_TOTAL(function(err, rows) {
+        var totalData = rows[0][0];
+        muser.getMemberCount(searchName, function(err, count_rows) {
+            total = count_rows[0].TOTAL;
+            start = viewCnt * (page - 1);
 
 
-        var boostrapPaginator = new pagination.TemplatePaginator({
-            prelink:'/users/list', current: page, rowsPerPage: 10,
-            totalResult: total, slashSeparator: true,
-            template: function(result) {
-                var i, len, prelink;
-                var html = '<div><ul class="pagination">';
-                if(result.pageCount < 2) {
+            var boostrapPaginator = new pagination.TemplatePaginator({
+                prelink:'/users/list', current: page, rowsPerPage: 10,
+                totalResult: total, slashSeparator: true,
+                template: function(result) {
+                    var i, len, prelink;
+                    var html = '<div><ul class="pagination">';
+                    if(result.pageCount < 2) {
+                        html += '</ul></div>';
+                        return html;
+                    }
+                    prelink = this.preparePreLink(result.prelink);
+                    if(result.previous) {
+                        html += '<li><a href="./?page=' + result.previous + '&searchName='+searchName+'">' + this.options.translator('PREVIOUS') + '</a></li>';
+                    }
+                    if(result.range.length) {
+                        for( i = 0, len = result.range.length; i < len; i++) {
+                            if(result.range[i] === result.current) {
+                                html += '<li class="active"><a href="?page=' + result.range[i] + '&searchName='+searchName+'">' + result.range[i] + '</a></li>';
+                            } else {
+                                html += '<li><a href="?page=' + result.range[i] + '&searchName='+searchName+'">' + result.range[i] + '</a></li>';
+                            }
+                        }
+                    }
+                    if(result.next) {
+                        html += '<li><a href="?page=' + result.next + '&searchName='+searchName+'" class="paginator-next">' + this.options.translator('NEXT') + '</a></li>';
+                    }
                     html += '</ul></div>';
                     return html;
                 }
-                prelink = this.preparePreLink(result.prelink);
-                if(result.previous) {
-                    html += '<li><a href="./?page=' + result.previous + '&searchName='+searchName+'">' + this.options.translator('PREVIOUS') + '</a></li>';
-                }
-                if(result.range.length) {
-                    for( i = 0, len = result.range.length; i < len; i++) {
-                        if(result.range[i] === result.current) {
-                            html += '<li class="active"><a href="?page=' + result.range[i] + '&searchName='+searchName+'">' + result.range[i] + '</a></li>';
-                        } else {
-                            html += '<li><a href="?page=' + result.range[i] + '&searchName='+searchName+'">' + result.range[i] + '</a></li>';
-                        }
-                    }
-                }
-                if(result.next) {
-                    html += '<li><a href="?page=' + result.next + '&searchName='+searchName+'" class="paginator-next">' + this.options.translator('NEXT') + '</a></li>';
-                }
-                html += '</ul></div>';
-                return html;
-            }
-        });
+            });
 
 
 
-        muser.getMemberList(start, searchName, function(err, rows) {
-            if(err) {
-                console.log(err);
-            }
-            var userData = rows;
-            res.render('users/list', { moment:moment, pageHtml: boostrapPaginator, userData: userData });
+            muser.getMemberList(start, searchName, function(err, rows) {
+                if(err) {
+                    console.log(err);
+                }
+                var userData = rows;
+                res.render('users/list', { moment:moment, pageHtml: boostrapPaginator, userData: userData, totalData: totalData });
+            });
         });
     });
+
 });
 
 

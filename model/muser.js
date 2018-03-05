@@ -29,6 +29,15 @@ var muser = {
         connection.end();
         return data;
     }
+    ,sp_MEMBER_TOTAL: function(callback) {
+        var connection = mysql_dbc.init();
+        var query = " call sp_MEMBER_TOTAL()";
+        var params = [];
+
+        var data = connection.query(query,params,callback);
+        connection.end();
+        return data;
+    }
     ,sp_MEMBER_SELECT: function(uid, callback) {
         var connection = mysql_dbc.init();
         var query = " call sp_MEMBER_SELECT(?)";

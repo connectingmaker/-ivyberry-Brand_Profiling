@@ -11,6 +11,7 @@
     </div>
 
     <div class="col-xs-12 bg-white box round_box push-20-t">
+
         <div class="row">
             <div class="col-xs-10 title">
                 <h3 class="block-title">사용자 목록</h3>
@@ -19,6 +20,74 @@
                 <a href="/users/write" class="btn btn-sm btn-danger btn-rounded">회원 추가</a>
             </div>
 
+        </div>
+
+        <div class="row push-10-t">
+            <div class="col-xs-4">
+                <table id="list" class="table table-bordered fontsize">
+                    <col width="33%">
+                    <col width="33%">
+                    <col width="33%">
+                    <thead>
+                    <tr>
+                        <th class="text-center">전체회원수</th>
+                        <th class="text-center">일반회원</th>
+                        <th class="text-center">페이스북</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <td class="text-center"><%=totalData.DEFAULT_CNT+totalData.FACEBOOK_CNT%></td>
+                    <td class="text-center"><%=totalData.DEFAULT_CNT%></td>
+                    <td class="text-center"><%=totalData.FACEBOOK_CNT%></td>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="col-xs-4">
+                <table id="list" class="table table-bordered fontsize">
+                    <col width="16%">
+                    <col width="16%">
+                    <col width="16%">
+                    <col width="16%">
+                    <col width="16%">
+                    <col width="16%">
+                    <thead>
+                    <tr>
+                        <th class="text-center">레벨0</th>
+                        <th class="text-center">레벨1</th>
+                        <th class="text-center">레벨2</th>
+                        <th class="text-center">레벨3</th>
+                        <th class="text-center">레벨4</th>
+                        <th class="text-center">레벨5</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <td class="text-center"><%=totalData.LEVEL0%></td>
+                    <td class="text-center"><%=totalData.LEVEL1%></td>
+                    <td class="text-center"><%=totalData.LEVEL2%></td>
+                    <td class="text-center"><%=totalData.LEVEL3%></td>
+                    <td class="text-center"><%=totalData.LEVEL4%></td>
+                    <td class="text-center"><%=totalData.LEVEL5%></td>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="col-xs-4">
+                <table id="list" class="table table-bordered fontsize">
+                    <col width="50%">
+                    <col width="50%">
+                    <thead>
+                    <tr>
+                        <th>가입(오늘)</th>
+                        <th>탈퇴</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <td><%=totalData.TODAY_JOIN%></td>
+                    <td><%=totalData.DROP_CNT%></td>
+                    </tbody>
+                </table>
+            </div>
         </div>
 
         <div class="row push-10-t">
