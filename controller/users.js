@@ -724,4 +724,20 @@ router.post("/panelDelete", function(req, res) {
     })
 });
 
+router.post("/adminPwdUpdate", function(req, res) {
+    var now_passwd = req.body.now_passwd;
+    var reset_passwd = req.body.reset_passwd;
+
+    muser.sp_ADMIN_PWD_CHANGE(now_passwd, reset_passwd, function(err, rows) {
+        if(err) {
+            console.log(err);
+            throw err;
+        }
+
+        var data = rows[0][0];
+
+        res.send(data);
+    })
+});
+
 module.exports = router;

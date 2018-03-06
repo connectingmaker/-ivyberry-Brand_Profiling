@@ -400,6 +400,16 @@ var muser = {
         connection.end();
         return data;
     }
+    ,sp_ADMIN_PWD_CHANGE:function(now_passwd, reset_passwd, callback) {
+        var connection = mysql_dbc.init();
+        var query = " call sp_ADMIN_PWD_CHANGE(?, ?) ";
+        var params = [];
+        params.push(now_passwd);
+        params.push(reset_passwd);
+        var data = connection.query(query,params,callback);
+        connection.end();
+        return data;
+    }
 
 }
 

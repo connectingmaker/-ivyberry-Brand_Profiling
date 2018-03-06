@@ -50,7 +50,7 @@
                 </div>
                 <div class="logout">
                     <ul>
-                        <li>관리자<span>(Master)</span></li>
+                        <li>관리자<a href="#" id="adminPwd"><span>(패스워드변경)</span></a></li>
                         <li style="padding-left:10px;">
                             <a href="/logout" class="btn btn-danger btn-sm">로그아웃</a>
                         </li>
@@ -96,6 +96,59 @@
 </div>
 <!-- END Page Container -->
 
+
+
+<!-- 단일선택형 등록폼 모달 -->
+<div class="modal fade" id="adminModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="block block-themed block-transparent remove-margin-b">
+                <div class="block-header bg-primary-dark">
+                    <ul class="block-options">
+                        <li>
+                            <button data-dismiss="modal" type="button"><i class="si si-close"></i></button>
+                        </li>
+                    </ul>
+                    <h3 class="block-title">관리자패스워드 변경</h3>
+                </div>
+                <div class="block-content">
+                    <input type="hidden" id="img_code">
+                    <table class="table table-bordered fontsize">
+                        <col width="15%">
+                        <col width="85%">
+                        <tbody>
+                        <tr>
+                            <th class="text-center">현재 패스워드<span class="check">*</span></th>
+                            <td >
+                                <input type="password" id="now_passwd" class="form-control" placeholder="통계 활용에 쓰일 질문이름(키워드)을 입력해주세요.(필수)">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="text-center">변경 패스워드<span class="check">*</span></th>
+                            <td>
+                                <input type="password" id="reset_passwd" class="form-control" placeholder="설문참여시 사용자에게 보여질 질문 내용을 입력해주세요.(필수)">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="text-center">변경 패스워드 확인</th>
+                            <td colspan="7">
+                                <input type="password" id="reset_passwd_ok" class="form-control" placeholder="영문 질문 설명을 입력해주세요.">
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-sm btn-default" type="button" data-dismiss="modal">닫기</button>
+                <button id="pwdSave" class="btn btn-sm btn-danger" type="button"><i class="fa fa-check"></i> 저장</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 </body>
 <script src="/assets/js/core/jquery-1.12.4.min.js"></script>
 <script src="/assets/js/core/bootstrap.min.js"></script>
@@ -117,6 +170,56 @@
     $(function () {
         // Init page helpers (BS Datepicker + BS Datetimepicker + BS Colorpicker + BS Maxlength + Select2 + Masked Input + Range Sliders + Tags Inputs plugins)
         App.initHelpers(['datepicker', 'datetimepicker', 'colorpicker', 'maxlength', 'select2', 'masked-inputs', 'rangeslider', 'tags-inputs']);
+    });
+</script>
+<script language="javascript">
+    $(function() {
+        $("#adminPwd").click(function() {
+            $("#adminModal").modal("show");
+        });
+
+        $("#pwdSave").click(function() {
+            if($("#now_passwd").val() == false) {
+                alert("현재 패스워드를 입력해주세요.");
+                $("#now_passwd").focus();
+                return;
+            }
+
+            if($("#reset_passwd").val() == false) {
+                alert("변경할 패스워드를 입력해주세요.");
+                $("#reset_passwd").focus();
+                return;
+            }
+
+            if($("#reset_passwd_ok").val() == false) {
+                alert("변경할 패스워드가 일치하지 않습니다.");
+                $("#reset_passwd_ok").focus();
+                return;
+            }
+
+            var jsonData = {
+                now_passwd : $("#now_passwd").val()
+                ,reset_passwd : $("#reset_passwd").val()
+            }
+
+            common.ajax.send('/users/adminPwdUpdate', jsonData);
+            common.ajax.return = function(data) {
+                switch (data.ERR_CODE) {
+                    case "000":
+                        alert("정상적으로 업데이트 되었습니다.");
+                        $("#adminModal").modal("hide");
+                        break;
+                    default:
+                        alert(data.ERR_MSG);
+                        $("#now_passwd").val("");
+                        $("#reset_passwd").val("");
+                        $("#reset_passwd_ok").val("");``
+
+                        break;
+                }
+            }
+        });
+        //adminModal
     });
 </script>
 <%- script %>
