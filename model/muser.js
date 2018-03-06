@@ -410,6 +410,16 @@ var muser = {
         connection.end();
         return data;
     }
+    ,sp_USERS_STATIC:function(startdate, enddate, callback) {
+        var connection = mysql_dbc.init();
+        var query = " call sp_USERS_STATIC(?, ?) ";
+        var params = [];
+        params.push(startdate);
+        params.push(enddate);
+        var data = connection.query(query,params,callback);
+        connection.end();
+        return data;
+    }
 
 }
 

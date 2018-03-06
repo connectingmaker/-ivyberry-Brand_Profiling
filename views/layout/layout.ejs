@@ -40,12 +40,20 @@
                     <ul>
                         <li><a href="/campaign/list" class="campaign">설문관리</a></li>
                         <li><a href="/statistics/campaign" class="statistics">통계관리</a></li>
-                        <li><a href="/users/list" class="users">사용자관리</a></li>
+                        <!--<li><a href="/users/list" class="users">사용자관리</a></li>-->
                         <li><a href="/users/pointRequest" class="point">환급신청</a></li>
                         <li><a href="/brand/list" class="brand">브랜드관리</a></li>
                         <li><a href="/question/group" class="question">문항관리</a></li>
                         <li><a href="/notice/list" class="notice">공지사항</a></li>
-                        <li><a href="/users/panel" class="panel">전문패널관리</a></li>
+                        <li class="dropdown">
+                            <a href="/users/list" class="dropdown-toggle panel" data-toggle="dropdown">패널현황</a>
+                            <ul class="dropdown-menu">
+                                <li style="padding:0px;"><a href="/users/static">성/연령 현황</a></li>
+                                <li style="padding:0px;"><a href="/users/list">회원관리</a></li>
+                                <li style="padding:0px;"><a href="/users/panel">전문패널관리</a></li>
+                                <!--<li><a href="#">블랙리스트관리</a></li>-->
+                            </ul>
+                        </li>
                     </ul>
                 </div>
                 <div class="logout">
@@ -58,16 +66,9 @@
                 </div>
             </div>
         </div>
-        <!--
-        <div class="top_gnb_menu_sub" style="display:none;">
-            <div class="menu">
-                <div class="menu_btn">
-                    <ul>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        -->
+
+
+
     </header>
     <!-- END Header -->
 
@@ -120,19 +121,19 @@
                         <tr>
                             <th class="text-center">현재 패스워드<span class="check">*</span></th>
                             <td >
-                                <input type="password" id="now_passwd" class="form-control" placeholder="통계 활용에 쓰일 질문이름(키워드)을 입력해주세요.(필수)">
+                                <input type="password" id="now_passwd" class="form-control" placeholder="현재 패스워드">
                             </td>
                         </tr>
                         <tr>
                             <th class="text-center">변경 패스워드<span class="check">*</span></th>
                             <td>
-                                <input type="password" id="reset_passwd" class="form-control" placeholder="설문참여시 사용자에게 보여질 질문 내용을 입력해주세요.(필수)">
+                                <input type="password" id="reset_passwd" class="form-control" placeholder="변경할 패스워드">
                             </td>
                         </tr>
                         <tr>
                             <th class="text-center">변경 패스워드 확인</th>
                             <td colspan="7">
-                                <input type="password" id="reset_passwd_ok" class="form-control" placeholder="영문 질문 설명을 입력해주세요.">
+                                <input type="password" id="reset_passwd_ok" class="form-control" placeholder="변경할 패스워드 확인">
                             </td>
                         </tr>
                         </tbody>
@@ -213,11 +214,18 @@
                         alert(data.ERR_MSG);
                         $("#now_passwd").val("");
                         $("#reset_passwd").val("");
-                        $("#reset_passwd_ok").val("");``
+                        $("#reset_passwd_ok").val("");
 
                         break;
                 }
             }
+        });
+
+        $('ul li.dropdown').hover(function() {
+            console.log("OK");
+            $(this).find('.dropdown-menu').stop(true, true).delay(100).fadeIn(100);
+        }, function() {
+            $(this).find('.dropdown-menu').stop(true, true).delay(100).fadeOut(100);
         });
         //adminModal
     });

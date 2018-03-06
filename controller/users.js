@@ -11,6 +11,21 @@ var nodeExcel=require('excel-export');
 
 /* GET users listing. */
 
+
+router.get("/static", function(req, res) {
+    muser.sp_USERS_STATIC('', '', function(err,rows) {
+        if(err) {
+            console.log(err);
+            throw err;
+        }
+
+        var data = rows[0];
+
+        res.render('users/static', {staticData:data});
+    });
+
+});
+
 router.get('/list', function(req, res, next) {
     var page = req.query.page;
     if(page == undefined) {

@@ -1,0 +1,64 @@
+
+
+<div class="row">
+
+    <div class="col-xs-12 bg-white box round_box push-20-t">
+        <div class="row">
+            <div class="col-xs-12 title">
+                <h3 class="block-title">성/연령별 현황</h3>
+            </div>
+
+        </div>
+
+        <div class="row push-20-t">
+            <div class="col-xs-12">
+                <table id="list" class="table table-bordered fontsize">
+                    <col width="20%">
+                    <col width="10%">
+                    <col width="20%">
+                    <col width="10%">
+                    <col width="20%">
+                    <col width="10%">
+                    <col width="10%">
+                    <thead>
+                    <tr>
+                        <th rowspan="2" class="text-center">연령구간</th>
+                        <th colspan="4" class="text-center">성별</th>
+                        <th rowspan="2" class="text-center">전체</th>
+                        <th rowspan="2" class="text-center">구성비</th>
+                    </tr>
+
+                    <tr>
+                        <th class="text-center">남자</th>
+                        <th class="text-center">구성비</th>
+                        <th class="text-center">여자</th>
+                        <th class="text-center">구성비</th>
+                    </tr>
+
+                    </thead>
+                    <tbody>
+                    <% for(var i = 0; i<staticData.length; i++) { %>
+                        <tr>
+                            <td class="text-center"><%=staticData[i].START_AGE%>세 ~ <%=staticData[i].END_AGE%>세</td>
+                            <td class="text-center"><%=staticData[i].MAN_CNT%></td>
+                            <td class="text-center"><%=staticData[i].MAN_RATIO%>%</td>
+                            <td class="text-center"><%=staticData[i].WOMAN_CNT%></td>
+                            <td class="text-center"><%=staticData[i].WOMAN_RATIO%>%</td>
+                            <td class="text-center"><%=staticData[i].TOTAL%></td>
+                            <td class="text-center"><%=staticData[i].TOTAL_RATIO%>%</td>
+                        </tr>
+                    <% } %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+
+</div>
+
+
+
+
+<script language="javascript" src="/view_js/users/list.js"></script>
