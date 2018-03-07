@@ -92,6 +92,8 @@ $(function() {
                 template += "<td class='text-center'>"+returnData[i].QUEST_NUM+"차</td>";
                 template += "<td class='text-center'>"+returnData[i].TOTAL+"</td>";
                 template += "<td class='text-center'>"+returnData[i].SUM_POINT+"</td>";
+                template += "<td class='text-center'>"+returnData[i].SURVEY_TIME+"분</td>";
+                template += "<td class='text-center'>"+returnData[i].AVG_TIME+"분</td>";
                 template += "<td class='text-center'><a href='/survey/start?campaign_code="+returnData[i].CAMPAIGN_CODE+"&uid=99999999999999999001&quest_num="+returnData[i].QUEST_NUM+"&debug=true' target='_blank' class='btn btn-xs btn-success'>테스트</a>&nbsp;<a href='/campaign/campaignRawData/"+returnData[i].CAMPAIGN_CODE+"/"+returnData[i].QUEST_NUM+"' class=\"btn btn-xs btn-danger\">다운로드</a>&nbsp;<a href='/statistics/group/"+returnData[i].CAMPAIGN_CODE+"/"+returnData[i].QUEST_NUM+"' class=\"btn btn-xs btn-danger\">통계</a></td>";
                 template += "</tr>";
 
@@ -102,6 +104,8 @@ $(function() {
             template += "<td class='text-center bg-city-dark text-white'>합계</td>";
             template += "<td class='text-center bg-city-dark text-white'>"+total+"</td>";
             template += "<td class='text-center bg-city-dark text-white'>"+total_point+"</td>";
+            template += "<td class='text-center bg-city-dark text-white'></td>"
+            template += "<td class='text-center bg-city-dark text-white'></td>"
             template += "<td class='text-center bg-city-dark text-white'></td>"
             template += "</tr>";
 
