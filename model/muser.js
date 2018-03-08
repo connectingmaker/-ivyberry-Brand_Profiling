@@ -110,7 +110,7 @@ var muser = {
         query += " , M.USERNAME ";
         query += " , M.USEREMAIL ";
         query += " , M.SEX ";
-        query += " , M.BIRTHDAY ";
+        query += " , IFNULL(fn_AGE(IFNULL(MD.BRITHDAY,0)),'') AGE ";
         query += " , M.POINT ";
         query += " , M.JOIN_SURVEY_CNT ";
         query += " , fn_DECKEY(M.USERPHONE) USERPHONE "
@@ -120,14 +120,22 @@ var muser = {
         query += " , CG.CODE_GRADE ";
         query += " , CG.CODE_NAME ";
         query += " , CG.CODE_DESC ";
+        query += " , CA.AREA_NAME AREA_NAME ";
+        query += " , CMM.CODE_NAME MONTH_MONEY ";
         query += " , (SELECT COUNT(*) FROM DATA_JOIN WHERE UID = M.UID AND ENDTYPE='E') JOIN_TOTAL"
         query += " FROM MEMBER M INNER JOIN CODE_GRADE CG ON(M.CODE_GRADE = CG.CODE_GRADE) ";
+        query += " LEFT JOIN MEMBER_DETAIL MD ON(M.UID = MD.UID) ";
+        query += " LEFT JOIN CODE_AREA CA ON(MD.SIDO = CA.CODE_AREA) ";
+        query += " LEFT JOIN CODE_MONTH_MONEY CMM ON(MD.MONTH_MONEY = CMM.CODE) ";
         if(searchName != "") {
             query += " WHERE (M.USERNAME LIKE '"+searchName+"%' OR M.USEREMAIL LIKE '%"+searchName+"%')";
-
+            query += " AND M.CODE_GRADE > 0";
+        } else {
+            query += " WHERE M.CODE_GRADE > 0 ";
         }
         query += " ORDER BY M.INSERT_DATETIME DESC ";
 
+        console.log(query);
 
 
         var params = [];

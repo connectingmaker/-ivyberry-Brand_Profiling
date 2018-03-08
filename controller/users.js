@@ -123,6 +123,26 @@ router.get("/excelDown", function(req, res) {
             width:30
         },
         {
+            caption:'성별',
+            type:'string',
+            width:30
+        },
+        {
+            caption:'연령',
+            type:'string',
+            width:30
+        },
+        {
+            caption:'지역',
+            type:'string',
+            width:30
+        },
+        {
+            caption:'월평균',
+            type:'string',
+            width:30
+        },
+        {
             caption:'이메일',
             type:'string',
             width:50
@@ -166,6 +186,10 @@ router.get("/excelDown", function(req, res) {
 
                 var code_grade = v.CODE_NAME;
                 var username = v.USERNAME;
+                var sex = v.SEX;
+                var age = v.AGE;
+                var area = v.AREA_NAME;
+                var month_money = v.MONTH_MONEY;
                 var useremail = v.USEREMAIL;
                 var userphone = v.USERPHONE;
                 var userpoint = v.POINT;
@@ -177,7 +201,7 @@ router.get("/excelDown", function(req, res) {
                     joinsurvey = 0;
                 }
 
-                requestDownload=[UID,membertype,code_grade,username,useremail,userphone,String(userpoint),String(joinsurvey)];
+                requestDownload=[UID,membertype,code_grade,username,sex,age,area,month_money,useremail,userphone,String(userpoint),String(joinsurvey)];
                 console.log(requestDownload);
                 arr.push(requestDownload);
             });
