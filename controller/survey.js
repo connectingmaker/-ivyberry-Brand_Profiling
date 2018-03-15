@@ -368,71 +368,83 @@ router.get("/page", function(req, res) {
 
             var surveyQ = rows[0][0];
 
-            msurvey.surveyQA(surveyQ.Q_CODE, function(err, rows) {
+            msurvey.surveyPageCnt(seq, campaign_code, quest_num, page, function(err, cnt_row) {
                 if(err) {
                     console.log(err);
-                }
-                console.log(rows);
-
-                var surveyQA = rows;
-                if(quest_num == 1) {
-                    msurvey.brandListSelect(uid, quest_num, campaign_code, function (err, rows) {
-                        if(err) {
-                            console.log(err);
-                        }
-
-                        console.log(rows[0]);
-
-                        var brandList = rows[0];
-
-
-
-                        res.render('survey/template/' + surveyQ.QUESTION_TYPE
-                            , {
-                                layout: 'layout/survey_page'
-                                , campaign_code: campaign_code
-                                , quest_num: quest_num
-                                , uid: uid
-                                , seq: seq
-                                , page: page
-                                , surveyQ: surveyQ
-                                , surveyQA: surveyQA
-                                , brandList: brandList
-                                , debug: debug
-                            });
-
-                    });
-                } else {
-
-                    msurvey.brandListSelect(uid, 1, campaign_code, function (err, rows) {
-                        if(err) {
-                            console.log(err);
-                        }
-
-                        var brandList = rows[0];
-
-
-
-
-                        res.render('survey/template/' + surveyQ.QUESTION_TYPE
-                            , {
-                                layout: 'layout/survey_page'
-                                , campaign_code: campaign_code
-                                , quest_num: quest_num
-                                , uid: uid
-                                , seq: seq
-                                , page: page
-                                , surveyQ: surveyQ
-                                , surveyQA: surveyQA
-                                , brandList: brandList
-                                , debug: debug
-                            });
-
-                    });
-
+                    throw err;
                 }
 
+                var total_per = cnt_row[0][0].TOTAL_PER;
 
+
+                msurvey.surveyQA(surveyQ.Q_CODE, function(err, rows) {
+                    if(err) {
+                        console.log(err);
+                    }
+                    console.log(rows);
+
+                    var surveyQA = rows;
+                    if(quest_num == 1) {
+                        msurvey.brandListSelect(uid, quest_num, campaign_code, function (err, rows) {
+                            if(err) {
+                                console.log(err);
+                            }
+
+                            console.log(rows[0]);
+
+                            var brandList = rows[0];
+
+
+
+                            res.render('survey/template/' + surveyQ.QUESTION_TYPE
+                                , {
+                                    layout: 'layout/survey_page'
+                                    , campaign_code: campaign_code
+                                    , quest_num: quest_num
+                                    , uid: uid
+                                    , seq: seq
+                                    , page: page
+                                    , surveyQ: surveyQ
+                                    , surveyQA: surveyQA
+                                    , brandList: brandList
+                                    , debug: debug
+                                    , total_per: total_per
+                                });
+
+                        });
+                    } else {
+
+                        msurvey.brandListSelect(uid, 1, campaign_code, function (err, rows) {
+                            if(err) {
+                                console.log(err);
+                            }
+
+                            var brandList = rows[0];
+
+
+
+
+                            res.render('survey/template/' + surveyQ.QUESTION_TYPE
+                                , {
+                                    layout: 'layout/survey_page'
+                                    , campaign_code: campaign_code
+                                    , quest_num: quest_num
+                                    , uid: uid
+                                    , seq: seq
+                                    , page: page
+                                    , surveyQ: surveyQ
+                                    , surveyQA: surveyQA
+                                    , brandList: brandList
+                                    , debug: debug
+                                    , total_per: total_per
+                                });
+
+                        });
+
+                    }
+
+
+                });
             });
         }
     });

@@ -25,6 +25,16 @@ var msurvey = {
         connection.end();
         return data;
     }
+    ,surveyPageCnt: function(seq, campaign_code, quest_num, page, callback) {
+        var connection = mysql_dbc.init();
+        var query = " call sp_SURVEY_PAGE_CNT(?, ?, ?, ?) ";
+        var params = [];
+        params.push(seq, campaign_code, quest_num, page);
+
+        var data = connection.query(query, params, callback);
+        connection.end();
+        return data;
+    }
     ,surveyPageCheck: function(campaign_code, quest_num, page_num, callback) {
         var connection = mysql_dbc.init();
         var query = " call sp_SURVEY_PAGE_CHECK(?, ?, ?) ";
