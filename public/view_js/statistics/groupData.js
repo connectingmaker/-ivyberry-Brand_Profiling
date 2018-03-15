@@ -18,6 +18,7 @@ $(function() {
     var quest_num = $("#quest_num").val();
     $(".chartList").each(function() {
         var id = $(this).attr("id");
+        var q_code = id;
         var question_type = $(this).attr("question_type");
 
         var json = {
@@ -27,6 +28,7 @@ $(function() {
             ,quest_num : quest_num
 
         };
+        console.log(json);
 
 
         common.ajax.send("/statistics/groupData", json);
@@ -42,60 +44,59 @@ $(function() {
 
                 /************* 척도형 ************/
                 case "1":
+                    var table = "";
+
+                    table += "<tr>";
+                    table += "<td width='20%' class='text-center' style='font-size:14px;font-weight: bold;'>총참여자수 : ("+returnData[0].TOTAL_CNT+"명)</td>";
+                    table += "<td class='text-center' style='padding:10px 5px;'>";
+                    table += "<div style='width:50px;background-color:#3272f4;color:#fff;float:right;margin-left:5px;'>7점</div>";
+                    table += "<div style='width:50px;background-color:#4c9ba5;color:#fff;float:right;margin-left:5px;'>6점</div>";
+                    table += "<div style='width:50px;background-color:#a2b9bf;color:#fff;float:right;margin-left:5px;'>5점</div>";
+                    table += "<div style='width:50px;background-color:#bfa6bc;color:#fff;float:right;margin-left:5px;'>4점</div>";
+                    table += "<div style='width:50px;background-color:#c69671;color:#fff;float:right;margin-left:5px;'>3점</div>";
+                    table += "<div style='width:50px;background-color:#f7b885;color:#fff;float:right;margin-left:5px;'>2점</div>";
+                    table += "<div style='width:50px;background-color:#f19253;color:#fff;float:right;'>1점</div>";
+                    table += "</td>";
+                    table += "<td class='text-center' style='font-size:14px;font-weight: bold;'>평균</td>";
+                    table += "<td class='text-center' style='font-size:14px;font-weight: bold;'>답변자수</td>";
+                    table += "</tr>";
+
+                    table += "<tr>";
+                    table += "<td style='background-color:#f1f1f1;' colspan='4' height='2'></td>";
+                    table += "</tr>";
+
+                    table += "<tr>";
+                    table += "<td colspan='4' height='8'></td>";
+                    table += "</tr>";
+
+
                     for(var i = 0; i<returnData.length; i++) {
-                        data.labels.push(returnData[i].BRAND_NAME_KO);
-                        var brandName = "";
-                        if(i == 0) {
-                            brandName = returnData[i].BRAND_NAME_KO;
-                            var qa_title = returnData[i].QA_TITLE_KO;
-                            var qa_title_temp = qa_title.split(",");
-                            data.labels = [];
-                            for(var j = 0; j<qa_title_temp.length; j++)
-                            {
-                                data.labels.push(qa_title_temp[j]);
 
-                            }
+                        table += "<tr>";
+                        table += "<td class='text-right' width='20%' style='font-size:11px;'>"+returnData[i].BRAND_NAME_KO+"</td>";
+                        table += "<td style='padding:5px 10px;' class='text-center'>";
+                        table += "<table width='100%'>";
+                        table += "<tr>";
+                        table += "<td width='"+Math.round(returnData[i].QA1_DATA_PER)+"%' class='text-center' style='background-color:#f19253;color:#fff;font-size:10px;padding:5px 0px;'>"+returnData[i].QA1_DATA_PER+"%</td>";
+                        table += "<td width='"+Math.round(returnData[i].QA2_DATA_PER)+"%' class='text-center' style='background-color:#f7b885;color:#fff;font-size:10px;padding:5px 0px;'>"+returnData[i].QA2_DATA_PER+"%</td>";
+                        table += "<td width='"+Math.round(returnData[i].QA3_DATA_PER)+"%' class='text-center' style='background-color:#c69671;color:#fff;font-size:10px;padding:5px 0px;'>"+returnData[i].QA3_DATA_PER+"%</td>";
+                        table += "<td width='"+Math.round(returnData[i].QA4_DATA_PER)+"%' class='text-center' style='background-color:#bfa6bc;color:#fff;font-size:10px;padding:5px 0px;'>"+returnData[i].QA4_DATA_PER+"%</td>";
+                        table += "<td width='"+Math.round(returnData[i].QA5_DATA_PER)+"%' class='text-center' style='background-color:#a2b9bf;color:#fff;font-size:10px;padding:5px 0px;'>"+returnData[i].QA5_DATA_PER+"%</td>";
+                        table += "<td width='"+Math.round(returnData[i].QA6_DATA_PER)+"%' class='text-center' style='background-color:#4c9ba5;color:#fff;font-size:10px;padding:5px 0px;'>"+returnData[i].QA6_DATA_PER+"%</td>";
+                        table += "<td width='"+Math.round(returnData[i].QA7_DATA_PER)+"%' class='text-center' style='background-color:#3272f4;color:#fff;font-size:10px;padding:5px 0px;'>"+returnData[i].QA7_DATA_PER+"%</td>";
+                        table += "</tr>";
+                        table += "</table>";
+                        table += "</td>";
+                        table += "<td class='text-center' width='5%' style='font-size:11px;'>"+returnData[i].TOTAL_AVG+"</td>"
+                        table += "<td class='text-center' width='8%' style='font-size:11px;'>"+(returnData[i].ANSWER_TOTAL - returnData[i].NOT_ANSWER)+"명</td>"
+                        table += "</tr>";
 
-                        }
-                        label.push(returnData[i].BRAND_NAME_KO);
-                        dataValue.push(Math.round(returnData[i].TOTAL_PER));
-                        dataBackground.push("rgba(218, 66, 17, 1)");
-
-                        if(i == returnData.length -1) {
-                            var height = returnData.length * 50;
-                            $("#chart_"+returnData[i].Q_CODE).height(height);
-                            console.log(height);
-                            new Chart(document.getElementById("chart_"+returnData[i].Q_CODE).getContext('2d'), {
-                                type: 'horizontalBar',
-                                data: {
-                                    labels: label,
-                                    datasets: [
-                                        {
-                                            label: '점수',
-                                            data: dataValue,
-                                            backgroundColor: dataBackground,
-                                            borderColor: [
-                                                'rgba(255,99,132,1)'
-                                            ],
-                                            borderWidth: 1
-                                        }
-
-                                    ]
-                                },
-                                options: {
-                                    scales: {
-                                        xAxes: [{
-                                            ticks: {
-                                                min: 0 // Edit the value according to what you need
-                                                ,max: 100
-                                            }
-                                        }],
-                                    }
-
-                                }
-                            });
+                        if(i == returnData.length - 1) {
+                            $("#data_"+returnData[i].Q_CODE).html(table);
+                            $("#chart_"+returnData[i].Q_CODE).hide();
                         }
                     }
+
 
                     break;
                 case "2":
