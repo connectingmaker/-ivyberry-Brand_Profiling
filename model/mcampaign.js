@@ -464,6 +464,18 @@ var mcampaign = {
         connection.end();
         return data;
     }
+    ,sp_CAMPAIGN_USER_JOIN_LIST:function(campaign_code, quest_num, callback) {
+        var connection = mysql_dbc.init();
+        var query = " call sp_CAMPAIGN_USER_JOIN_LIST(?, ?) ";
+        var params = [];
+
+        params.push(campaign_code);
+        params.push(quest_num);
+
+        var data = connection.query(query,params,callback);
+        connection.end();
+        return data;
+    }
 }
 
 module.exports = mcampaign;

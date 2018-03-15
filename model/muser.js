@@ -428,6 +428,19 @@ var muser = {
         connection.end();
         return data;
     }
+    ,sp_MEMBER_BLACK_SAVE:function(uid, black_code, black_msg, campaign_code, quest_num, callback) {
+        var connection = mysql_dbc.init();
+        var query = " call sp_MEMBER_BLACK_SAVE(?, ?, ?, ?, ?) ";
+        var params = [];
+        params.push(uid);
+        params.push(black_code);
+        params.push(black_msg);
+        params.push(campaign_code);
+        params.push(quest_num);
+        var data = connection.query(query,params,callback);
+        connection.end();
+        return data;
+    }
 
 }
 

@@ -557,6 +557,39 @@ router.post("/campaignHidden", function(req, res) {
 
 });
 
+router.get("/joinUser/:campaign_code/:quest_num", function(req, res) {
+    var campaign_code = req.params.campaign_code;
+    var quest_num = req.params.quest_num;
+
+    mcampaign.get_campaign_select(campaign_code, function(err,row) {
+        console.log(row);
+        if(err) {
+            console.log(err);
+            throw err;
+        }
+
+        console.log(row);
+
+
+        var campaign = row[0];
+        mcampaign.sp_CAMPAIGN_USER_JOIN_LIST(campaign_code, quest_num, function(err,row) {
+            var list = row[0];
+            console.log(list);
+            res.render('campaign/joinUser', {
+                campaign : campaign
+                ,list : list
+                ,campaign_code: campaign_code
+                ,quest_num : quest_num
+                ,moment : moment
+            });
+        });
+
+    });
+
+
+
+});
+
 
 router.get("/campaignRawData/:code/:quest_num", function(req, res) {
     var campaign_code = req.params.code;

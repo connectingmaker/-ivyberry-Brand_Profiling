@@ -1,0 +1,131 @@
+<div class="row">
+    <div class="col-xs-12 bg-white box round_box">
+        <div class="row">
+
+
+            <div class="col-xs-12 title">
+                <a href="javascript:history.back()" class="btn btn-sm btn-default"><</a>&nbsp;&nbsp;&nbsp;[<%=campaign.CAMPAIGN_TITLE%>] - 검증대상자
+            </div>
+        </div>
+
+        <div class="contents_list">
+            <table id="list" class="table table-bordered fontsize">
+                <col width="5%">
+                <col width="10%">
+                <col width="5%">
+                <col width="5%">
+                <col width="20%">
+                <col width="10%">
+                <col width="10%">
+                <col width="5%">
+                <thead>
+                <tr>
+                    <th class="text-center">NO</th>
+                    <th class="text-center">이름</th>
+                    <th class="text-center">성별</th>
+                    <th class="text-center">연령</th>
+                    <th class="text-center">이메일<br>핸드폰번호</th>
+                    <th class="text-center">참여시간</th>
+                    <th class="text-center">완료시간</th>
+                    <th class="text-center">소요<br>시간</th>
+                    <th class="text-center">관리</th>
+                </tr>
+                </thead>
+                <tbody>
+                <% for(var i = 0; i<list.length; i++) { %>
+                <tr id="<%=list[i].UID%>">
+                    <td class="text-center"><%=list[i].SEQ%></td>
+                    <td class="text-center"><%=list[i].USERNAME%></td>
+                    <td class="text-center"><%=list[i].GENDER%></td>
+                    <td class="text-center"><%=list[i].AGE%></td>
+                    <td class="text-center">
+                        <%=list[i].USEREMAIL%>
+                        <br>
+                        <%=list[i].USERPHONE%>
+                    </td>
+                    <td class="text-center">
+                        <%=moment(list[i].START_DATETIME).format("YYYY-MM-DD hh:mm:ss")%>
+                    </td>
+                    <td class="text-center">
+                        <%=moment(list[i].END_DATETIME).format("YYYY-MM-DD hh:mm:ss")%>
+                    </td>
+                    <td class="text-center">
+                        <%=list[i].SUM_TIME%>분
+                    </td>
+                    <td class="text-center">
+                        <% if(list[i].BLACKLIST == "N") { %>
+                        <a href="#" id="blackBtn" class="blackClick btn btn-xs btn-danger">블랙리스트 등록</a>
+                        <% } else { %>
+                        <a href="#" id="blackBtn" class="blackClick btn btn-xs btn-primary">블랙리스트 해제</a>
+                        <% } %>
+                    </td>
+                </tr>
+                <% } %>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+
+
+<input type="hidden" id="campaign_code" value="<%=campaign_code%>">
+<input type="hidden" id="quest_num" value="<%=quest_num%>">
+
+<!-- 블랙리스트 등록 -->
+<div class="modal fade" id="blacklistModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="block block-themed block-transparent remove-margin-b">
+                <div class="block-header bg-primary-dark">
+                    <ul class="block-options">
+                        <li>
+                            <button data-dismiss="modal" type="button"><i class="si si-close"></i></button>
+                        </li>
+                    </ul>
+                    <h3 class="block-title">블랙리스트 등록</h3>
+                </div>
+                <div class="block-content">
+                    <input type="hidden" id="question_code">
+                    <table class="table table-bordered fontsize">
+                        <div style="padding-bottom: 10px;">
+                            <span style="font-size: 10px; padding: 5px; color:#999;">* 블랙리스트에 등록되면 이후 설문은 APP에서 설문조사가 노출되지 않습니다.</span>
+                        </div>
+                        <col width="15%">
+                        <col width="85%">
+                        <tbody>
+                        <tr>
+                            <th class="text-center">사유등록<span class="check">*</span></th>
+                            <td colspan="5">
+                                <select id="black_code" class="form-control">
+                                    <option value="">-사유-</option>
+                                    <option value="1">중복가입</option>
+                                    <option value="2">불성실응답</option>
+                                    <option value="3">기타</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="text-center">참조<span class="check">*</span></th>
+                            <td colspan="5">
+                                <input type="text" id="black_etc" class="form-control" placeholder="참조할 내용을 입력해주세요.">
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+
+
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-sm btn-default" type="button" data-dismiss="modal">닫기</button>
+                <button id="blackSave" class="btn btn-sm btn-danger" type="button"><i class="fa fa-check"></i> 저장</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script language="javascript" src="/view_js/campaign/joinUser.js"></script>

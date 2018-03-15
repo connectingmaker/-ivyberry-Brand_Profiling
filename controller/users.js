@@ -779,4 +779,32 @@ router.post("/adminPwdUpdate", function(req, res) {
     })
 });
 
+router.post("/blackProcess", function(req, res) {
+    var uid = req.body.uid;
+    var black_code = req.body.black_code;
+    var black_etc = req.body.black_etc;
+    var campaign_code = req.body.campaign_code;
+    var quest_num = req.body.quest_num;
+    console.log("test");
+
+    muser.sp_MEMBER_BLACK_SAVE(uid,black_code,black_etc,campaign_code,quest_num, function(err,row) {
+        if(err) {
+            console.log(err);
+            throw err;
+        }
+        var data = row[0][0];
+        var json = {
+            "ERR_CODE" : "000"
+            ,"ERR_MSG" : "OK"
+            ,"DB_TYPE" : data.DB_TYPE
+        }
+        res.send(json);
+
+    })
+
+
+
+
+});
+
 module.exports = router;
