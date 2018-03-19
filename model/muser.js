@@ -93,7 +93,7 @@ var muser = {
 
         }
         query += " ORDER BY M.INSERT_DATETIME DESC ";
-        query += " LIMIT "+page+", 10";
+        query += " LIMIT "+page+", 30";
 
 
 

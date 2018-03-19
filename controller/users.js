@@ -39,7 +39,7 @@ router.get('/list', function(req, res, next) {
 
     var total = 0;
     var start = 0;
-    var viewCnt = 10;
+    var viewCnt = 30;
 
 
     muser.sp_MEMBER_TOTAL(function(err, rows) {
@@ -50,7 +50,7 @@ router.get('/list', function(req, res, next) {
 
 
             var boostrapPaginator = new pagination.TemplatePaginator({
-                prelink:'/users/list', current: page, rowsPerPage: 10,
+                prelink:'/users/list', current: page, rowsPerPage: 30,
                 totalResult: total, slashSeparator: true,
                 template: function(result) {
                     var i, len, prelink;
