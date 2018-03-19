@@ -69,13 +69,15 @@ $(function() {
                     table += "<td colspan='4' height='8'></td>";
                     table += "</tr>";
 
-
+                    var total_per = 0;
                     for(var i = 0; i<returnData.length; i++) {
 
+
+
                         table += "<tr>";
-                        table += "<td class='text-right' width='20%' style='font-size:11px;'>"+returnData[i].BRAND_NAME_KO+"</td>";
-                        table += "<td style='padding:5px 10px;' class='text-center'>";
-                        table += "<table width='100%'>";
+                        table += "<td class='text-right' width='20%' style='font-size:11px; padding:5px 10px;'>"+returnData[i].BRAND_NAME_KO+"</td>";
+                        table += "<td style='border:1px solid #f1f1f1;' class='text-center'>";
+                        table += "<table width='"+returnData[i].TOTAL_PER2+"%'>";
                         table += "<tr>";
                         table += "<td width='"+Math.round(returnData[i].QA1_DATA_PER)+"%' class='text-center' style='background-color:#f19253;color:#fff;font-size:10px;padding:5px 0px;'>"+returnData[i].QA1_DATA_PER+"%</td>";
                         table += "<td width='"+Math.round(returnData[i].QA2_DATA_PER)+"%' class='text-center' style='background-color:#f7b885;color:#fff;font-size:10px;padding:5px 0px;'>"+returnData[i].QA2_DATA_PER+"%</td>";
