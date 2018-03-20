@@ -22,11 +22,12 @@
         <div class="row titleBox2">
 
             <div class="col-xs-12 text-center titleCountBg">
-                <h2> <span id="selectCnt" class="Textcolor">0</span> / <%=brandList.length%></h2>
+                <h2> <span id="selectCnt" class="Textcolor"><%=brandList.length%></span></h2>
+                <small><span id="textselectCnt" class="Textcolor"><%=brandList.length%>개 브랜드가 선택되었습니다</span></small>
 
             </div>
 
-            <div class="col-xs-12 text-center titleSelectBg" style="font-size:1.2em; padding:10px 20px;">
+            <div class="col-xs-12 text-left titleSelectBg" style="font-size:1.2em; padding:10px 20px;">
                 <%=surveyQ.Q_TITLE_KO%>
             </div>
         </div>
