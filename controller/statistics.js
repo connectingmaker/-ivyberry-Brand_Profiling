@@ -8,12 +8,134 @@ var mstatistics = require("../model/mstatistics");
 var mcampaign = require("../model/mcampaign");
 
 var pagination = require('pagination');
+var nodeExcel = require('excel-export');
 
 
-/* GET users listing. */
-router.get('/category', function(req, res, next) {
-    res.render('statistics/category', { title: 'Express' });
-});
+
+
+
+var mysql_dbc = require('../module/db_con')();
+var headerTitle = [];
+var rawDataArray = [];
+var excelData = [];
+var excelRow = [];
+
+// var conf = {}
+// conf.name = rows[i].DETAIL_BRAND_CODE;
+// conf.cols = [{
+//     caption:'string',
+//     type:'string'
+// },{
+//     caption:'date',
+//     type:'date',
+//     beforeCellWrite:function(){
+//         var originDate = new Date(Date.UTC(1899,11,30));
+//         return function(row, cellData, eOpt){
+//             if (eOpt.rowNum%2){
+//                 eOpt.styleIndex = 1;
+//             }
+//             else{
+//                 eOpt.styleIndex = 2;
+//             }
+//             if (cellData === null){
+//                 eOpt.cellType = 'string';
+//                 return 'N/A';
+//             } else
+//                 return (cellData - originDate) / (24 * 60 * 60 * 1000);
+//         }
+//     }()
+// },{
+//     caption:'bool',
+//     type:'bool'
+// },{
+//     caption:'number',
+//     type:'number'
+// }];
+// conf.rows = [
+//     ['pi', new Date(Date.UTC(2013, 4, 1)), true, 3.14],
+//     ["e", new Date(2012, 4, 1), false, 2.7182],
+//     ["M&M<>'", new Date(Date.UTC(2013, 6, 9)), false, 1.61803],
+//     ["null date", null, true, 1.414]
+// ];
+
+
+function getValue(obj, key) {
+    var objects = [];
+    var string = "";
+    for (var i in obj) {
+        if (!obj.hasOwnProperty(i)) continue;
+        if (typeof obj[i] == 'object') {
+            objects = objects.concat(getValue(obj[i], key));
+        } else if (i == key) {
+            //objects.push(obj[i]);
+            string = obj[i];
+        }
+    }
+    return string;
+}
+
+
+function getGroupRowData(campaign_code, quest_num, group_q, brand_code, i, ids, cb) {
+    var connection = mysql_dbc.init();
+
+    var query = " call sp_CAMPAIGN_RAWDATA_GROUP(?, ?, ?, ?)";
+    var params = [];
+    params.push(campaign_code);
+    params.push(quest_num);
+    params.push(group_q);
+    params.push(brand_code);
+
+
+
+        connection.query(query, params, function (err, results, fields) {
+            headerTitle = [];
+            try {
+                for (var k = 0; k < fields[0].length; k++) {
+                    var header = {caption: fields[0][k].name, type: 'string'};
+                    //console.log(getValues(results[0],fields[0][k].name));
+                    headerTitle.push(header);
+                }
+
+
+                excelData[i].cols = headerTitle;
+                excelRow[i] = [];
+
+                var dataList = [];
+                for (var k = 0; k < results[0].length; k++) {
+                    var dataRow = new Array;
+                    for (var num = 0; num < fields[0].length; num++) {
+                        if (getValue(results[0][k], fields[0][num].name) == "" || getValue(results[0][k], fields[0][num].name) == null) {
+                            dataRow.push("");
+                        } else {
+                            dataRow.push(getValue(results[0][k], fields[0][num].name).toString());
+                        }
+
+
+                    }
+                    dataList.push(dataRow);
+
+                }
+
+                excelRow[i] = dataList;
+                excelData[i].rows = excelRow[i];
+
+                rawDataArray.push(results[0]);
+                if (i == ids) {
+                    connection.end();
+                    cb(rawDataArray);
+                }
+            } catch (e) {
+                if (i == ids) {
+                    connection.end();
+                    cb();
+                }
+                //cb();
+            }
+        });
+
+
+
+}
 
 
 router.get("/campaign", function(req, res) {
@@ -188,10 +310,76 @@ router.get("/group/:code", function(req, res) {
 });
 */
 
+
+
+router.get("/group/rawdata", function(req, res) {
+    var campaign_code = req.query.campaign_code;
+    var quest_num = req.query.quest_num;
+    var group_q = req.query.group_q;
+    var endType = "S";
+
+    rawDataArray = [];
+    excelData = [];
+    mstatistics.getBrandList(campaign_code, function(err, rows) {
+        if(err) {
+            console.log(err);
+        }
+
+        var dataArray = [];
+        var endtype = "S";
+
+        for(var i = 0; i<rows.length; i++) {
+            var conf = {}
+            conf.name = rows[i].DETAIL_BRAND_CODE;
+            //conf.name = "[한글]"+i.toString();
+            conf.cols = {};
+            excelData.push(conf);
+
+            var connection = mysql_dbc.init();
+
+
+            var query = " call sp_CAMPAIGN_RAWDATA_GROUP(?, ?, ?, ?)";
+            var params = [];
+            params.push(campaign_code);
+            params.push(quest_num);
+            params.push(group_q);
+            params.push(rows[i].DETAIL_BRAND_CODE);
+
+
+
+
+                getGroupRowData(campaign_code, quest_num, group_q, rows[i].DETAIL_BRAND_CODE, i, rows.length-1, function(data) {
+
+                    setTimeout(function() {
+                        if(excelRow.length == 0) {
+                            res.send("관리자에게 문의해주세요.");
+                        } else {
+                            var result = nodeExcel.execute(excelData);
+                            res.setHeader("Content-Type", "text/html;charset=UTF-8")
+                            res.setHeader('Content-Type', 'application/vnd.openxmlformats');
+                            res.setHeader("Content-Disposition", "attachment; filename=" + campaign_code + "_" + quest_num + "_RAWDATA.xlsx");
+                            res.end(result, 'binary');
+                        }
+
+                    }, 1000);
+
+
+                });
+
+
+
+            connection.end();
+        }
+
+    });
+});
+
 router.get("/total/:code", function(req, res) {
     var campaign_code = req.params.code;
 
     res.render("statistics/total");
-})
+});
+
+
 
 module.exports = router;

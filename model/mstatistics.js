@@ -2,7 +2,7 @@
  * Created by kwangheejung on 2017. 9. 18..
  */
 var mysql_dbc = require('../module/db_con')();
-
+var dataArray = [];
 
 
 
@@ -63,6 +63,41 @@ var mstatistics = {
         var data = connection.query(query,params,callback);
         connection.end();
         return data;
+    }
+    ,getBrandList: function(campaign_code, callback) {
+        var connection = mysql_dbc.init();
+        var query = " SELECT CBP.DETAIL_BRAND_CODE, BCS.BRAND_NAME_KO FROM CAMPAIGN_BRAND_POOL CBP ";
+        query += " INNER JOIN BRAND_CATEGORY_SUB BCS ON(CBP.DETAIL_BRAND_CODE = BCS.DETAIL_CATEGORY_CODE) ";
+        query += " WHERE CBP.CAMPAIGN_CODE = ? ";
+
+        var params = [];
+        params.push(campaign_code);
+        var data = connection.query(query,params,callback);
+        connection.end();
+        return data;
+    }
+    ,sp_CAMPAIGN_RAWDATA_GROUP: function(campaign_code, quest_num, group_code, brand_code, endtype, callback) {
+
+        var connection = mysql_dbc.init();
+
+
+        var query = " call sp_CAMPAIGN_RAWDATA_GROUP(?, ?, ?, ?)";
+        var params = [];
+        params.push(campaign_code);
+        params.push(quest_num);
+        params.push(group_code);
+        params.push(brand_code);
+
+
+        connection.query(query,params,function(err, results){
+            dataArray.push(results[0]);
+            if(endtype == 'E') {
+                console.log(dataArray.length);
+                callback(err, dataArray);
+            }
+        });
+
+        connection.end();
     }
 }
 

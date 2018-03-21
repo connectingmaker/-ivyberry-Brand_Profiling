@@ -591,6 +591,21 @@ router.get("/joinUser/:campaign_code/:quest_num", function(req, res) {
 });
 
 
+router.post("/member_certaign_save", function(req, res) {
+    var campaign_code = req.body.campaign_code;
+    var uid = req.body.uid;
+
+    mcampaign.sp_CAMPAIGN_CERTAIGN_SAVE(campaign_code, uid, function(err, row) {
+        if(err) {
+            console.log(err);
+        }
+
+        var data = row[0][0];
+
+        res.send(data);
+    })
+});
+
 router.get("/campaignRawData/:code/:quest_num", function(req, res) {
     var campaign_code = req.params.code;
     var quest_num = req.params.quest_num;

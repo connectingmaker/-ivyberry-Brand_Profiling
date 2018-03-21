@@ -476,6 +476,18 @@ var mcampaign = {
         connection.end();
         return data;
     }
+    ,sp_CAMPAIGN_CERTAIGN_SAVE:function(campaign_code, uid, callback) {
+        var connection = mysql_dbc.init();
+        var query = " call sp_CAMPAIGN_CERTAIGN_SAVE(?, ?) ";
+        var params = [];
+
+        params.push(campaign_code);
+        params.push(uid);
+
+        var data = connection.query(query,params,callback);
+        connection.end();
+        return data;
+    }
 }
 
 module.exports = mcampaign;

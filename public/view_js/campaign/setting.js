@@ -2,7 +2,48 @@ var questArr = [];
 $(function() {
     var campaign_code = $("#campaign_code").val();
     var quest = [];
+    $("#memberSelectBtn").click(function() {
+        $("#memberModal").modal("show");
+    });
 
+    $("#memberSave").click(function() {
+        if($("#memberlist").val() == false) {
+            alert("대상자를 입력해주세요.");
+            $("#memberlist").focus();
+            return;
+        } else {
+            var temp = $("#memberlist").val().split("\n");
+            var cnt = 0;
+            var false_cnt = 0;
+            for(var i = 0; i<temp.length; i++) {
+                if(temp[i] != "") {
+                    var json = {
+                        campaign_code: campaign_code
+                        , uid: temp[i]
+                    }
+                    common.ajax.send("/campaign/member_certaign_save", json);
+                    common.ajax.return = function(data) {
+                        if(data.ERR_CODE == "000") {
+                            cnt++;
+                        } else {
+                            false_cnt = false_cnt + 1;
+                        }
+
+                        var title = "총 "+temp.length+"건중 (성공 : "+cnt+"건), (실패 : "+false_cnt+"건)";
+                        $("#resultUID_cnt").html(title);
+                    }
+
+
+                }
+
+            }
+
+        }
+    });
+
+    $(".memberDownload").click(function() {
+        location.href = "/users/excelDown?searchName=";
+    });
 
     $("#point_default").keyup(function() {
         var point_default = $(this).val();
@@ -212,6 +253,9 @@ $(function() {
         $("#point_"+quest_num).val(point_sum);
 
     });
+
+
+
 });
 
 function multionoff(onoff) {

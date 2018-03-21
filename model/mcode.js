@@ -10,7 +10,7 @@ var mcode = {
     /**** 코드 리스트 ********/
     getCodeGradeList: function(callback) {
         var connection = mysql_dbc.init();
-        var query = " SELECT * FROM CODE_GRADE ORDER BY CODE_GRADE ASC";
+        var query = " SELECT * FROM CODE_GRADE WHERE CODE_GRADE != 99 ORDER BY CODE_GRADE ASC";
         var params = [];
         var data = connection.query(query,callback);
         connection.end();
