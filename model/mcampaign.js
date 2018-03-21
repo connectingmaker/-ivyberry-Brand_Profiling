@@ -70,7 +70,7 @@ var mcampaign = {
             if(searchName != "") {
                 query += " AND C.CAMPAIGN_TITLE LIKE '%" + searchName + "%' ";
             }
-            query += " ORDER BY C.INSERT_DATETIME DESC LIMIT "+page+", 10 ";
+            query += " ORDER BY C.INSERT_DATETIME DESC LIMIT "+page+", 30 ";
             var params = [];
             params.push();
 
@@ -84,7 +84,7 @@ var mcampaign = {
             if(searchName != "") {
                 query += " AND C.CAMPAIGN_TITLE LIKE '%" + searchName + "%' ";
             }
-            query += " ORDER BY C.INSERT_DATETIME DESC LIMIT "+page+", 10 ";
+            query += " ORDER BY C.INSERT_DATETIME DESC LIMIT "+page+", 30 ";
             var params = [];
             params.push(campaign_ing);
 
@@ -115,7 +115,7 @@ var mcampaign = {
         if(searchName != "") {
             query += " AND C.CAMPAIGN_TITLE LIKE '%" + searchName + "%' ";
         }
-        query += " ORDER BY C.INSERT_DATETIME DESC LIMIT "+page+", 10 ";
+        query += " ORDER BY C.INSERT_DATETIME DESC LIMIT "+page+", 30 ";
         console.log(query);
         var params = [];
         var data = connection.query(query, params, callback);
