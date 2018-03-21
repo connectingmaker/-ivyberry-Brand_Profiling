@@ -107,14 +107,16 @@ function getGroupRowData(campaign_code, quest_num, group_q, brand_code, i, ids, 
                         if (getValue(results[0][k], fields[0][num].name) == "" || getValue(results[0][k], fields[0][num].name) == null) {
                             dataRow.push("");
                         } else {
+                            //if(results[0][k].SUM
                             dataRow.push(getValue(results[0][k], fields[0][num].name).toString());
                         }
 
 
                     }
                     dataList.push(dataRow);
-
                 }
+
+
 
                 excelRow[i] = dataList;
                 excelData[i].rows = excelRow[i];
@@ -132,9 +134,124 @@ function getGroupRowData(campaign_code, quest_num, group_q, brand_code, i, ids, 
                 //cb();
             }
         });
+}
+
+function getGroupBrandRowData(campaign_code, quest_num, group_q, brand_code, i, ids, cb)
+{
+    var connection = mysql_dbc.init();
+
+    var query = " call sp_CAMPAIGN_RAWDATA_GROUP_BRAND(?, ?, ?, ?)";
+    var params = [];
+    params.push(campaign_code);
+    params.push(quest_num);
+    params.push(group_q);
+    params.push(brand_code);
 
 
+    var totalRow = new Array;
+    var totalRealData = new Array;
 
+    connection.query(query, params, function (err, results, fields) {
+        headerTitle = [];
+        try {
+            for (var k = 0; k < fields[0].length; k++) {
+                var header = {caption: fields[0][k].name, type: 'string'};
+                //console.log(getValues(results[0],fields[0][k].name));
+                headerTitle.push(header);
+                if(k == 0) {
+                    totalRow.push("합계");
+                } else {
+                    totalRow.push("");
+                }
+
+                totalRealData.push(0);
+
+            }
+
+
+            excelData[i].cols = headerTitle;
+            excelRow[i] = [];
+
+            var dataList = [];
+
+            for (var k = 0; k < results[0].length; k++) {
+                var dataRow = new Array;
+                for (var num = 0; num < fields[0].length; num++) {
+                    if (getValue(results[0][k], fields[0][num].name) == "" || getValue(results[0][k], fields[0][num].name) == null) {
+                        dataRow.push("");
+                    } else {
+                        if(num > 10) {
+                            if(num == (fields[0].length-1)) {
+                                if(getValue(results[0][k], fields[0][num].name).toString() == "") {
+                                    dataRow.push("0");
+                                } else {
+                                    dataRow.push(getValue(results[0][k], fields[0][num].name).toString());
+                                }
+
+
+                            } else {
+                                if (results[0][k].SUM > 3) {
+                                    dataRow.push("");
+                                } else {
+                                    dataRow.push("1");
+
+                                    totalRealData[num] = totalRealData[num] + 1;
+
+                                }
+                            }
+
+                        } else {
+                            if (getValue(results[0][k], fields[0][num].name) == "" || getValue(results[0][k], fields[0][num].name) == null) {
+                                dataRow.push("");
+                                totalRealData[num] = totalRealData[num] + 0;
+                            } else {
+                                //if(results[0][k].SUM
+                                dataRow.push(getValue(results[0][k], fields[0][num].name).toString());
+
+
+                                totalRealData[num] = totalRealData[num] + parseInt(getValue(results[0][k], fields[0][num].name).toString());
+                            }
+
+
+                        }
+
+                    }
+
+
+                }
+
+                dataList.push(dataRow);
+
+            }
+
+
+            for(var k = 0; k<totalRow.length; k++) {
+                if(k > 10) {
+                    totalRow[k] = totalRealData[k].toString();
+                }
+            }
+
+
+            dataList.push(totalRow);
+
+            //dataList.push(totalRow);
+
+            excelRow[i] = dataList;
+            excelData[i].rows = excelRow[i];
+
+            rawDataArray.push(results[0]);
+            if (i == ids) {
+                connection.end();
+                cb(rawDataArray);
+            }
+        } catch (e) {
+            if (i == ids) {
+                connection.end();
+                cb();
+            }
+            //cb();
+        }
+    });
 }
 
 
@@ -365,9 +482,68 @@ router.get("/group/rawdata", function(req, res) {
 
 
                 });
+            connection.end();
+        }
+
+    });
+});
+
+
+router.get("/group/brandrawdata", function(req, res) {
+    var campaign_code = req.query.campaign_code;
+    var quest_num = req.query.quest_num;
+    var group_q = req.query.group_q;
+    var endType = "S";
+
+    rawDataArray = [];
+    excelData = [];
+    mstatistics.getBrandList(campaign_code, function(err, rows) {
+        if(err) {
+            console.log(err);
+        }
+
+        var dataArray = [];
+        var endtype = "S";
+
+        for(var i = 0; i<rows.length; i++) {
+            var conf = {}
+            conf.name = rows[i].DETAIL_BRAND_CODE;
+            //conf.name = "[한글]"+i.toString();
+            conf.cols = {};
+            excelData.push(conf);
+
+            var connection = mysql_dbc.init();
+
+
+            var query = " call sp_CAMPAIGN_RAWDATA_GROUP(?, ?, ?, ?)";
+            var params = [];
+            params.push(campaign_code);
+            params.push(quest_num);
+            params.push(group_q);
+            params.push(rows[i].DETAIL_BRAND_CODE);
 
 
 
+
+            getGroupBrandRowData(campaign_code, quest_num, group_q, rows[i].DETAIL_BRAND_CODE, i, rows.length-1, function(data) {
+
+                setTimeout(function() {
+                    if(excelRow.length == 0) {
+                        res.send("관리자에게 문의해주세요.");
+                    } else {
+
+                        var result = nodeExcel.execute(excelData);
+                        res.setHeader("Content-Type", "text/html;charset=UTF-8")
+                        res.setHeader('Content-Type', 'application/vnd.openxmlformats');
+                        res.setHeader("Content-Disposition", "attachment; filename=" + campaign_code + "_" + quest_num + "_BRAND_RAWDATA.xlsx");
+                        res.end(result, 'binary');
+
+                    }
+
+                }, 5000);
+
+
+            });
             connection.end();
         }
 
