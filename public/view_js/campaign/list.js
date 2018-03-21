@@ -89,12 +89,12 @@ $(function() {
             var total_point = 0;
             for(var i = 0; i<returnData.length; i++) {
                 template += "<tr>";
-                template += "<td class='text-center'>"+returnData[i].QUEST_NUM+"차</td>";
-                template += "<td class='text-center'>"+returnData[i].TOTAL+"</td>";
-                template += "<td class='text-center'>"+returnData[i].SUM_POINT+"</td>";
-                template += "<td class='text-center'>"+returnData[i].SURVEY_TIME+"분</td>";
-                template += "<td class='text-center'>"+returnData[i].AVG_TIME+"분</td>";
-                template += "<td class='text-center'><a href='/survey/start?campaign_code="+returnData[i].CAMPAIGN_CODE+"&uid=99999999999999999001&quest_num="+returnData[i].QUEST_NUM+"&debug=true' target='_blank' class='btn btn-xs btn-success'>테스트</a>&nbsp;<a href='/statistics/group/"+returnData[i].CAMPAIGN_CODE+"/"+returnData[i].QUEST_NUM+"' class=\"btn btn-xs btn-danger\">통계</a>&nbsp;<a href='/campaign/joinUser/"+returnData[i].CAMPAIGN_CODE+"/"+returnData[i].QUEST_NUM+"' class='btn btn-xs btn-warning'>검증대상자</a></td>";
+                template += "<td class='text-center'><span class='badge badge-info'><i class='glyphicon glyphicon-sort-by-attributes-alt'></i>&nbsp;"+returnData[i].QUEST_NUM+"차</span></td>";
+                template += "<td class='text-center'><span class=\"badge badge-info\"><i class=\"fa fa-user\"></i>&nbsp;"+returnData[i].TOTAL+"명</span></td>";
+                template += "<td class='text-center'><i class='fa fa-money'></i>&nbsp;"+returnData[i].SUM_POINT+"</td>";
+                template += "<td class='text-center'><i class='glyphicon glyphicon-time'></i>&nbsp;"+returnData[i].SURVEY_TIME+"분</td>";
+                template += "<td class='text-center'><i class='glyphicon glyphicon-time'></i>&nbsp;"+returnData[i].AVG_TIME+"분</td>";
+                template += "<td class='text-center'><a href='/survey/start?campaign_code="+returnData[i].CAMPAIGN_CODE+"&uid=99999999999999999001&quest_num="+returnData[i].QUEST_NUM+"&debug=true' target='_blank' class='btn btn-xs btn-success'><i class='fa fa-caret-square-o-right'></i>&nbsp;테스트</a>&nbsp;<a href='/statistics/group/"+returnData[i].CAMPAIGN_CODE+"/"+returnData[i].QUEST_NUM+"' class=\"btn btn-xs btn-danger\"><i class='fa fa-dashboard'></i>&nbsp;통계</a>&nbsp;<a href='/campaign/joinUser/"+returnData[i].CAMPAIGN_CODE+"/"+returnData[i].QUEST_NUM+"' class='btn btn-xs btn-warning'><i class='fa fa-user'></i>&nbsp;검증대상자</a></td>";
                 template += "</tr>";
 
                 total = total + returnData[i].TOTAL;
