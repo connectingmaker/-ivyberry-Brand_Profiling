@@ -476,6 +476,28 @@ var mcampaign = {
         connection.end();
         return data;
     }
+    ,CAMPAIGN_CERTAIGN_LIST: function(campaign_code, callback) {
+        var connection = mysql_dbc.init();
+        var query = " SELECT * FROM CAMPAIGN_CERTAIGN_UID WHERE CAMPAIGN_CODE = ? ORDER BY INSERT_DATETIME ASC ";
+        var params = [];
+
+        params.push(campaign_code);
+
+        var data = connection.query(query,params,callback);
+        connection.end();
+        return data;
+    }
+    ,CAMPAIGN_CERTAIGN_DELETE:function(campaign_code, callback) {
+        var connection = mysql_dbc.init();
+        var query = " DELETE FROM  CAMPAIGN_CERTAIGN_UID WHERE CAMPAIGN_CODE = ? ";
+        var params = [];
+
+        params.push(campaign_code);
+
+        var data = connection.query(query,params,callback);
+        connection.end();
+        return data;
+    }
     ,sp_CAMPAIGN_CERTAIGN_SAVE:function(campaign_code, uid, callback) {
         var connection = mysql_dbc.init();
         var query = " call sp_CAMPAIGN_CERTAIGN_SAVE(?, ?) ";

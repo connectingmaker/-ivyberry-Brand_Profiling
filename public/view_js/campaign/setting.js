@@ -3,7 +3,23 @@ $(function() {
     var campaign_code = $("#campaign_code").val();
     var quest = [];
     $("#memberSelectBtn").click(function() {
-        $("#memberModal").modal("show");
+        var json = {
+            campaign_code: campaign_code
+        }
+        common.ajax.send("/campaign/member_certaign_list", json);
+        common.ajax.return = function(data) {
+            console.log(data);
+            var dataString = "";
+            for(var i = 0; i<data.length; i++) {
+                dataString += data[i].UID + "\n";
+            }
+
+            console.log(dataString);
+
+            $("#memberlist").val(dataString);
+            $("#memberModal").modal("show");
+        }
+
     });
 
     $("#memberSave").click(function() {
@@ -31,12 +47,15 @@ $(function() {
 
                         var title = "총 "+temp.length+"건중 (성공 : "+cnt+"건), (실패 : "+false_cnt+"건)";
                         $("#resultUID_cnt").html(title);
+
                     }
 
 
                 }
 
             }
+            $("#resultUID_cnt").append("<br>처리되었습니다.");
+
 
         }
     });
