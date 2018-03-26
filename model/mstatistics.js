@@ -76,6 +76,21 @@ var mstatistics = {
         connection.end();
         return data;
     }
+    ,getQuestionList: function(group_code, callback) {
+        var connection = mysql_dbc.init();
+        var query = " SELECT Q_CODE, Q_NAME FROM ";
+        query += " QUESTION_Q ";
+        query += " WHERE GROUP_CODE = ? ";
+
+
+
+        var params = [];
+        params.push(group_code);
+
+        var data = connection.query(query,params,callback);
+        connection.end();
+        return data;
+    }
     ,sp_CAMPAIGN_RAWDATA_GROUP: function(campaign_code, quest_num, group_code, brand_code, endtype, callback) {
 
         var connection = mysql_dbc.init();
