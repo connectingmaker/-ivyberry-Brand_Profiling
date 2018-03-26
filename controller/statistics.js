@@ -463,24 +463,34 @@ router.get('/group/:code/:quest_num', function(req, res, next) {
     var campaign_code = req.params.code;
     var quest_num = req.params.quest_num;
 
-    mcampaign.sp_CAMPAIGN_LIST_END_DATA(campaign_code, function(err,rows) {
+    mcampaign.get_campaign_select(campaign_code, function(err, rows) {
         if(err) {
             console.log(err);
             throw err;
         }
 
-        var questData = rows[0];
+        var campaignData = rows[0];
+        console.log(campaignData);
 
-        mstatistics.sp_STATISTICS_QUESTION(campaign_code, quest_num, function(err, rows) {
+        mcampaign.sp_CAMPAIGN_LIST_END_DATA(campaign_code, function(err,rows) {
             if(err) {
                 console.log(err);
                 throw err;
             }
 
-            var groupList = rows[0];
-            res.render('statistics/group', { campaign_code: campaign_code, quest_num:quest_num, groupList: groupList, questData: questData });
-        })
+            var questData = rows[0];
 
+            mstatistics.sp_STATISTICS_QUESTION(campaign_code, quest_num, function(err, rows) {
+                if(err) {
+                    console.log(err);
+                    throw err;
+                }
+
+                var groupList = rows[0];
+                res.render('statistics/group', { campaign_code: campaign_code, quest_num:quest_num, campaignData: campaignData, groupList: groupList, questData: questData });
+            })
+
+        });
     });
 
 
