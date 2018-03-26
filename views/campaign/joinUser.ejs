@@ -50,7 +50,12 @@
                         <%=moment(list[i].END_DATETIME).format("YYYY-MM-DD hh:mm:ss")%>
                     </td>
                     <td class="text-center">
-                        <%=list[i].SUM_TIME%>분
+                        <% if(list[i].SUM_TIME == 0) { %>
+                        X
+                        <% } else { %>
+                        <%=Math.round(list[i].SUM_TIME,1)%>분
+                        <% } %>
+
                     </td>
                     <td class="text-center">
                         <% if(list[i].BLACKLIST == "N") { %>

@@ -728,7 +728,7 @@ router.get("/group/questionrawdata", function(req, res) {
 
 
 
-
+            console.log(campaign_code + "///" + quest_num + "///" + group_q + "///" + rows[i].Q_CODE);
             getGroupQuestionRowData(campaign_code, quest_num, group_q, rows[i].Q_CODE, i, rows.length-1, function(data) {
 
                 setTimeout(function() {
@@ -744,7 +744,7 @@ router.get("/group/questionrawdata", function(req, res) {
 
                     }
 
-                }, 5000);
+                }, 10000);
 
 
             });
