@@ -94,6 +94,7 @@ function getGroupRowData(campaign_code, quest_num, group_q, brand_code, i, ids, 
             headerTitle = [];
             try {
                 for (var k = 0; k < fields[0].length; k++) {
+
                     var header = {caption: fields[0][k].name, type: 'string'};
                     //console.log(getValues(results[0],fields[0][k].name));
                     headerTitle.push(header);
@@ -159,7 +160,14 @@ function getGroupQuestionRowData(campaign_code, quest_num, group_q, q_code, i, i
         headerTitle = [];
         try {
             for (var k = 0; k < fields[0].length; k++) {
-                var header = {caption: fields[0][k].name, type: 'string'};
+                //var header = {caption: fields[0][k].name, type: 'string'};
+                if(k == fields[0].length - 1) {
+                    var header = {caption: "1등 갯수", type: 'string'};
+                } else {
+                    var header = {caption: fields[0][k].name, type: 'string'};
+                }
+
+
                 //console.log(getValues(results[0],fields[0][k].name));
                 headerTitle.push(header);
                 if(k == 0) {
@@ -184,7 +192,7 @@ function getGroupQuestionRowData(campaign_code, quest_num, group_q, q_code, i, i
                     if (getValue(results[0][k], fields[0][num].name) == "" || getValue(results[0][k], fields[0][num].name) == null) {
                         dataRow.push("");
                     } else {
-                        if(num > 9) {
+                        if(num > 10) {
                             if(num == (fields[0].length-1)) {
                                 if(getValue(results[0][k], fields[0][num].name).toString() == "") {
                                     dataRow.push("0");
@@ -277,7 +285,14 @@ function getGroupBrandRowData(campaign_code, quest_num, group_q, brand_code, i, 
         headerTitle = [];
         try {
             for (var k = 0; k < fields[0].length; k++) {
-                var header = {caption: fields[0][k].name, type: 'string'};
+                //var header = {caption: fields[0][k].name, type: 'string'};
+                if(k == fields[0].length - 1) {
+                    var header = {caption: "1등 갯수", type: 'string'};
+                } else {
+                    var header = {caption: fields[0][k].name, type: 'string'};
+                }
+
+
                 //console.log(getValues(results[0],fields[0][k].name));
                 headerTitle.push(header);
                 if(k == 0) {
