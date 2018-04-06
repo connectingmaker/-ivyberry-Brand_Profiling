@@ -129,10 +129,13 @@ var muser = {
         query += " LEFT JOIN CODE_MONTH_MONEY CMM ON(MD.MONTH_MONEY = CMM.CODE) ";
         if(searchName != "") {
             query += " WHERE (M.USERNAME LIKE '"+searchName+"%' OR M.USEREMAIL LIKE '%"+searchName+"%')";
-            query += " AND M.CODE_GRADE > 0";
+            query += " AND M.MEMBER_DROP = 'N' ";
+            //query += " AND M.CODE_GRADE > 0";
         } else {
-            query += " WHERE M.CODE_GRADE > 0 ";
+            query += " WHERE M.MEMBER_DROP = 'N' ";
+            //query += " WHERE M.CODE_GRADE > 0 ";
         }
+
         query += " ORDER BY M.INSERT_DATETIME DESC ";
 
         console.log(query);
