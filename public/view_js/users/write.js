@@ -26,9 +26,13 @@ $(function() {
     });
 
     $("#memberSave").click(function() {
-        if(inputEmailCheck("useremail", "이메일을 입력해주세요") == false) {
-            return;
+
+        if($("#fb").val() !='2') {
+            if (inputEmailCheck("useremail", "이메일을 입력해주세요") == false) {
+                return;
+            }
         }
+
         if($("#uid").val() == false) {
             if(emailCheck == false) {
                 alert("이메일을 조회해주세요.");
@@ -76,9 +80,10 @@ $(function() {
             return;
         }
 
-
-        if(inputTextCheck("userphone", "핸드폰번호를 입력해주세요.") == false) {
-            return;
+        if($("#fb").val() !='2') {
+            if (inputTextCheck("userphone", "핸드폰번호를 입력해주세요.") == false) {
+                return;
+            }
         }
 
         var member_drop = "N";
@@ -108,7 +113,7 @@ $(function() {
             //console.log(dataJson[0]);
 
             //location.replace("/users/write/"+dataJson[0].UID);
-            //location.replace("/users/list");
+            location.replace("/users/list");
         }
     });
 

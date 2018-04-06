@@ -322,6 +322,7 @@ router.get('/write/:code', function(req, res) {
             var birthday = data[0].BRITHDAY;
             var point = data[0].POINT;
             var phone = data[0].USERPHONE;
+            var facebook_id = data[0].FACEBOOK_ID;
             var last_login = data[0].LAST_LOGIN;
             var member_drop = data[0].MEMBER_DROP;
 
@@ -335,6 +336,7 @@ router.get('/write/:code', function(req, res) {
                 , point: point
                 , last_login: last_login
                 , phone : phone
+                , facebook_id : facebook_id
                 , member_drop : member_drop
             };
 

@@ -3,6 +3,13 @@
         <div class="row">
             <div class="col-xs-12 title">
                 사용자 등록 및 수정
+                <% if(userData.facebook_id != 0) { %>
+                    <span class="label label-success">페이스북</span>
+                    <input type="hidden" id="fb" value="2">
+                <% } else { %>
+                    <span class="label label-primary">일반회원</span>
+                    <input type="hidden" id="fb" value="1">
+                <% } %>
             </div>
 
         </div>
