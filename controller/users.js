@@ -7,6 +7,9 @@ var moment = require('moment');
 var pagination = require('pagination');
 
 var nodeExcel=require('excel-export');
+var commaNumber = require('comma-number')
+
+
 //var dateFormat = require('dateformat');
 
 /* GET users listing. */
@@ -422,12 +425,12 @@ router.get("/pointHistory/:code", function(req, res) {
     var start = 0;
     var viewCnt = 10;
 
-    muser.getMemberSelect(uid, function(err, rows) {
+    muser.sp_MEMBER_SELECT(uid, function(err, rows) {
         if(err) {
             console.log(err);
             throw err;
         }
-        var userdata = rows[0];
+        var userdata = rows[0][0];
 
         muser.get_pointHistoryCnt(uid, function(err,rows) {
             if(err) {
@@ -538,18 +541,23 @@ router.get("/pointRequest", function(req, res) {
     }
 
 
-    muser.sp_MEMBER_POINT_REQUEST(startDay,endDay,function(err, rows) {
-        if(err) {
-            console.log(err);
-            throw err;
-        }
-        var request = rows[0];
+    muser.sp_MEMBER_POINT_STATIC(function(err,rows) {
+        var point_static = rows[0][0];
+        muser.sp_MEMBER_POINT_REQUEST(startDay,endDay,function(err, rows) {
+            if(err) {
+                console.log(err);
+                throw err;
+            }
+            var request = rows[0];
 
 
 
-        res.render("users/pointRequest", {request : request,moment : moment});
+            res.render("users/pointRequest", {point_static : point_static, request : request,moment : moment , commaNumber: commaNumber});
+
+        });
 
     });
+
 
 });
 

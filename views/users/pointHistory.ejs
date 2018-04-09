@@ -9,8 +9,85 @@
         </div>
     </div>
     <input type="hidden" id="uid" value="<%=uid%>">
+
     <div class="push-20-t col-xs-12 bg-white box round_box">
         <div class="row">
+            <div class="col-xs-12 title">
+                회원정보
+            </div>
+        </div>
+        <div class="row push-10-t">
+
+            <div class="col-xs-12 text-center">
+            <table id="list" class="table table-bordered fontsize">
+                <col width="15%">
+                <col width="35%">
+                <col width="15%">
+                <col width="35%">
+                <tbody>
+                <tr>
+                    <th class="text-center">UID</th>
+                    <td>
+                        <%=userdata.UID%>
+                    </td>
+                    <th class="text-center">이메일</th>
+                    <td>
+                        <%=userdata.USEREMAIL%>
+                    </td>
+                </tr>
+                <tr>
+                    <th class="text-center">이름</th>
+                    <td>
+                        <%=userdata.USERNAME%>
+                    </td>
+                    <th class="text-center">포인트</th>
+                    <td>
+                        <%=userdata.POINT%>P
+                    </td>
+                </tr>
+                <tr>
+                    <th class="text-center">성별</th>
+                    <td>
+                        <% if(userdata.SEX == 1) { %>
+                        남성
+                        <% } %>
+
+                        <% if(userdata.SEX == 2) { %>
+                        여성
+                        <% } %>
+                    </td>
+                    <th class="text-center">출생년도</th>
+                    <td>
+                        <%=userdata.BRITHDAY%>
+                    </td>
+                </tr>
+                <tr>
+                    <th class="text-center">핸드폰번호</th>
+                    <td>
+                        <%=userdata.USERPHONE%>
+                    </td>
+                    <th class="text-center">탈퇴여부</th>
+                    <td>
+                        <% if(userdata.MEMBER_DROP == "Y") { %>
+                        탈퇴
+                        <% } else { %>
+                        미탈퇴
+                        <% } %>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            </div>
+        </div>
+    </div>
+    <div class="push-20-t col-xs-12 bg-white box round_box">
+        <div class="row">
+            <div class="col-xs-12 title">
+                포인트 히스토리
+            </div>
+        </div>
+        <div class="row">
+            <!--
             <div class="col-xs-12 push-10"> 포인트 히스토리</div>
             <div class="col-xs-10 title">
                 <h3 class="block-title">이름 :  <%=userdata.USERNAME%> </h3>
@@ -18,6 +95,9 @@
             <div class="col-xs-2 text-right">
                 <span class="btn btn-sm btn-danger btn-rounded pointBtn">포인트 처리</span>
             </div>
+            -->
+
+
 
         </div>
         <div class="contents_list">
@@ -48,6 +128,11 @@
                             <% } %>
                         </td>
                         <td class="text-center">
+                            <% if(pointList[i].CODE_TYPE == "IN") { %>
+                            +
+                            <% } else { %>
+                            -
+                            <% } %>
                             <%=pointList[i].POINT%>P
                         </td>
                         <td>

@@ -10,11 +10,47 @@
         </div>
     </div>
 
+
+    <div class="col-xs-12 bg-white box round_box push-20-t">
+        <div class="row">
+            <div class="col-xs-12 title">
+                <h3 class="block-title">포인트 통계</h3>
+            </div>
+
+            <div class="col-xs-12 push-10-t">
+                <table id="list" class="table table-bordered fontsize">
+                    <col width="33%">
+                    <col width="33%">
+                    <col width="34%">
+                    <thead>
+                    <tr>
+                        <th class="text-center">적립포인트</th>
+                        <th class="text-center">환급포인트</th>
+                        <th class="text-center">잔여포인트</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td class="text-center"><%=commaNumber(point_static.IN_POINT)%>P</td>
+                        <td class="text-center"><%=commaNumber(point_static.OUT_POINT)%>P</td>
+                        <td class="text-center"><%=commaNumber(point_static.TOTAL_POINT)%>P</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+
+
+
     <div class="col-xs-12 bg-white box round_box push-20-t">
         <div class="row">
             <div class="col-xs-12 title">
                 <h3 class="block-title">환급(현금이체) 요청관리</h3>
             </div>
+
+
 
         </div>
         <div class="row  push-10-t">
@@ -33,7 +69,6 @@
                 </form>
             </div>
             <div class="col-xs-6 text-right">
-               <!-- <a href="#" class="btn btn-md btn-danger btn-rounded requestExcel">다운로드</a>-->
             </div>
         </div>
         <div class="contents_list">
@@ -63,12 +98,14 @@
                 <tbody>
                 <% for(var i = 0; i<request.length; i++) { %>
                 <tr id="<%=request[i].SEQ%>">
-                    <td class="text-center"><%=request[i].UID%></td>
+                    <td class="text-center">
+                        <a href="/users/write/<%=request[i].UID%>" class="btn btn-xs btn-danger"><%=request[i].UID%></a>
+                    </td>
                     <td class="text-center"><%=request[i].USERNAME%></td>
                     <td class="text-center"><%=request[i].USEREMAIL%></td>
                     <td class="text-center"><%=request[i].JUMIN%></td>
                     <td class="text-center"><%=request[i].BANK_NAME%> : <%=request[i].BANK_NUM%></td>
-                    <td class="text-center"><%=request[i].POINT%>원</td>
+                    <td class="text-center"><%=commaNumber(request[i].POINT)%>원</td>
                     <td class="text-center"><%=moment(request[i].INSERT_DATETIME).format("YYYY-MM-DD hh:mm")%></td>
                     <td class="text-center">
                         <% if(moment(request[i].UPDATE_DATETIME).format("YYYY") != "1970") { %>
