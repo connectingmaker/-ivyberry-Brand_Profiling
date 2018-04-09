@@ -105,7 +105,7 @@
                     <td class="text-center"><%=request[i].USEREMAIL%></td>
                     <td class="text-center"><%=request[i].JUMIN%></td>
                     <td class="text-center"><%=request[i].BANK_NAME%> : <%=request[i].BANK_NUM%></td>
-                    <td class="text-center"><%=commaNumber(request[i].POINT)%>원</td>
+                    <td class="text-center"><a href="/users/pointHistory/<%=request[i].UID%>" class="btn btn-xs btn-success historyBtn"><%=commaNumber(request[i].POINT)%>원</a></td>
                     <td class="text-center"><%=moment(request[i].INSERT_DATETIME).format("YYYY-MM-DD hh:mm")%></td>
                     <td class="text-center">
                         <% if(moment(request[i].UPDATE_DATETIME).format("YYYY") != "1970") { %>
