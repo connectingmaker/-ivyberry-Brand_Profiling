@@ -6,13 +6,13 @@ $(function() {
     $("#pointSave").click(function() {
 
 
-        if(inputTextCheck("code_point", "포인트 옵션을 선택해주세요") == false) {
+        if(inputTextCheck("code_point", "포인트 타입을 선택해주세요") == false) {
             return;
         }
 
-        if(inputTextCheck("point", "포인트를 입력해주세요.") == "") {
-            return;
-        }
+        // if(inputTextCheck("point", "포인트를 입력해주세요.") == "") {
+        //     return;
+        // }
 
         var json = {
             uid : $("#uid").val()
