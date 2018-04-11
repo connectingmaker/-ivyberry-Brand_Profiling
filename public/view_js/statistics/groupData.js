@@ -46,6 +46,8 @@ $(function() {
                 case "1":
                     var table = "";
 
+
+
                     table += "<tr>";
                     table += "<td width='20%' class='text-center' style='font-size:14px;font-weight: bold;'>총참여자수 : ("+returnData[0].TOTAL_CNT+"명)</td>";
                     table += "<td class='text-center' style='padding:10px 5px;'>";
@@ -59,38 +61,52 @@ $(function() {
                     table += "</td>";
                     table += "<td class='text-center' style='font-size:14px;font-weight: bold;'>평균</td>";
                     table += "<td class='text-center' style='font-size:14px;font-weight: bold;'>답변자수</td>";
+                    table += "<td class='text-center' style='font-size:14px;font-weight: bold;'>추천지수</td>";
                     table += "</tr>";
 
                     table += "<tr>";
-                    table += "<td style='background-color:#f1f1f1;' colspan='4' height='2'></td>";
+                    table += "<td style='background-color:#f1f1f1;' colspan='5' height='2'></td>";
                     table += "</tr>";
 
                     table += "<tr>";
-                    table += "<td colspan='4' height='8'></td>";
+                    table += "<td colspan='5' height='8'></td>";
                     table += "</tr>";
 
                     var total_per = 0;
+                    var sum_total = 0;
+                    var sum_total_index = "";
+                    for(var i = 0; i<returnData.length; i++) {
+                        if(sum_total < returnData[i].SUM_COUNT) {
+                            sum_total_index = i;
+                            sum_total = returnData[i].SUM_COUNT;
+                        }
+
+                    }
                     for(var i = 0; i<returnData.length; i++) {
 
-
-
                         table += "<tr>";
-                        table += "<td class='text-right' width='20%' style='font-size:11px; padding:5px 10px;'>"+returnData[i].BRAND_NAME_KO+"</td>";
+                        if(sum_total_index == i) {
+                            table += "<td class='text-right' width='20%' style='font-size:11px; padding:5px 10px;'><span style='font-size:12px; color:red; padding-right:10px;'>★</span>"+returnData[i].BRAND_NAME_KO+"</td>";
+                        } else {
+                            table += "<td class='text-right' width='20%' style='font-size:11px; padding:5px 10px;'>"+returnData[i].BRAND_NAME_KO+"</td>";
+                        }
+
                         table += "<td style='border:1px solid #f1f1f1;' class='text-center'>";
-                        table += "<table width='"+returnData[i].TOTAL_PER2+"%'>";
+                        table += "<table width='"+returnData[i].TOTAL_PER2*1.5+"%'>";
                         table += "<tr>";
-                        table += "<td width='"+Math.round(returnData[i].QA1_DATA_PER)+"%' class='text-center' style='background-color:#f19253;color:#fff;font-size:5px;padding:5px 0px;'>"+returnData[i].QA1_DATA_PER+"%</td>";
-                        table += "<td width='"+Math.round(returnData[i].QA2_DATA_PER)+"%' class='text-center' style='background-color:#f7b885;color:#fff;font-size:5px;padding:5px 0px;'>"+returnData[i].QA2_DATA_PER+"%</td>";
-                        table += "<td width='"+Math.round(returnData[i].QA3_DATA_PER)+"%' class='text-center' style='background-color:#c69671;color:#fff;font-size:5px;padding:5px 0px;'>"+returnData[i].QA3_DATA_PER+"%</td>";
-                        table += "<td width='"+Math.round(returnData[i].QA4_DATA_PER)+"%' class='text-center' style='background-color:#bfa6bc;color:#fff;font-size:5px;padding:5px 0px;'>"+returnData[i].QA4_DATA_PER+"%</td>";
-                        table += "<td width='"+Math.round(returnData[i].QA5_DATA_PER)+"%' class='text-center' style='background-color:#a2b9bf;color:#fff;font-size:5px;padding:5px 0px;'>"+returnData[i].QA5_DATA_PER+"%</td>";
-                        table += "<td width='"+Math.round(returnData[i].QA6_DATA_PER)+"%' class='text-center' style='background-color:#4c9ba5;color:#fff;font-size:5px;padding:5px 0px;'>"+returnData[i].QA6_DATA_PER+"%</td>";
-                        table += "<td width='"+Math.round(returnData[i].QA7_DATA_PER)+"%' class='text-center' style='background-color:#3272f4;color:#fff;font-size:5px;padding:5px 0px;'>"+returnData[i].QA7_DATA_PER+"%</td>";
+                        table += "<td width='"+Math.round(returnData[i].QA1_DATA_PER*1.5)+"%' class='text-center' style='background-color:#f19253;color:#fff;font-size:5px;padding:5px 0px;'>"+returnData[i].QA1_DATA_PER+"%</td>";
+                        table += "<td width='"+Math.round(returnData[i].QA2_DATA_PER*1.5)+"%' class='text-center' style='background-color:#f7b885;color:#fff;font-size:5px;padding:5px 0px;'>"+returnData[i].QA2_DATA_PER+"%</td>";
+                        table += "<td width='"+Math.round(returnData[i].QA3_DATA_PER*1.5)+"%' class='text-center' style='background-color:#c69671;color:#fff;font-size:5px;padding:5px 0px;'>"+returnData[i].QA3_DATA_PER+"%</td>";
+                        table += "<td width='"+Math.round(returnData[i].QA4_DATA_PER*1.5)+"%' class='text-center' style='background-color:#bfa6bc;color:#fff;font-size:5px;padding:5px 0px;'>"+returnData[i].QA4_DATA_PER+"%</td>";
+                        table += "<td width='"+Math.round(returnData[i].QA5_DATA_PER*1.5)+"%' class='text-center' style='background-color:#a2b9bf;color:#fff;font-size:5px;padding:5px 0px;'>"+returnData[i].QA5_DATA_PER+"%</td>";
+                        table += "<td width='"+Math.round(returnData[i].QA6_DATA_PER*1.5)+"%' class='text-center' style='background-color:#4c9ba5;color:#fff;font-size:5px;padding:5px 0px;'>"+returnData[i].QA6_DATA_PER+"%</td>";
+                        table += "<td width='"+Math.round(returnData[i].QA7_DATA_PER*1.5)+"%' class='text-center' style='background-color:#3272f4;color:#fff;font-size:5px;padding:5px 0px;'>"+returnData[i].QA7_DATA_PER+"%</td>";
                         table += "</tr>";
                         table += "</table>";
                         table += "</td>";
                         table += "<td class='text-center' width='5%' style='font-size:11px;'>"+returnData[i].TOTAL_AVG+"</td>"
                         table += "<td class='text-center' width='8%' style='font-size:11px;'>"+(returnData[i].ANSWER_TOTAL - returnData[i].NOT_ANSWER)+"명</td>"
+                        table += "<td class='text-center' width='8%' style='font-size:11px;'>"+returnData[i].SUM_COUNT+"</td>"
                         table += "</tr>";
 
                         if(i == returnData.length - 1) {
