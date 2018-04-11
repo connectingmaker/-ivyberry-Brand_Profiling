@@ -10,7 +10,7 @@ $(function() {
             return;
         }
 
-        if(inputTextCheck("point", "포인트를 입력해주세요.") == false) {
+        if(inputTextCheck("point", "포인트를 입력해주세요.") == "") {
             return;
         }
 
