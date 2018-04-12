@@ -76,6 +76,19 @@ var mstatistics = {
         connection.end();
         return data;
     }
+
+    ,sp_STATISTICS_QUESTION_GROUP_DATA_KEYWORD: function(campaign_code, quest_num, group_code, callback) {
+        var connection = mysql_dbc.init();
+        var query = " call sp_STATISTICS_QUESTION_GROUP_DATA_KEYWORD(?, ?, ?)";
+        var params = [];
+        params.push(campaign_code);
+        params.push(quest_num);
+        params.push(group_code);
+        var data = connection.query(query,params,callback);
+        connection.end();
+        return data;
+    }
+
     ,getBrandList: function(campaign_code, callback) {
         var connection = mysql_dbc.init();
         var query = " SELECT CBP.DETAIL_BRAND_CODE, BCS.BRAND_NAME_KO FROM CAMPAIGN_BRAND_POOL CBP ";

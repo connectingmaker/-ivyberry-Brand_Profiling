@@ -518,19 +518,54 @@ router.get("/groupData/:campaign_code/:group_code/:quest_num", function(req, res
 
 
 
-    mstatistics.sp_STATISTICS_QUESTION_GROUP_LIST(campaign_code, group_code, function(err, rows) {
+    mstatistics.sp_STATISTICS_QUESTION_GROUP_DATA_KEYWORD(campaign_code, quest_num, group_code, function(err, rows) {
         if(err) {
             console.log(err);
-            throw err;
         }
 
-        var data = rows[0];
+        var keywordRank = rows[0];
+        var brandMax = [];
+        var brandMaxCnt = [];
+        var brandQName = [];
+        var arrayKey = 0;
+        for(var j = 0; j<keywordRank.length; j++) {
+            if(j == 0) {
+                brandMax.push(keywordRank[j].BRAND_NAME_KO);
+                brandMaxCnt.push(keywordRank[j].SUM_TOTAL);
+                brandQName.push(keywordRank[j].Q_NAME);
+            } else {
+                if(brandMax[arrayKey] != keywordRank[j].BRAND_NAME_KO) {
+                    brandMax.push(keywordRank[j].BRAND_NAME_KO);
+                    brandMaxCnt.push(keywordRank[j].SUM_TOTAL);
+                    brandQName.push(keywordRank[j].Q_NAME);
+                    arrayKey++;
+                } else {
+                    if(brandMaxCnt[arrayKey] < keywordRank[j].SUM_TOTAL) {
+                        brandMaxCnt[arrayKey] = keywordRank[j].SUM_TOTAL;
+                        brandQName[arrayKey] = keywordRank[j].Q_NAME;
+                    }
+                }
+
+            }
+
+        }
+        console.log(brandMax);
+        console.log(brandMaxCnt);
+        console.log(brandQName);
+
+        mstatistics.sp_STATISTICS_QUESTION_GROUP_LIST(campaign_code, group_code, function(err, rows) {
+            if(err) {
+                console.log(err);
+                throw err;
+            }
+
+            var data = rows[0];
 
 
-
-
-        res.render("statistics/groupData", {data : data, campaign_code:campaign_code, group_code:group_code, quest_num: quest_num });
+            res.render("statistics/groupData", {data : data, campaign_code:campaign_code, group_code:group_code, quest_num: quest_num, brandMax: brandMax, brandQName: brandQName });
+        });
     });
+
 
 });
 
@@ -554,7 +589,32 @@ router.post("/groupData", function(req, res) {
         res.send(data);
     });
 
+
 });
+
+router.post("/keyword", function(req, res) {
+    var campaign_code = req.body.campaign_code;
+    var group_code = req.body.group_code;
+    var quest_num = req.body.quest_num;
+
+    console.log(campaign_code + "///" + group_code + "///" + quest_num);
+
+    mstatistics.sp_STATISTICS_QUESTION_GROUP_DATA_KEYWORD(campaign_code, quest_num,group_code, function(err, rows) {
+        if(err) {
+            console.log(err);
+            throw err;
+        }
+
+        var data = rows[0];
+        console.log(JSON.stringify(data));
+
+        res.send(data);
+    });
+
+
+});
+
+
 /*
 router.get("/group/:code", function(req, res) {
     var group_code = req.params.code;

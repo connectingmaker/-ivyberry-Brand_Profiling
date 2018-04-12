@@ -11,8 +11,19 @@
 
             </div>
         </div>
-    </div>
 
+    </div>
+    <div class="col-xs-12 bg-white box round_box push-30-t">
+        <b>브랜드별 키워드 추천</b>
+        <div class="col-xs-12 push-10-t">
+        <% for(var j = 0; j<brandMax.length; j++) { %>
+        <div class="col-xs-6 push-10-t">
+            <b>● <%=brandMax[j]%></b> : <%=brandQName[j]%>
+        </div>
+        <% } %>
+        </div>
+
+    </div>
     <% for(var i = 0; i<data.length; i++) { %>
         <div class="col-xs-12 bg-white box round_box push-30-t">
             <b><%=data[i].Q_NAME%></b>
