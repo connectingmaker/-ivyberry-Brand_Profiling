@@ -697,7 +697,7 @@ router.get("/group/rawdata", function(req, res) {
                             res.end(result, 'binary');
                         }
 
-                    }, 1000);
+                    }, 10000);
 
 
                 });
@@ -759,7 +759,7 @@ router.get("/group/brandrawdata", function(req, res) {
 
                     }
 
-                }, 5000);
+                }, 10000);
 
 
             });

@@ -46,8 +46,6 @@ $(function() {
                 case "1":
                     var table = "";
 
-
-
                     table += "<tr>";
                     table += "<td width='20%' class='text-center' style='font-size:14px;font-weight: bold;'>총참여자수 : ("+returnData[0].TOTAL_CNT+"명)</td>";
                     table += "<td class='text-center' style='padding:10px 5px;'>";
@@ -94,13 +92,13 @@ $(function() {
                         table += "<td style='border:1px solid #f1f1f1;' class='text-center'>";
                         table += "<table width='"+returnData[i].TOTAL_PER2*1.5+"%'>";
                         table += "<tr>";
-                        table += "<td width='"+Math.round(returnData[i].QA1_DATA_PER*1.5)+"%' class='text-center' style='background-color:#f19253;color:#fff;font-size:5px;padding:5px 0px;'>"+returnData[i].QA1_DATA_PER+"%</td>";
-                        table += "<td width='"+Math.round(returnData[i].QA2_DATA_PER*1.5)+"%' class='text-center' style='background-color:#f7b885;color:#fff;font-size:5px;padding:5px 0px;'>"+returnData[i].QA2_DATA_PER+"%</td>";
-                        table += "<td width='"+Math.round(returnData[i].QA3_DATA_PER*1.5)+"%' class='text-center' style='background-color:#c69671;color:#fff;font-size:5px;padding:5px 0px;'>"+returnData[i].QA3_DATA_PER+"%</td>";
-                        table += "<td width='"+Math.round(returnData[i].QA4_DATA_PER*1.5)+"%' class='text-center' style='background-color:#bfa6bc;color:#fff;font-size:5px;padding:5px 0px;'>"+returnData[i].QA4_DATA_PER+"%</td>";
-                        table += "<td width='"+Math.round(returnData[i].QA5_DATA_PER*1.5)+"%' class='text-center' style='background-color:#a2b9bf;color:#fff;font-size:5px;padding:5px 0px;'>"+returnData[i].QA5_DATA_PER+"%</td>";
-                        table += "<td width='"+Math.round(returnData[i].QA6_DATA_PER*1.5)+"%' class='text-center' style='background-color:#4c9ba5;color:#fff;font-size:5px;padding:5px 0px;'>"+returnData[i].QA6_DATA_PER+"%</td>";
-                        table += "<td width='"+Math.round(returnData[i].QA7_DATA_PER*1.5)+"%' class='text-center' style='background-color:#3272f4;color:#fff;font-size:5px;padding:5px 0px;'>"+returnData[i].QA7_DATA_PER+"%</td>";
+                        table += "<td width='"+Math.round(returnData[i].QA1_DATA_PER*1.5)+"%' class='text-center' style='background-color:#f19253;color:#fff;font-size:3px;padding:5px 0px;'>"+returnData[i].QA1_DATA_PER+"%</td>";
+                        table += "<td width='"+Math.round(returnData[i].QA2_DATA_PER*1.5)+"%' class='text-center' style='background-color:#f7b885;color:#fff;font-size:3px;padding:5px 0px;'>"+returnData[i].QA2_DATA_PER+"%</td>";
+                        table += "<td width='"+Math.round(returnData[i].QA3_DATA_PER*1.5)+"%' class='text-center' style='background-color:#c69671;color:#fff;font-size:3px;padding:5px 0px;'>"+returnData[i].QA3_DATA_PER+"%</td>";
+                        table += "<td width='"+Math.round(returnData[i].QA4_DATA_PER*1.5)+"%' class='text-center' style='background-color:#bfa6bc;color:#fff;font-size:3px;padding:5px 0px;'>"+returnData[i].QA4_DATA_PER+"%</td>";
+                        table += "<td width='"+Math.round(returnData[i].QA5_DATA_PER*1.5)+"%' class='text-center' style='background-color:#a2b9bf;color:#fff;font-size:3px;padding:5px 0px;'>"+returnData[i].QA5_DATA_PER+"%</td>";
+                        table += "<td width='"+Math.round(returnData[i].QA6_DATA_PER*1.5)+"%' class='text-center' style='background-color:#4c9ba5;color:#fff;font-size:3px;padding:5px 0px;'>"+returnData[i].QA6_DATA_PER+"%</td>";
+                        table += "<td width='"+Math.round(returnData[i].QA7_DATA_PER*1.5)+"%' class='text-center' style='background-color:#3272f4;color:#fff;font-size:3px;padding:5px 0px;'>"+returnData[i].QA7_DATA_PER+"%</td>";
                         table += "</tr>";
                         table += "</table>";
                         table += "</td>";
