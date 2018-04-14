@@ -125,7 +125,7 @@ var mcampaign = {
     }
     ,get_campaign_select: function(campaign_code, callback) {
         var connection = mysql_dbc.init();
-        var query = " SELECT CAMPAIGN_CODE, CAMPAIGN_TITLE, CAMPAIGN_DESC, CATEGORY_CODE, FROM_UNIXTIME(CAMPAIGN_STARTDATE) AS CAMPAIGN_STARTDATE, FROM_UNIXTIME(CAMPAIGN_ENDDATE) AS CAMPAIGN_ENDDATE, CAMPAIGN_ING, VIRTUAL_YN, JOIN_CNT, POINT_LIMIT, INSERT_DATETIME, MODIFY_DATETIME FROM CAMPAIGN WHERE CAMPAIGN_CODE = ? ";
+        var query = " SELECT CAMPAIGN_CODE, CAMPAIGN_TITLE, CAMPAIGN_DESC, CATEGORY_CODE, FROM_UNIXTIME(CAMPAIGN_STARTDATE) AS CAMPAIGN_STARTDATE, FROM_UNIXTIME(CAMPAIGN_ENDDATE) AS CAMPAIGN_ENDDATE, CAMPAIGN_ING, VIRTUAL_YN, JOIN_CNT, POINT_LIMIT, INSERT_DATETIME, MODIFY_DATETIME, BRAND_SKIP FROM CAMPAIGN WHERE CAMPAIGN_CODE = ? ";
         var params = [];
         params.push(campaign_code);
 
@@ -505,6 +505,18 @@ var mcampaign = {
 
         params.push(campaign_code);
         params.push(uid);
+
+        var data = connection.query(query,params,callback);
+        connection.end();
+        return data;
+    }
+    ,CAMPAIGN_SKIP_YN: function(campaign_code, skip_yn, callback) {
+        var connection = mysql_dbc.init();
+        var query = " UPDATE CAMPAIGN SET BRAND_SKIP = ? WHERE CAMPAIGN_CODE = ?  ";
+        var params = [];
+        params.push(skip_yn);
+
+        params.push(campaign_code);
 
         var data = connection.query(query,params,callback);
         connection.end();

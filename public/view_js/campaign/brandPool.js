@@ -28,10 +28,18 @@ $(function() {
             return;
         }
 
+        var brandSkip = "N";
+
+        if($("#brandskip").is(":checked") == true) {
+            brandSkip = "Y";
+        }
+
 
         var json = {
             campaign_code : campaign_code
             ,brandList : brandDetail
+            ,brandSkip : brandSkip
+
         };
         console.log(json);
 
@@ -67,5 +75,29 @@ $(function() {
             });
             //$(".brandpool").prop("checked", false);
         }
+    });
+
+
+    $("#brandskip").click(function() {
+        if($(this).is(":checked") == true) {
+            $(".brandpool").each(function() {
+                if($(this).attr("fix") != "true") {
+                    $(this).attr("disabled", true);
+                    $(this).prop("checked", false);
+                }
+
+
+            });
+        } else {
+            $(".brandpool").each(function() {
+                if($(this).attr("fix") != "true") {
+                    $(this).attr("disabled", false);
+                    $(this).prop("checked", false);
+                }
+               // $(this).prop("checked", false);
+
+            });
+        }
+
     });
 });

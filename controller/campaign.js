@@ -247,29 +247,34 @@ router.get('/brandPool/:code', function(req, res) {
 router.post("/brandPoolProcess", function(req, res) {
     var campaign_code = req.body.campaign_code;
     var brandList = req.body.brandList;
+    var brandSkip = req.body.brandSkip;
     var err = "";
     var jsonData = {};
     console.log("DATA");
 
-    mcampaign.del_CAMPAIGN_BRAND_POOL(campaign_code, function(err, rows) {
-        console.log("성공");
-        if(err) {
-            console.log(err);
-        }
 
-        mcampaign.save_CAMPAIGN_BRAND_POOL_SAVE(campaign_code, brandList, function(err, rows) {
+    mcampaign.CAMPAIGN_SKIP_YN(campaign_code, brandSkip, function(err, rows) {
+        mcampaign.del_CAMPAIGN_BRAND_POOL(campaign_code, function(err, rows) {
+            console.log("성공");
             if(err) {
                 console.log(err);
             }
 
-            jsonData = {
-                err : "000"
-            }
+            mcampaign.save_CAMPAIGN_BRAND_POOL_SAVE(campaign_code, brandList, function(err, rows) {
+                if(err) {
+                    console.log(err);
+                }
 
-            res.send(jsonData);
-        })
+                jsonData = {
+                    err : "000"
+                }
 
+                res.send(jsonData);
+            })
+
+        });
     });
+
 
     // mcampaign.sp_CAMPAIGN_BRAND_POOL_SAVE(campaign_code, brandList, function(err, rows) {
     //     if(err) {

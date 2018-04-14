@@ -35,11 +35,15 @@ router.get("/start", function(req, res) {
             }
 
             var survey = rows[0];
-            console.log(survey);
             switch (survey[0].ERR_CODE) {
                 case "000":
                     if(quest_num == 1) {
-                        res.redirect("/survey/brand?campaign_code=" + campaign_code + "&uid=" + uid + "&quest_num=" + quest_num + "&seq=" + survey[0]._SEQ+debugurl);
+                        if(survey[0].BRAND_SKIP == "N") {
+                            res.redirect("/survey/brand?campaign_code=" + campaign_code + "&uid=" + uid + "&quest_num=" + quest_num + "&seq=" + survey[0]._SEQ+debugurl);
+                        } else {
+                            res.redirect("/survey/page?campaign_code=" + campaign_code + "&uid=" + uid + "&quest_num=" + quest_num + "&page=1&seq=" + survey[0]._SEQ+debugurl);
+                        }
+
                     } else {
                         res.redirect("/survey/page?campaign_code=" + campaign_code + "&uid=" + uid + "&quest_num=" + quest_num + "&page=1&seq=" + survey[0]._SEQ+debugurl);
                     }
@@ -61,7 +65,17 @@ router.get("/start", function(req, res) {
                                 throw err;
                             }
                             if(quest_num == 1) {
-                                res.redirect("/survey/brand?campaign_code=" + campaign_code + "&uid=" + uid + "&quest_num=" + quest_num + "&seq=" + survey[0]._SEQ + debugurl);
+                                // res.redirect("/survey/brand?campaign_code=" + campaign_code + "&uid=" + uid + "&quest_num=" + quest_num + "&seq=" + survey[0]._SEQ + debugurl);
+                                if(quest_num == 1) {
+                                    if(survey[0].BRAND_SKIP == "N") {
+                                        res.redirect("/survey/brand?campaign_code=" + campaign_code + "&uid=" + uid + "&quest_num=" + quest_num + "&seq=" + survey[0]._SEQ+debugurl);
+                                    } else {
+                                        res.redirect("/survey/page?campaign_code=" + campaign_code + "&uid=" + uid + "&quest_num=" + quest_num + "&page=1&seq=" + survey[0]._SEQ+debugurl);
+                                    }
+
+                                } else {
+                                    res.redirect("/survey/page?campaign_code=" + campaign_code + "&uid=" + uid + "&quest_num=" + quest_num + "&page=1&seq=" + survey[0]._SEQ+debugurl);
+                                }
                             } else {
                                 res.redirect("/survey/page?campaign_code=" + campaign_code + "&uid=" + uid + "&quest_num=" + quest_num + "&page=1&seq=" + survey[0]._SEQ+debugurl);
                             }
