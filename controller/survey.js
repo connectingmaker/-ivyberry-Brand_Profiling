@@ -55,7 +55,7 @@ router.get("/start", function(req, res) {
 
                 case "999":
                     if(debug == "true") {
-                        msurvey.sp_RAWDATA_DELETE(campaign_code, uid, function(err, rows) {
+                        msurvey.sp_RAWDATA_DELETE(campaign_code, uid, quest_num, function(err, rows) {
                             if(err) {
                                 console.log(err);
                                 throw err;

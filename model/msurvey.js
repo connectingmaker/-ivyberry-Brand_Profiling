@@ -280,12 +280,13 @@ var msurvey = {
         connection.end();
         return data;
     }
-    ,sp_RAWDATA_DELETE: function(campaign_code, uid, callback) {
+    ,sp_RAWDATA_DELETE: function(campaign_code, uid, quest_num, callback) {
         var connection = mysql_dbc.init();
-        var query = " call sp_RAWDATA_DELETE(?, ?)";
+        var query = " call sp_RAWDATA_DELETE(?, ?, ?)";
         var params = [];
         params.push(campaign_code);
         params.push(uid);
+        params.push(quest_num);
 
         var data = connection.query(query, params, callback);
         connection.end();
