@@ -290,12 +290,29 @@ $(function() {
     $("#singleCreate").click(function() {
         var code = Math.floor(Math.random() * 99999999999999) + 1;
 
+
         $("#single_q_name").val("");
         $("#single_q_title_ko").val("");
         $("#single_q_title_en").val("");
         $("#single_q_title_cn").val("");
         $("#single_etc").val("");
         $("#single_memo").val("");
+
+        $("#single_qa_title_ko1").val("");
+        $("#single_qa_title_ko1").attr("qa_code","");
+        $("#single_qa_title_en1").val("");
+        $("#single_qa_title_en1").attr("qa_code","");
+        $("#single_qa_title_cn1").val("");
+        $("#single_qa_title_cn1").attr("qa_code","");
+
+        $("#single_qa_title_ko2").val("");
+        $("#single_qa_title_ko2").attr("qa_code","");
+        $("#single_qa_title_en2").val("");
+        $("#single_qa_title_en2").attr("qa_code","");
+        $("#single_qa_title_cn2").val("");
+        $("#single_qa_title_cn2").attr("qa_code","");
+
+
 
         var multi_template_temp = multi_template.replace("[_ID_]", code);
         multi_template_temp = multi_template_temp.replace("[_QA_CODE_]", "");
@@ -417,6 +434,7 @@ $(function() {
         };
 
 
+
         common.ajax.send('/question/singleProcess', jsonData);
         common.ajax.return = function(data) {
             var dataJson = eval("("+data+")");
@@ -455,7 +473,7 @@ $(function() {
 
             }
 
-            $('#radioModal').modal('hide');
+            $('#singleModal').modal('hide');
         };
         //$('#multiModal').modal('hide');
 
