@@ -31,8 +31,18 @@ router.get("/static", function(req, res) {
 
 router.get('/list', function(req, res, next) {
     var page = req.query.page;
+    var sorting = req.query.sorting;
+    var sortingtype = req.query.sortingtype;
     if(page == undefined) {
         page = 1;
+    }
+
+    if(sorting == undefined) {
+        sorting = "";
+    }
+
+    if(sortingtype == undefined) {
+        sortingtype = "";
     }
 
     var searchName = req.query.searchName;
@@ -64,19 +74,19 @@ router.get('/list', function(req, res, next) {
                     }
                     prelink = this.preparePreLink(result.prelink);
                     if(result.previous) {
-                        html += '<li><a href="./?page=' + result.previous + '&searchName='+searchName+'">' + this.options.translator('PREVIOUS') + '</a></li>';
+                        html += '<li><a href="./?page=' + result.previous + '&searchName='+searchName+'&sorting='+sorting+'&sortingtype='+sortingtype+'">' + this.options.translator('PREVIOUS') + '</a></li>';
                     }
                     if(result.range.length) {
                         for( i = 0, len = result.range.length; i < len; i++) {
                             if(result.range[i] === result.current) {
-                                html += '<li class="active"><a href="?page=' + result.range[i] + '&searchName='+searchName+'">' + result.range[i] + '</a></li>';
+                                html += '<li class="active"><a href="?page=' + result.range[i] + '&searchName='+searchName+'&sorting='+sorting+'&sortingtype='+sortingtype+'">' + result.range[i] + '</a></li>';
                             } else {
-                                html += '<li><a href="?page=' + result.range[i] + '&searchName='+searchName+'">' + result.range[i] + '</a></li>';
+                                html += '<li><a href="?page=' + result.range[i] + '&searchName='+searchName+'&sorting='+sorting+'&sortingtype='+sortingtype+'">' + result.range[i] + '</a></li>';
                             }
                         }
                     }
                     if(result.next) {
-                        html += '<li><a href="?page=' + result.next + '&searchName='+searchName+'" class="paginator-next">' + this.options.translator('NEXT') + '</a></li>';
+                        html += '<li><a href="?page=' + result.next + '&searchName='+searchName+'&sorting='+sorting+'&sortingtype='+sortingtype+'" class="paginator-next">' + this.options.translator('NEXT') + '</a></li>';
                     }
                     html += '</ul></div>';
                     return html;
@@ -85,12 +95,12 @@ router.get('/list', function(req, res, next) {
 
 
 
-            muser.getMemberList(start, searchName, function(err, rows) {
+            muser.getMemberList(start, searchName, sorting, sortingtype, function(err, rows) {
                 if(err) {
                     console.log(err);
                 }
                 var userData = rows;
-                res.render('users/list', { moment:moment, pageHtml: boostrapPaginator, userData: userData, totalData: totalData, searchName : searchName });
+                res.render('users/list', { moment:moment, pageHtml: boostrapPaginator, userData: userData, totalData: totalData, searchName : searchName, sorting: sorting, sortingtype: sortingtype });
             });
         });
     });

@@ -69,7 +69,7 @@ var muser = {
         connection.end();
         return data;
     }
-    ,getMemberList: function(page, searchName, callback) {
+    ,getMemberList: function(page, searchName, sorting, sortingtype, callback) {
         var connection = mysql_dbc.init();
         var query = " SELECT ";
         query += " M.UID ";
@@ -92,9 +92,31 @@ var muser = {
             query += " WHERE (M.USERNAME LIKE '"+searchName+"%' OR M.USEREMAIL LIKE '%"+searchName+"%')";
 
         }
-        query += " ORDER BY M.INSERT_DATETIME DESC ";
+
+
+        if(sorting == "") {
+            query += " ORDER BY M.INSERT_DATETIME DESC ";
+        } else {
+            if(sorting == "uid") {
+                query += " ORDER BY M.UID " + sortingtype;
+            } else if(sorting == "grade") {
+                query += " ORDER BY M.CODE_GRADE " + sortingtype;
+            } else if(sorting == "point") {
+                query += " ORDER BY M.POINT " + sortingtype;
+            } else if(sorting == "username") {
+                query += " ORDER BY M.USERNAME " + sortingtype;
+            } else if(sorting == "email") {
+                query += " ORDER BY M.USEREMAIL " + sortingtype;
+            } else if(sorting == "membertype") {
+                query += " ORDER BY M.FACEBOOK_ID " + sortingtype;
+            }
+
+        }
+
         query += " LIMIT "+page+", 30";
 
+
+        console.log(query);
 
 
         var params = [];

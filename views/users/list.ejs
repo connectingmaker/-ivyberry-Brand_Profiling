@@ -12,6 +12,8 @@
         </div>
     </div>
 
+
+
     <div class="col-xs-12 bg-white box round_box push-20-t">
         <div class="row">
             <div class="col-xs-12 title">
@@ -120,13 +122,94 @@
             <table id="list" class="table table-bordered fontsize">
                 <thead>
                 <tr>
-                    <th>UID</th>
-                    <th>등급</th>
-                    <th>회원유형</th>
-                    <th>이름</th>
-                    <th>이메일</th>
+                    <th>
+
+                        <% if(sorting == "uid") { %>
+
+                            <% if(sortingtype == "desc") { %>
+                                <a href="/users/list?sorting=uid&sortingtype=asc">
+                                <i class="fa fa-sort-desc"></i>
+                            <% } else { %>
+                                <a href="/users/list?sorting=uid&sortingtype=desc">
+                                <i class="fa fa-sort-asc"></i>
+                            <% } %>
+                        <% } else { %>
+                        <a href="/users/list?sorting=uid&sortingtype=desc">
+                        <% } %>
+                        UID
+                        </a>
+                    </th>
+                    <th>
+                        <% if(sorting == "grade") { %>
+
+                            <% if(sortingtype == "desc") { %>
+                                <a href="/users/list?sorting=grade&sortingtype=asc">
+                                <i class="fa fa-sort-desc"></i>
+                            <% } else { %>
+                                <a href="/users/list?sorting=grade&sortingtype=desc">
+                                <i class="fa fa-sort-asc"></i>
+                            <% } %>
+                        <% } else { %>
+                        <a href="/users/list?sorting=grade&sortingtype=desc">
+                        <% } %>
+                        등급
+                    </th>
+                    <th>
+                        <% if(sorting == "membertype") { %>
+
+                            <% if(sortingtype == "desc") { %>
+                                <a href="/users/list?sorting=membertype&sortingtype=asc">
+                                <i class="fa fa-sort-desc"></i>
+                            <% } else { %>
+                                <a href="/users/list?sorting=membertype&sortingtype=desc">
+                                <i class="fa fa-sort-asc"></i>
+                            <% } %>
+                        <% } else { %>
+                        <a href="/users/list?sorting=membertype&sortingtype=desc">
+                        <% } %>
+                        회원유형</th>
+                    <th>
+                        <% if(sorting == "username") { %>
+
+                            <% if(sortingtype == "desc") { %>
+                            <a href="/users/list?sorting=username&sortingtype=asc">
+                            <i class="fa fa-sort-desc"></i>
+                            <% } else { %>
+                            <a href="/users/list?sorting=username&sortingtype=desc">
+                            <i class="fa fa-sort-asc"></i>
+                            <% } %>
+                        <% } else { %>
+                        <a href="/users/list?sorting=username&sortingtype=desc">
+                        <% } %>
+                        이름</th>
+                    <th>
+                        <% if(sorting == "email") { %>
+
+                            <% if(sortingtype == "desc") { %>
+                            <a href="/users/list?sorting=email&sortingtype=asc">
+                            <i class="fa fa-sort-desc"></i>
+                            <% } else { %>
+                            <a href="/users/list?sorting=email&sortingtype=desc">
+                            <i class="fa fa-sort-asc"></i>
+                            <% } %>
+                        <% } else { %>
+                        <a href="/users/list?sorting=email&sortingtype=desc">
+                        <% } %>
+                        이메일</th>
                     <th>전화번호</th>
-                    <th>포인트</th>
+                    <th>
+                        <% if(sorting == "point") { %>
+
+                            <% if(sortingtype == "desc") { %>
+                            <a href="/users/list?sorting=point&sortingtype=asc">
+                            <i class="fa fa-sort-desc"></i>
+                            <% } else { %>
+                            <a href="/users/list?sorting=point&sortingtype=desc">
+                            <i class="fa fa-sort-asc"></i>
+                            <% } %>
+                        <% } else { %>
+                        <a href="/users/list?sorting=point&sortingtype=desc"><% } %>
+                        포인트</th>
                     <th>참여설문</th>
                     <th>최근접속</th>
                     <th>기능</th>
@@ -136,6 +219,8 @@
                 <% for(var i = 0; i<userData.length; i++) { %>
                 <tr id="<%=userData[i].UID%>">
                     <td class="text-center"><a href="/users/write/<%=userData[i].UID%>" class="btn btn-xs btn-danger"><%=userData[i].UID%></a></td>
+
+                    <td><%=userData[i].CODE_NAME%></td>
                     <td>
 
                         <% if(userData[i].FACEBOOK_ID == 0) { %>
@@ -144,7 +229,6 @@
                         <span class="label label-success">페이스북</span>
                         <% } %>
                     </td>
-                    <td><%=userData[i].CODE_NAME%></td>
                     <td><%=userData[i].USERNAME%></td>
                     <td><%=userData[i].USEREMAIL%></td>
                     <td><%=userData[i].USERPHONE%></td>
