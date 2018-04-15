@@ -843,10 +843,14 @@ router.get("/blacklist", function(req, res) {
 });
 
 router.post("/blackDelProcess", function(req, res) {
+
+
     var uid = req.body.uid;
     var campaign_code = req.body.campaign_code;
     var quest_num = req.body.quest_num;
-
+    console.log(uid);
+    console.log(campaign_code);
+    console.log(quest_num);
     muser.sp_MEMBER_BLACK_DELETE(uid,campaign_code,quest_num, function(err,row) {
         if(err) {
             console.log(err);

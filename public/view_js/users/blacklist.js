@@ -8,23 +8,21 @@ var uid = "";
 
 $(function() {
     $(".blackClick").click(function() {
-        uid = $(this).parents("tr").attr("id");
+        var uid = $(this).parents("tr").attr("id");
+        var campaign_code = $(this).parents("tr").attr("campaign_code");
+        var quest_num = $(this).parents("tr").attr("quest_num");
         var json = {
             uid : uid
+            ,campaign_code:  campaign_code
+            ,quest_num : quest_num
         };
+        console.log(json);
+
         common.ajax.send("/users/blackDelProcess", json);
         common.ajax.return = function(data) {
-            switch(data.ERR_CODE) {
-                case "000":
+            console.log(data);
+            location.reload();
 
-                    if(data.DB_TYPE == "BLACK") {
-                        $("#"+uid+" #blackBtn").html("블랙리스트 해제");
-                        $("#"+uid+" #blackBtn").removeClass("btn-danger");
-                        $("#"+uid+" #blackBtn").addClass("btn-primary");
-                    }
-                    break;
-
-            }
         }
 
 

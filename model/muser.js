@@ -477,6 +477,7 @@ var muser = {
         var connection = mysql_dbc.init();
         var query = " call sp_MEMBER_BLACK_DELETE(?,?,?) ";
         var params = [];
+        console.log(params);
         params.push(uid);
         params.push(campaign_code);
         params.push(quest_num);

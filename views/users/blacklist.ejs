@@ -47,7 +47,7 @@
                 </thead>
                 <tbody>
                 <% for(var i = 0; i<userdata.length; i++) { %>
-                    <tr id="<%=userdata[i].UID%>" class="text-center push-10 push-10-t">
+                    <tr id="<%=userdata[i].UID%>" campaign_code="<%=userdata[i].CAMPAIGN_CODE%>" quest_num="<%=userdata[i].QUEST_NUM%>" class="text-center push-10 push-10-t">
                         <td><code><%=userdata[i].UID%></code></td>
                         <td><%=userdata[i].USERNAME%></td>
                         <td><%=userdata[i].CAMPAIGN_TITLE%></td>
@@ -55,7 +55,7 @@
                         <td><%=userdata[i].BLACKMSG%></td>
                         <td><%=moment(userdata[i].INSERT_DATETIME).format("YYYY-MM-DD HH:mm")%></td>
                         <td>
-                            <a href="#" id="blackBtn<%=userdata[i].CAMPAIGN_CODE%>" class="blackClick btn btn-xs btn-primary">블랙리스트 해제</a>
+                            <a href="#" class="blackClick btn btn-xs btn-primary">블랙리스트 삭제</a>
                         </td>
                     </tr>
 
