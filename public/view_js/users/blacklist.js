@@ -23,6 +23,7 @@ $(function() {
                         $("#"+uid+" #blackBtn").addClass("btn-primary");
                     }
                     break;
+
             }
         }
 
