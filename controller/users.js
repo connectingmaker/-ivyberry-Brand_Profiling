@@ -864,4 +864,21 @@ router.post("/blackDelProcess", function(req, res) {
 
 });
 
+router.post("/staticYN", function(req, res) {
+    var uid = req.body.uid;
+    var campaign_code = req.body.campaign_code;
+    var quest_num = req.body.quest_num;
+
+
+    muser.sp_MEMBER_BLACKLIST_STATIC_YN(uid, campaign_code, quest_num, function(err, rows) {
+        if(err) {
+            console.log(err);
+        }
+        var data = rows[0][0];
+
+        res.send(data);
+    });
+
+});
+
 module.exports = router;

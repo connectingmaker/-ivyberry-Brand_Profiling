@@ -38,6 +38,32 @@ $(function() {
 
     });
 
+    $(".staticBtn").click(function() {
+        uid = $(this).parents("tr").attr("id");
+        var json = {
+            uid : uid
+            ,campaign_code : campaign_code
+            ,quest_num : quest_num
+        };
+
+        common.ajax.send("/users/staticYN", json);
+        common.ajax.return = function(data) {
+            console.log(data);
+
+
+            if(data.YN == "N") {
+                $("#"+uid+" #staticBtn").html("통계 등록");
+                $("#"+uid+" #staticBtn").removeClass("btn-danger");
+                $("#"+uid+" #staticBtn").addClass("btn-primary");
+            } else {
+                $("#"+uid+" #staticBtn").html("통계 제외");
+                $("#"+uid+" #staticBtn").removeClass("btn-primary");
+                $("#"+uid+" #staticBtn").addClass("btn-danger");
+            }
+        }
+
+    });
+
     $("#blackSave").click(function() {
         if($("#black_code").val() == false) {
             alert("사유를 선택해주세요.");

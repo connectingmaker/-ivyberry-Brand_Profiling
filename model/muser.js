@@ -493,6 +493,18 @@ var muser = {
         connection.end();
         return data;
     }
+    ,sp_MEMBER_BLACKLIST_STATIC_YN: function(uid, campaign_code, quest_num, callback) {
+        var connection = mysql_dbc.init();
+        var query = " call sp_MEMBER_BLACKLIST_STATIC_YN(?,?,?) ";
+        var params = [];
+        params.push(uid);
+        params.push(campaign_code);
+        params.push(quest_num);
+        var data = connection.query(query,params,callback);
+        connection.end();
+        return data;
+    }
+
 
 }
 

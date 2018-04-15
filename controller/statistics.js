@@ -78,6 +78,7 @@ function getValue(obj, key) {
 function getGroupRowData(campaign_code, quest_num, group_q, brand_code, i, ids, cb) {
     var connection = mysql_dbc.init();
 
+    console.log(campaign_code+ "///" + quest_num + "///" + group_q + "///" + brand_code);
     var query = " call sp_CAMPAIGN_RAWDATA_GROUP(?, ?, ?, ?)";
     var params = [];
     params.push(campaign_code);
