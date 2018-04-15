@@ -356,8 +356,6 @@ var muser = {
         query += " ORDER BY P.INSERT_DATETIME DESC ";
         query += " LIMIT "+page+", 10";
 
-
-
         var params = [];
 
         var data = connection.query(query,params,callback);
@@ -444,9 +442,27 @@ var muser = {
         connection.end();
         return data;
     }
+    ,sp_MEMBER_BLACKLIST:function(callback){
+        var connection = mysql_dbc.init();
+        var query = "call sp_MEMBER_BLACKLIST()";
+        var params = [];
+        var data = connection.query(query,params,callback);
+        connection.end();
+        return data;
+    }
+
+    ,sp_MEMBER_BLACK_DELETE:function(uid,campaign_code,quest_num, callback) {
+        var connection = mysql_dbc.init();
+        var query = " call sp_MEMBER_BLACK_DELETE(?,?,?) ";
+        var params = [];
+        params.push(uid);
+        params.push(campaign_code);
+        params.push(quest_num);
+        var data = connection.query(query,params,callback);
+        connection.end();
+        return data;
+    }
     ,sp_MEMBER_POINT_STATIC:function(callback) {
-
-
         var connection = mysql_dbc.init();
         var query = " call sp_MEMBER_POINT_STATIC() ";
         var params = [];

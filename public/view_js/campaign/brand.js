@@ -3,14 +3,14 @@ $(function() {
     var visual_yn = "";
     var brandList = "";
     var brand_total = 0;
-    var brand_fix = 5;
+    var brand_fix = 30;
 
 
 
     $(".visual_yn").click(function() {
         brand_total = 0;
         if($(this).val() == "Y") {
-            brand_fix = 4;
+            brand_fix = 30;
             $(".brandlist").eq(0).prop("checked", true);
 
             brand_total++;
@@ -22,7 +22,7 @@ $(function() {
             });
 
             if(brand_total > 30) {
-                alert("가상브랜드와 고정브랜드의 총 개수가 30개를 넘어 선택할 수 없습니다. 다시 브랜드를 선택하여 주시기 바랍니다.");
+                alert("가상브랜드와 고정브랜드의 총 개수가 31개를 넘어 선택할 수 없습니다. 다시 브랜드를 선택하여 주시기 바랍니다.");
 
                 $(".visual_yn").attr("checked", false);
 
@@ -31,7 +31,7 @@ $(function() {
                 });
             }
         } else {
-            brand_fix = 5;
+            brand_fix = 30;
             $(".brandlist").eq(0).prop("checked", false);
 
             $(".brandlist").each(function() {

@@ -1,0 +1,74 @@
+
+
+<div class="row">
+
+
+    <div class="col-xs-12 bg-white box round_box push-20-t">
+
+        <div class="row">
+            <div class="col-xs-8 title">
+                <h3 class="block-title">블랙리스트 관리</h3>
+            </div>
+        </div>
+
+        <div class="row push-10-t">
+            <div class="col-xs-12">
+                <form name="searchForm" id="searchForm" method="get" action="/users/blacklist">
+                    <div class="input-group">
+                        <input class="form-control" type="text" id="searchName" name="searchName" placeholder="검색해주세요.">
+                        <span class="input-group-btn">
+                        <button id="searchBtn" class="btn btn-default" type="button"><i class="fa fa-search"></i> 검색</button>
+                    </span>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="contents">
+            <table id="list" class="table table-bordered fontsize">
+
+                <col width="15%">
+                <col width="10%">
+                <col width="30%">
+                <col width="5%">
+                <col width="20%">
+                <col width="10%">
+                <col width="10%">
+                <thead>
+                <tr>
+                    <th class="text-center">UID</th>
+                    <th class="text-center">이름</th>
+                    <th class="text-center">블렉리스트 등록 설문</th>
+                    <th class="text-center">퀘스트</th>
+                    <th class="text-center">등록사유</th>
+                    <th class="text-center">등록일</th>
+                    <th class="text-center">관리</th>
+                </tr>
+                </thead>
+                <tbody>
+                <% for(var i = 0; i<userdata.length; i++) { %>
+                    <tr id="<%=userdata[i].UID%>" class="text-center push-10 push-10-t">
+                        <td><code><%=userdata[i].UID%></code></td>
+                        <td><%=userdata[i].USERNAME%></td>
+                        <td><%=userdata[i].CAMPAIGN_TITLE%></td>
+                        <td><%=userdata[i].QUEST_NUM%></td>
+                        <td><%=userdata[i].BLACKMSG%></td>
+                        <td><%=moment(userdata[i].INSERT_DATETIME).format("YYYY-MM-DD HH:mm")%></td>
+                        <td>
+                            <a href="#" id="blackBtn<%=userdata[i].CAMPAIGN_CODE%>" class="blackClick btn btn-xs btn-primary">블랙리스트 해제</a>
+                        </td>
+                    </tr>
+                <% } %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+
+</div>
+
+
+
+
+<script language="javascript" src="/view_js/users/blacklist.js"></script>

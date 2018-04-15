@@ -813,6 +813,44 @@ router.post("/blackProcess", function(req, res) {
     })
 
 
+});
+
+router.get("/blacklist", function(req, res) {
+    console.log("blacklist_ok");
+    muser.sp_MEMBER_BLACKLIST(function(err,rows){
+
+        if(err) {
+            console.log(err);
+            throw err;
+        }
+        var userdata = rows[0];
+
+        console.log(userdata);
+
+        res.render("users/blacklist", { moment:moment, userdata: userdata });
+    })
+
+});
+
+router.post("/blackDelProcess", function(req, res) {
+    var uid = req.body.uid;
+    var campaign_code = req.body.campaign_code;
+    var quest_num = req.body.quest_num;
+
+    muser.sp_MEMBER_BLACK_DELETE(uid,campaign_code,quest_num, function(err,row) {
+        if(err) {
+            console.log(err);
+            throw err;
+        }
+        var data = row[0][0];
+        var json = {
+            "ERR_CODE" : "000"
+            ,"ERR_MSG" : "OK"
+            ,"DB_TYPE" : data.DB_TYPE
+        }
+        res.send(json);
+
+    })
 
 
 });

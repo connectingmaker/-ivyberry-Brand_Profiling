@@ -45,9 +45,9 @@ $(function() {
 
         if($("#"+brand_code).is(":checked") == false) {
 
-            if(chkTotal > 9) {
+            if(chkTotal > 30) {
                 //alert("10개 이상 선택할 수 없습니다.");
-                bootbox.alert("10개 이상 선택할 수 없습니다.");
+                bootbox.alert("30개 이상 선택할 수 없습니다.");
                 return;
             }
 
@@ -100,9 +100,9 @@ $(function() {
 
             var totalCnt = 0;
             totalCnt = parseInt($("#selectCnt").html());
-            if(totalCnt > 10) {
+            if(totalCnt > 30) {
                 //alert("10개 이상 선택할 수 없습니다.");
-                bootbox.alert("10개 이상 선택할 수 없습니다.");
+                bootbox.alert("30개 이상 선택할 수 없습니다.");
                 return;
             }
             var brandData = [];
