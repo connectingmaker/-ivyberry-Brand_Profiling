@@ -462,6 +462,7 @@ var muser = {
         connection.end();
         return data;
     }
+
     ,sp_MEMBER_POINT_STATIC:function(callback) {
         var connection = mysql_dbc.init();
         var query = " call sp_MEMBER_POINT_STATIC() ";
