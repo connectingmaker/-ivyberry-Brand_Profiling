@@ -52,13 +52,13 @@ $(function() {
 
 
             if(data.YN == "N") {
-                $("#"+uid+" #staticBtn").html("통계 등록");
-                $("#"+uid+" #staticBtn").removeClass("btn-danger");
-                $("#"+uid+" #staticBtn").addClass("btn-primary");
+                $("#"+uid+" #staticBtn").html("통계 제외자 등록");
+                $("#"+uid+" #staticBtn").removeClass("btn-warning");
+                $("#"+uid+" #staticBtn").addClass("btn-success");
             } else {
-                $("#"+uid+" #staticBtn").html("통계 제외");
-                $("#"+uid+" #staticBtn").removeClass("btn-primary");
-                $("#"+uid+" #staticBtn").addClass("btn-danger");
+                $("#"+uid+" #staticBtn").html("통계 제외자 해제");
+                $("#"+uid+" #staticBtn").removeClass("btn-success");
+                $("#"+uid+" #staticBtn").addClass("btn-warning");
             }
         }
 
