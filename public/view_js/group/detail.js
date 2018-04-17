@@ -67,12 +67,12 @@ survey_template += "<div class=\"col-xs-12 bg-white box round_box push-10-t\" id
 survey_template += "<div class='row'>";
 survey_template += "<div class='col-xs-8 title'>[_Q_TYPE_]</div>";
 survey_template += "<div class=\"col-xs-4 text-right\">";
-survey_template += "<button class=\"btn btn-default btn-sm delQBtn\">삭제</button>";
-survey_template += "<button class=\"btn btn-success btn-sm useQBtn\">[_USE_YN_TEXT_]</button>";
+survey_template += "<button class=\"btn btn-warning btn-sm delQBtn\">삭제</button>";
 survey_template += "<button class=\"btn btn-info btn-sm modifyQBtn\">수정</button>";
-survey_template += "</div>";
-survey_template += "</div>";
+survey_template += "<button class=\"btn btn-default btn-sm useQBtn\">[_USE_YN_TEXT_]</button>";
 
+survey_template += "</div>";
+survey_template += "</div>";
 survey_template += '<div class="contents_list">';
 survey_template += "<table class=\"table table-bordered fontsize\">";
 survey_template += "<col width=\"8%\">";
@@ -221,10 +221,10 @@ $(function() {
             survey_template_temp = survey_template_temp.replace("[_Q_TITLE_CN_]", dataJson[i].Q_TITLE_CN);
             survey_template_temp = survey_template_temp.replace("[_SET_USE_YN_]", dataJson[i].USE_YN);
             if(dataJson[i].USE_YN == "Y") {
-                survey_template_temp = survey_template_temp.replace("[_USE_YN_TEXT_]", "활성화중");
+                survey_template_temp = survey_template_temp.replace("[_USE_YN_TEXT_]", "<span style='color:cornflowerblue'>활성화중</span>");
                 survey_template_temp = survey_template_temp.replace("[_USE_YN_]", "사용함");
             } else {
-                survey_template_temp = survey_template_temp.replace("[_USE_YN_TEXT_]", "비활성");
+                survey_template_temp = survey_template_temp.replace("[_USE_YN_TEXT_]", "<span style='color:indianred'>비활성화</span>");
                 survey_template_temp = survey_template_temp.replace("[_USE_YN_]", "사용안함");
             }
             $("#questionList").append(survey_template_temp);
@@ -453,10 +453,10 @@ $(function() {
                 survey_template_temp = survey_template_temp.replace("[_Q_TITLE_CN_]", dataJson.Q_TITLE_CN);
                 survey_template_temp = survey_template_temp.replace("[_SET_USE_YN_]", dataJson.USE_YN);
                 if (dataJson.USE_YN == "Y") {
-                    survey_template_temp = survey_template_temp.replace("[_USE_YN_TEXT_]", "활성화중");
+                    survey_template_temp = survey_template_temp.replace("[_USE_YN_TEXT_]", "<span style='color:cornflowerblue'>활성화중</span>");
                     survey_template_temp = survey_template_temp.replace("[_USE_YN_]", "사용함");
                 } else {
-                    survey_template_temp = survey_template_temp.replace("[_USE_YN_TEXT_]", "비활성화");
+                    survey_template_temp = survey_template_temp.replace("[_USE_YN_TEXT_]", "<span style='color:indianred'>비활성화</span>");
                     survey_template_temp = survey_template_temp.replace("[_USE_YN_]", "사용안함");
                 }
 
@@ -534,10 +534,10 @@ $(function() {
                 survey_template_temp = survey_template_temp.replace("[_Q_TITLE_CN_]", dataJson.Q_TITLE_CN);
                 survey_template_temp = survey_template_temp.replace("[_SET_USE_YN_]", dataJson.USE_YN);
                 if(dataJson.USE_YN == "Y") {
-                    survey_template_temp = survey_template_temp.replace("[_USE_YN_TEXT_]", "활성화중");
+                    survey_template_temp = survey_template_temp.replace("[_USE_YN_TEXT_]", "<span style='color:cornflowerblue'>활성화중</span>");
                     survey_template_temp = survey_template_temp.replace("[_USE_YN_]", "사용함");
                 } else {
-                    survey_template_temp = survey_template_temp.replace("[_USE_YN_TEXT_]", "비활성");
+                    survey_template_temp = survey_template_temp.replace("[_USE_YN_TEXT_]", "<span style='color:indianred'>비활성화</span>");
                     survey_template_temp = survey_template_temp.replace("[_USE_YN_]", "사용안함");
                 }
                 $('#textModal').modal('hide');
@@ -636,10 +636,10 @@ $(function() {
                 survey_template_temp = survey_template_temp.replace("[_Q_TITLE_CN_]", dataJson.Q_TITLE_CN);
                 survey_template_temp = survey_template_temp.replace("[_SET_USE_YN_]", dataJson.USE_YN);
                 if(dataJson.USE_YN == "Y") {
-                    survey_template_temp = survey_template_temp.replace("[_USE_YN_TEXT_]", "활성화중");
+                    survey_template_temp = survey_template_temp.replace("[_USE_YN_TEXT_]", "<span style='color:cornflowerblue'>활성화중</span>");
                     survey_template_temp = survey_template_temp.replace("[_USE_YN_]", "사용함");
                 } else {
-                    survey_template_temp = survey_template_temp.replace("[_USE_YN_TEXT_]", "비활성");
+                    survey_template_temp = survey_template_temp.replace("[_USE_YN_TEXT_]", "<span style='color:indianred'>비활성</span>");
                     survey_template_temp = survey_template_temp.replace("[_USE_YN_]", "사용안함");
                 }
                 $('#multiModal').modal('hide');
@@ -735,10 +735,10 @@ $(function() {
                 survey_template_temp = survey_template_temp.replace("[_Q_TITLE_CN_]", dataJson.Q_TITLE_CN);
                 survey_template_temp = survey_template_temp.replace("[_SET_USE_YN_]", dataJson.USE_YN);
                 if(dataJson.USE_YN == "Y") {
-                    survey_template_temp = survey_template_temp.replace("[_USE_YN_TEXT_]", "활성화중");
+                    survey_template_temp = survey_template_temp.replace("[_USE_YN_TEXT_]", "<span style='color:cornflowerblue'>활성화중</span>");
                     survey_template_temp = survey_template_temp.replace("[_USE_YN_]", "사용함");
                 } else {
-                    survey_template_temp = survey_template_temp.replace("[_USE_YN_TEXT_]", "비활성");
+                    survey_template_temp = survey_template_temp.replace("[_USE_YN_TEXT_]", "<span style='color:indianred'>비활성</span>");
                     survey_template_temp = survey_template_temp.replace("[_USE_YN_]", "사용안함");
                 }
                 $('#radioModal').modal('hide');
@@ -843,10 +843,10 @@ $(function() {
                 survey_template_temp = survey_template_temp.replace("[_Q_TITLE_CN_]", dataJson.Q_TITLE_CN);
                 survey_template_temp = survey_template_temp.replace("[_SET_USE_YN_]", dataJson.USE_YN);
                 if(dataJson.USE_YN == "Y") {
-                    survey_template_temp = survey_template_temp.replace("[_USE_YN_TEXT_]", "활성화중");
+                    survey_template_temp = survey_template_temp.replace("[_USE_YN_TEXT_]", "<span style='color:cornflowerblue'>활성화중</span>");
                     survey_template_temp = survey_template_temp.replace("[_USE_YN_]", "사용함");
                 } else {
-                    survey_template_temp = survey_template_temp.replace("[_USE_YN_TEXT_]", "비활성");
+                    survey_template_temp = survey_template_temp.replace("[_USE_YN_TEXT_]", "<span style='color:indianred'>비활성</span>");
                     survey_template_temp = survey_template_temp.replace("[_USE_YN_]", "사용안함");
                 }
 
@@ -944,10 +944,10 @@ $(function() {
                 survey_template_temp = survey_template_temp.replace("[_Q_TITLE_CN_]", dataJson.Q_TITLE_CN);
                 survey_template_temp = survey_template_temp.replace("[_SET_USE_YN_]", dataJson.USE_YN);
                 if(dataJson.USE_YN == "Y") {
-                    survey_template_temp = survey_template_temp.replace("[_USE_YN_TEXT_]", "활성화중");
+                    survey_template_temp = survey_template_temp.replace("[_USE_YN_TEXT_]", "<span style='color:cornflowerblue'>활성화중</span>");
                     survey_template_temp = survey_template_temp.replace("[_USE_YN_]", "사용함");
                 } else {
-                    survey_template_temp = survey_template_temp.replace("[_USE_YN_TEXT_]", "비활성");
+                    survey_template_temp = survey_template_temp.replace("[_USE_YN_TEXT_]", "<span style='color:indianred'>비활성</span>");
                     survey_template_temp = survey_template_temp.replace("[_USE_YN_]", "사용안함");
                 }
 
@@ -1084,10 +1084,10 @@ $(function() {
                 survey_template_temp = survey_template_temp.replace("[_Q_TITLE_CN_]", dataJson.Q_TITLE_CN);
                 survey_template_temp = survey_template_temp.replace("[_SET_USE_YN_]", dataJson.USE_YN);
                 if(dataJson.USE_YN == "Y") {
-                    survey_template_temp = survey_template_temp.replace("[_USE_YN_TEXT_]", "활성화중");
+                    survey_template_temp = survey_template_temp.replace("[_USE_YN_TEXT_]", "<span style='color:cornflowerblue'>활성화중</span>");
                     survey_template_temp = survey_template_temp.replace("[_USE_YN_]", "사용함");
                 } else {
-                    survey_template_temp = survey_template_temp.replace("[_USE_YN_TEXT_]", "비활성");
+                    survey_template_temp = survey_template_temp.replace("[_USE_YN_TEXT_]", "<span style='color:indianred'>비활성</span>");
                     survey_template_temp = survey_template_temp.replace("[_USE_YN_]", "사용안함");
                 }
 
@@ -1205,10 +1205,10 @@ $(function() {
         common.ajax.return = function (data) {
             $("#"+data.q_code+" #use_yn").attr("use_yn", data.use_yn);
             if(data.use_yn == "N") {
-                btn.html("비활성화");
+                btn.html("<span style='color:indianred'>비활성화</span>");
                 $("#"+data.q_code+" .contents_list tbody").find("tr").eq(0).find("td").eq(5).html("사용안함");
             } else {
-                btn.html("활성화중");
+                btn.html("<span style='color:cornflowerblue'>활성화중</span>");
                 $("#"+data.q_code+" .contents_list tbody").find("tr").eq(0).find("td").eq(5).html("사용함");
             }
 
