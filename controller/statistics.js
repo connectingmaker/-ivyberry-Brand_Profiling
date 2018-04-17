@@ -698,7 +698,7 @@ router.get("/group/rawdata", function(req, res) {
                             res.end(result, 'binary');
                         }
 
-                    }, 10000);
+                    }, 30000);
 
 
                 });

@@ -42,7 +42,7 @@ $(function() {
             var label = [];
             switch(question_type) {
 
-                /************* 척도형 ************/
+                /************* 7점 척도형 ************/
                 case "1":
                     var table = "";
 
@@ -115,6 +115,8 @@ $(function() {
 
 
                     break;
+
+                /************* 이미지 7점 척도형 ************/
                 case "2":
                     for(var i = 0; i<returnData.length; i++) {
                         data.labels.push(returnData[i].BRAND_NAME_KO);
@@ -172,6 +174,7 @@ $(function() {
                     }
                     break;
 
+                /************* 이미지 선택 주관식 입력 : textCloud ************/
                 case "3":
                     var dataChart = [];
                     var labels = [];
@@ -285,8 +288,12 @@ $(function() {
                             });
                         }
                     };
-                    /************ 양자택일형 *************/
+                    break;
+                /************ 양자택일형 *************/
                 case "4":
+
+
+
                     var labels = [];
                     var dataValue1 = [];
                     var dataValue2 = [];
@@ -311,52 +318,62 @@ $(function() {
                         label.push(returnData[i].BRAND_NAME_KO);
                         dataValue1.push(Math.round(returnData[i].QA1_PER));
                         dataValue2.push(Math.round(returnData[i].QA2_PER));
-                        dataBackground1.push("rgba(218, 66, 17, 1)");
-                        dataBackground2.push("rgba(218, 66, 17, 0.5)");
+                        dataBackground1.push("#FF6384");
+                        dataBackground2.push("#36A2EB");
+
+                        var table = "";
+
+                        table += "<tr>";
+                        table += "<td width='60%' style='font-size:14px;font-weight: bold;'>총참여자수 : ("+returnData[0].TOTAL_CNT+"명)</td>";
+                        table += "<td>";
+                        if(parseInt(returnData[i].QA1_DATA) >= parseInt(returnData[i].QA2_DATA)) {
+                            table += "<span style='font-size:15px; color:red;'>★</span>";
+                        }
+                        table += "<span style='font-size:12px;font-weight: bold;'>"+labels[0]+":</span>";
+                        table += "<span style='padding-left: 3px; padding-right: 10px;'>"+returnData[i].QA1_DATA+"명</span>";
+                        if(parseInt(returnData[i].QA1_DATA) < parseInt(returnData[i].QA2_DATA)) {
+                            table += "<span style='font-size:15px; color:red;'>★</span>";
+                        }
+                        table += "<span style='font-size:12px;font-weight: bold;'> "+labels[1]+":</span>";
+                        table += "<span style='padding-left: 3px;'>"+returnData[i].QA2_DATA+"명</span></td>";
+
 
                         if(i == returnData.length -1) {
-                            new Chart(document.getElementById("chart_"+returnData[i].Q_CODE).getContext('2d'), {
-                                type: 'horizontalBar',
-                                data: {
-                                    labels: label,
-                                    datasets: [
-                                        {
-                                            label: labels[0],
-                                            data: dataValue1,
-                                            backgroundColor: dataBackground1,
-                                            borderColor: [
-                                                'rgba(255,99,132,1)'
-                                            ],
-                                            borderWidth: 1
-                                        }
-                                        ,{
-                                            label: labels[1],
-                                            data: dataValue2,
-                                            backgroundColor: dataBackground2,
-                                            borderColor: [
-                                                'rgba(255,99,132,0.5)'
-                                            ],
-                                            borderWidth: 1
-                                        }
 
-                                    ]
+                                new Chart(document.getElementById("chart_"+returnData[i].Q_CODE).getContext('2d'), {
+                                type: 'doughnut',
+
+                                data:{
+                                    datasets:[{
+                                        data:[dataValue1,dataValue2],
+
+                                        backgroundColor: [dataBackground1, dataBackground2],
+                                        hoverBackgroundColor: [
+                                            "#e14969",
+                                            "#2687c8"
+                                        ],
+                                    }],
+                                    labels:[labels[0],labels[1]]
                                 },
                                 options: {
-                                    scales: {
-                                        xAxes: [{
-                                            ticks: {
-                                                min: 0 // Edit the value according to what you need
-                                                ,max: 100
-                                            }
-                                        }],
+                                    responsive: true,
+                                    title:{
+                                        display: true
                                     }
-
                                 }
+
                             });
+
+
+                                $("#data_"+returnData[i].Q_CODE).html(table);
+
+
+
                         }
                     }
                     break;
 
+                /************* 복수선택형 ************/
                 case "5":
                     var dataChart = [];
                     var labels = [];
@@ -504,6 +521,8 @@ $(function() {
                         }
                     }
                     break;
+
+                /************* 단일선택형 ************/
 
                 case "6":
 
