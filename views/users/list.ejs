@@ -53,12 +53,12 @@
                     <col width="16%">
                     <thead>
                     <tr>
-                        <th class="text-center">레벨0 &nbsp;<a href="#" data-toggle="popover" title="레벨0" data-placement="top" data-content="기본"><i class="si si-question"></i></a></th>
-                        <th class="text-center">레벨1 &nbsp;<a href="#" data-toggle="popover" title="레벨1" data-placement="top" data-content="추가정보를 입력한 기본패널"><i class="si si-question"></i></a></th>
-                        <th class="text-center">레벨2 &nbsp;<a href="#" data-toggle="popover" title="레벨2" data-placement="top" data-content="포인트 적립 5000P 이상일 경우 자동등업"><i class="si si-question"></i></a></th>
-                        <th class="text-center">레벨3 &nbsp;<a href="#" data-toggle="popover" title="레벨3" data-placement="top" data-content="관리자가 지정한 회원"><i class="si si-question"></i></a></th>
-                        <th class="text-center">레벨4 &nbsp;<a href="#" data-toggle="popover" title="레벨4" data-placement="top" data-content="관리자가 지정한 특수 회원, 퍼셉션에서 오프라인으로 모집한 전문 패널 집단"><i class="si si-question"></i></a></th>
-                        <th class="text-center">레벨5 &nbsp;<a href="#" data-toggle="popover" title="레벨5" data-placement="top" data-content="관리자가 지정한 희귀 회원, 특이한 상황을 위해 임시적으로 만든 패널 집단"><i class="si si-question"></i></a></th>
+                        <th class="text-center"><a href="#" data-toggle="popover" title="레벨0" data-placement="top" data-content="기본" class="badge">레벨0</a></th>
+                        <th class="text-center"><a href="#" data-toggle="popover" title="레벨1" data-placement="top" data-content="추가정보를 입력한 기본패널" class="badge">레벨1</a></th>
+                        <th class="text-center"><a href="#" data-toggle="popover" title="레벨2" data-placement="top" data-content="포인트 적립 5000P 이상일 경우 자동등업" class="badge">레벨2</a></th>
+                        <th class="text-center"><a href="#" data-toggle="popover" title="레벨3" data-placement="top" data-content="관리자가 지정한 회원" class="badge">레벨3</a></th>
+                        <th class="text-center"><a href="#" data-toggle="popover" title="레벨4" data-placement="top" data-content="관리자가 지정한 특수 회원, 퍼셉션에서 오프라인으로 모집한 전문 패널 집단" class="badge">레벨4</a></th>
+                        <th class="text-center"><a href="#" data-toggle="popover" title="레벨5" data-placement="top" data-content="관리자가 지정한 희귀 회원, 특이한 상황을 위해 임시적으로 만든 패널 집단" class="badge">레벨5</a></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -128,13 +128,13 @@
 
                             <% if(sortingtype == "desc") { %>
                                 <a href="/users/list?sorting=uid&sortingtype=asc">
-                                <i class="fa fa-sort-desc"></i>
+                                    <i class="fa fa-sort-desc"></i></a>
                             <% } else { %>
                                 <a href="/users/list?sorting=uid&sortingtype=desc">
-                                <i class="fa fa-sort-asc"></i>
+                                    <i class="fa fa-sort-asc"></i></a>
                             <% } %>
                         <% } else { %>
-                        <a href="/users/list?sorting=uid&sortingtype=desc">
+                        <a href="/users/list?sorting=uid&sortingtype=desc"></a>
                         <% } %>
                         UID
                         </a>
@@ -144,13 +144,13 @@
 
                             <% if(sortingtype == "desc") { %>
                                 <a href="/users/list?sorting=grade&sortingtype=asc">
-                                <i class="fa fa-sort-desc"></i>
+                                    <i class="fa fa-sort-desc"></i></a>
                             <% } else { %>
                                 <a href="/users/list?sorting=grade&sortingtype=desc">
-                                <i class="fa fa-sort-asc"></i>
+                                    <i class="fa fa-sort-asc"></i></a>
                             <% } %>
                         <% } else { %>
-                        <a href="/users/list?sorting=grade&sortingtype=desc">
+                                    <a href="/users/list?sorting=grade&sortingtype=desc"></a>
                         <% } %>
                         등급
                     </th>
@@ -159,13 +159,13 @@
 
                             <% if(sortingtype == "desc") { %>
                                 <a href="/users/list?sorting=membertype&sortingtype=asc">
-                                <i class="fa fa-sort-desc"></i>
+                                    <i class="fa fa-sort-desc"></i></a>
                             <% } else { %>
                                 <a href="/users/list?sorting=membertype&sortingtype=desc">
-                                <i class="fa fa-sort-asc"></i>
+                                    <i class="fa fa-sort-asc"></i></a>
                             <% } %>
                         <% } else { %>
-                        <a href="/users/list?sorting=membertype&sortingtype=desc">
+                        <a href="/users/list?sorting=membertype&sortingtype=desc"></a>
                         <% } %>
                         회원유형</th>
                     <th>
@@ -173,13 +173,13 @@
 
                             <% if(sortingtype == "desc") { %>
                             <a href="/users/list?sorting=username&sortingtype=asc">
-                            <i class="fa fa-sort-desc"></i>
+                                <i class="fa fa-sort-desc"></i></a>
                             <% } else { %>
                             <a href="/users/list?sorting=username&sortingtype=desc">
-                            <i class="fa fa-sort-asc"></i>
+                                <i class="fa fa-sort-asc"></i></a>
                             <% } %>
                         <% } else { %>
-                        <a href="/users/list?sorting=username&sortingtype=desc">
+                        <a href="/users/list?sorting=username&sortingtype=desc"></a>
                         <% } %>
                         이름</th>
                     <th>
@@ -187,13 +187,13 @@
 
                             <% if(sortingtype == "desc") { %>
                             <a href="/users/list?sorting=email&sortingtype=asc">
-                            <i class="fa fa-sort-desc"></i>
+                                <i class="fa fa-sort-desc"></i></a>
                             <% } else { %>
                             <a href="/users/list?sorting=email&sortingtype=desc">
-                            <i class="fa fa-sort-asc"></i>
+                                <i class="fa fa-sort-asc"></i></a>
                             <% } %>
                         <% } else { %>
-                        <a href="/users/list?sorting=email&sortingtype=desc">
+                                <a href="/users/list?sorting=email&sortingtype=desc"></a>
                         <% } %>
                         이메일</th>
                     <th>전화번호</th>
