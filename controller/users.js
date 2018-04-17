@@ -50,6 +50,16 @@ router.get('/list', function(req, res, next) {
         searchName = "";
     }
 
+    var membertype = req.query.membertype;
+    if(membertype == undefined) {
+        membertype = "";
+    }
+
+    var grade = req.query.grade;
+    if(grade == undefined) {
+        grade = "";
+    }
+
     var total = 0;
     var start = 0;
     var viewCnt = 30;
@@ -74,19 +84,19 @@ router.get('/list', function(req, res, next) {
                     }
                     prelink = this.preparePreLink(result.prelink);
                     if(result.previous) {
-                        html += '<li><a href="./?page=' + result.previous + '&searchName='+searchName+'&sorting='+sorting+'&sortingtype='+sortingtype+'">' + this.options.translator('PREVIOUS') + '</a></li>';
+                        html += '<li><a href="./?page=' + result.previous + '&searchName='+searchName+'&sorting='+sorting+'&sortingtype='+sortingtype+'&membertype='+membertype+'&grade='+grade+'">' + this.options.translator('PREVIOUS') + '</a></li>';
                     }
                     if(result.range.length) {
                         for( i = 0, len = result.range.length; i < len; i++) {
                             if(result.range[i] === result.current) {
-                                html += '<li class="active"><a href="?page=' + result.range[i] + '&searchName='+searchName+'&sorting='+sorting+'&sortingtype='+sortingtype+'">' + result.range[i] + '</a></li>';
+                                html += '<li class="active"><a href="?page=' + result.range[i] + '&searchName='+searchName+'&sorting='+sorting+'&sortingtype='+sortingtype+'&membertype='+membertype+'&grade='+grade+'">' + result.range[i] + '</a></li>';
                             } else {
-                                html += '<li><a href="?page=' + result.range[i] + '&searchName='+searchName+'&sorting='+sorting+'&sortingtype='+sortingtype+'">' + result.range[i] + '</a></li>';
+                                html += '<li><a href="?page=' + result.range[i] + '&searchName='+searchName+'&sorting='+sorting+'&sortingtype='+sortingtype+'&membertype='+membertype+'&grade='+grade+'">' + result.range[i] + '</a></li>';
                             }
                         }
                     }
                     if(result.next) {
-                        html += '<li><a href="?page=' + result.next + '&searchName='+searchName+'&sorting='+sorting+'&sortingtype='+sortingtype+'" class="paginator-next">' + this.options.translator('NEXT') + '</a></li>';
+                        html += '<li><a href="?page=' + result.next + '&searchName='+searchName+'&sorting='+sorting+'&sortingtype='+sortingtype+'&membertype='+membertype+'&grade='+grade+'" class="paginator-next">' + this.options.translator('NEXT') + '</a></li>';
                     }
                     html += '</ul></div>';
                     return html;
@@ -95,12 +105,12 @@ router.get('/list', function(req, res, next) {
 
 
 
-            muser.getMemberList(start, searchName, sorting, sortingtype, function(err, rows) {
+            muser.getMemberList(start, searchName, sorting, sortingtype,membertype,grade, function(err, rows) {
                 if(err) {
                     console.log(err);
                 }
                 var userData = rows;
-                res.render('users/list', { moment:moment, pageHtml: boostrapPaginator, userData: userData, totalData: totalData, searchName : searchName, sorting: sorting, sortingtype: sortingtype });
+                res.render('users/list', { moment:moment, pageHtml: boostrapPaginator, userData: userData, totalData: totalData, searchName : searchName, sorting: sorting, sortingtype: sortingtype,membertype:membertype,grade:grade });
             });
         });
     });

@@ -17,7 +17,7 @@
     <div class="col-xs-12 bg-white box round_box push-20-t">
         <div class="row">
             <div class="col-xs-12 title">
-                <h3 class="block-title">사용자 통계</h3>
+                <h3 class="block-title">사용자 통계  <span class="push" style="font-size:10px;padding-left: 30px;">* 아래 구분에 마우스를 올리면 설명을  클릭하시면 해당하는 사용자리스트를 볼 수 있습니다.</span></h3>
             </div>
 
         </div>
@@ -30,9 +30,9 @@
                     <col width="33%">
                     <thead>
                     <tr>
-                        <th class="text-center">전체회원수</th>
-                        <th class="text-center">일반회원</th>
-                        <th class="text-center">페이스북</th>
+                        <th class="text-center"><a href="/users/list" data-toggle="popover" title="전체회원" data-placement="top" data-content="가입한 회원 수" class="badge">전체회원수</a></th>
+                        <th class="text-center"><a href="/users/list?membertype=0" data-toggle="popover" title="일반회원" data-placement="top" data-content="일반적인 이메일 가입회원" class="badge">일반회원</a></th>
+                        <th class="text-center"><a href="/users/list?membertype=face" data-toggle="popover" title="페이스북" data-placement="top" data-content="페이스북 로그인 가입회원" class="badge">페이스북</a></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -53,12 +53,12 @@
                     <col width="16%">
                     <thead>
                     <tr>
-                        <th class="text-center"><a href="#" data-toggle="popover" title="레벨0" data-placement="top" data-content="기본" class="badge">레벨0</a></th>
-                        <th class="text-center"><a href="#" data-toggle="popover" title="레벨1" data-placement="top" data-content="추가정보를 입력한 기본패널" class="badge">레벨1</a></th>
-                        <th class="text-center"><a href="#" data-toggle="popover" title="레벨2" data-placement="top" data-content="포인트 적립 5000P 이상일 경우 자동등업" class="badge">레벨2</a></th>
-                        <th class="text-center"><a href="#" data-toggle="popover" title="레벨3" data-placement="top" data-content="관리자가 지정한 회원" class="badge">레벨3</a></th>
-                        <th class="text-center"><a href="#" data-toggle="popover" title="레벨4" data-placement="top" data-content="관리자가 지정한 특수 회원, 퍼셉션에서 오프라인으로 모집한 전문 패널 집단" class="badge">레벨4</a></th>
-                        <th class="text-center"><a href="#" data-toggle="popover" title="레벨5" data-placement="top" data-content="관리자가 지정한 희귀 회원, 특이한 상황을 위해 임시적으로 만든 패널 집단" class="badge">레벨5</a></th>
+                        <th class="text-center"><a href="/users/list?grade=0" data-toggle="popover" title="레벨0" data-placement="top" data-content="기본" class="badge">레벨0</a></th>
+                        <th class="text-center"><a href="/users/list?grade=1" data-toggle="popover" title="레벨1" data-placement="top" data-content="추가정보를 입력한 기본패널" class="badge">레벨1</a></th>
+                        <th class="text-center"><a href="/users/list?grade=2" data-toggle="popover" title="레벨2" data-placement="top" data-content="포인트 적립 5000P 이상일 경우 자동등업" class="badge">레벨2</a></th>
+                        <th class="text-center"><a href="/users/list?grade=3" data-toggle="popover" title="레벨3" data-placement="top" data-content="관리자가 지정한 회원" class="badge">레벨3</a></th>
+                        <th class="text-center"><a href="/users/list?grade=4" data-toggle="popover" title="레벨4" data-placement="top" data-content="관리자가 지정한 특수 회원, 퍼셉션에서 오프라인으로 모집한 전문 패널 집단" class="badge">레벨4</a></th>
+                        <th class="text-center"><a href="/users/list?grade=5" data-toggle="popover" title="레벨5" data-placement="top" data-content="관리자가 지정한 희귀 회원, 특이한 상황을 위해 임시적으로 만든 패널 집단" class="badge">레벨5</a></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -110,7 +110,7 @@
             <div class="col-xs-12">
                 <form name="searchForm" id="searchForm" method="get" action="/users/list">
                     <div class="input-group">
-                        <input class="form-control" type="text" id="searchName" name="searchName" placeholder="검색해주세요.">
+                        <input class="form-control" type="text" id="searchName" name="searchName" placeholder="이름 또는 이메일 정보를 입력하여 검색해주세요.">
                         <span class="input-group-btn">
                         <button id="searchBtn" class="btn btn-default" type="button"><i class="fa fa-search"></i> 검색</button>
                     </span>
@@ -119,100 +119,101 @@
             </div>
         </div>
         <div class="contents_list">
+            <div class="push-10 "> <span class="push" style="font-size:10px;">* 아래 목록 구분을 클릭하시면 정렬 순으로 사용자리스트를 볼 수 있습니다.</span></div>
             <table id="list" class="table table-bordered fontsize">
                 <thead>
                 <tr>
-                    <th>
+                    <th class="text-center">
 
                         <% if(sorting == "uid") { %>
 
                             <% if(sortingtype == "desc") { %>
                                 <a href="/users/list?sorting=uid&sortingtype=asc">
-                                    <i class="fa fa-sort-desc"></i></a>
+                                    <i class="fa fa-sort-desc"></i>
                             <% } else { %>
                                 <a href="/users/list?sorting=uid&sortingtype=desc">
-                                    <i class="fa fa-sort-asc"></i></a>
+                                    <i class="fa fa-sort-asc"></i>
                             <% } %>
                         <% } else { %>
-                        <a href="/users/list?sorting=uid&sortingtype=desc"></a>
+                        <a href="/users/list?sorting=uid&sortingtype=desc">
                         <% } %>
                         UID
                         </a>
                     </th>
-                    <th>
+                    <th class="text-center">
                         <% if(sorting == "grade") { %>
 
                             <% if(sortingtype == "desc") { %>
                                 <a href="/users/list?sorting=grade&sortingtype=asc">
-                                    <i class="fa fa-sort-desc"></i></a>
+                                    <i class="fa fa-sort-desc"></i>
                             <% } else { %>
                                 <a href="/users/list?sorting=grade&sortingtype=desc">
-                                    <i class="fa fa-sort-asc"></i></a>
+                                    <i class="fa fa-sort-asc"></i>
                             <% } %>
                         <% } else { %>
-                                    <a href="/users/list?sorting=grade&sortingtype=desc"></a>
+                                    <a href="/users/list?sorting=grade&sortingtype=desc">
                         <% } %>
                         등급
                     </th>
-                    <th>
+                    <th class="text-center">
                         <% if(sorting == "membertype") { %>
 
                             <% if(sortingtype == "desc") { %>
                                 <a href="/users/list?sorting=membertype&sortingtype=asc">
-                                    <i class="fa fa-sort-desc"></i></a>
+                                    <i class="fa fa-sort-desc"></i>
                             <% } else { %>
                                 <a href="/users/list?sorting=membertype&sortingtype=desc">
-                                    <i class="fa fa-sort-asc"></i></a>
+                                    <i class="fa fa-sort-asc"></i>
                             <% } %>
                         <% } else { %>
-                        <a href="/users/list?sorting=membertype&sortingtype=desc"></a>
+                        <a href="/users/list?sorting=membertype&sortingtype=desc">
                         <% } %>
                         회원유형</th>
-                    <th>
+                    <th class="text-center">
                         <% if(sorting == "username") { %>
 
                             <% if(sortingtype == "desc") { %>
                             <a href="/users/list?sorting=username&sortingtype=asc">
-                                <i class="fa fa-sort-desc"></i></a>
+                                <i class="fa fa-sort-desc"></i>
                             <% } else { %>
                             <a href="/users/list?sorting=username&sortingtype=desc">
-                                <i class="fa fa-sort-asc"></i></a>
+                                <i class="fa fa-sort-asc"></i>
                             <% } %>
                         <% } else { %>
-                        <a href="/users/list?sorting=username&sortingtype=desc"></a>
+                        <a href="/users/list?sorting=username&sortingtype=desc">
                         <% } %>
                         이름</th>
-                    <th>
+                    <th class="text-center">
                         <% if(sorting == "email") { %>
 
                             <% if(sortingtype == "desc") { %>
                             <a href="/users/list?sorting=email&sortingtype=asc">
-                                <i class="fa fa-sort-desc"></i></a>
+                                <i class="fa fa-sort-desc"></i>
                             <% } else { %>
                             <a href="/users/list?sorting=email&sortingtype=desc">
-                                <i class="fa fa-sort-asc"></i></a>
+                                <i class="fa fa-sort-asc"></i>
                             <% } %>
                         <% } else { %>
-                                <a href="/users/list?sorting=email&sortingtype=desc"></a>
+                                <a href="/users/list?sorting=email&sortingtype=desc">
                         <% } %>
                         이메일</th>
-                    <th>전화번호</th>
-                    <th>
+                    <th class="text-center">전화번호</th>
+                    <th class="text-center">
                         <% if(sorting == "point") { %>
 
                             <% if(sortingtype == "desc") { %>
                             <a href="/users/list?sorting=point&sortingtype=asc">
-                            <i class="fa fa-sort-desc"></i>
+                                <i class="fa fa-sort-desc"></i></a>
                             <% } else { %>
                             <a href="/users/list?sorting=point&sortingtype=desc">
-                            <i class="fa fa-sort-asc"></i>
+                                <i class="fa fa-sort-asc"></i></a>
                             <% } %>
                         <% } else { %>
-                        <a href="/users/list?sorting=point&sortingtype=desc"><% } %>
+                                <a href="/users/list?sorting=point&sortingtype=desc"></a><% } %>
                         포인트</th>
-                    <th>참여설문</th>
-                    <th>최근접속</th>
-                    <th>기능</th>
+                    <th class="text-center">참여설문</th>
+                    <th class="text-center">최근접속일</th>
+                    <th class="text-center">기능</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -221,7 +222,7 @@
                     <td class="text-center"><a href="/users/write/<%=userData[i].UID%>" class="btn btn-xs btn-danger"><%=userData[i].UID%></a></td>
 
                     <td><%=userData[i].CODE_NAME%></td>
-                    <td>
+                    <td class="text-center">
 
                         <% if(userData[i].FACEBOOK_ID == 0) { %>
                         <span class="label label-primary">일반회원</span>
@@ -233,8 +234,8 @@
                     <td><%=userData[i].USEREMAIL%></td>
                     <td><%=userData[i].USERPHONE%></td>
                     <td><a href="/users/pointHistory/<%=userData[i].UID%>" class="btn btn-xs btn-success historyBtn"><%=userData[i].POINT%></a></td>
-                    <td><%=userData[i].JOIN_TOTAL%></td>
-                    <td><%=moment(userData[i].LAST_LOGIN).format("YYYY-MM-DD hh:mm")%></td>
+                    <td class="text-center"><%=userData[i].JOIN_TOTAL%></td>
+                    <td class="text-center"><%=moment(userData[i].LAST_LOGIN).format("YYYY-MM-DD hh:mm")%></td>
                     <td class="text-center">
                         <button class="btn btn-xs btn-warning deleteBtn">삭제</button>
                         <button class="btn btn-xs btn-primary modifyBtn"><a href="/users/write/<%=userData[i].UID%>" class="text-white" >수정</a></button>

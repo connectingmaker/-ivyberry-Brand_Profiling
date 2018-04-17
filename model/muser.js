@@ -69,7 +69,7 @@ var muser = {
         connection.end();
         return data;
     }
-    ,getMemberList: function(page, searchName, sorting, sortingtype, callback) {
+    ,getMemberList: function(page, searchName, sorting, sortingtype,membertype,grade, callback) {
         var connection = mysql_dbc.init();
         var query = " SELECT ";
         query += " M.UID ";
@@ -92,8 +92,17 @@ var muser = {
             query += " WHERE (M.USERNAME LIKE '"+searchName+"%' OR M.USEREMAIL LIKE '%"+searchName+"%')";
 
         }
+        if(membertype != "") {
+            if(membertype == "face"){
+                query += "AND M.FACEBOOK_ID <> 0";
+            }else{
+                query += "AND M.FACEBOOK_ID ='"+membertype+"'";
+            }
 
-
+        }
+        if(grade !=""){
+            query += "AND M.CODE_GRADE = '"+grade+"'"
+        }
 
         if(sorting == "") {
             query += " ORDER BY M.INSERT_DATETIME DESC ";
