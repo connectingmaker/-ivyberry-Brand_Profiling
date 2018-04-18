@@ -30,17 +30,34 @@
                 <tr>
                     <th>질문 내용</th>
                     <td>
-                        <input type="text" id="q_title" class="form-control" value="<%=campaign_title%>">
+                        <input type="text" id="q_title" class="form-control" value="<%=brand_title.SUBJECT%>">
                     </td>
                 </tr>
                 <tr>
                     <th>응답 최대 개수 설정</th>
                     <td>
-                        <input type="text" id="qa_set" class="form-control" value="<%=campaign_desc%>">
+                        <div class="col-xs-6">
+                            <select id="selected_min" class="form-control">
+                                <option value="">선택</option>
+                                <% for(var i = 1; i<30; i++) { %>
+                                <option value="<%=i%>" <%if(brand_title.SELECTED_MIN == i) {%>selected<%}%>><%=i%></option>
+                                <% } %>
+                            </select>
+                        </div>
+                        <div class="col-xs-6">
+                            <select id="selected_max" class="form-control">
+                                <option value="">선택</option>
+                                <% for(var i = 1; i<=30; i++) { %>
+                                <option value="<%=i%>" <%if(brand_title.SELECTED_MAX == i) {%>selected<%}%>><%=i%></option>
+                                <% } %>
+                            </select>
+                        </div>
                     </td>
                 </tr>
                 </tbody>
             </table>
+
+            <div class="sub">위에 응답갯수를 동일하게 선택할 경우 선택할 브랜드 갯수가 고정됩니다.</div>
         </div>
     </div>
 
