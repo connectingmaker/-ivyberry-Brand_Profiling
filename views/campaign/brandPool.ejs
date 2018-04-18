@@ -15,6 +15,34 @@
         <div class="title"><span class="color">설문제목 : <%=campaign.CAMPAIGN_TITLE%></span></div>
     </div>
 
+    <div class="push-10-t col-xs-12 bg-white box round_box">
+        <div class="row">
+            <div class="col-xs-12 title">
+                <span class="color"> 인지도 설문 첫 화면 설정</span>
+                <div class="sub">아래 내용 및 설정은 설문 첫번째 퀘스트 진행시 브랜드에 관한 인지도 질문에 대한 설정입니다.  <span class="color">(필수)</span></div>
+            </div>
+        </div>
+        <div class="contents_list">
+            <table id="list" class="table table-bordered fontsize">
+                <col width="10%">
+                <col width="90%">
+                <tbody>
+                <tr>
+                    <th>질문 내용</th>
+                    <td>
+                        <input type="text" id="q_title" class="form-control" value="<%=campaign_title%>">
+                    </td>
+                </tr>
+                <tr>
+                    <th>응답 최대 개수 설정</th>
+                    <td>
+                        <input type="text" id="qa_set" class="form-control" value="<%=campaign_desc%>">
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 
     <div class="push-10-t col-xs-12 bg-white box round_box">
         <div class="row">
