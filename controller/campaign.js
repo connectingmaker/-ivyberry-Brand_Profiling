@@ -232,49 +232,75 @@ router.get('/brand/:code', function(req, res) {
 
 router.get('/brandPool/:code', function(req, res) {
     var campaign_code = req.params.code;
-    mcampaign.get_campaign_select(campaign_code, function(err, rows) {
-        var campaign = rows[0];
-        mcampaign.sp_CAMPAIGN_BRAND_POOL_LIST(campaign_code, function (err, rows) {
-            if (err) {
-                console.log(err);
+    mcampaign.get_campaign_brand_title(campaign_code, function(err, rows) {
+        if(err) {
+            console.log(err);
+        }
+
+        if(rows[0].length == 0) {
+            var brand_title = {
+                SUBJECT : "아래 브랜드 중 알고 계신 브랜드를 30개 이내로 선택해주세요(설문 대상 브랜드에 포함됨)."
+                ,SELECTED_MIN : ""
+                ,SELECTED_MAX : ""
             }
-            var brandList = rows[0];
-            res.render('campaign/brandPool', {moment: moment, campaign_code: campaign_code, campaign : campaign, brandList: brandList});
+        } else {
+            var brand_title = rows[0];
+        }
+
+
+        mcampaign.get_campaign_select(campaign_code, function(err, rows) {
+            var campaign = rows[0];
+            mcampaign.sp_CAMPAIGN_BRAND_POOL_LIST(campaign_code, function (err, rows) {
+                if (err) {
+                    console.log(err);
+                }
+                var brandList = rows[0];
+                res.render('campaign/brandPool', {moment: moment, campaign_code: campaign_code, campaign : campaign, brandList: brandList, brand_title: brand_title});
+            });
         });
     });
+
 });
 
 router.post("/brandPoolProcess", function(req, res) {
     var campaign_code = req.body.campaign_code;
     var brandList = req.body.brandList;
     var brandSkip = req.body.brandSkip;
+    var q_title = req.body.q_title;
+    var selected_min = req.body.selected_min;
+    var selected_max = req.body.selected_max;
     var err = "";
     var jsonData = {};
     console.log("DATA");
 
 
-    mcampaign.CAMPAIGN_SKIP_YN(campaign_code, brandSkip, function(err, rows) {
-        mcampaign.del_CAMPAIGN_BRAND_POOL(campaign_code, function(err, rows) {
-            console.log("성공");
-            if(err) {
-                console.log(err);
-            }
+    mcampaign.sp_CAMPAIGN_BRAND_TITLE_SAVE(campaign_code, q_title, selected_min, selected_max, function(err, rows) {
+        if(err) {
+            console.log(err);
+        }
 
-            mcampaign.save_CAMPAIGN_BRAND_POOL_SAVE(campaign_code, brandList, function(err, rows) {
+        mcampaign.CAMPAIGN_SKIP_YN(campaign_code, brandSkip, function(err, rows) {
+            mcampaign.del_CAMPAIGN_BRAND_POOL(campaign_code, function(err, rows) {
+                console.log("성공");
                 if(err) {
                     console.log(err);
                 }
 
-                jsonData = {
-                    err : "000"
-                }
+                mcampaign.save_CAMPAIGN_BRAND_POOL_SAVE(campaign_code, brandList, function(err, rows) {
+                    if(err) {
+                        console.log(err);
+                    }
 
-                res.send(jsonData);
-            })
+                    jsonData = {
+                        err : "000"
+                    }
 
+                    res.send(jsonData);
+                })
+
+            });
         });
     });
-
 
     // mcampaign.sp_CAMPAIGN_BRAND_POOL_SAVE(campaign_code, brandList, function(err, rows) {
     //     if(err) {

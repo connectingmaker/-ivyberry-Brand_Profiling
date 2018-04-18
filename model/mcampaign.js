@@ -34,6 +34,28 @@ var mcampaign = {
         connection.end();
         return data;
     }
+    ,get_campaign_brand_title: function(campaign_code, callback) {
+        var connection = mysql_dbc.init();
+        var query = " SELECT * FROM CAMPAIGN_BRAND_TITLE WHERE CAMPAIGN_CODE = ?";
+        var params = [];
+        params.push(campaign_code);
+
+        var data = connection.query(query,params,callback);
+        connection.end();
+        return data;
+    }
+    ,sp_CAMPAIGN_BRAND_TITLE_SAVE: function(campaign_code, subject, selected_min, selected_max, callback) {
+        var connection = mysql_dbc.init();
+        var query = " call sp_CAMPAIGN_BRAND_TITLE_SAVE(?, ?, ?, ?)";
+        var params = [];
+        params.push(campaign_code);
+        params.push(subject);
+        params.push(selected_min);
+        params.push(selected_max);
+        var data = connection.query(query,params,callback);
+        connection.end();
+        return data;
+    }
     ,get_campaign_count: function(campaign_ing, searchName, callback) {
         var connection = mysql_dbc.init();
         if(campaign_ing == "") {

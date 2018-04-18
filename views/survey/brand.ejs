@@ -16,6 +16,8 @@
             <input type="hidden" id="uid" name="uid" value="<%=uid%>">
             <input type="hidden" id="quest_num" name="quest_num" value="<%=quest_num%>">
             <input type="hidden" id="debug" name="debug" value="<%=debug%>">
+            <input type="hidden" id="selected_min" value="<%=title_data.SELECTED_MIN%>">
+            <input type="hidden" id="selected_max" value="<%=title_data.SELECTED_MAX%>">
             <div clss="col-xs-12">
                 <div class="row titleBox2">
 
@@ -26,7 +28,8 @@
                     </div>
 
                     <div class="col-xs-12 text-center titleSelectBg" style="padding-left:10px;font-size:1.2em;">
-                        <small>아래 브랜드 중 알고 계신 브랜드를 30개 이내로 선택해주세요(설문 대상 브랜드에 포함됨).</small>
+                       <!-- <small>아래 브랜드 중 알고 계신 브랜드를 30개 이내로 선택해주세요(설문 대상 브랜드에 포함됨).</small>-->
+                        <small><%=title_data.SUBJECT%></small>
                     </div>
 
 
