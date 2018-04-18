@@ -34,11 +34,31 @@ $(function() {
             brandSkip = "Y";
         }
 
+        if($("#q_title").val() == false) {
+            alert("질문내용을 입력해주세요.");
+            $("#q_title").focus();
+            return;
+        }
+
+        if($("#selected_min").val() == false) {
+
+            alert("최소갯수를 선택해주세요.");
+            return;
+        }
+
+        if($("#selected_max").val() == false) {
+            alert("최대갯수를 선택해주세요.");
+            return;
+        }
+
 
         var json = {
             campaign_code : campaign_code
             ,brandList : brandDetail
             ,brandSkip : brandSkip
+            ,q_title : $("#q_title").val()
+            ,selected_min : $("#selected_min").val()
+            ,selected_max : $("#selected_max").val()
 
         };
         console.log(json);

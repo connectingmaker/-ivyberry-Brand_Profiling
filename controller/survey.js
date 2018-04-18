@@ -2,6 +2,8 @@ var express = require('express');
 
 var router = express.Router();
 
+
+var mcampaign = require("../model/mcampaign");
 var msurvey = require("../model/msurvey");
 
 
@@ -302,25 +304,45 @@ router.post("/profileProcess", function(req, res) {
 });
 
 router.get("/brand", function(req, res) {
-    var campaign_code = req.param("campaign_code");
-    var quest_num = req.param("quest_num");
-    var uid = req.param("uid");
-    var seq = req.param("seq");
-    var debug = req.param("debug");
+    var campaign_code = req.query.campaign_code;
+    var quest_num = req.query.quest_num;
+    var uid = req.query.uid;
+    var seq = req.query.seq;
+    var debug = req.query.debug;
     if(debug == undefined) {
         debug = "";
     }
 
+    console.log(campaign_code);
 
-    msurvey.brandList(campaign_code, seq, function(err, rows) {
+
+    var title_data = {};
+
+    mcampaign.get_campaign_brand_title(campaign_code, function(err, rows) {
         if(err) {
             console.log(err);
-            throw err;
         }
 
-        var brand = rows[0];
-        res.render('survey/brand', {layout: 'layout/survey_page', "layout extractScripts": true, campaign_code: campaign_code, quest_num: quest_num, uid: uid, seq: seq, brand: brand, debug : debug});
+        if(rows.length == 0) {
+            var title_data = {};
+        } else {
+            var title_data = rows[0];
+        }
+
+        msurvey.brandList(campaign_code, seq, function(err, rows) {
+            if(err) {
+                console.log(err);
+                throw err;
+            }
+
+            var brand = rows[0];
+            res.render('survey/brand', {layout: 'layout/survey_page', "layout extractScripts": true, title_data: title_data,campaign_code: campaign_code, quest_num: quest_num, uid: uid, seq: seq, brand: brand, debug : debug});
+        });
+
+
     });
+
+
 });
 
 router.post("/brandProcess", function(req, res) {

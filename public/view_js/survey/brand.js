@@ -1,5 +1,6 @@
 $(function() {
-
+    var selected_min = parseInt($("#selected_min").val());
+    var selected_max = parseInt($("#selected_max").val());
     $(".qaList").click(function() {
 
 
@@ -45,9 +46,9 @@ $(function() {
 
         if($("#"+brand_code).is(":checked") == false) {
 
-            if(chkTotal > 30) {
+            if(chkTotal > selected_max) {
                 //alert("10개 이상 선택할 수 없습니다.");
-                bootbox.alert("30개 이상 선택할 수 없습니다.");
+                bootbox.alert(selected_max + "개 이상 선택할 수 없습니다.");
                 return;
             }
 
@@ -100,9 +101,16 @@ $(function() {
 
             var totalCnt = 0;
             totalCnt = parseInt($("#selectCnt").html());
-            if(totalCnt > 30) {
+            if(totalCnt < selected_min) {
                 //alert("10개 이상 선택할 수 없습니다.");
-                bootbox.alert("30개 이상 선택할 수 없습니다.");
+                bootbox.alert(selected_min + "개 이상 선택하셔야 됩니다.");
+                return;
+            }
+
+
+            if(totalCnt > selected_max) {
+                //alert("10개 이상 선택할 수 없습니다.");
+                bootbox.alert(selected_max + "개 이상 선택할 수 없습니다.");
                 return;
             }
             var brandData = [];
