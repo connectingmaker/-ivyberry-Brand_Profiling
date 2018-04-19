@@ -330,12 +330,12 @@ $(function() {
                             table += "<span style='font-size:15px; color:red;'>★</span>";
                         }
                         table += "<span style='font-size:12px;font-weight: bold;'>"+labels[0]+":</span>";
-                        table += "<span style='padding-left: 3px; padding-right: 10px;'>"+returnData[i].QA1_DATA+"명</span>";
+                        table += "<span style='padding-left: 3px; padding-right: 10px;'>"+returnData[i].QA1_DATA+"명("+ dataValue1+"%)</span>";
                         if(parseInt(returnData[i].QA1_DATA) < parseInt(returnData[i].QA2_DATA)) {
                             table += "<span style='font-size:15px; color:red;'>★</span>";
                         }
                         table += "<span style='font-size:12px;font-weight: bold;'> "+labels[1]+":</span>";
-                        table += "<span style='padding-left: 3px;'>"+returnData[i].QA2_DATA+"명</span></td>";
+                        table += "<span style='padding-left: 3px;'>"+returnData[i].QA2_DATA+"명("+ dataValue2+"%)</span></td>";
 
 
                         if(i == returnData.length -1) {
@@ -375,151 +375,102 @@ $(function() {
 
                 /************* 복수선택형 ************/
                 case "5":
-                    var dataChart = [];
-                    var labels = [];
-                    var filed_labels = [];
-                    var dataSet = [];
-                    /*
-                    var temp = {
-                        labels: labels,
-                        datasets: [
-                            {
-                                label: 'Dataset 1',
-                                borderWidth: 1,
-                                data: [
-                                    10,
-                                    20,
-                                    30,
-                                    40,
-                                    50,
-                                    60,
-                                    70
-                                ]
-                            }, {
-                                label: 'Dataset 2',
-                                data: [
-                                    80,
-                                    70,
-                                    60,
-                                    50,
-                                    40,
-                                    30,
-                                    20
-                                ]
-                            }
-                            ]
-                    };
-                    console.log(temp);
-                    */
-                    var qaTitle = [];
-                    var dataTotal = [];
-                    var background = [];
+                    var color = [ "#ffcc2f", "#ef5734","#00acee","#2687c8","#543729","#88aca1","#788cb6","#335238","#f65a5b","#76daff"];
+                    var table = "";
 
+                    var qa_code_array = [];
+                    var qa_title_array = [];
+
+
+                    var chart_dataset = [];
 
 
 
                     for(var i = 0; i<returnData.length; i++) {
-                        var temp = returnData[i].QA_TITLE_KO.split(",");
-                        if(i == 0) {
-                            for(var j = 0; j<temp.length; j++) {
-                                filed_labels.push(temp[j]);
-                                dataSet.push({labels:temp[j]});
+                        var temp = returnData[i].QA_TITLE_KO.split(',');
+
+                        var table = "";
+
+                        table += "<tr>";
+                        table += "<td width='60%' style='font-size:14px;font-weight: bold;'>총참여자수 : ("+returnData[0].TOTAL_CNT+"명)</td>";
+                        table += "<td>";
+                        var datasetJsonPer = [];
+                        temp.forEach(function(value,key) {
+                            var gubun = value.split('///');
+
+                            var qa_code = gubun[0];
+                            var qa_title = gubun[1];
+                            var temp_qa = parseFloat(eval("returnData["+i+"].QA_"+qa_code));
+                            var PER = parseFloat(eval("returnData["+i+"].QA_PER_"+qa_code));
+                            var jsonData = [];
+                            temp.forEach(function(value2,key2) {
+                                if(key == key2) {
+                                    var PER = parseFloat(eval("returnData["+i+"].QA_PER_"+qa_code));
+                                    jsonData.push(PER);
+                                }
+
+                            });
+
+                            var datasetJson = {
+                                label : qa_title + " ("+ temp_qa + "명) "+ Math.round(PER) +" %",
+                                backgroundColor: color[key],
+                                data : jsonData
+                            };
+
+
+
+                            //챠트라벨
+                            qa_title_array.push(qa_title);
+
+                            //챠트 데이터
+
+
+                            //데이터 INSERT
+                            chart_dataset.push(datasetJson);
+
+
+
+                           // console.log(qa_code + "="+qa_title);
+
+                            $("#data_"+returnData[i].Q_CODE).html(table);
+
+                        });
+                        // console.log(i);
+                        // console.log(chart_dataset);
+                        //
+                        // console.log(qa_title_array);
+
+                        new Chart(document.getElementById("chart_"+returnData[i].Q_CODE).getContext('2d'), {
+                            type: 'horizontalBar',
+                            data:{
+                                datasets:chart_dataset,
+                                labels:[returnData[i].BRAND_NAME_KO]
+                            },
+                            options: {
+                                scales: {
+
+                                    yAxes: [{
+
+                                        ticks: {
+                                            beginAtZero: true,
+                                            steps: 10,
+                                            stepValue: 5,
+                                            max: 100,
+                                            min: 0
+                                        }
+                                    }]
+                                }
                             }
-                        }
 
-                        var dataValue = "";
-                        for(var k = 0; k<temp.length; k++) {
-                            var num = 1 + k;
-                            var data = [];
-                            var per = Math.round(((eval("returnData[i].QA_"+num)) / returnData[i].TOTAL_CNT) * 100,0);
-                            //console.log(eval("returnData[i].QA_"+num) +  "///" + num +  "///" + returnData[i].TOTAL_CNT + "///" + per + "///" + dataValue);
-                            num++;
+                        });
+                        // table +="</table>";
+                        // table += "</td></tr>";
 
-
-                            if(dataValue == "") {
-                                dataValue = String(per);
-                            } else {
-                                dataValue += ","+String(per);
-                            }
-
-                        }
-
-                        dataTotal.push(dataValue);
                     }
 
 
-                    var colorNames = Object.keys(chartColors);
-                    var dataSetG = [];
-                    filed_labels.forEach(function(v, i) {
-                        background.push("color(window.chartColors.red).alpha(0.5).rgbString()");
-                        if(dataTotal[i] == undefined) {
-                            dataSetG.push({
-                                label: v
-                                ,borderWidth : 1
-                                ,data: []
-                                ,backgroundColor: chartColors[i]
-                            });
-                        } else {
-                            var dataObject = dataTotal[i].split(",");
-                            var dataValue = [];
-
-                            dataObject.forEach(function(value, k) {
-                                dataValue.push(parseInt(value));
-                            });
-
-                            dataSetG.push(
-                                {
-                                    label: v
-                                    ,borderWidth: 1
-                                    ,data: dataObject
-                                    ,backgroundColor: chartColors[i]
-                                }
-                            )
-
-                        }
-                    });
 
 
-
-
-
-
-
-                    for(var i = 0; i<returnData.length; i++) {
-                        labels.push(returnData[i].BRAND_NAME_KO);
-
-
-
-                        dataBackground.push("rgba(218, 66, 17, 1)");
-
-
-
-                        if(i == returnData.length -1) {
-                            var dataSet = [];
-                            var height = returnData.length * 25;
-                            console.log(height);
-
-                            $("#chart_"+returnData[i].Q_CODE).css({height:height});
-                            new Chart(document.getElementById("chart_"+returnData[i].Q_CODE).getContext('2d'), {
-                                type: 'horizontalBar',
-                                data: {
-                                    labels: labels
-                                    ,datasets: dataSetG
-                                },
-                                options: {
-                                    scales: {
-                                        xAxes: [{
-                                            ticks: {
-                                                min: 0 // Edit the value according to what you need
-                                                ,max: 100
-                                            }
-                                        }],
-                                    }
-
-                                }
-                            });
-                        }
-                    }
                     break;
 
                 /************* 단일선택형 ************/

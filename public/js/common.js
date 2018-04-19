@@ -120,6 +120,21 @@ function replaceAll(str, searchStr, replaceStr) {
     return str.split(searchStr).join(replaceStr);
 }
 
+function getValue(obj, key) {
+    var objects = [];
+    var string = "";
+    for (var i in obj) {
+        if (!obj.hasOwnProperty(i)) continue;
+        if (typeof obj[i] == 'object') {
+            objects = objects.concat(getValue(obj[i], key));
+        } else if (i == key) {
+            //objects.push(obj[i]);
+            string = obj[i];
+        }
+    }
+    return string;
+}
+
 $(function() {
     $(".backBtn").click(function() {
         history.back(-1);

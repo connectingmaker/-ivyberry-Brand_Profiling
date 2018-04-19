@@ -13,7 +13,7 @@
         </div>
 
     </div>
-    <% if(data[0].QUESTION_TYPE != "4"){ %>
+    <% if(data[0].QUESTION_TYPE == "1" || data[0].QUESTION_TYPE == "2"){ %>
     <div class="col-xs-12 bg-white box round_box push-30-t">
 
         <b>브랜드별 키워드 추천</b>
@@ -30,13 +30,31 @@
 
     <% for(var i = 0; i<data.length; i++) { %>
         <div class="col-xs-12 bg-white box round_box push-30-t">
-            <b><%=data[i].Q_NAME%></b>
+            <div><b><%=data[i].Q_NAME%></b></div>
 
+            <!--<table>-->
+                <!--<tr>-->
+                    <!--<td width='10%' style='font-size:11px; padding:5px 10px;'>BRAND_NAME_KO</td>-->
+                    <!--<td width="90%">-->
+                        <!--<table>-->
+                            <!--<tr>-->
+                                <!--<td width="50" style="border: 2px solid #ccc">title1</td>-->
+                                <!--<td style="border: 2px solid #ccc">per1</td>-->
+                            <!--</tr>-->
+                            <!--<tr>-->
+                                <!--<td width="50" style="border: 2px solid #ccc">title2</td>-->
+                                <!--<td style="border: 2px solid #ccc">per2</td>-->
+                            <!--</tr>-->
+                        <!--</table>-->
+                    <!--</td>-->
+
+                <!--</tr>-->
+            <!--</table>-->
             <div id="<%=data[i].Q_CODE%>" question_type="<%=data[i].QUESTION_TYPE%>" class="row col-xs-12 push-10-t chartList">
                 <table id="data_<%=data[i].Q_CODE%>" width="100%">
                 </table>
 
-                <canvas id="chart_<%=data[i].Q_CODE%>" width="400"></canvas>
+                <canvas id="chart_<%=data[i].Q_CODE%>" width="400" height="100"></canvas>
             </div>
         </div>
     <% } %>
