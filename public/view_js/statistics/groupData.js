@@ -292,85 +292,64 @@ $(function() {
                 /************ 양자택일형 *************/
                 case "4":
 
+                    var table = "";
 
-
-                    var labels = [];
-                    var dataValue1 = [];
-                    var dataValue2 = [];
-                    var dataBackground1 = [];
-                    var dataBackground2 = [];
                     for(var i = 0; i<returnData.length; i++) {
-                        data.labels.push(returnData[i].BRAND_NAME_KO);
-                        var brandName = "";
+
+                        var qa_title = returnData[i].QA_TITLE_KO.split(',');
+
                         if(i == 0) {
-                            brandName = returnData[i].BRAND_NAME_KO;
-                            var qa_title = returnData[i].QA_TITLE_KO;
-                            var qa_title_temp = qa_title.split(",");
-
-                            data.labels = [];
-                            for(var j = 0; j<qa_title_temp.length; j++)
-                            {
-                                labels.push(qa_title_temp[j]);
-
-                            }
-
+                            table += "<tr class='bg-amethyst-dark text-white'>";
+                            table += "<td width='7%'  class='text-center font-s13 font-w700' >답변자수</td>";
+                            table += "<td width='8%' class='text-center font-s13 font-w700' >%</td>";
+                            table += "<td width='25%' class='text-center font-s13 font-w700'>"+qa_title[0]+"</td>";
+                            table += "<td width='20%' class='text-center font-s13 font-w700' >BRAND";
+                            table += "</td>";
+                            table += "<td width='25%' class='text-center font-s13 font-w700'>"+qa_title[1]+"</td>";
+                            table += "<td width='8%' class='text-center font-s13 font-w700' >%</td>";
+                            table += "<td width='7%' class='text-center font-s13 font-w700' >답변자수</td>";
+                            table += "</tr>";
                         }
-                        label.push(returnData[i].BRAND_NAME_KO);
-                        dataValue1.push(Math.round(returnData[i].QA1_PER));
-                        dataValue2.push(Math.round(returnData[i].QA2_PER));
-                        dataBackground1.push("#FF6384");
-                        dataBackground2.push("#36A2EB");
-
-                        var table = "";
 
                         table += "<tr>";
-                        table += "<td width='60%' style='font-size:14px;font-weight: bold;'>총참여자수 : ("+returnData[0].TOTAL_CNT+"명)</td>";
+                        table += "<td class='text-center font-s12'>"+returnData[i].QA1_DATA+"</td>";
+                        table += "<td class='text-center font-s12'>"+Math.round(returnData[i].QA1_PER)+" %</td>";
                         table += "<td>";
-                        if(parseInt(returnData[i].QA1_DATA) >= parseInt(returnData[i].QA2_DATA)) {
-                            table += "<span style='font-size:15px; color:red;'>★</span>";
+                        table += "<div style='width:"+Math.round(returnData[i].QA1_PER)+"%; background-color:#e14969;float:right;' class='text-center text-white'> &nbsp </div>";
+                        table += "</td>";
+                        table += "<td class='text-center font-w700'>"+returnData[i].BRAND_NAME_KO+"</td>";
+                        table += "<td>";
+                        table += "<div style='width:"+Math.round(returnData[i].QA2_PER)+"%; background-color:#2687c8;' class='text-center text-white'>&nbsp</div>";
+                        table += "</td>";
+                        table += "<td class='text-center font-s12'>"+Math.round(returnData[i].QA2_PER)+" %</td>";
+                        table += "<td class='text-center font-s12'>"+returnData[i].QA2_DATA+"</td>";
+                        table += "</tr>";
+
+                        if(returnData.length >10) {
+                            if (i == returnData.length - 1) {
+                                table += "<tr class='bg-amethyst-dark text-white'>";
+                                table += "<td width='7%'  class='text-center font-s13 font-w700' >답변자수</td>";
+                                table += "<td width='8%' class='text-center font-s13 font-w700' >%</td>";
+                                table += "<td width='25%' class='text-center font-s13 font-w700'>" + qa_title[0] + "</td>";
+                                table += "<td width='20%' class='text-center font-s13 font-w700' >BRAND";
+                                table += "</td>";
+                                table += "<td width='25%' class='text-center font-s13 font-w700'>" + qa_title[1] + "</td>";
+                                table += "<td width='8%' class='text-center font-s13 font-w700' >%</td>";
+                                table += "<td width='7%' class='text-center font-s13 font-w700' >답변자수</td>";
+                                table += "</tr>";
+                            }
                         }
-                        table += "<span style='font-size:12px;font-weight: bold;'>"+labels[0]+":</span>";
-                        table += "<span style='padding-left: 3px; padding-right: 10px;'>"+returnData[i].QA1_DATA+"명("+ dataValue1+"%)</span>";
-                        if(parseInt(returnData[i].QA1_DATA) < parseInt(returnData[i].QA2_DATA)) {
-                            table += "<span style='font-size:15px; color:red;'>★</span>";
-                        }
-                        table += "<span style='font-size:12px;font-weight: bold;'> "+labels[1]+":</span>";
-                        table += "<span style='padding-left: 3px;'>"+returnData[i].QA2_DATA+"명("+ dataValue2+"%)</span></td>";
 
-
-                        if(i == returnData.length -1) {
-
-                                new Chart(document.getElementById("chart_"+returnData[i].Q_CODE).getContext('2d'), {
-                                type: 'doughnut',
-
-                                data:{
-                                    datasets:[{
-                                        data:[dataValue1,dataValue2],
-
-                                        backgroundColor: [dataBackground1, dataBackground2],
-                                        hoverBackgroundColor: [
-                                            "#e14969",
-                                            "#2687c8"
-                                        ],
-                                    }],
-                                    labels:[labels[0],labels[1]]
-                                },
-                                options: {
-                                    responsive: true,
-                                    title:{
-                                        display: true
-                                    }
-                                }
-
-                            });
-
-
-                                $("#data_"+returnData[i].Q_CODE).html(table);
-
-
-
+                        if(i == returnData.length - 1) {
+                            $("#data_"+returnData[i].Q_CODE).html(table);
+                            $("#chart_"+returnData[i].Q_CODE).hide();
                         }
                     }
+
+
+
+
+
                     break;
 
                 /************* 복수선택형 ************/
@@ -400,8 +379,10 @@ $(function() {
 
                             var qa_code = gubun[0];
                             var qa_title = gubun[1];
+                            //console.log(qa_title);
                             var temp_qa = parseFloat(eval("returnData["+i+"].QA_"+qa_code));
                             var PER = parseFloat(eval("returnData["+i+"].QA_PER_"+qa_code));
+                            //console.log(i+"//"+temp_qa);
                             var jsonData = [];
                             temp.forEach(function(value2,key2) {
                                 if(key == key2) {
@@ -418,7 +399,7 @@ $(function() {
                             };
 
 
-
+                            console.log(datasetJson);
                             //챠트라벨
                             qa_title_array.push(qa_title);
 
@@ -428,7 +409,7 @@ $(function() {
                             //데이터 INSERT
                             chart_dataset.push(datasetJson);
 
-
+                            //console.log(chart_dataset);
 
                            // console.log(qa_code + "="+qa_title);
 
@@ -467,6 +448,7 @@ $(function() {
                         // table += "</td></tr>";
 
                     }
+
 
 
 
