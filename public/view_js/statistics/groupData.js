@@ -403,102 +403,149 @@ $(function() {
 
                 /************* 복수선택형 ************/
                 case "5":
-                    var color = [ "#ffcc2f", "#ef5734","#00acee","#2687c8","#543729","#88aca1","#788cb6","#335238","#f65a5b","#76daff"];
+
+                    // var table = "";
+                    //
+                    // var qa_code_array = [];
+                    // var qa_title_array = [];
+                    //
+                    //
+                    // var chart_dataset = [];
+                    //
+                    //
+                    //
+                    // for(var i = 0; i<returnData.length; i++) {
+                    //     var temp = returnData[i].QA_TITLE_KO.split(',');
+                    //
+                    //     var table = "";
+                    //
+                    //     table += "<tr>";
+                    //     table += "<td width='60%' style='font-size:14px;font-weight: bold;'>총참여자수 : ("+returnData[0].TOTAL_CNT+"명)</td>";
+                    //     table += "<td>";
+                    //     var datasetJsonPer = [];
+                    //     temp.forEach(function(value,key) {
+                    //         var gubun = value.split('///');
+                    //
+                    //         var qa_code = gubun[0];
+                    //         var qa_title = gubun[1];
+                    //         //console.log(qa_title);
+                    //         var temp_qa = parseFloat(eval("returnData["+i+"].QA_"+qa_code));
+                    //         var PER = parseFloat(eval("returnData["+i+"].QA_PER_"+qa_code));
+                    //         //console.log(i+"//"+temp_qa);
+                    //         var jsonData = [];
+                    //         temp.forEach(function(value2,key2) {
+                    //             if(key == key2) {
+                    //                 var PER = parseFloat(eval("returnData["+i+"].QA_PER_"+qa_code));
+                    //                 jsonData.push(PER);
+                    //             }
+                    //
+                    //         });
+                    //
+                    //         var datasetJson = {
+                    //             label : qa_title + " ("+ temp_qa + "명) "+ Math.round(PER) +" %",
+                    //             backgroundColor: color[key],
+                    //             data : jsonData
+                    //         };
+                    //
+                    //
+                    //         console.log(datasetJson);
+                    //         //챠트라벨
+                    //         qa_title_array.push(qa_title);
+                    //
+                    //         //챠트 데이터
+                    //
+                    //
+                    //         //데이터 INSERT
+                    //         chart_dataset.push(datasetJson);
+                    //
+                    //         //console.log(chart_dataset);
+                    //
+                    //        // console.log(qa_code + "="+qa_title);
+                    //
+                    //         $("#data_"+returnData[i].Q_CODE).html(table);
+                    //
+                    //     });
+                    //     // console.log(i);
+                    //     // console.log(chart_dataset);
+                    //     //
+                    //     // console.log(qa_title_array);
+                    //
+                    //     new Chart(document.getElementById("chart_"+returnData[i].Q_CODE).getContext('2d'), {
+                    //         type: 'horizontalBar',
+                    //         data:{
+                    //             datasets:chart_dataset,
+                    //             labels:[returnData[i].BRAND_NAME_KO]
+                    //         },
+                    //         options: {
+                    //             scales: {
+                    //
+                    //                 yAxes: [{
+                    //
+                    //                     ticks: {
+                    //                         beginAtZero: true,
+                    //                         steps: 10,
+                    //                         stepValue: 5,
+                    //                         max: 100,
+                    //                         min: 0
+                    //                     }
+                    //                 }]
+                    //             }
+                    //         }
+                    //
+                    //     });
+                    //     // table +="</table>";
+                    //     // table += "</td></tr>";
+                    //
+                    // }
+
                     var table = "";
 
-                    var qa_code_array = [];
-                    var qa_title_array = [];
-
-
-                    var chart_dataset = [];
-
+                    table += "<tr>";
+                    table += "<td width='20%' class='text-center' style='font-size:14px;font-weight: bold;'>총참여자수 : ("+returnData[0].TOTAL_CNT+"명)</td>";
+                    table += "<td class='text-center' style='padding:10px 5px;'>";
+                    table += "</td>";
+                    table += "</tr>";
+                    table += "<tr>";
+                    table += "<td style='background-color:#f1f1f1;' colspan='4' height='2'></td>";
+                    table += "</tr>";
 
 
                     for(var i = 0; i<returnData.length; i++) {
-                        var temp = returnData[i].QA_TITLE_KO.split(',');
-
-                        var table = "";
 
                         table += "<tr>";
-                        table += "<td width='60%' style='font-size:14px;font-weight: bold;'>총참여자수 : ("+returnData[0].TOTAL_CNT+"명)</td>";
-                        table += "<td>";
-                        var datasetJsonPer = [];
+
+                        table += "<td class='text-right' width='20%' style='font-size:11px; padding:5px 10px;'><b>"+returnData[i].BRAND_NAME_KO+"</b></td>";
+
+                        table += "<td style='border:1px solid #f1f1f1;' class='text-center'>";
+
+                        var temp = returnData[i].QA_TITLE_KO.split(',');
+                        var color = [ "#ffcc2f", "#ef5734","#00acee","#2687c8","#543729","#88aca1","#788cb6","#335238","#f65a5b","#76daff"];
+
                         temp.forEach(function(value,key) {
                             var gubun = value.split('///');
-
                             var qa_code = gubun[0];
                             var qa_title = gubun[1];
-                            //console.log(qa_title);
-                            var temp_qa = parseFloat(eval("returnData["+i+"].QA_"+qa_code));
-                            var PER = parseFloat(eval("returnData["+i+"].QA_PER_"+qa_code));
-                            //console.log(i+"//"+temp_qa);
-                            var jsonData = [];
-                            temp.forEach(function(value2,key2) {
-                                if(key == key2) {
-                                    var PER = parseFloat(eval("returnData["+i+"].QA_PER_"+qa_code));
-                                    jsonData.push(PER);
-                                }
+                            var bgcolor =color[key];
+                            var qa_data = parseFloat(eval("returnData["+i+"].QA_"+qa_code));
+                            // var qa_data_per = parseFloat(eval("returnData["+i+"].QA_PER"+qa_code));
 
-                            });
+                            table += "<table class='table-bordered'>";
+                            table += "<tr>";
+                            table += "<td class='text-left text-white' style='font-size:11px; padding:5px 10px; background-color:"+bgcolor+";'>"+qa_title+"</td>";
+                            // table += "<div style='width:"+qa_data_per+"%;background-color:"+bgcolor+";'>&nbsp</div></td>";
+                            // table += "<td class='text-center' width='5%' style='font-size:11px; border-color: #ffffff'>"+ qa_data+"</td>";
+                            table += "<td class='text-center' width='10%' style='font-size:11px; border-color: #ffffff'>"+qa_data+"명</td>";
+                            table += "</tr>";
+                            table += "</table>";
 
-                            var datasetJson = {
-                                label : qa_title + " ("+ temp_qa + "명) "+ Math.round(PER) +" %",
-                                backgroundColor: color[key],
-                                data : jsonData
-                            };
+                        } );
+                        table += "</td></tr>";
 
-
-                            console.log(datasetJson);
-                            //챠트라벨
-                            qa_title_array.push(qa_title);
-
-                            //챠트 데이터
-
-
-                            //데이터 INSERT
-                            chart_dataset.push(datasetJson);
-
-                            //console.log(chart_dataset);
-
-                           // console.log(qa_code + "="+qa_title);
-
+                        if(i == returnData.length - 1) {
                             $("#data_"+returnData[i].Q_CODE).html(table);
-
-                        });
-                        // console.log(i);
-                        // console.log(chart_dataset);
-                        //
-                        // console.log(qa_title_array);
-
-                        new Chart(document.getElementById("chart_"+returnData[i].Q_CODE).getContext('2d'), {
-                            type: 'horizontalBar',
-                            data:{
-                                datasets:chart_dataset,
-                                labels:[returnData[i].BRAND_NAME_KO]
-                            },
-                            options: {
-                                scales: {
-
-                                    yAxes: [{
-
-                                        ticks: {
-                                            beginAtZero: true,
-                                            steps: 10,
-                                            stepValue: 5,
-                                            max: 100,
-                                            min: 0
-                                        }
-                                    }]
-                                }
-                            }
-
-                        });
-                        // table +="</table>";
-                        // table += "</td></tr>";
-
+                            $("#chart_"+returnData[i].Q_CODE).hide();
+                        }
                     }
-
-
 
 
 
