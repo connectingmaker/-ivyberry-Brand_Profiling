@@ -225,118 +225,61 @@ $(function() {
 
                 /************* 이미지 선택 주관식 입력 : textCloud ************/
                 case "3":
-                    var dataChart = [];
-                    var labels = [];
-                    var filed_labels = [];
-                    var dataSet = [];
-
-                    var qaTitle = [];
-                    var dataTotal = [];
-                    var background = [];
-
-
-
-
+                    var table = "";
+                    table += "<tr>";
+                    table += "<td width='20%'style='font-size:14px;font-weight: bold;'>총참여자수 : ("+returnData[0].TOTAL_CNT+"명)</td>";
+                    table += "</tr>";
                     for(var i = 0; i<returnData.length; i++) {
-                        var temp = returnData[i].QA_TITLE_KO.split(",");
-                        if(i == 0) {
-                            for(var j = 0; j<temp.length; j++) {
-                                filed_labels.push(temp[j]);
-                                dataSet.push({labels:temp[j]});
-                            }
+                        var img_temp = returnData[i].IMG;
+                        var img = word_temp.split(',');
+                        table += "<tr>";
+                        table += "<td width='20%' style='font-size:15px; padding:5px 10px;' class='bg-amethyst-dark text-white'>" + returnData[i].BRAND_NAME_KO + "</td>";
+                        table += "</tr>";
+                        table += "<tr>";
+                        table += "<td>"+returnData[i].QA_TEXT+"</td>";
+                        table += "</tr>";
+                        // table += "<tr>";
+                        // table += "<td><div id='cloud_"+returnData[i].DETAIL_BRAND_CODE+"' class='cloud' width='400' height='400'></div></td>";
+                        // table += "</tr>";
+
+                       //  var word_temp = returnData[i].QA_TEXT;
+                       //  var word = word_temp.split(',');
+                       //  var weight = [];
+                       //  for (var j=0; j<word.length; j++) {
+                       //      var weight[j] = 10;
+                       //  }
+                       // console.log(weight);
+                       //
+                       //  var words = [
+                       //      {text: word, weight:weight},
+                       //
+                       //  ];
+                       //  $("#cloud_"+returnData[i].DETAIL_BRAND_CODE).jQCloud(words,{
+                       //      shape: 'rectangular'
+                       //  });
+
+                        //
+                        // var word_temp = returnData[i].QA_TEXT;
+                        // var word = word_temp.split(',');
+                        // var freq = 10;
+                        // list = [];
+                        // for (var j=0; j<word.length; j++) {
+                        //     list.push(word, freq);
+                        // }
+                        //
+                        // WordCloud.minFontSize = "15px";
+                        // WordCloud(document.getElementById("'word_cloud"+[i]+"'), { list: list} );
+
+
+                        if(i == returnData.length - 1) {
+                            $("#data_"+returnData[i].Q_CODE).html(table);
+                            $("#chart_"+returnData[i].Q_CODE).hide();
+
                         }
-
-                        var dataValue = "";
-                        for(var k = 0; k<temp.length; k++) {
-                            var num = 1 + k;
-                            var data = [];
-                            var per = Math.round(((eval("returnData[i].QA_"+num)) / returnData[i].TOTAL_CNT) * 100,0);
-                            //console.log(eval("returnData[i].QA_"+num) +  "///" + num +  "///" + returnData[i].TOTAL_CNT + "///" + per + "///" + dataValue);
-                            num++;
-
-
-                            if(dataValue == "") {
-                                dataValue = String(per);
-                            } else {
-                                dataValue += ","+String(per);
-                            }
-
-                        }
-
-                        dataTotal.push(dataValue);
                     }
 
 
-                    var colorNames = Object.keys(chartColors);
-                    var dataSetG = [];
-                    filed_labels.forEach(function(v, i) {
-                        background.push("color(window.chartColors.red).alpha(0.5).rgbString()");
-                        if(dataTotal[i] == undefined) {
-                            dataSetG.push({
-                                label: v
-                                ,borderWidth : 1
-                                ,data: []
-                                ,backgroundColor: chartColors[i]
-                            });
-                        } else {
-                            var dataObject = dataTotal[i].split(",");
-                            var dataValue = [];
 
-                            dataObject.forEach(function(value, k) {
-                                dataValue.push(parseInt(value));
-                            });
-
-                            dataSetG.push(
-                                {
-                                    label: v
-                                    ,borderWidth: 1
-                                    ,data: dataObject
-                                    ,backgroundColor: chartColors[i]
-                                }
-                            )
-
-                        }
-                    });
-
-
-
-
-
-
-
-                    for(var i = 0; i<returnData.length; i++) {
-                        labels.push(returnData[i].BRAND_NAME_KO);
-
-
-
-                        dataBackground.push("rgba(218, 66, 17, 1)");
-
-
-
-                        if(i == returnData.length -1) {
-                            var dataSet = [];
-
-                            new Chart(document.getElementById("chart_"+returnData[i].Q_CODE).getContext('2d'), {
-                                type: 'horizontalBar',
-                                data: {
-                                    labels: labels
-                                    ,datasets: dataSetG
-                                },
-
-                                options: {
-                                    scales: {
-                                        xAxes: [{
-                                            ticks: {
-                                                min: 0 // Edit the value according to what you need
-                                                ,max: 100
-                                            }
-                                        }],
-                                    }
-
-                                }
-                            });
-                        }
-                    };
                     break;
                 /************ 양자택일형 *************/
                 case "4":
