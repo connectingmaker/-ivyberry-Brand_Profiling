@@ -1,0 +1,115 @@
+<div class="row">
+    <div class="col-xs-12 bg-white box round_box push-10-t">
+        <div class="row">
+
+
+            <div class="col-xs-12 title">
+                <a href="javascript:history.back()" class="btn btn-sm btn-default"><</a>&nbsp;데이터 조회
+            </div>
+
+                <div class="push-10-t col-xs-12 text-center">
+                    <table id="list" class="table table-bordered fontsize">
+                        <col width="15%">
+                        <col width="35%">
+                        <col width="15%">
+                        <col width="35%">
+                        <tbody>
+                        <tr>
+                            <th class="text-center">UID</th>
+                            <td>
+                                <%=userdata.UID%>
+                            </td>
+                            <th class="text-center">이메일</th>
+                            <td>
+                                <%=userdata.USEREMAIL%>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="text-center">이름</th>
+                            <td>
+                                <%=userdata.USERNAME%>
+                            </td>
+                            <th class="text-center">포인트</th>
+                            <td>
+                                <%=userdata.POINT%>P
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="text-center">성별</th>
+                            <td>
+                                <% if(userdata.SEX == 1) { %>
+                                남성
+                                <% } %>
+
+                                <% if(userdata.SEX == 2) { %>
+                                여성
+                                <% } %>
+                            </td>
+                            <th class="text-center">출생년도</th>
+                            <td>
+                                <%=userdata.BRITHDAY%>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="text-center">핸드폰번호</th>
+                            <td>
+                                <%=userdata.USERPHONE%>
+                            </td>
+                            <th class="text-center">탈퇴여부</th>
+                            <td>
+                                <% if(userdata.MEMBER_DROP == "Y") { %>
+                                탈퇴
+                                <% } else { %>
+                                미탈퇴
+                                <% } %>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+        </div>
+    </div>
+
+    <div class="col-xs-12 bg-white box round_box push-10-t">
+
+        <div class="contents_list">
+            <table id="list" class="table table-bordered fontsize">
+                <col width="10%">
+                <col width="5%">
+                <col width="15%">
+                <col width="15%">
+                <col width="10%">
+                <col width="25%">
+                <col width="25%">
+                <thead>
+                <tr>
+                    <th class="text-center">UID</th>
+                    <th class="text-center">브랜드<br>코드</th>
+                    <th class="text-center">브랜드명</th>
+                    <th class="text-center">질문타입</th>
+                    <th class="text-center">질문명</th>
+                    <th class="text-center">답변코드</th>
+                    <th class="text-center">답변TXT</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <% for(var i = 0; i<rawdata.length; i++) { %>
+                    <tr>
+                        <td><%=rawdata[i].UID%></td>
+                        <td><%=rawdata[i].BRAND_CODE%></td>
+                        <td><%=rawdata[i].BRAND_NAME_KO%></td>
+                        <td><%=rawdata[i].QUESTION_TYPE_NAME%></td>
+                        <td><%=rawdata[i].Q_NAME%></td>
+                        <td><%=rawdata[i].QA_CODE%></td>
+                        <td><%=rawdata[i].QA_TEXT%></td>
+                    </tr>
+                    <% } %>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+
+
+

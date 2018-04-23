@@ -6,6 +6,7 @@ var router = express.Router();
 
 var mbrand = require("../model/mbrand");
 var mcampaign = require("../model/mcampaign");
+var muser = require("../model/muser");
 var moment = require('moment');
 var nodeExcel = require('excel-export');
 var pagination = require('pagination');
@@ -647,6 +648,31 @@ router.post("/member_certaign_save", function(req, res) {
         })
     });
 
+});
+
+router.get("/joinRawData/:campaign_code/:uid/:quest_num", function(req, res) {
+    var campaign_code = req.params.campaign_code;
+    var uid = req.params.uid;
+    var quest_num = req.params.quest_num;
+
+
+    console.log(uid);
+    muser.sp_MEMBER_SELECT(uid, function(err, rows) {
+        if (err) {
+            console.log(err);
+        }
+        var userdata = rows[0][0];
+        mcampaign.sp_USER_RAWDATA(campaign_code, uid, quest_num, function (err, rows) {
+            if (err) {
+                console.log(err);
+            }
+
+            var data = rows[0];
+
+            res.render('campaign/joinRawData', {rawdata: data, userdata: userdata});
+            //res.send(data);
+        });
+    });
 });
 
 router.get("/campaignRawData/:code/:quest_num", function(req, res) {

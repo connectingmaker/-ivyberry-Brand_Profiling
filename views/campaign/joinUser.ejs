@@ -7,6 +7,9 @@
                 <a href="javascript:history.back()" class="btn btn-sm btn-default"><</a>&nbsp;&nbsp;&nbsp;[<%=campaign.CAMPAIGN_TITLE%>] - 검증대상자
             </div>
         </div>
+    </div>
+    <div class="col-xs-12 bg-white box round_box">
+
 
         <div class="contents_list">
             <table id="list" class="table table-bordered fontsize">
@@ -69,6 +72,8 @@
                         <% } else { %>
                         <a href="#" id="staticBtn" class="staticBtn btn btn-xs btn-success">통계 제외자 등록</a>
                         <% } %>
+
+                        <a href="/campaign/joinRawdata/<%=campaign_code%>/<%=list[i].UID%>/<%=quest_num%>" class="btn btn-xs btn-success">RAWDATA</a>
                     </td>
                 </tr>
                 <% } %>

@@ -544,6 +544,18 @@ var mcampaign = {
         connection.end();
         return data;
     }
+    ,sp_USER_RAWDATA: function(campaign_code, uid, quest_num, callback) {
+        var connection = mysql_dbc.init();
+        var query = " CALL sp_USER_RAWDATA(?, ?, ?)  ";
+        var params = [];
+        params.push(campaign_code);
+        params.push(uid);
+        params.push(quest_num);
+
+        var data = connection.query(query,params,callback);
+        connection.end();
+        return data;
+    }
 }
 
 module.exports = mcampaign;
