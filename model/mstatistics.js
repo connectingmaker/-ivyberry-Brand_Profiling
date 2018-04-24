@@ -139,6 +139,19 @@ var mstatistics = {
 
         connection.end();
     }
+    ,sp_STATISTICS_TEXTCLODE: function(campaign_code, quest_num, brand_code, q_code, qa_code, callback) {
+        var connection = mysql_dbc.init();
+        var query = " call sp_STATISTICS_TEXTCLODE(?, ?, ?, ?, ?)";
+        var params = [];
+        params.push(campaign_code);
+        params.push(quest_num);
+        params.push(brand_code);
+        params.push(q_code);
+        params.push(qa_code);
+        var data = connection.query(query,params,callback);
+        connection.end();
+        return data;
+    }
 }
 
 module.exports = mstatistics;

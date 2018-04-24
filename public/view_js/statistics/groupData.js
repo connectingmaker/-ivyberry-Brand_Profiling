@@ -226,57 +226,134 @@ $(function() {
                 /************* 이미지 선택 주관식 입력 : textCloud ************/
                 case "3":
                     var table = "";
-                    table += "<tr>";
-                    table += "<td width='20%'style='font-size:14px;font-weight: bold;'>총참여자수 : ("+returnData[0].TOTAL_CNT+"명)</td>";
-                    table += "</tr>";
+                    // table += "<tr>";
+                    // table += "<td  style='font-size:14px;font-weight: bold;'>총참여자수 : ("+returnData[0].TOTAL_CNT+"명)</td>";
+                    // table += "</tr>";
+
+                    var brand_code = "";
+                    var col = 1;
+
                     for(var i = 0; i<returnData.length; i++) {
-                        var img_temp = returnData[i].IMG;
-                        var img = word_temp.split(',');
-                        table += "<tr>";
-                        table += "<td width='20%' style='font-size:15px; padding:5px 10px;' class='bg-amethyst-dark text-white'>" + returnData[i].BRAND_NAME_KO + "</td>";
-                        table += "</tr>";
-                        table += "<tr>";
-                        table += "<td>"+returnData[i].QA_TEXT+"</td>";
-                        table += "</tr>";
-                        // table += "<tr>";
-                        // table += "<td><div id='cloud_"+returnData[i].DETAIL_BRAND_CODE+"' class='cloud' width='400' height='400'></div></td>";
-                        // table += "</tr>";
 
-                       //  var word_temp = returnData[i].QA_TEXT;
-                       //  var word = word_temp.split(',');
-                       //  var weight = [];
-                       //  for (var j=0; j<word.length; j++) {
-                       //      var weight[j] = 10;
-                       //  }
-                       // console.log(weight);
-                       //
-                       //  var words = [
-                       //      {text: word, weight:weight},
-                       //
-                       //  ];
-                       //  $("#cloud_"+returnData[i].DETAIL_BRAND_CODE).jQCloud(words,{
-                       //      shape: 'rectangular'
-                       //  });
 
-                        //
-                        // var word_temp = returnData[i].QA_TEXT;
-                        // var word = word_temp.split(',');
-                        // var freq = 10;
-                        // list = [];
-                        // for (var j=0; j<word.length; j++) {
-                        //     list.push(word, freq);
-                        // }
-                        //
-                        // WordCloud.minFontSize = "15px";
-                        // WordCloud(document.getElementById("'word_cloud"+[i]+"'), { list: list} );
+
+
+                        if(brand_code == "" || brand_code != returnData[i].DETAIL_BRAND_CODE) {
+
+                            table += "<div class='col-xs-12 bg-amethyst-dark text-white push-5-t text-center' style='padding:5px 0px;'>"+returnData[i].BRAND_NAME_KO+"</div>\n";
+
+                            table += "<div class='col-xs-3 push-5-t' style='height:150px;'><img src='http://bp2.brandprofiling.co.kr:3000"+returnData[i].IMG+"' width='100%' height='300'></div>\n";
+                            table += "<div id='textcloud_data_"+returnData[i].DETAIL_BRAND_CODE+"_"+returnData[i].Q_CODE+"_"+returnData[i].QA_CODE+"' class='col-xs-9 push-5-t' style='height:300px;'></div>\n";
+
+                            table += "<div class='col-xs-12 push-5-t' style='height:2px; background-color: #f1f1f1;'>&nbsp;</div>";
+
+                            brand_code = returnData[i].DETAIL_BRAND_CODE;
+                            col++;
+                        } else {
+
+
+                            table += "<div class='col-xs-3 push-5-t' style='height:150px;'><img src='http://bp2.brandprofiling.co.kr:3000"+returnData[i].IMG+"' width='100%' height='300'></div>\n";
+                            table += "<div id='textcloud_data_"+returnData[i].DETAIL_BRAND_CODE+"_"+returnData[i].Q_CODE+"_"+returnData[i].QA_CODE+"' class='col-xs-9 push-5-t' style='height:300px;'></div>\n";
+
+
+                            table += "<div class='col-xs-12 push-5-t' style='height:2px; background-color: #f1f1f1;'>&nbsp;</div>";
+
+                            if(col == 2) {
+
+                                col = 1;
+                            } else {
+
+                            }
+                        }
+                        console.log(table);
+
+
 
 
                         if(i == returnData.length - 1) {
-                            $("#data_"+returnData[i].Q_CODE).html(table);
+                            $("#data_"+returnData[i].Q_CODE).hide();
                             $("#chart_"+returnData[i].Q_CODE).hide();
-
+                            $("#cloudText_"+returnData[i].Q_CODE).html(table);
                         }
+
                     }
+
+                    for(var i = 0; i<returnData.length; i++) {
+                        var textcloud = [];
+
+                        var textTemp = returnData[i].QA_TEXT.split(",");
+                        textTemp.forEach(function(value, key) {
+                            var textData = {
+                                text: value, weight: key
+                            };
+                            textcloud.push(textData);
+                        });
+
+                        $("#textcloud_data_"+returnData[i].DETAIL_BRAND_CODE+"_"+returnData[i].Q_CODE+"_"+returnData[i].QA_CODE).jQCloud(textcloud, {
+                            shape: 'rectangular'
+                            ,autoResize: true
+                            ,fontSize: {
+                                from: 0.01,
+                                to: 0.06
+                            }
+                        });
+                    }
+
+
+
+
+
+
+                    // for(var i = 0; i<returnData.length; i++) {
+                    //     img.forEach(function(value, key) {
+                    //
+                    //         var imageNameTemp = value.split("///");
+                    //         var imageCode = imageNameTemp[0];
+                    //         var imageName = imageNameTemp[1];
+                    //
+                    //         var nextSend = {
+                    //             campaign_code : campaign_code
+                    //             ,quest_num : quest_num
+                    //             ,brand_code : returnData[i].DETAIL_BRAND_CODE
+                    //             ,q_code : q_code
+                    //             ,qa_code : imageCode
+                    //             ,num : i
+                    //         }
+                    //
+                    //
+                    //         var dataQa = [];
+                    //         common.ajax.send("/statistics/textCloud", nextSend);
+                    //         common.ajax.return = function(textData) {
+                    //
+                    //             var textCloudString = "";
+                    //             cloud_step3 = [];
+                    //
+                    //             for(var k = 0; k<textData.textcloud.length; k++) {
+                    //
+                    //                 // textCloudString = {
+                    //                 //     text: textData.textcloud[k].QA_TEXT, weight: textData.textcloud[k].CNT
+                    //                 // };
+                    //                 //
+                    //                 // cloud_step3.push(textCloudString);
+                    //
+                    //                 if(textCloudString == "") {
+                    //                     textCloudString = textData.textcloud[k].QA_TEXT + "///" + textData.textcloud[k].CNT;
+                    //                 } else {
+                    //                     textCloudString += "^^^" + textData.textcloud[k].QA_TEXT + "///" + textData.textcloud[k].CNT;
+                    //                 }
+                    //
+                    //
+                    //
+                    //
+                    //             }
+                    //
+                    //         }
+                    //
+                    //
+                    //
+                    //     });
+                    // }
+
 
 
 

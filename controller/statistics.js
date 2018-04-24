@@ -829,6 +829,25 @@ router.get("/group/questionrawdata", function(req, res) {
     });
 });
 
+router.post("/textCloud", function(req,res) {
+    var campaign_code = req.body.campaign_code;
+    var quest_num = req.body.quest_num;
+    var brand_code = req.body.brand_code;
+    var q_code = req.body.q_code;
+    var qa_code = req.body.qa_code;
+
+
+    mstatistics.sp_STATISTICS_TEXTCLODE(campaign_code, quest_num, brand_code, q_code, qa_code, function(err, rows) {
+        if(err) {
+            console.log(err);
+        }
+
+        var data = rows[0];
+        res.send({ textcloud : data});
+    });
+
+});
+
 router.get("/total/:code", function(req, res) {
     var campaign_code = req.params.code;
 

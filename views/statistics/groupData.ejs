@@ -36,6 +36,9 @@
                 <table id="data_<%=data[i].Q_CODE%>" width="100%" class="table-bordered">
                 </table>
 
+
+                <div id="cloudText_<%=data[i].Q_CODE%>"></div>
+
                 <canvas id="chart_<%=data[i].Q_CODE%>" width="400" height="200"></canvas>
                 <!--<div id="cloud_<%=data[i].Q_CODE%>" width="400" height="200" class="cloud"></div>-->
 
@@ -156,7 +159,10 @@
 
 
 <script src="/assets/js/chart.js"></script>
+<script src="/assets/js/jqcloud.js"></script>
+
 <script src="/view_js/statistics/groupData.js"></script>
+
 
 
 
