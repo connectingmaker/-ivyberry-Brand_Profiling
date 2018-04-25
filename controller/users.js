@@ -348,6 +348,8 @@ router.get('/write/:code', function(req, res) {
             var facebook_id = data[0].FACEBOOK_ID;
             var last_login = data[0].LAST_LOGIN;
             var member_drop = data[0].MEMBER_DROP;
+            var money = data[0].MONEY;
+            var area_name = data[0].AREA_NAME;
 
             var userData = {
                 uid: uid
@@ -361,6 +363,8 @@ router.get('/write/:code', function(req, res) {
                 , phone : phone
                 , facebook_id : facebook_id
                 , member_drop : member_drop
+                , money : money
+                , area_name : area_name
             };
 
             res.render('users/write', { gradelist : gradelist, userData: userData });
