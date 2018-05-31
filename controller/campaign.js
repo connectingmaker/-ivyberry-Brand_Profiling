@@ -238,7 +238,8 @@ router.get('/brandPool/:code', function(req, res) {
             console.log(err);
         }
 
-        if(rows[0].length == 0) {
+
+        if(rows.length == 0) {
             var brand_title = {
                 SUBJECT : "아래 브랜드 중 알고 계신 브랜드를 30개 이내로 선택해주세요(설문 대상 브랜드에 포함됨)."
                 ,SELECTED_MIN : ""
