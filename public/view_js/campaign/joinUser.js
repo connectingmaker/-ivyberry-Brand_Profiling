@@ -35,6 +35,7 @@ $(function() {
                 }
             }
         }
+        return false;
 
     });
 
@@ -48,6 +49,7 @@ $(function() {
 
         common.ajax.send("/users/staticYN", json);
         common.ajax.return = function(data) {
+            console.log("data");
             console.log(data);
 
 
@@ -60,7 +62,10 @@ $(function() {
                 $("#"+uid+" #staticBtn").removeClass("btn-success");
                 $("#"+uid+" #staticBtn").addClass("btn-warning");
             }
+
         }
+
+        return false;
 
     });
 
