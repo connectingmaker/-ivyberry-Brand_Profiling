@@ -201,6 +201,8 @@ router.get('/write/:code', function(req, res) {
 
 });
 
+
+
 router.post('/writeProcess', function(req, res) {
     var campaign_code = req.body.campaign_code;
     var campaign_title = req.body.campaign_title;
@@ -222,10 +224,25 @@ router.post('/writeProcess', function(req, res) {
 
 
         var objToJson = rows[0];
-        var dataJson = JSON.stringify(objToJson);
+        //var dataJson = JSON.stringify(objToJson);
         console.log(dataJson);
         res.send(dataJson);
     });
+});
+
+router.post("/campaignCopy", function(req, res) {
+    var campaign_code = req.body.campaign_code;
+
+    mcampaign.sp_CAMPAIGN_COPY(campaign_code, function(err, rows) {
+        if(err) {
+            console.log(err);
+        }
+
+        var objToJson = rows[0];
+        var dataJson = JSON.stringify(objToJson);
+        console.log(dataJson);
+        res.send(dataJson);
+    })
 });
 
 router.get('/brand/:code', function(req, res) {

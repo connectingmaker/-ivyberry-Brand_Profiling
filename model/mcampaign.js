@@ -23,6 +23,16 @@ var mcampaign = {
         connection.end();
         return data;
     }
+    ,sp_CAMPAIGN_COPY: function(campaign_code, callback) {
+        var connection = mysql_dbc.init();
+        var query = " call sp_CAMPAIGN_COPY(?)";
+        var params = [];
+        params.push(campaign_code);
+
+        var data = connection.query(query,params,callback);
+        connection.end();
+        return data;
+    }
     ,set_campaign_statusUpdate: function(campaign_code, status, callback) {
         var connection = mysql_dbc.init();
         var query = " UPDATE CAMPAIGN SET CAMPAIGN_ING = ? WHERE CAMPAIGN_CODE = ?";
