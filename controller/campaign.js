@@ -13,9 +13,19 @@ var pagination = require('pagination');
 
 
 router.get('/list', function(req, res, next) {
-    var type = req.query.type
+    var type = req.query.type;
+    var sorting = req.query.sorting;
+    var sortingtype = req.query.sortingtype;
     if(type == undefined) {
         type = "";
+    }
+
+    if(sorting == undefined) {
+        sorting = "";
+    }
+
+    if(sortingtype == undefined) {
+        sortingtype = "";
     }
 
     var page = req.query.page;
@@ -55,14 +65,14 @@ router.get('/list', function(req, res, next) {
                     if (result.range.length) {
                         for (i = 0, len = result.range.length; i < len; i++) {
                             if (result.range[i] === result.current) {
-                                html += '<li class="active"><a href="?page=' + result.range[i] + '&type=' + type + '">' + result.range[i] + '</a></li>';
+                                html += '<li class="active"><a href="?page=' + result.range[i] + '&type=' + type + '&sorting='+sorting+'&sortingtype='+sortingtype+'">' + result.range[i] + '</a></li>';
                             } else {
-                                html += '<li><a href="?page=' + result.range[i] + '&type=' + type + '">' + result.range[i] + '</a></li>';
+                                html += '<li><a href="?page=' + result.range[i] + '&type=' + type + '&sorting='+sorting+'&sortingtype='+sortingtype+'">' + result.range[i] + '</a></li>';
                             }
                         }
                     }
                     if (result.next) {
-                        html += '<li><a href="?page=' + result.next + '&type=' + type + '" class="paginator-next">' + this.options.translator('NEXT') + '</a></li>';
+                        html += '<li><a href="?page=' + result.next + '&type=' + type + '&sorting='+sorting+'&sortingtype='+sortingtype+'" class="paginator-next">' + this.options.translator('NEXT') + '</a></li>';
                     }
                     html += '</ul></div>';
                     return html;
@@ -70,13 +80,15 @@ router.get('/list', function(req, res, next) {
             });
 
 
-            mcampaign.get_campaign_list_hide(start, searchName, function (err, rows) {
+            mcampaign.get_campaign_list_hide(start, searchName, sorting, sortingtype, function (err, rows) {
                 var campaignlist = rows;
                 res.render('campaign/list', {
                     moment: moment,
                     campaignlist: campaignlist,
                     type: type,
-                    pageHtml: boostrapPaginator
+                    pageHtml: boostrapPaginator,
+                    sorting: sorting,
+                    sortingtype: sortingtype
                 });
             });
 
@@ -100,19 +112,19 @@ router.get('/list', function(req, res, next) {
                     }
                     prelink = this.preparePreLink(result.prelink);
                     if (result.previous) {
-                        html += '<li><a href="./?page=' + result.previous + '">' + this.options.translator('PREVIOUS') + '</a></li>';
+                        html += '<li><a href="./?page=' + result.previous + '&sorting='+sorting+'&sortingtype='+sortingtype+'">' + this.options.translator('PREVIOUS') + '</a></li>';
                     }
                     if (result.range.length) {
                         for (i = 0, len = result.range.length; i < len; i++) {
                             if (result.range[i] === result.current) {
-                                html += '<li class="active"><a href="?page=' + result.range[i] + '&type=' + type + '">' + result.range[i] + '</a></li>';
+                                html += '<li class="active"><a href="?page=' + result.range[i] + '&type=' + type + '&sorting='+sorting+'&sortingtype='+sortingtype+'">' + result.range[i] + '</a></li>';
                             } else {
-                                html += '<li><a href="?page=' + result.range[i] + '&type=' + type + '">' + result.range[i] + '</a></li>';
+                                html += '<li><a href="?page=' + result.range[i] + '&type=' + type + '&sorting='+sorting+'&sortingtype='+sortingtype+'">' + result.range[i] + '</a></li>';
                             }
                         }
                     }
                     if (result.next) {
-                        html += '<li><a href="?page=' + result.next + '&type=' + type + '" class="paginator-next">' + this.options.translator('NEXT') + '</a></li>';
+                        html += '<li><a href="?page=' + result.next + '&type=' + type + '&sorting='+sorting+'&sortingtype='+sortingtype+'" class="paginator-next">' + this.options.translator('NEXT') + '</a></li>';
                     }
                     html += '</ul></div>';
                     return html;
@@ -120,13 +132,17 @@ router.get('/list', function(req, res, next) {
             });
 
 
-            mcampaign.get_campaign_list(type, start, searchName, function (err, rows) {
+            mcampaign.get_campaign_list(type, start, searchName, sorting, sortingtype, function (err, rows) {
                 var campaignlist = rows;
                 res.render('campaign/list', {
                     moment: moment,
                     campaignlist: campaignlist,
                     type: type,
-                    pageHtml: boostrapPaginator
+                    pageHtml: boostrapPaginator,
+                    sorting: sorting,
+                    sortingtype: sortingtype
+
+
                 });
             });
 
