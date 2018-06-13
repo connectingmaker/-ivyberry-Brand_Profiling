@@ -22,9 +22,7 @@
 <input type="hidden" id="q_text_min" value="<%=surveyQ.Q_TEXT_MIN%>">
 <input type="hidden" id="q_text_max" value="<%=surveyQ.Q_TEXT_MAX%>">
 <input type="hidden" id="debug" value="<%=debug%>">
-<%
- console.log(brandList);
-%>
+<input type="hidden" id="lang" value="<%=lang%>">
 
 <div class="row" style="padding:10px 40px;">
     <% for(var brandNum = 0; brandNum<brandList.length; brandNum++) { %>
@@ -44,7 +42,23 @@
                         </div>
 
                         <div class="col-xs-12 text-center titleSelectBg" style="font-size:1.2em;">
-                            <b class="Textcolor"><%=brandList[brandNum].BRAND_NAME_KO%> - </b> <%=surveyQ.Q_TITLE_KO%> <span class="TextColor">(1개)</span>
+                            <b class="Textcolor">
+                                <% if(lang == "en") { %>
+                                <%=brandList[brandNum].BRAND_NAME_EN%>
+                                <% } else if(lang == "cn") { %>
+                                <%=brandList[brandNum].BRAND_NAME_CN%>
+                                <% } else { %>
+                                <%=brandList[brandNum].BRAND_NAME_KO%>
+                                <% } %>
+                                - </b>
+                                <% if(lang == "en") { %>
+                                <%=surveyQ.Q_TITLE_EN%>
+                                <% } else if(lang == "cn") { %>
+                                <%=surveyQ.Q_TITLE_CN%>
+                                <% } else { %>
+                                <%=surveyQ.Q_TITLE_KO%>
+                                <% } %>
+                                 <span class="TextColor">(1개)</span>
                         </div>
                     </div>
 

@@ -17,6 +17,7 @@
 <input type="hidden" id="page" value="<%=page%>">
 <input type="hidden" id="brandCnt" value="<%=brandList.length%>">
 <input type="hidden" id="debug" value="<%=debug%>">
+<input type="hidden" id="lang" value="<%=lang%>">
 <div class="row" style="padding:10px 40px;">
     <div clss="col-xs-12">
         <div class="row titleBox2">
@@ -28,7 +29,13 @@
             </div>
 
             <div class="col-xs-12 text-center titleSelectBg" style="font-size:1.2em; padding:10px 20px;">
+                <% if(lang == "en") { %>
+                <%=surveyQ.Q_TITLE_EN%>
+                <% } else if(lang == "cn") { %>
+                <%=surveyQ.Q_TITLE_CN%>
+                <% } else { %>
                 <%=surveyQ.Q_TITLE_KO%>
+                <% } %>
             </div>
         </div>
 
@@ -39,7 +46,13 @@
         <div class="row push-10-t titleBox3">
 
             <div class="col-xs-12 titleSelectBg" style="padding:10px 5px;">
+                <% if(lang == "en") { %>
+                <%=brandList[brandNum].BRAND_NAME_EN%>
+                <% } else if(lang == "cn") { %>
+                <%=brandList[brandNum].BRAND_NAME_CN%>
+                <% } else { %>
                 <%=brandList[brandNum].BRAND_NAME_KO%>
+                <% } %>
             </div>
 
 
@@ -52,7 +65,15 @@
                 <div class="col-xs-6">
                     <input type='radio' id="qaData_<%=brandNum%><%=i%>" name="qa[<%=brandNum%>]" brand_code="<%=brandList[brandNum].DETAIL_BRAND_CODE%>" class="qaData qaData_<%=brandNum%>" value="<%=surveyQA[i].QA_CODE%>" style="display:none;">
                     <button class="qaList btn btn-white push-5-r push-10 btn-block btn-md" brandNum="<%=brandNum%>" qaCode="<%=i%>" type="button">
-                        <span class="pull-left"><img src="/img/survey/checkBox_icon_off.png">&nbsp;&nbsp;&nbsp;<%=surveyQA[i].QA_TITLE_KO%></span>
+                        <span class="pull-left"><img src="/img/survey/checkBox_icon_off.png">&nbsp;&nbsp;&nbsp;
+                            <% if(lang == "en") { %>
+                            <%=surveyQA[i].QA_TITLE_EN%>
+                            <% } else if(lang == "cn") { %>
+                            <%=surveyQA[i].QA_TITLE_CN%>
+                            <% } else { %>
+                            <%=surveyQA[i].QA_TITLE_KO%>
+                            <% } %>
+                        </span>
                     </button>
                 </div>
 

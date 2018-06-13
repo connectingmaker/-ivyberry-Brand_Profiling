@@ -38,71 +38,72 @@
                 <col width="11%">
                 <col width="25%">
                 <thead>
+
                 <tr>
                     <th class="text-center">설문ID</th>
                     <th class="text-center">
                         <% if(sorting == "category") { %>
 
-                            <% if(sortingtype == "desc") { %>
-                                <a href="/campaign/list?type=<%=type%>&sorting=category&sortingtype=asc">
-                                <i class="fa fa-sort-desc"></i>
+                        <% if(sortingtype == "desc") { %>
+                        <a href="/campaign/list?type=<%=type%>&sorting=category&sortingtype=asc">
+                            <i class="fa fa-sort-desc"></i>
                             <% } else { %>
-                                <a href="/campaign/list?type=<%=type%>&sorting=category&sortingtype=desc">
-                                <i class="fa fa-sort-asc"></i>
-                            <% } %>
-                        <% } else { %>
                             <a href="/campaign/list?type=<%=type%>&sorting=category&sortingtype=desc">
-                        <% } %>
-                        카테고리
-                        </a>
+                                <i class="fa fa-sort-asc"></i>
+                                <% } %>
+                                <% } else { %>
+                                <a href="/campaign/list?type=<%=type%>&sorting=category&sortingtype=desc">
+                                    <% } %>
+                                    카테고리
+                                </a>
                     </th>
                     <th class="text-center">
                         <% if(sorting == "campaign_title") { %>
 
-                            <% if(sortingtype == "desc") { %>
-                                <a href="/campaign/list?type=<%=type%>&sorting=campaign_title&sortingtype=asc">
-                                <i class="fa fa-sort-desc"></i>
+                        <% if(sortingtype == "desc") { %>
+                        <a href="/campaign/list?type=<%=type%>&sorting=campaign_title&sortingtype=asc">
+                            <i class="fa fa-sort-desc"></i>
                             <% } else { %>
-                                <a href="/campaign/list?type=<%=type%>&sorting=campaign_title&sortingtype=desc">
-                                <i class="fa fa-sort-asc"></i>
-                            <% } %>
-                        <% } else { %>
                             <a href="/campaign/list?type=<%=type%>&sorting=campaign_title&sortingtype=desc">
-                        <% } %>
-                        설문제목
-                        </a>
+                                <i class="fa fa-sort-asc"></i>
+                                <% } %>
+                                <% } else { %>
+                                <a href="/campaign/list?type=<%=type%>&sorting=campaign_title&sortingtype=desc">
+                                    <% } %>
+                                    설문제목
+                                </a>
                     </th>
                     <th class="text-center">
                         <% if(sorting == "use") { %>
 
-                            <% if(sortingtype == "desc") { %>
-                                <a href="/campaign/list?type=<%=type%>&sorting=use&sortingtype=asc">
-                                <i class="fa fa-sort-desc"></i>
+                        <% if(sortingtype == "desc") { %>
+                        <a href="/campaign/list?type=<%=type%>&sorting=use&sortingtype=asc">
+                            <i class="fa fa-sort-desc"></i>
                             <% } else { %>
-                                <a href="/campaign/list?type=<%=type%>&sorting=use&sortingtype=desc">
+                            <a href="/campaign/list?type=<%=type%>&sorting=use&sortingtype=desc">
                                 <i class="fa fa-sort-asc"></i>
-                            <% } %>
-                        <% } else { %>
-                        <a href="/campaign/list?type=<%=type%>&sorting=use&sortingtype=desc">
-                        <% } %>
-                        상태
-                        </a>
+                                <% } %>
+                                <% } else { %>
+                                <a href="/campaign/list?type=<%=type%>&sorting=use&sortingtype=desc">
+                                    <% } %>
+                                    상태
+                                </a>
                     </th>
                     <th class="text-center">
                         <% if(sorting == "startdate") { %>
 
-                            <% if(sortingtype == "desc") { %>
-                            <a href="/campaign/list?type=<%=type%>&sorting=startdate&sortingtype=asc">
+                        <% if(sortingtype == "desc") { %>
+                        <a href="/campaign/list?type=<%=type%>&sorting=startdate&sortingtype=asc">
                             <i class="fa fa-sort-desc"></i>
                             <% } else { %>
                             <a href="/campaign/list?type=<%=type%>&sorting=startdate&sortingtype=desc">
-                            <i class="fa fa-sort-asc"></i>
-                            <% } %>
-                        <% } else { %>
-                        <a href="/campaign/list?type=<%=type%>&sorting=startdate&sortingtype=desc">
-                        <% } %>
-                        시작일
-                        </a>
+                                <i class="fa fa-sort-asc"></i>
+                                <% } %>
+                                <% } else { %>
+                                <a href="/campaign/list?type=<%=type%>&sorting=startdate&sortingtype=desc">
+                                    <% } %>
+                                    시작일
+                                </a>
 
                     </th>
                     <th class="text-center">
@@ -110,16 +111,16 @@
 
                         <% if(sortingtype == "desc") { %>
                         <a href="/campaign/list?type=<%=type%>&sorting=enddate&sortingtype=asc">
-                        <i class="fa fa-sort-desc"></i>
-                        <% } else { %>
-                        <a href="/campaign/list?type=<%=type%>&sorting=enddate&sortingtype=desc">
-                        <i class="fa fa-sort-asc"></i>
-                        <% } %>
-                        <% } else { %>
-                        <a href="/campaign/list?type=<%=type%>&sorting=enddate&sortingtype=desc">
-                        <% } %>
-                        종료일
-                        </a>
+                            <i class="fa fa-sort-desc"></i>
+                            <% } else { %>
+                            <a href="/campaign/list?type=<%=type%>&sorting=enddate&sortingtype=desc">
+                                <i class="fa fa-sort-asc"></i>
+                                <% } %>
+                                <% } else { %>
+                                <a href="/campaign/list?type=<%=type%>&sorting=enddate&sortingtype=desc">
+                                    <% } %>
+                                    종료일
+                                </a>
                     </th>
                     <th class="text-center">제한 / 참여</th>
                     <th class="text-center">최종수정일</th>

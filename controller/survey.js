@@ -13,6 +13,10 @@ router.get("/start", function(req, res) {
     var uid = req.param("uid");
     var debug = req.param("debug");
     var debugurl = "";
+    var lang = req.body.lang;
+    if(lang == "" || lang == undefined) {
+        lang = "ko";
+    }
     if(debug == "true") {
 
         debugurl = "&debug=true";
@@ -26,7 +30,7 @@ router.get("/start", function(req, res) {
 
 
             var survey = rows[0];
-            res.redirect("/survey/profile?campaign_code=" + campaign_code + "&uid=" + uid + "&quest_num=" + quest_num + "&seq=" + survey[0]._SEQ+"&step=1"+debugurl);
+            res.redirect("/survey/profile?campaign_code=" + campaign_code + "&uid=" + uid + "&quest_num=" + quest_num + "&seq=" + survey[0]._SEQ+"&step=1"+debugurl+"&lang="+lang);
         });
         //res.redirect("/survey/profile?campaign_code=" + campaign_code + "&uid=" + uid + "&quest_num=" + quest_num +"&step=1");
     } else {
@@ -41,13 +45,13 @@ router.get("/start", function(req, res) {
                 case "000":
                     if(quest_num == 1) {
                         if(survey[0].BRAND_SKIP == "N") {
-                            res.redirect("/survey/brand?campaign_code=" + campaign_code + "&uid=" + uid + "&quest_num=" + quest_num + "&seq=" + survey[0]._SEQ+debugurl);
+                            res.redirect("/survey/brand?campaign_code=" + campaign_code + "&uid=" + uid + "&quest_num=" + quest_num + "&seq=" + survey[0]._SEQ+debugurl+"&lang="+lang);
                         } else {
-                            res.redirect("/survey/page?campaign_code=" + campaign_code + "&uid=" + uid + "&quest_num=" + quest_num + "&page=1&seq=" + survey[0]._SEQ+debugurl);
+                            res.redirect("/survey/page?campaign_code=" + campaign_code + "&uid=" + uid + "&quest_num=" + quest_num + "&page=1&seq=" + survey[0]._SEQ+debugurl+"&lang="+lang);
                         }
 
                     } else {
-                        res.redirect("/survey/page?campaign_code=" + campaign_code + "&uid=" + uid + "&quest_num=" + quest_num + "&page=1&seq=" + survey[0]._SEQ+debugurl);
+                        res.redirect("/survey/page?campaign_code=" + campaign_code + "&uid=" + uid + "&quest_num=" + quest_num + "&page=1&seq=" + survey[0]._SEQ+debugurl+"&lang="+lang);
                     }
                     /*
                     res.render('survey/start', {
@@ -70,23 +74,24 @@ router.get("/start", function(req, res) {
                                 // res.redirect("/survey/brand?campaign_code=" + campaign_code + "&uid=" + uid + "&quest_num=" + quest_num + "&seq=" + survey[0]._SEQ + debugurl);
                                 if(quest_num == 1) {
                                     if(survey[0].BRAND_SKIP == "N") {
-                                        res.redirect("/survey/brand?campaign_code=" + campaign_code + "&uid=" + uid + "&quest_num=" + quest_num + "&seq=" + survey[0]._SEQ+debugurl);
+                                        res.redirect("/survey/brand?campaign_code=" + campaign_code + "&uid=" + uid + "&quest_num=" + quest_num + "&seq=" + survey[0]._SEQ+debugurl+"&lang="+lang);
                                     } else {
-                                        res.redirect("/survey/page?campaign_code=" + campaign_code + "&uid=" + uid + "&quest_num=" + quest_num + "&page=1&seq=" + survey[0]._SEQ+debugurl);
+                                        res.redirect("/survey/page?campaign_code=" + campaign_code + "&uid=" + uid + "&quest_num=" + quest_num + "&page=1&seq=" + survey[0]._SEQ+debugurl+"&lang="+lang);
                                     }
 
                                 } else {
-                                    res.redirect("/survey/page?campaign_code=" + campaign_code + "&uid=" + uid + "&quest_num=" + quest_num + "&page=1&seq=" + survey[0]._SEQ+debugurl);
+                                    res.redirect("/survey/page?campaign_code=" + campaign_code + "&uid=" + uid + "&quest_num=" + quest_num + "&page=1&seq=" + survey[0]._SEQ+debugurl+"&lang="+lang);
                                 }
                             } else {
-                                res.redirect("/survey/page?campaign_code=" + campaign_code + "&uid=" + uid + "&quest_num=" + quest_num + "&page=1&seq=" + survey[0]._SEQ+debugurl);
+                                res.redirect("/survey/page?campaign_code=" + campaign_code + "&uid=" + uid + "&quest_num=" + quest_num + "&page=1&seq=" + survey[0]._SEQ+debugurl+"&lang="+lang);
                             }
                         });
                     } else {
                         res.render('survey/start', {
                             layout: 'layout/single_page',
                             "layout extractScripts": true,
-                            ERR_CODE: "999"
+                            ERR_CODE: "999",
+                            land: lang
 
                         });
                     }
@@ -98,7 +103,8 @@ router.get("/start", function(req, res) {
                         "layout extractScripts": true
                        , ERR_CODE: survey[0].ERR_CODE
                        , ERR_MSG:survey[0].ERR_MSG
-                        ,DEBUG: debug
+                        ,DEBUG: debug,
+                        land: lang
                     });
                     break;
             }
@@ -113,6 +119,7 @@ router.get("/profile", function(req,res) {
     var step = req.param("step");
     var seq = req.param("seq");
     var debug = req.param("debug");
+    var lang = req.params("lang");
 
     if(debug == undefined) {
         debug = "";
@@ -120,10 +127,10 @@ router.get("/profile", function(req,res) {
 
     switch(step) {
         case "1":
-            res.render('survey/profile/1', {layout: 'layout/survey_page', "layout extractScripts": true, campaign_code: campaign_code, quest_num: quest_num, uid: uid, seq: seq, step: step, debug : debug});
+            res.render('survey/profile/1', {layout: 'layout/survey_page', "layout extractScripts": true, campaign_code: campaign_code, quest_num: quest_num, uid: uid, seq: seq, step: step, debug : debug, lang : lang});
             break;
         default:
-            res.render('survey/profile/'+step, {layout: 'layout/survey_page', "layout extractScripts": true, campaign_code: campaign_code, quest_num: quest_num, uid: uid , seq: seq,  step: step, debug : debug});
+            res.render('survey/profile/'+step, {layout: 'layout/survey_page', "layout extractScripts": true, campaign_code: campaign_code, quest_num: quest_num, uid: uid , seq: seq,  step: step, debug : debug, lang : lang});
             break;
     }
 });
@@ -381,6 +388,7 @@ router.get("/page", function(req, res) {
     var page = req.query["page"];
     var seq = req.query["seq"];
     var debug = req.query["debug"];
+    var lang = req.query["lang"];
 
     if(debug == undefined) {
         debug = "";
@@ -445,6 +453,7 @@ router.get("/page", function(req, res) {
                                     , brandList: brandList
                                     , debug: debug
                                     , total_per: total_per
+                                    , lang : lang
                                 });
 
                         });
@@ -473,6 +482,7 @@ router.get("/page", function(req, res) {
                                     , brandList: brandList
                                     , debug: debug
                                     , total_per: total_per
+                                    , lang : lang
                                 });
 
                         });

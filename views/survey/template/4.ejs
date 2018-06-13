@@ -16,6 +16,7 @@
 <input type="hidden" id="page" value="<%=page%>">
 <input type="hidden" id="brandCnt" value="<%=brandList.length%>">
 <input type="hidden" id="debug" value="<%=debug%>">
+<input type="hidden" id="lang" value="<%=lang%>">
 <div class="row" style="padding:10px 40px;">
     <div clss="col-xs-12">
         <div class="row titleBox2">
@@ -27,7 +28,13 @@
             </div>
 
             <div class="col-xs-12 text-center titleSelectBg" style="font-size:1.2em; padding:10px 20px;">
+                <% if(lang == "en") { %>
+                <%=surveyQ.Q_TITLE_EN%>
+                <% } else if(lang == "cn") { %>
+                <%=surveyQ.Q_TITLE_CN%>
+                <% } else { %>
                 <%=surveyQ.Q_TITLE_KO%>
+                <% } %>
             </div>
         </div>
 
@@ -39,7 +46,13 @@
         <div class="row push-10-t titleBox3">
 
             <div class="col-xs-12 titleSelectBg" style="padding:10px;">
+                <% if(lang == "en") { %>
+                <%=brandList[brandNum].BRAND_NAME_EN%>
+                <% } else if(lang == "cn") { %>
+                <%=brandList[brandNum].BRAND_NAME_CN%>
+                <% } else { %>
                 <%=brandList[brandNum].BRAND_NAME_KO%>
+                <% } %>
             </div>
 
             <div class="col-xs-12 titleCountBg text-center">
