@@ -303,9 +303,11 @@ router.post("/multiProcess", function(req, res) {
     var q_title_cn = req.body.q_title_cn;
     var etc = req.body.etc;
     var memo = req.body.memo;
+    var moduleType = req.body.moduleType;
     var qaData = eval("("+req.body.qaJson+")");
+    console.log("OK");
 
-    mquestion.sp_QUESTION_Q_SAVE(q_code, group_code, q_name, q_title_ko, q_title_en, q_title_cn, etc, memo, "", "", "", "", function(err, rows) {
+    mquestion.sp_QUESTION_Q_SAVE_20180614(q_code, group_code, q_name, q_title_ko, q_title_en, q_title_cn, etc, memo, "", "", "", "", moduleType, function(err, rows) {
         if(err) {
             console.log(err);
             throw err;
@@ -336,8 +338,9 @@ router.post("/textProcess", function(req, res) {
     var q_title_cn = req.body.q_title_cn;
     var etc = req.body.etc;
     var memo = req.body.memo;
+    var moduleType = req.body.moduleType;
 
-    mquestion.sp_QUESTION_Q_SAVE(q_code, group_code, q_name, q_title_ko, q_title_en, q_title_cn, etc, memo, "", "", "", "", function(err, rows) {
+    mquestion.sp_QUESTION_Q_SAVE_20180614(q_code, group_code, q_name, q_title_ko, q_title_en, q_title_cn, etc, memo, "", "", "", "", moduleType, function(err, rows) {
         if (err) {
             console.log(err);
             throw err;

@@ -135,6 +135,30 @@ var mquestion = {
         connection.end();
         return data;
     }
+    ,sp_QUESTION_Q_SAVE_20180614: function(q_code, group_code, q_name, q_title_ko, q_title_en, q_title_cn, etc, memo, q_img_min, q_img_max, q_text_min, q_text_max, module_type, callback) {
+        var connection = mysql_dbc.init();
+        var query = " call sp_QUESTION_Q_SAVE_20180614(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ";
+
+        var params = [];
+
+        params.push(q_code);
+        params.push(group_code);
+        params.push(q_name);
+        params.push(q_title_ko);
+        params.push(q_title_en);
+        params.push(q_title_cn);
+        params.push(etc);
+        params.push(memo);
+        params.push(q_img_min);
+        params.push(q_img_max);
+        params.push(q_text_min);
+        params.push(q_text_max);
+        params.push(module_type);
+
+        var data = connection.query(query,params, callback);
+        connection.end();
+        return data;
+    }
     ,sp_QUESTION_QA_SAVE: function(q_code, qaData, callback) {
         var connection = mysql_dbc.init();
         var query = " call sp_QUESTION_QA_SAVE(?, ?, ?, ?, ?, ?) ";

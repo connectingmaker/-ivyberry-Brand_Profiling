@@ -63,7 +63,7 @@ img_template += '</tr>';
 
 var survey_template = "";
 
-survey_template += "<div class=\"col-xs-12 bg-white box round_box push-10-t\" id='[_Q_CODE_ID_]'>";
+survey_template += "<div class=\"col-xs-12 bg-white box round_box push-10-t\" id='[_Q_CODE_ID_]' module_type='[_MODULE_TYPE_]'>";
 survey_template += "<div class='row'>";
 survey_template += "<div class='col-xs-8 title'>[_Q_TYPE_]</div>";
 survey_template += "<div class=\"col-xs-4 text-right\">";
@@ -211,8 +211,23 @@ $(function() {
             var survey_template_temp = survey_template;
             survey_template_temp = survey_template_temp.replace("[_Q_TYPE_]", $("#question_type").html());
             survey_template_temp = survey_template_temp.replace("[_Q_CODE_ID_]", dataJson[i].Q_CODE);
+            survey_template_temp = survey_template_temp.replace("[_MODULE_TYPE_]", dataJson[i].MODULE_TYPE);
             survey_template_temp = survey_template_temp.replace("[_Q_CODE_]", dataJson[i].Q_CODE);
-            survey_template_temp = survey_template_temp.replace("[_Q_NAME_]", dataJson[i].Q_NAME);
+            console.log($("#question_type").html());
+            if($("#question_type").val() != 8) {
+                survey_template_temp = survey_template_temp.replace("[_Q_NAME_]", dataJson[i].Q_NAME);
+            } else {
+                if(dataJson[i].MODULE_TYPE == "S") {
+                    survey_template_temp = survey_template_temp.replace("[_Q_NAME_]", "[단일형] " + dataJson[i].Q_NAME);
+                } else if(dataJson[i].MODULE_TYPE == "M") {
+                    survey_template_temp = survey_template_temp.replace("[_Q_NAME_]", "[중복형] " + dataJson[i].Q_NAME);
+                } else if(dataJson[i].MODULE_TYPE == "T") {
+                    survey_template_temp = survey_template_temp.replace("[_Q_NAME_]", "[텍스트] " + dataJson[i].Q_NAME);
+                } else {
+                    survey_template_temp = survey_template_temp.replace("[_Q_NAME_]", dataJson[i].Q_NAME);
+                }
+
+            }
             survey_template_temp = survey_template_temp.replace("[_MEMO_]", dataJson[i].MEMO);
             survey_template_temp = survey_template_temp.replace("[_ETC_]", dataJson[i].ETC);
             survey_template_temp = survey_template_temp.replace("[_Q_INSERT_DATETIME_]", string.dateTime(dataJson[i].INSERT_DATETIME));
@@ -334,6 +349,54 @@ $(function() {
         $("#multi_etc").val("");
         $("#multi_memo").val("");
 
+        $("#module_type").val("N");
+
+        var multi_template_temp = multi_template.replace("[_ID_]", code);
+        multi_template_temp = multi_template_temp.replace("[_QA_CODE_]", "");
+        multi_template_temp = multi_template_temp.replace("[_QA_TITLE_KO_]", "");
+        multi_template_temp = multi_template_temp.replace("[_QA_TITLE_EN_]", "");
+        multi_template_temp = multi_template_temp.replace("[_QA_TITLE_CN_]", "");
+        $("#multiTable #template").html(multi_template_temp);
+        $("#q_code").val("");
+        $('#multiModal').modal('show');
+    });
+
+
+    $("#multiCreate2").click(function() {
+        var code = Math.floor(Math.random() * 99999999999999) + 1;
+
+        $("#module_type").val("S");
+
+        $("#multi_q_name").val("");
+        $("#multi_q_title_ko").val("");
+        $("#multi_q_title_en").val("");
+        $("#multi_q_title_cn").val("");
+        $("#multi_etc").val("");
+        $("#multi_memo").val("");
+
+
+        var multi_template_temp = multi_template.replace("[_ID_]", code);
+        multi_template_temp = multi_template_temp.replace("[_QA_CODE_]", "");
+        multi_template_temp = multi_template_temp.replace("[_QA_TITLE_KO_]", "");
+        multi_template_temp = multi_template_temp.replace("[_QA_TITLE_EN_]", "");
+        multi_template_temp = multi_template_temp.replace("[_QA_TITLE_CN_]", "");
+        $("#multiTable #template").html(multi_template_temp);
+        $("#q_code").val("");
+        $('#multiModal').modal('show');
+    });
+
+    $("#multiCreate3").click(function() {
+        var code = Math.floor(Math.random() * 99999999999999) + 1;
+
+        $("#module_type").val("M");
+
+        $("#multi_q_name").val("");
+        $("#multi_q_title_ko").val("");
+        $("#multi_q_title_en").val("");
+        $("#multi_q_title_cn").val("");
+        $("#multi_etc").val("");
+        $("#multi_memo").val("");
+
 
         var multi_template_temp = multi_template.replace("[_ID_]", code);
         multi_template_temp = multi_template_temp.replace("[_QA_CODE_]", "");
@@ -374,7 +437,22 @@ $(function() {
     <!--단일선택형 질문 추가하기 -->
     $("#textCreate").click(function() {
         var code = Math.floor(Math.random() * 99999999999999) + 1;
+        $("#module_type").val("T");
 
+        $("#text_q_name").val("");
+        $("#text_q_title_ko").val("");
+        $("#text_q_title_en").val("");
+        $("#text_q_title_cn").val("");
+        $("#text_etc").val("");
+        $("#text_memo").val("");
+        $("#q_code").val("");
+
+        $('#textModal').modal('show');
+    });
+
+    $("#textCreate2").click(function() {
+        var code = Math.floor(Math.random() * 99999999999999) + 1;
+        $("#module_type").val("N");
 
         $("#text_q_name").val("");
         $("#text_q_title_ko").val("");
@@ -443,6 +521,7 @@ $(function() {
                 var survey_template_temp = survey_template;
                 survey_template_temp = survey_template_temp.replace("[_Q_TYPE_]", $("#question_type").html());
                 survey_template_temp = survey_template_temp.replace("[_Q_CODE_ID_]", dataJson.Q_CODE);
+                survey_template_temp = survey_template_temp.replace("[_MODULE_TYPE_]", dataJson.MODULE_TYPE);
                 survey_template_temp = survey_template_temp.replace("[_Q_CODE_]", dataJson.Q_CODE);
                 survey_template_temp = survey_template_temp.replace("[_Q_NAME_]", dataJson.Q_NAME);
                 survey_template_temp = survey_template_temp.replace("[_MEMO_]", dataJson.MEMO);
@@ -511,6 +590,7 @@ $(function() {
             ,q_title_ko : $("#text_q_title_ko").val()
             ,q_title_en : $("#text_q_title_en").val()
             ,q_title_cn : $("#text_q_title_cn").val()
+            ,moduleType : $("#module_type").val()
             ,etc : $("#text_etc").val()
             ,memo : $("#text_memo").val()
         };
@@ -524,6 +604,7 @@ $(function() {
                 var survey_template_temp = survey_template;
                 survey_template_temp = survey_template_temp.replace("[_Q_TYPE_]", $("#question_type").html());
                 survey_template_temp = survey_template_temp.replace("[_Q_CODE_ID_]", dataJson.Q_CODE);
+                survey_template_temp = survey_template_temp.replace("[_MODULE_TYPE_]", dataJson.Q_CODE);
                 survey_template_temp = survey_template_temp.replace("[_Q_CODE_]", dataJson.Q_CODE);
                 survey_template_temp = survey_template_temp.replace("[_Q_NAME_]", dataJson.Q_NAME);
                 survey_template_temp = survey_template_temp.replace("[_MEMO_]", dataJson.MEMO);
@@ -612,10 +693,12 @@ $(function() {
             ,q_title_ko : $("#multi_q_title_ko").val()
             ,q_title_en : $("#multi_q_title_en").val()
             ,q_title_cn : $("#multi_q_title_cn").val()
+            ,moduleType : $("#module_type").val()
             ,etc : $("#multi_etc").val()
             ,memo : $("#multi_memo").val()
             ,qaJson : JSON.stringify(qaJson)
         };
+
 
         common.ajax.send('/question/multiProcess', jsonData);
         common.ajax.return = function(data) {
@@ -626,6 +709,7 @@ $(function() {
                 var survey_template_temp = survey_template;
                 survey_template_temp = survey_template_temp.replace("[_Q_TYPE_]", $("#question_type").html());
                 survey_template_temp = survey_template_temp.replace("[_Q_CODE_ID_]", dataJson.Q_CODE);
+                survey_template_temp = survey_template_temp.replace("[_MODULE_TYPE_]", dataJson.MODULE_TYPE);
                 survey_template_temp = survey_template_temp.replace("[_Q_CODE_]", dataJson.Q_CODE);
                 survey_template_temp = survey_template_temp.replace("[_Q_NAME_]", dataJson.Q_NAME);
                 survey_template_temp = survey_template_temp.replace("[_MEMO_]", dataJson.MEMO);
@@ -716,6 +800,7 @@ $(function() {
         };
 
 
+
         common.ajax.send('/question/multiProcess', jsonData);
         common.ajax.return = function(data) {
             var dataJson = eval("("+data+")");
@@ -725,6 +810,7 @@ $(function() {
                 var survey_template_temp = survey_template;
                 survey_template_temp = survey_template_temp.replace("[_Q_TYPE_]", $("#question_type").html());
                 survey_template_temp = survey_template_temp.replace("[_Q_CODE_ID_]", dataJson.Q_CODE);
+                survey_template_temp = survey_template_temp.replace("[_MODULE_TYPE_]", dataJson.MODULE_TYPE);
                 survey_template_temp = survey_template_temp.replace("[_Q_CODE_]", dataJson.Q_CODE);
                 survey_template_temp = survey_template_temp.replace("[_Q_NAME_]", dataJson.Q_NAME);
                 survey_template_temp = survey_template_temp.replace("[_MEMO_]", dataJson.MEMO);
@@ -833,6 +919,7 @@ $(function() {
                 var survey_template_temp = survey_template;
                 survey_template_temp = survey_template_temp.replace("[_Q_TYPE_]", $("#question_type").html());
                 survey_template_temp = survey_template_temp.replace("[_Q_CODE_ID_]", dataJson.Q_CODE);
+                survey_template_temp = survey_template_temp.replace("[_MODULE_TYPE_]", dataJson.MODULE_TYPE);
                 survey_template_temp = survey_template_temp.replace("[_Q_CODE_]", dataJson.Q_CODE);
                 survey_template_temp = survey_template_temp.replace("[_Q_NAME_]", dataJson.Q_NAME);
                 survey_template_temp = survey_template_temp.replace("[_MEMO_]", dataJson.MEMO);
@@ -934,6 +1021,7 @@ $(function() {
                 var survey_template_temp = survey_template;
                 survey_template_temp = survey_template_temp.replace("[_Q_TYPE_]", $("#question_type").html());
                 survey_template_temp = survey_template_temp.replace("[_Q_CODE_ID_]", dataJson.Q_CODE);
+                survey_template_temp = survey_template_temp.replace("[_MODULE_TYPE_]", dataJson.MODULE_TYPE);
                 survey_template_temp = survey_template_temp.replace("[_Q_CODE_]", dataJson.Q_CODE);
                 survey_template_temp = survey_template_temp.replace("[_Q_NAME_]", dataJson.Q_NAME);
                 survey_template_temp = survey_template_temp.replace("[_MEMO_]", dataJson.MEMO);
@@ -1074,6 +1162,7 @@ $(function() {
                 var survey_template_temp = survey_template;
                 survey_template_temp = survey_template_temp.replace("[_Q_TYPE_]", $("#question_type").html());
                 survey_template_temp = survey_template_temp.replace("[_Q_CODE_ID_]", dataJson.Q_CODE);
+                survey_template_temp = survey_template_temp.replace("[_MODULE_TYPE_]", dataJson.MODULE_TYPE);
                 survey_template_temp = survey_template_temp.replace("[_Q_CODE_]", dataJson.Q_CODE);
                 survey_template_temp = survey_template_temp.replace("[_Q_NAME_]", dataJson.Q_NAME);
                 survey_template_temp = survey_template_temp.replace("[_MEMO_]", dataJson.MEMO);
@@ -1220,9 +1309,12 @@ $(function() {
     /****************** 선택형 클릭 ************************************/
     $(document).on('click', '.modifyQBtn', function() {
         var id = $(this).parents("div").parents("div").parents("div").attr("id");
+        var module_type = $(this).parents("div").parents("div").parents("div").attr("module_type");
 
         $("#q_code").val(id);
         var question_type = $("#question_type").val();
+
+        $("#module_type").val("N");
         switch(question_type) {
             case "1":
                 var json = {
@@ -1522,6 +1614,118 @@ $(function() {
 
 
 
+                break;
+            case "8":
+                if(module_type == "S") {
+                    var json = {
+                        q_code: id
+                    }
+                    common.ajax.send("/question/qSelectMulti", json);
+                    common.ajax.return = function (data) {
+                        var jsonData = eval("("+data+")");
+
+                        $("#module_type").val("S");
+
+                        $("#multi_q_name").val(jsonData.q[0].Q_NAME);
+                        $("#multi_q_title_ko").val(jsonData.q[0].Q_TITLE_KO);
+                        $("#multi_q_title_en").val(jsonData.q[0].Q_TITLE_EN);
+                        $("#multi_q_title_cn").val(jsonData.q[0].Q_TITLE_CN);
+                        $("#multi_etc").val(jsonData.q[0].ETC);
+                        $("#multi_memo").val(jsonData.q[0].MEMO);
+
+
+
+
+                        var qaTemplate = multi_template;
+                        var realTemplate = "";
+
+
+                        for(var i = 0; i<jsonData.qa.length; i++) {
+                            qaTemplate = multi_template;
+                            qaTemplate = qaTemplate.replace("[_ID_]", jsonData.qa[i].QA_CODE);
+                            qaTemplate = qaTemplate.replace("[_QA_CODE_]", jsonData.qa[i].QA_CODE);
+                            qaTemplate = qaTemplate.replace("[_QA_TITLE_KO_]", jsonData.qa[i].QA_TITLE_KO);
+                            qaTemplate = qaTemplate.replace("[_QA_TITLE_EN_]", jsonData.qa[i].QA_TITLE_EN);
+                            qaTemplate = qaTemplate.replace("[_QA_TITLE_CN_]", jsonData.qa[i].QA_TITLE_CN);
+                            realTemplate += qaTemplate;
+
+                        }
+
+
+                        $("#multiTable #template").html("");
+                        $("#multiTable #template").append(realTemplate);
+
+                        $('#multiModal').modal('show');
+
+                    }
+                } else if(module_type == "M") {
+                    var json = {
+                        q_code: id
+                    }
+
+                    common.ajax.send("/question/qSelectMulti", json);
+                    common.ajax.return = function (data) {
+                        var jsonData = eval("("+data+")");
+
+                        $("#module_type").val("M");
+
+                        $("#multi_q_name").val(jsonData.q[0].Q_NAME);
+                        $("#multi_q_title_ko").val(jsonData.q[0].Q_TITLE_KO);
+                        $("#multi_q_title_en").val(jsonData.q[0].Q_TITLE_EN);
+                        $("#multi_q_title_cn").val(jsonData.q[0].Q_TITLE_CN);
+                        $("#multi_etc").val(jsonData.q[0].ETC);
+                        $("#multi_memo").val(jsonData.q[0].MEMO);
+
+
+
+
+                        var qaTemplate = multi_template;
+                        var realTemplate = "";
+
+
+                        for(var i = 0; i<jsonData.qa.length; i++) {
+                            qaTemplate = multi_template;
+                            qaTemplate = qaTemplate.replace("[_ID_]", jsonData.qa[i].QA_CODE);
+                            qaTemplate = qaTemplate.replace("[_QA_CODE_]", jsonData.qa[i].QA_CODE);
+                            qaTemplate = qaTemplate.replace("[_QA_TITLE_KO_]", jsonData.qa[i].QA_TITLE_KO);
+                            qaTemplate = qaTemplate.replace("[_QA_TITLE_EN_]", jsonData.qa[i].QA_TITLE_EN);
+                            qaTemplate = qaTemplate.replace("[_QA_TITLE_CN_]", jsonData.qa[i].QA_TITLE_CN);
+                            realTemplate += qaTemplate;
+
+                        }
+
+
+                        $("#multiTable #template").html("");
+                        $("#multiTable #template").append(realTemplate);
+
+                        $('#multiModal').modal('show');
+
+                    }
+                } else if(module_type == "T") {
+                    var json = {
+                        q_code: id
+                    }
+                    common.ajax.send("/question/qSelectMulti", json);
+                    common.ajax.return = function (data) {
+                        var jsonData = eval("("+data+")");
+                        $("#module_type").val("T");
+
+                        $("#text_q_name").val(jsonData.q[0].Q_NAME);
+                        $("#text_q_title_ko").val(jsonData.q[0].Q_TITLE_KO);
+                        $("#text_q_title_en").val(jsonData.q[0].Q_TITLE_EN);
+                        $("#text_q_title_cn").val(jsonData.q[0].Q_TITLE_CN);
+                        $("#text_etc").val(jsonData.q[0].ETC);
+                        $("#text_memo").val(jsonData.q[0].MEMO);
+
+
+
+
+                        $('#textModal').modal('show');
+
+                    }
+                } else {
+                    alert("모듈이 지정되지 않았습니다.");
+                }
                 break;
         }
     });

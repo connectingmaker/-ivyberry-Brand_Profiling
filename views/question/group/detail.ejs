@@ -130,6 +130,23 @@
     </div>
     <% } %>
 
+    <% if(grouplist.QUESTION_TYPE == 8) { %>
+    <div class="row">
+        <div class="col-xs-4 push-20-t push-20 text-center">
+            <button id="multiCreate2" class="btn btn-sm btn-block btn-danger">질문추가하기(단일선택형)</button>
+        </div>
+
+        <div class="col-xs-4 push-20-t push-20 text-center">
+            <button id="multiCreate3" class="btn btn-sm btn-block btn-danger">질문추가하기(중복선택형)</button>
+        </div>
+
+        <div class="col-xs-4 push-20-t push-20 text-center">
+            <button id="textCreate" class="btn btn-sm btn-block btn-danger">질문추가하기(서술)</button>
+        </div>
+    </div>
+    <% } %>
+
+
 </div>
 
 <!-- 이미지 7점 척도 등록폼 모달 -->
@@ -566,6 +583,7 @@
 
 <!-- 선택형 등록폼 모달 -->
 <div class="modal fade" id="multiModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <input type="hidden" id="module_type" value="N">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="block block-themed block-transparent remove-margin-b">
