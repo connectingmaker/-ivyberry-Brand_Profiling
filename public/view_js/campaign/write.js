@@ -28,7 +28,11 @@ $(function() {
         var params = {
             campaign_code : $("#campaign_code").val()
             ,campaign_title : $("#campaign_title").val()
+            ,campaign_title_en : $("#campaign_title_en").val()
+            ,campaign_title_cn : $("#campaign_title_cn").val()
             ,campaign_desc : $("#campaign_desc").val()
+            ,campaign_desc_en : $("#campaign_desc_en").val()
+            ,campaign_desc_cn : $("#campaign_desc_cn").val()
             ,category_code : inputRadioCheckReturn("category_code")
             ,campaign_startdate : $("#campaign_startdate").val()
             ,campaign_enddate : $("#campaign_enddate").val()

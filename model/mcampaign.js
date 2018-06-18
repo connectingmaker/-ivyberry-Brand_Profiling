@@ -23,6 +23,25 @@ var mcampaign = {
         connection.end();
         return data;
     }
+    ,sp_CAMPAIGN_SAVE_20180618: function(campaign_code, campaign_title, campaign_title_en, campaign_title_cn, campaign_desc, campaign_desc_en, campaign_desc_cn, campaign_startdate, campaign_enddate, category_code, callback) {
+        var connection = mysql_dbc.init();
+        var query = " call sp_CAMPAIGN_SAVE_20180618(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        var params = [];
+        params.push(campaign_code);
+        params.push(campaign_title);
+        params.push(campaign_title_en);
+        params.push(campaign_title_cn);
+        params.push(campaign_desc);
+        params.push(campaign_desc_en);
+        params.push(campaign_desc_cn);
+        params.push(campaign_startdate);
+        params.push(campaign_enddate);
+        params.push(category_code);
+
+        var data = connection.query(query,params,callback);
+        connection.end();
+        return data;
+    }
     ,sp_CAMPAIGN_COPY: function(campaign_code, callback) {
         var connection = mysql_dbc.init();
         var query = " call sp_CAMPAIGN_COPY(?)";
@@ -230,7 +249,7 @@ var mcampaign = {
     }
     ,get_campaign_select: function(campaign_code, callback) {
         var connection = mysql_dbc.init();
-        var query = " SELECT CAMPAIGN_CODE, CAMPAIGN_TITLE, CAMPAIGN_DESC, CATEGORY_CODE, FROM_UNIXTIME(CAMPAIGN_STARTDATE) AS CAMPAIGN_STARTDATE, FROM_UNIXTIME(CAMPAIGN_ENDDATE) AS CAMPAIGN_ENDDATE, CAMPAIGN_ING, VIRTUAL_YN, JOIN_CNT, POINT_LIMIT, INSERT_DATETIME, MODIFY_DATETIME, BRAND_SKIP FROM CAMPAIGN WHERE CAMPAIGN_CODE = ? ";
+        var query = " SELECT CAMPAIGN_CODE, CAMPAIGN_TITLE, CAMPAIGN_TITLE_EN, CAMPAIGN_TITLE_CN, CAMPAIGN_DESC, CAMPAIGN_DESC_EN, CAMPAIGN_DESC_CN, CATEGORY_CODE, FROM_UNIXTIME(CAMPAIGN_STARTDATE) AS CAMPAIGN_STARTDATE, FROM_UNIXTIME(CAMPAIGN_ENDDATE) AS CAMPAIGN_ENDDATE, CAMPAIGN_ING, VIRTUAL_YN, JOIN_CNT, POINT_LIMIT, INSERT_DATETIME, MODIFY_DATETIME, BRAND_SKIP FROM CAMPAIGN WHERE CAMPAIGN_CODE = ? ";
 
 
 

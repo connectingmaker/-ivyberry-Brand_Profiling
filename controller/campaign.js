@@ -187,14 +187,18 @@ router.get('/write/:code', function(req, res) {
         mcampaign.get_campaign_select(campaign_code, function(err, campaign_rows){
             //var campaignlist = campai
             var campaign_title = campaign_rows[0].CAMPAIGN_TITLE;
+            var campaign_title_en = campaign_rows[0].CAMPAIGN_TITLE_EN;
+            var campaign_title_cn = campaign_rows[0].CAMPAIGN_TITLE_CN;
             var campaign_desc = campaign_rows[0].CAMPAIGN_DESC;
+            var campaign_desc_en = campaign_rows[0].CAMPAIGN_DESC_EN;
+            var campaign_desc_cn = campaign_rows[0].CAMPAIGN_DESC_CN;
             var category_code = campaign_rows[0].CATEGORY_CODE;
             var campaign_startdate = campaign_rows[0].CAMPAIGN_STARTDATE;
             var campaign_enddate = campaign_rows[0].CAMPAIGN_ENDDATE;
             var campaign_ing = campaign_rows[0].CAMPAIGN_ING;
             console.log(campaign_rows[0]);
 
-            res.render('campaign/write', { moment: moment, brandlist: brandlist, campaign_code: campaign_code, campaign_title: campaign_title, campaign_desc:campaign_desc, category_code : category_code, campaign_startdate: campaign_startdate, campaign_enddate: campaign_enddate, campaign_ing : campaign_ing});
+            res.render('campaign/write', { moment: moment, brandlist: brandlist, campaign_code: campaign_code, campaign_title: campaign_title, campaign_title_en: campaign_title_en, campaign_title_cn: campaign_title_cn, campaign_desc:campaign_desc, campaign_desc_en:campaign_desc_en, campaign_desc_cn:campaign_desc_cn, category_code : category_code, campaign_startdate: campaign_startdate, campaign_enddate: campaign_enddate, campaign_ing : campaign_ing});
         });
 
     });
@@ -206,7 +210,11 @@ router.get('/write/:code', function(req, res) {
 router.post('/writeProcess', function(req, res) {
     var campaign_code = req.body.campaign_code;
     var campaign_title = req.body.campaign_title;
+    var campaign_title_en = req.body.campaign_title_en;
+    var campaign_title_cn = req.body.campaign_title_cn;
     var campaign_desc = req.body.campaign_desc;
+    var campaign_desc_en = req.body.campaign_desc_en;
+    var campaign_desc_cn = req.body.campaign_desc_cn;
     var campaign_startdate = req.body.campaign_startdate;
     var campaign_enddate = req.body.campaign_enddate;
     var category_code = req.body.category_code;
@@ -217,7 +225,7 @@ router.post('/writeProcess', function(req, res) {
     var enddate_timesteamp = new Date(campaign_enddate).getTime() / 1000.0;
 
 
-    mcampaign.sp_CAMPAIGN_SAVE(campaign_code, campaign_title, campaign_desc, startdate_timesteamp, enddate_timesteamp, category_code, function(err, rows) {
+    mcampaign.sp_CAMPAIGN_SAVE_20180618(campaign_code, campaign_title, campaign_title_en, campaign_title_cn, campaign_desc, campaign_desc_en, campaign_desc_cn, startdate_timesteamp, enddate_timesteamp, category_code, function(err, rows) {
         if(err) {
             console.log(err);
         }
