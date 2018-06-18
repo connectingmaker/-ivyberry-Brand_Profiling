@@ -222,9 +222,8 @@ router.post('/writeProcess', function(req, res) {
             console.log(err);
         }
 
-
         var objToJson = rows[0];
-        //var dataJson = JSON.stringify(objToJson);
+        var dataJson = JSON.stringify(objToJson);
         console.log(dataJson);
         res.send(dataJson);
     });
