@@ -178,7 +178,6 @@ function getGroupQuestionRowData(campaign_code, quest_num, group_q, q_code, i, i
                 }
 
                 totalRealData.push(0);
-
             }
 
 
@@ -760,7 +759,7 @@ router.get("/group/brandrawdata", function(req, res) {
 
                     }
 
-                }, 10000);
+                }, 30000);
 
 
             });
@@ -820,7 +819,7 @@ router.get("/group/questionrawdata", function(req, res) {
 
                     }
 
-                }, 10000);
+                }, 30000);
 
 
             });

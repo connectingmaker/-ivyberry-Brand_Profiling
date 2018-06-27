@@ -24,7 +24,15 @@ $(function() {
     $(".nextStep").click(function() {
         if($("#data").val() == false) {
             //alert("지역을 선택해주세요.");
-            bootbox.alert("지역을 선택해주세요.");
+            // bootbox.alert("지역을 선택해주세요.");
+            if($("#lang").val() == "en") {
+                bootbox.alert("Please select a residential area.");
+            } else if($("#lang").val() == "cn") {
+                bootbox.alert("Please select a residential area.");
+            } else {
+                bootbox.alert("지역을 선택해주세요.");
+            }
+
             $("#data").focus();
             return;
         }
@@ -43,9 +51,9 @@ $(function() {
         common.ajax.return = function(data) {
 
             if(data.STEP == 0) {
-                location.replace("/survey/surveyEnd?campaign_code="+$("#campaign_code").val()+"&uid="+$("#uid").val()+"&seq="+$("#seq").val()+"&quest_num="+$("#quest_num").val()+"&step="+data.STEP);
+                location.replace("/survey/surveyEnd?campaign_code="+$("#campaign_code").val()+"&uid="+$("#uid").val()+"&seq="+$("#seq").val()+"&quest_num="+$("#quest_num").val()+"&step="+data.STEP+"&lang="+$("#lang").val());
             } else {
-                location.replace("/survey/profile?campaign_code="+$("#campaign_code").val()+"&uid="+$("#uid").val()+"&seq="+$("#seq").val()+"&quest_num="+$("#quest_num").val()+"&step="+data.STEP);
+                location.replace("/survey/profile?campaign_code="+$("#campaign_code").val()+"&uid="+$("#uid").val()+"&seq="+$("#seq").val()+"&quest_num="+$("#quest_num").val()+"&step="+data.STEP+"&lang="+$("#lang").val());
             }
 
 

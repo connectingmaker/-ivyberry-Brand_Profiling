@@ -4,13 +4,21 @@
 <input type="hidden" id="quest_num" value="<%=quest_num%>">
 <input type="hidden" id="step" value="<%=step%>">
 <input type="hidden" id="debug" value="<%=debug%>">
+<input type="hidden" id="lang" value="<%=lang%>">
 
 <div class="row" style="padding:10px 40px;">
     <div clss="col-xs-12">
 
         <div class="row titleBox">
             <div class="col-xs-12 push-5-t">
+                <% if(lang == "en") { %>
+                5. Please select the monthly average consumption amount. It is used to recommend surveys or analyze statistics.
+                <% } else if(lang == "cn") { %>
+                5. Please select the monthly average consumption amount. It is used to recommend surveys or analyze statistics.
+                <% } else { %>
                 5. <span class="Textcolor">월 평균 소비금액</span>을 선택해주세요. 설문을 추천하거나 통계를 분석할 때 활용됩니다.
+                <% } %>
+
             </div>
 
 

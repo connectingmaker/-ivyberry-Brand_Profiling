@@ -4,6 +4,7 @@
 <input type="hidden" id="quest_num" value="<%=quest_num%>">
 <input type="hidden" id="step" value="<%=step%>">
 <input type="hidden" id="debug" value="<%=debug%>">
+<input type="hidden" id="lang" value="<%=lang%>">
 
 
 <div class="row" style="padding:10px 40px;">
@@ -11,7 +12,14 @@
 
         <div class="row titleBox">
             <div class="col-xs-12 push-5-t">
+                <% if(lang == "en") { %>
+                1. Please enter your full name. Points are refundable only for account holders. Please be careful because it can not be changed after submission.
+                <% } else if(lang == "cn") { %>
+                1. Please enter your full name. Points are refundable only for account holders. Please be careful because it can not be changed after submission.
+                <% } else { %>
                 1. <span class="Textcolor">성명</span>을 입력해주세요. <span class="Textcolor">포인트 환급시 예금주</span>(받으시는분)확인용도로만 사용됩니다. 제출 이후 <span class="Textcolor">변경이 불가능</span>하니 신중하게 입력해주세요
+                <% } %>
+
             </div>
 
 
@@ -19,7 +27,14 @@
     </div>
 
     <div class="row push-20-t push-20 surveyContents">
+        <% if(lang == "en") { %>
+        <input type="text" name="username" id="username" class="form-control input-lg" placeholder="Please enter your full name.">
+        <% } else if(lang == "cn") { %>
+        <input type="text" name="username" id="username" class="form-control input-lg" placeholder="Please enter your full name.">
+        <% } else { %>
         <input type="text" name="username" id="username" class="form-control input-lg" placeholder="성명을 입력해주세요.">
+        <% } %>
+
     </div>
 
 
