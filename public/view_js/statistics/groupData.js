@@ -90,11 +90,13 @@ $(function() {
                             table += "<td class='text-right' width='20%' style='font-size:11px; padding:5px 10px;'>"+returnData[i].BRAND_NAME_KO+"</td>";
                         }
 
-                        if(returnData[i].TOTAL_PER2 < 50){
-                            var bar = 1.8;
-                        }else{
-                            var bar = 1;
-                        }
+                        // if(returnData[i].TOTAL_PER2 < 50){
+                        //     var bar = 1.8;
+                        // }else{
+                        //     var bar = 1;
+                        // }
+
+                        var bar = 1;
                         table += "<td style='border:1px solid #f1f1f1;' class='text-center'>";
                         table += "<table width='"+returnData[i].TOTAL_PER2*bar+"%'>";
                         table += "<tr>";
@@ -226,49 +228,59 @@ $(function() {
                 /************* 이미지 선택 주관식 입력 : textCloud ************/
                 case "3":
                     var table = "";
-                    // table += "<tr>";
-                    // table += "<td  style='font-size:14px;font-weight: bold;'>총참여자수 : ("+returnData[0].TOTAL_CNT+"명)</td>";
-                    // table += "</tr>";
-
                     var brand_code = "";
                     var col = 1;
 
+                    var maxArray = [];
+                    var maxArrayCode = [];
                     for(var i = 0; i<returnData.length; i++) {
-
-
-
 
                         if(brand_code == "" || brand_code != returnData[i].DETAIL_BRAND_CODE) {
 
+
+                            if(maxArray[returnData[i].DETAIL_BRAND_CODE] == undefined) {
+                                maxArray[returnData[i].DETAIL_BRAND_CODE] = 0;
+                                maxArrayCode[returnData[i].DETAIL_BRAND_CODE] = returnData[i].QA_CODE;
+                            }
+
+
+                            if(maxArray[returnData[i].DETAIL_BRAND_CODE] < returnData[i].QA_CNT) {
+                                maxArray[returnData[i].DETAIL_BRAND_CODE] = returnData[i].QA_CNT;
+                                maxArrayCode[returnData[i].DETAIL_BRAND_CODE] = returnData[i].QA_CODE;
+                            }
+
+
+
                             table += "<div class='col-xs-12 bg-amethyst-dark text-white push-5-t text-center' style='padding:5px 0px;'>"+returnData[i].BRAND_NAME_KO+"</div>\n";
+                            table += "<div id='rankCloudText_"+returnData[i].DETAIL_BRAND_CODE+"_"+returnData[i].QA_CODE+"' class='col-xs-12' style='font-size:11px; padding:5px 10px;'><span style='font-size:12px; color:red; padding-right:10px;display:none;'>★</span></div>";
 
                             table += "<div class='col-xs-3 push-5-t' style='height:150px;'><img src='http://bp2.brandprofiling.co.kr:3000"+returnData[i].IMG+"' width='100%' height='300'></div>\n";
                             table += "<div id='textcloud_data_"+returnData[i].DETAIL_BRAND_CODE+"_"+returnData[i].Q_CODE+"_"+returnData[i].QA_CODE+"' class='col-xs-9 push-5-t' style='height:300px;'></div>\n";
 
-                            table += "<div class='col-xs-12 push-5-t' style='height:2px; background-color: #f1f1f1;'>&nbsp;</div>";
+                            table += "<div class='col-xs-12 push-5-t' style='height:2px; background-color: #f1f1f1;'> &nbsp;</div>";
 
                             brand_code = returnData[i].DETAIL_BRAND_CODE;
                             col++;
                         } else {
 
+                            if(maxArray[returnData[i].DETAIL_BRAND_CODE] == undefined) {
+                                maxArray[returnData[i].DETAIL_BRAND_CODE] = 0;
+                                maxArrayCode[returnData[i].DETAIL_BRAND_CODE] = returnData[i].QA_CODE;
+                            }
 
+                            if(maxArray[returnData[i].DETAIL_BRAND_CODE] < returnData[i].QA_CNT) {
+                                maxArray[returnData[i].DETAIL_BRAND_CODE] = returnData[i].QA_CNT;
+                                maxArrayCode[returnData[i].DETAIL_BRAND_CODE] = returnData[i].QA_CODE;
+                            }
+
+                            table += "<div id='rankCloudText_"+returnData[i].DETAIL_BRAND_CODE+"_"+returnData[i].QA_CODE+"' class='col-xs-12' style='font-size:11px; padding:5px 10px;'><span style='font-size:12px; color:red; padding-right:10px;display:none;'>★</span></div>";
                             table += "<div class='col-xs-3 push-5-t' style='height:150px;'><img src='http://bp2.brandprofiling.co.kr:3000"+returnData[i].IMG+"' width='100%' height='300'></div>\n";
                             table += "<div id='textcloud_data_"+returnData[i].DETAIL_BRAND_CODE+"_"+returnData[i].Q_CODE+"_"+returnData[i].QA_CODE+"' class='col-xs-9 push-5-t' style='height:300px;'></div>\n";
 
-
                             table += "<div class='col-xs-12 push-5-t' style='height:2px; background-color: #f1f1f1;'>&nbsp;</div>";
 
-                            if(col == 2) {
-
-                                col = 1;
-                            } else {
-
-                            }
                         }
-                        console.log(table);
-
-
-
+                        //console.log(table);
 
                         if(i == returnData.length - 1) {
                             $("#data_"+returnData[i].Q_CODE).hide();
@@ -278,15 +290,29 @@ $(function() {
 
                     }
 
+
+                    console.log(maxArray);
+                    console.log(maxArrayCode);
+
                     for(var i = 0; i<returnData.length; i++) {
                         var textcloud = [];
+                        console.log(returnData[i].DETAIL_BRAND_CODE+"///"+returnData[i].QA_CODE+"///"+maxArrayCode[returnData[i].DETAIL_BRAND_CODE]);
+
+
+                            if(returnData[i].QA_CODE == maxArrayCode[returnData[i].DETAIL_BRAND_CODE]){
+                                // console.log("CODE"+maxArrayCode[returnData[i].DETAIL_BRAND_CODE]);
+                                document.getElementById("rankCloudText_"+returnData[i].DETAIL_BRAND_CODE+"_"+returnData[i].QA_CODE).style.display= "block";
+                            }
 
                         var textTemp = returnData[i].QA_TEXT.split(",");
                         textTemp.forEach(function(value, key) {
+
                             var textData = {
                                 text: value, weight: key
                             };
                             textcloud.push(textData);
+
+
                         });
 
                         $("#textcloud_data_"+returnData[i].DETAIL_BRAND_CODE+"_"+returnData[i].Q_CODE+"_"+returnData[i].QA_CODE).jQCloud(textcloud, {
@@ -298,10 +324,6 @@ $(function() {
                             }
                         });
                     }
-
-
-
-
 
 
                     // for(var i = 0; i<returnData.length; i++) {
