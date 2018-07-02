@@ -27,24 +27,6 @@ $(function() {
             }
         });
 
-        /*
-        if($("#qaData_"+brandNum+qaCode).is(":checked") == false) {
-            $(this).removeClass("btn-white");
-            $(this).addClass("btn-select");
-            var src = $(this).find(".pull-left").find("img").attr("src");
-            src = src.replace("_off", "_on");
-            $(this).find(".pull-left").find("img").attr("src", src);
-            $("#qaData_"+brandNum+qaCode).prop("checked", "checked");
-
-        } else {
-            $(this).removeClass("btn-select");
-            $(this).addClass("btn-white");
-            var src = $(this).find(".pull-left").find("img").attr("src");
-            src = src.replace("_on", "_off");
-            $(this).find(".pull-left").find("img").attr("src", src);
-            $("#qaData_"+brandNum+qaCode).prop("checked", false);
-        }
-        */
 
         var checkedCnt = 0;
         $(".qaData_"+brandNum).each(function() {

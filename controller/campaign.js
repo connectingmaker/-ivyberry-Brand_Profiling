@@ -174,7 +174,8 @@ router.post("/listStats", function(req, res) {
 router.get('/write', function(req, res) {
     mbrand.get_BrandCategoryList_BRAND(function(err,rows) {
         var brandlist = rows;
-        res.render('campaign/write', { moment: moment, brandlist: brandlist , campaign_code: "", campaign_title: "", campaign_desc:"", category_code : "", campaign_startdate: "", campaign_enddate: "", campaign_ing:"N"});
+
+        res.render('campaign/write', { moment: moment, brandlist: brandlist , campaign_code: "", campaign_title: "", campaign_title_en: "", campaign_title_cn: "", campaign_desc:"", campaign_desc_en:"" ,campaign_desc_cn:"", category_code : "", campaign_startdate: "", campaign_enddate: "", campaign_ing:"N"});
     });
 
 });

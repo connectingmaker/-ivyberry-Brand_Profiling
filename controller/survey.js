@@ -405,12 +405,14 @@ router.get("/page", function(req, res) {
 
 
 
-
         if(rows[0].length == 0) {
             res.send("설문지가 존재하지 않습니다. 질문세부 비활성 여부를 확인해주세요.");
         } else {
 
             var surveyQ = rows[0][0];
+
+
+
 
             msurvey.surveyPageCnt(seq, campaign_code, quest_num, page, function(err, cnt_row) {
                 if(err) {
@@ -421,11 +423,15 @@ router.get("/page", function(req, res) {
                 var total_per = cnt_row[0][0].TOTAL_PER;
 
 
+
+
+
                 msurvey.surveyQA(surveyQ.Q_CODE, function(err, rows) {
                     if(err) {
                         console.log(err);
                     }
-                    console.log(rows);
+
+
 
                     var surveyQA = rows;
                     if(quest_num == 1) {
@@ -505,8 +511,13 @@ router.post("/multiProcess", function(req, res) {
     var page = req.body.page;
     var q_code = req.body.q_code;
     var qaData = eval("("+req.body.qaData+")");
+    var module_type = req.body.module_type;
+
+    if(module_type == undefined) {
+        module_type = "N";
+    }
     msurvey.rowDataDel(seq, q_code, function(err, rows) {
-        msurvey.multirowData(seq, q_code, qaData, '', quest_num, '5', function(err,rows) {
+        msurvey.multirowData(seq, q_code, qaData, '', quest_num, module_type, function(err,rows) {
             if(err) {
                 console.log(err);
                 throw err;
