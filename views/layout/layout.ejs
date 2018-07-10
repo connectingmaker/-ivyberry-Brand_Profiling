@@ -55,6 +55,18 @@
                         <li><a href="/brand/list" class="brand">브랜드관리</a></li>
                         <li><a href="/question/group" class="question">문항관리</a></li>
                         <li><a href="/notice/list" class="notice">공지사항</a></li>
+                        <li class="dropdown">
+                            <a href="/users/list" class="dropdown-toggle panel" data-toggle="dropdown">이미지(CODE)DB</a>
+
+                            <ul class="dropdown-menu">
+                                <li class="dropdown-header">카테고리관리</li>
+                                <li style="padding:0px;"><a href="/code/imageCategory">이미지DB 카테고리</a></li>
+                                <li style="padding:0px;"><a href="/code/keywordCategory">키워드 카테고리</a></li>
+                                <li style="padding:0px;"><a href="/code/productCategory">트렌드DB 카테고리</a></li>
+                                <!--<li style="padding:0px;"><a href="/code/blacklist">해봐라카드DB 카테고리</a></li>
+                                -->
+                            </ul>
+                        </li>
 
                     </ul>
                 </div>
@@ -169,6 +181,7 @@
 <script src="/assets/js/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js"></script>
 <script src="/assets/js/plugins/masked-inputs/jquery.maskedinput.min.js"></script>
 <script src="/assets/js/plugins/jquery-tags-input/jquery.tagsinput.min.js"></script>
+<script src="/assets/js/vue.js"></script>
 <script>
     $(function () {
         // Init page helpers (BS Datepicker + BS Datetimepicker + BS Colorpicker + BS Maxlength + Select2 + Masked Input + Range Sliders + Tags Inputs plugins)

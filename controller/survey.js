@@ -113,17 +113,19 @@ router.get("/start", function(req, res) {
 });
 
 router.get("/profile", function(req,res) {
-    var campaign_code = req.param("campaign_code");
-    var quest_num = req.param("quest_num");
-    var uid = req.param("uid");
-    var step = req.param("step");
-    var seq = req.param("seq");
-    var debug = req.param("debug");
-    var lang = req.params("lang");
+    var campaign_code = req.query.campaign_code;
+    var quest_num = req.query.quest_num;
+    var uid = req.query.uid;
+    var step = req.query.step;
+    var seq = req.query.seq;
+    var debug = req.query.debug;
+    var lang = req.query.lang;
 
     if(debug == undefined) {
         debug = "";
     }
+
+    console.log("OK");
 
     switch(step) {
         case "1":
