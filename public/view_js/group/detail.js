@@ -427,7 +427,7 @@ $(function() {
         multi_template_temp = multi_template_temp.replace("[_QA_TITLE_KO_]", "");
         multi_template_temp = multi_template_temp.replace("[_QA_TITLE_EN_]", "");
         multi_template_temp = multi_template_temp.replace("[_QA_TITLE_CN_]", "");
-        $("#multiTable #template").html(multi_template_temp);
+        $("#radioTable #template").html(multi_template_temp);
         $("#q_code").val("");
 
         $('#radioModal').modal('show');
@@ -759,13 +759,17 @@ $(function() {
 
         var checkBool = false;
 
-        $(".qa_title_ko").each(function() {
+        $("#radioTable .qa_title_ko").each(function() {
+
+            console.log($(this));
+
 
             if($(this).val() == false) {
                 alert("보기 국문을 입력해주세요.");
                 checkBool = true;
                 $(this).focus();
                 return false;
+
             } else {
                 var id = $(this).parents("tr").attr("id");
                 qaStringData = {
@@ -779,9 +783,8 @@ $(function() {
                 qaJson.push(qaStringData);
 
             }
+
         });
-
-
 
         if(checkBool == true) {
             return;

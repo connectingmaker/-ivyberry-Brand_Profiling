@@ -304,6 +304,10 @@ router.post("/multiProcess", function(req, res) {
     var etc = req.body.etc;
     var memo = req.body.memo;
     var moduleType = req.body.moduleType;
+    if(moduleType == "" || moduleType == undefined || moduleType == null) {
+        moduleType = "";
+    }
+
     var qaData = eval("("+req.body.qaJson+")");
     console.log("OK");
 
