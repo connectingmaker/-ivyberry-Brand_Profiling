@@ -9,7 +9,8 @@ var chartColors = [
     'rgba(255, 99, 1, 0.5)',
     'rgba(22, 99, 132, 0.5)',
     'rgba(1, 99, 2, 0.5)',
-    'rgba(10, 50, 50, 0.5)'
+    'rgba(10, 50, 50, 0.5)',
+    'rgba(20, 90, 102, 0.5)'
 ];
 
 $(function() {
@@ -569,14 +570,15 @@ $(function() {
                             var qa_title = gubun[1];
                             var bgcolor =color[key];
                             var qa_data = parseFloat(eval("returnData["+i+"].QA_"+qa_code));
+                            var per = Math.ceil((qa_data / returnData[0].TOTAL_CNT * 80),0);
                             // var qa_data_per = parseFloat(eval("returnData["+i+"].QA_PER"+qa_code));
-
+                            console.log(per);
                             table += "<table class='table-bordered'>";
                             table += "<tr>";
-                            table += "<td class='text-left text-white' style='font-size:11px; padding:5px 10px; background-color:"+bgcolor+";'>"+qa_title+"</td>";
+                            table += "<td class='text-left text-white' width='"+per+"%' style='font-size:11px; padding:5px 10px; background-color:"+bgcolor+";'></td>";
                             // table += "<div style='width:"+qa_data_per+"%;background-color:"+bgcolor+";'>&nbsp</div></td>";
                             // table += "<td class='text-center' width='5%' style='font-size:11px; border-color: #ffffff'>"+ qa_data+"</td>";
-                            table += "<td class='text-center' width='10%' style='font-size:11px; border-color: #ffffff'>"+qa_data+"명</td>";
+                            table += "<td class='text-left' style='font-size:11px; border-color: #ffffff'>"+qa_title+" ("+qa_data+"명)</td>";
                             table += "</tr>";
                             table += "</table>";
 
@@ -598,127 +600,183 @@ $(function() {
                 case "6":
 
 
-                    var dataChart = [];
-                    var labels = [];
-                    var filed_labels = [];
-                    var dataSet = [];
+            //         var dataChart = [];
+            //         var labels = [];
+            //         var filed_labels = [];
+            //         var dataSet = [];
+            //
+            //         var qaTitle = [];
+            //         var dataTotal = [];
+            //         var background = [];
+            //
+            //         for(var i = 0; i<returnData.length; i++) {
+            //             var temp = returnData[i].QA_TITLE_KO.split(",");
+            //             if(i == 0) {
+            //                 for(var j = 0; j<temp.length; j++) {
+            //                     filed_labels.push(temp[j]);
+            //                     dataSet.push({labels:temp[j]});
+            //                 }
+            //             }
+            //
+            //             var dataValue = "";
+            //             for(var k = 0; k<temp.length; k++) {
+            //                 var num = 1 + k;
+            //                 var data = [];
+            //                 var per = Math.round(((eval("returnData[i].QA_"+num)) / returnData[i].TOTAL_CNT) * 100,0);
+            //                     console.log(eval("returnData[i].QA_"+num) +  "///" + num +  "///" + returnData[i].TOTAL_CNT + "///" + per + "///" + dataValue);
+            //                 num++;
+            //
+            //
+            //                 if(dataValue == "") {
+            //                     dataValue = String(per);
+            //                 } else {
+            //                     dataValue += ","+String(per);
+            //                 }
+            //
+            //             }
+            //
+            //
+            //             dataTotal.push(dataValue);
+            //         }
+            //
+            //
+            //         var colorNames = Object.keys(chartColors);
+            //         var dataSetG = [];
+            //         filed_labels.forEach(function(v, i) {
+            //             background.push("color(window.chartColors.red).alpha(0.5).rgbString()");
+            //             if(dataTotal[i] == undefined) {
+            //                 dataSetG.push({
+            //                     label: v
+            //                     ,borderWidth : 1
+            //                     ,data: []
+            //                     ,backgroundColor: chartColors[i]
+            //                 });
+            //             } else {
+            //                 var dataObject = dataTotal[i].split(",");
+            //                 var dataValue = [];
+            //
+            //
+            //
+            //                 dataObject.forEach(function(value, k) {
+            //                     dataValue.push(parseInt(value));
+            //                 });
+            //
+            //                 dataSetG.push(
+            //                     {
+            //                         label: v
+            //                         ,borderWidth: 1
+            //                         ,data: dataObject
+            //                         ,backgroundColor: chartColors[i]
+            //                     }
+            //                 )
+            //
+            //             }
+            //         });
+            //
+            //
+            //
+            //
+            //         for(var i = 0; i<returnData.length; i++) {
+            //             labels.push(returnData[i].BRAND_NAME_KO);
+            //
+            //             dataBackground.push("rgba(218, 66, 17, 1)");
+            //
+            //
+            //
+            //             if(i == returnData.length -1) {
+            //                 var dataSet = [];
+            //
+            //                 new Chart(document.getElementById("chart_"+returnData[i].Q_CODE).getContext('2d'), {
+            //                     type: 'horizontalBar',
+            //                     data: {
+            //                         labels: labels
+            //                         ,datasets: dataSetG
+            //                     },
+            //
+            //                     options: {
+            //                         scales: {
+            //                             xAxes: [{
+            //                                 ticks: {
+            //                                     min: 0 // Edit the value according to what you need
+            //                                     ,max: 100
+            //                                 }
+            //                             }],
+            //                         }
+            //
+            //                     }
+            //                 });
+            //             }
+            //         }
+            //         break;
+            //
+            //
 
-                    var qaTitle = [];
-                    var dataTotal = [];
-                    var background = [];
+                    var table = "";
 
-
+                    table += "<tr>";
+                    table += "<td width='20%' class='text-center' style='font-size:14px;font-weight: bold;'>총참여자수 : ("+returnData[0].TOTAL_CNT+"명)</td>";
+                    table += "<td class='text-center' style='padding:10px 5px;'>";
+                    table += "</td>";
+                    table += "</tr>";
+                    table += "<tr>";
+                    table += "<td style='background-color:#f1f1f1;' colspan='4' height='2'></td>";
+                    table += "</tr>";
 
 
                     for(var i = 0; i<returnData.length; i++) {
-                        var temp = returnData[i].QA_TITLE_KO.split(",");
-                        if(i == 0) {
-                            for(var j = 0; j<temp.length; j++) {
-                                filed_labels.push(temp[j]);
-                                dataSet.push({labels:temp[j]});
-                            }
-                        }
 
-                        var dataValue = "";
-                        for(var k = 0; k<temp.length; k++) {
-                            var num = 1 + k;
-                            var data = [];
-                            var per = Math.round(((eval("returnData[i].QA_"+num)) / returnData[i].TOTAL_CNT) * 100,0);
-                                //console.log(eval("returnData[i].QA_"+num) +  "///" + num +  "///" + returnData[i].TOTAL_CNT + "///" + per + "///" + dataValue);
-                            num++;
+                        table += "<tr>";
 
+                        table += "<td class='text-right' width='20%' style='font-size:11px; padding:5px 10px;'><b>"+returnData[i].BRAND_NAME_KO+"</b></td>";
 
-                            if(dataValue == "") {
-                                dataValue = String(per);
+                        table += "<td style='border:1px solid #f1f1f1;' class='text-center'>";
+
+                        var temp = returnData[i].QA_TITLE_KO.split(',');
+
+                        var color = [ "#ffcc2f", "#ef5734","#00acee","#2687c8","#543729","#88aca1","#788cb6","#335238","#f65a5b","#76daff","#92cc2f", "#e35734","#09acee"];
+
+                        temp.forEach(function(value,key) {
+                            var gubun = value.split('///');
+
+                            var qa_code = gubun[0];
+                            var qa_title = gubun[1];
+                            var bgcolor = color[key];
+                            var qa_data = parseFloat(eval("returnData[" + i + "].QA_" + qa_code));
+                            var per = Math.ceil((qa_data / returnData[0].TOTAL_CNT * 80), 0);
+                            // var qa_data_per = parseFloat(eval("returnData["+i+"].QA_PER"+qa_code));
+
+                            table += "<table class='table-bordered'>";
+                            table += "<tr>";
+                            if (per == 0) {
+                                table += "<td colspan='2' class='text-left' style='font-size:11px; border-color: #ffffff; border-left-color: "+ bgcolor +"' >" + qa_title + "(" + qa_data + "명)</td>";
                             } else {
-                                dataValue += ","+String(per);
+
+                            table += "<td class='text-left text-white' width='" + per + "%' style='font-size:11px; padding:5px 10px; background-color:" + bgcolor + ";'></td>";
+                            // table += "<div style='width:"+qa_data_per+"%;background-color:"+bgcolor+";'>&nbsp</div></td>";
+                            // table += "<td class='text-center' width='5%' style='font-size:11px; border-color: #ffffff'>"+ qa_data+"</td>";
+                            table += "<td class='text-left' style='font-size:11px; border-color: #ffffff'>" + qa_title + "(" + qa_data + "명)</td>";
                             }
+                            table += "</tr>";
+                            table += "</table>";
 
-                        }
+                        } );
+                        table += "</td></tr>";
 
-                        dataTotal.push(dataValue);
-                    }
-
-
-                    var colorNames = Object.keys(chartColors);
-                    var dataSetG = [];
-                    filed_labels.forEach(function(v, i) {
-                        background.push("color(window.chartColors.red).alpha(0.5).rgbString()");
-                        if(dataTotal[i] == undefined) {
-                            dataSetG.push({
-                                label: v
-                                ,borderWidth : 1
-                                ,data: []
-                                ,backgroundColor: chartColors[i]
-                            });
-                        } else {
-                            var dataObject = dataTotal[i].split(",");
-                            var dataValue = [];
-
-                            dataObject.forEach(function(value, k) {
-                                dataValue.push(parseInt(value));
-                            });
-
-                            dataSetG.push(
-                                {
-                                    label: v
-                                    ,borderWidth: 1
-                                    ,data: dataObject
-                                    ,backgroundColor: chartColors[i]
-                                }
-                            )
-
-                        }
-                    });
-
-
-
-
-
-
-
-                    for(var i = 0; i<returnData.length; i++) {
-                        labels.push(returnData[i].BRAND_NAME_KO);
-
-
-
-                        dataBackground.push("rgba(218, 66, 17, 1)");
-
-
-
-                        if(i == returnData.length -1) {
-                            var dataSet = [];
-
-                            new Chart(document.getElementById("chart_"+returnData[i].Q_CODE).getContext('2d'), {
-                                type: 'horizontalBar',
-                                data: {
-                                    labels: labels
-                                    ,datasets: dataSetG
-                                },
-
-                                options: {
-                                    scales: {
-                                        xAxes: [{
-                                            ticks: {
-                                                min: 0 // Edit the value according to what you need
-                                                ,max: 100
-                                            }
-                                        }],
-                                    }
-
-                                }
-                            });
+                        if(i == returnData.length - 1) {
+                            $("#data_"+returnData[i].Q_CODE).html(table);
+                            $("#chart_"+returnData[i].Q_CODE).hide();
                         }
                     }
+
+
+
                     break;
-
-
             }
 
 
 
 
-        }
+       }
 
     });
 });
