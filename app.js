@@ -26,6 +26,7 @@ var question = require("./controller/question");
 var statistics = require('./controller/statistics');
 var survey = require('./controller/survey');
 var api = require("./controller/api");
+var code = require("./controller/code");
 var notice = require("./controller/notice");
 /* router import end */
 
@@ -77,6 +78,7 @@ app.use('/statistics', statistics);
 app.use('/api', api);
 app.use('/survey',survey);
 app.use('/notice',notice);
+app.use('/code',code);
 
 
 

@@ -1646,7 +1646,7 @@ a.list-group-item:focus {
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
 }
 .popover-title {
-  padding: 10px 10px 1px;
+  padding: 10px 10px 1px;ㄹ
   font-family: "Source Sans Pro", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   background-color: #fff;
   border-bottom: none;
@@ -1694,10 +1694,8 @@ a.list-group-item:focus {
   background-color: #f0f0f0;
 }
 .dropdown-header {
-  padding: 5px 12px 4px;
   font-weight: 600;
   color: #999999;
-  text-transform: uppercase;
 }
 .table > thead > tr > th,
 .table > tbody > tr > th,

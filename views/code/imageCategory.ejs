@@ -1,0 +1,141 @@
+<div id="app">
+    <div class="row">
+        <div class="col-sm-5 col-lg-3">
+            <!-- Collapsible Inbox Navigation (using Bootstrap collapse functionality) -->
+            <button class="btn btn-block btn-primary visible-xs push" data-toggle="collapse" data-target="#inbox-nav" type="button">Navigation</button>
+            <div class="collapse navbar-collapse remove-padding" id="inbox-nav">
+                <!-- Inbox Menu -->
+                <div class="block">
+                    <div class="block-header bg-gray-lighter">
+                        <ul class="block-options">
+                            <li>
+                                <button type="button" v-on:click="step1_modal"><i class="fa fa-pencil"></i> 카테고리등록</button>
+                            </li>
+                        </ul>
+                        <h3 class="block-title">대분류</h3>
+                    </div>
+                    <div class="block-content" style="padding:0px;">
+                        <ul class="nav nav-pills nav-stacked push" style="font-size:12px;">
+                            <li v-for="(item, index) in step1">
+                                <a href="javascript:void(0)" v-on:click="step2_list(item.IMAGE_CATEGORY_CODE)">
+                                    <span class="badge pull-right" style="background-color: #fff;">
+                                        <button class="btn btn-xs btn-success">수정</button>
+                                        <button class="btn btn-xs btn-danger">삭제</button>
+                                    </span>
+                                    <span class="label label-info">{{item.IMAGE_CATEGORY_CODE.substring(0,3)}}</span>
+                                    {{item.IMAGE_CATEGORY_NAME}}
+                                </a>
+
+                            </li>
+                            <!--
+                            <li>
+                                <a href="base_pages_inbox.html">
+                                    <span class="badge pull-right">3</span><i class="fa fa-fw fa-inbox push-5-r"></i> Inbox
+                                </a>
+                            </li>
+                            -->
+                        </ul>
+                    </div>
+                </div>
+                <!-- END Inbox Menu -->
+            </div>
+        </div>
+
+        <div class="col-sm-7 col-lg-9">
+            <!-- Message List -->
+            <div class="block">
+                <div class="block-header bg-gray-lighter">
+                    <ul class="block-options">
+                        <li>
+                            <button class="js-tooltip" title="Previous 15 Messages" type="button" data-toggle="block-option"><i class="si si-arrow-left"></i></button>
+                        </li>
+
+                    </ul>
+                    <div class="block-title text-normal">
+                        <strong>중분류</strong>
+                    </div>
+                </div>
+                <div class="block-content">
+                    <table id="list" class="table table-bordered fontsize">
+                        <col width="10%">
+                        <col width="70%">
+                        <col width="20%">
+
+                        <thead>
+                        <tr>
+                            <th class="text-center">상세카테고리</th>
+                            <th class="text-center">카테고리명</th>
+                            <th class="text-center">상태</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <template v-if="step2.length == 0">
+                            <tr>
+                                <td colspan="3" class="text-center">등록된 카테고리가 존재하지 않습니다.</td>
+                            </tr>
+                        </template>
+                        <tr v-for="(item, index) in  step2">
+                            <td class="text-center">{{item.IMAGE_CATEGORY_CODE}}</td>
+                            <td>{{item.IMAGE_CATEGORY_NAME}}</td>
+                            <td class="text-center">
+                                <button class="btn btn-xs btn-success" type="button"><i class="fa fa-eyedropper"></i> 수정</button>
+                                <button class="btn btn-xs btn-danger" type="button"><i class="fa fa-times"></i> 삭제</button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- 단일선택형 등록폼 모달 -->
+    <div class="modal fade" id="categoryModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="block block-themed block-transparent remove-margin-b">
+                    <div class="block-header bg-primary-dark">
+                        <ul class="block-options">
+                            <li>
+                                <button data-dismiss="modal" type="button"><i class="si si-close"></i></button>
+                            </li>
+                        </ul>
+                        <h3 class="block-title">이미지 DB 카테고리 등록</h3>
+                    </div>
+                    <div class="block-content">
+                        <input type="hidden" id="img_code">
+                        <table class="table table-bordered fontsize">
+                            <col width="15%">
+                            <col width="85%">
+                            <tbody>
+                            <tr>
+                                <th class="text-center">카테고리코드<span class="check">*</span></th>
+                                <td >
+                                    <input type="text" id="category_code" class="form-control" v-model="modal.category_code" placeholder="카테고리 코드" disabled>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="text-center">카테고리 명<span class="check">*</span></th>
+                                <td>
+                                    <input type="text" id="category_name" class="form-control" v-model="modal.category_name" placeholder="카테고리명을 입력해주세요.">
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-sm btn-default" type="button" data-dismiss="modal">닫기</button>
+                    <button v-on:click="step1_write" class="btn btn-sm btn-danger" type="button"><i class="fa fa-check"></i> 저장</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script language="javascript" src="/view_js/code/imageCategory.js"></script>
