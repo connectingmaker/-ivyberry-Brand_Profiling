@@ -44,6 +44,45 @@ var mcode = {
         connection.end();
         return data;
     }
+    ,sp_BP3_CODE_IMAGE_CATEGORY_DELETE: function(category_code, callback) {
+        var connection = mysql_dbc.init();
+        var query = " call sp_BP3_CODE_IMAGE_CATEGORY_DELETE(?) ";
+        var params = [];
+        params.push(category_code);
+        var data = connection.query(query,params,callback);
+        connection.end();
+        return data;
+    }
+
+    ,sp_BP3_CODE_KEYWORD_CATEGORY_SAVE: function(category_code, category_name, callback) {
+        var connection = mysql_dbc.init();
+        var query = " call sp_BP3_CODE_KEYWORD_CATEGORY_SAVE(?, ?) ";
+        var params = [];
+        params.push(category_code);
+        params.push(category_name);
+        var data = connection.query(query,params,callback);
+        connection.end();
+        return data;
+    }
+
+    ,sp_BP3_CODE_KEYWORD_CATEGORY_LIST: function(callback) {
+        var connection = mysql_dbc.init();
+        var query = " call sp_BP3_CODE_KEYWORD_CATEGORY_LIST() ";
+        var params = [];
+        var data = connection.query(query,params,callback);
+        connection.end();
+        return data;
+    }
+
+    ,sp_BP3_CODE_KEYWORD_CATEGORY_DELETE: function(category_code, callback) {
+        var connection = mysql_dbc.init();
+        var query = " call sp_BP3_CODE_KEYWORD_CATEGORY_DELETE(?) ";
+        var params = [];
+        params.push(category_code);
+        var data = connection.query(query,params,callback);
+        connection.end();
+        return data;
+    }
 
 }
 

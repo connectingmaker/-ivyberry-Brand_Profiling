@@ -1,6 +1,6 @@
 <div id="app">
     <div class="row">
-        <div class="col-sm-5 col-lg-3">
+        <div class="col-xs-4">
             <!-- Collapsible Inbox Navigation (using Bootstrap collapse functionality) -->
             <button class="btn btn-block btn-primary visible-xs push" data-toggle="collapse" data-target="#inbox-nav" type="button">Navigation</button>
             <div class="collapse navbar-collapse remove-padding" id="inbox-nav">
@@ -17,10 +17,10 @@
                     <div class="block-content" style="padding:0px;">
                         <ul class="nav nav-pills nav-stacked push" style="font-size:12px;">
                             <li v-for="(item, index) in step1">
-                                <a href="javascript:void(0)" v-on:click="step2_list(item.IMAGE_CATEGORY_CODE)">
+                                <a href="javascript:void(0)" v-on:click="step2_list(index, item.IMAGE_CATEGORY_CODE)">
                                     <span class="badge pull-right" style="background-color: #fff;">
-                                        <button class="btn btn-xs btn-success">수정</button>
-                                        <button class="btn btn-xs btn-danger">삭제</button>
+                                        <button class="btn btn-xs btn-success" v-on:click="step1_modify(index)">수정</button>
+                                        <button class="btn btn-xs btn-danger" v-on:click="step1_delete(index)">삭제</button>
                                     </span>
                                     <span class="label label-info">{{item.IMAGE_CATEGORY_CODE.substring(0,3)}}</span>
                                     {{item.IMAGE_CATEGORY_NAME}}
@@ -41,18 +41,17 @@
             </div>
         </div>
 
-        <div class="col-sm-7 col-lg-9">
-            <!-- Message List -->
+        <div class="col-xs-8" v-if="selectedIndex >= 0">
             <div class="block">
                 <div class="block-header bg-gray-lighter">
                     <ul class="block-options">
                         <li>
-                            <button class="js-tooltip" title="Previous 15 Messages" type="button" data-toggle="block-option"><i class="si si-arrow-left"></i></button>
+                            <button type="button" v-on:click="step2_modal"><i class="fa fa-pencil"></i> 등록</button>
                         </li>
 
                     </ul>
                     <div class="block-title text-normal">
-                        <strong>중분류</strong>
+                        <strong>중분류 - {{selectedIndex_title}}</strong>
                     </div>
                 </div>
                 <div class="block-content">
@@ -78,8 +77,8 @@
                             <td class="text-center">{{item.IMAGE_CATEGORY_CODE}}</td>
                             <td>{{item.IMAGE_CATEGORY_NAME}}</td>
                             <td class="text-center">
-                                <button class="btn btn-xs btn-success" type="button"><i class="fa fa-eyedropper"></i> 수정</button>
-                                <button class="btn btn-xs btn-danger" type="button"><i class="fa fa-times"></i> 삭제</button>
+                                <button class="btn btn-xs btn-success" type="button" v-on:click="step2_modify(index)"><i class="fa fa-eyedropper"></i> 수정</button>
+                                <button class="btn btn-xs btn-danger" type="button" v-on:click="step2_delete(index)"><i class="fa fa-times"></i> 삭제</button>
                             </td>
                         </tr>
                         </tbody>
