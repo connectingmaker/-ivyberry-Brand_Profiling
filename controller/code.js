@@ -132,10 +132,53 @@ router.post("/keywordCategory", function(req, res) {
     });
 });
 
-/****************** 유사상품DB 카테고리 ***************************/
-router.get("/productCategory", function(req, res) {
-    res.render('code/imageCategory', {});
+/****************** 트랜드DB 카테고리 ***************************/
+router.get("/trendCategory", function(req, res) {
+    res.render('code/trendCategory', {});
 
+});
+
+
+/****************** 트랜드DB LIST ***************************/
+router.put("/trendCategory", function(req, res) {
+    mcode.sp_BP3_CODE_TREND_CATEGORY_LIST(function(err,rows) {
+        if(err) {
+            console.log(err);
+        }
+        //console.log(rows);
+        const data = rows[0];
+        res.send(data);
+    });
+
+});
+
+router.post("/trendCategory", function(req, res) {
+    const category_code = req.body.category_code;
+    const category_name = req.body.category_name;
+
+    mcode.sp_BP3_CODE_TREND_CATEGORY_SAVE(category_code, category_name, function(err, rows) {
+        if(err) {
+            console.log(err);
+        }
+
+        const data = rows[0][0];
+
+        res.send(data);
+    });
+});
+
+router.delete("/trendCategory", function(req, res) {
+    const category_code = req.body.category_code;
+
+    mcode.sp_BP3_CODE_TREND_CATEGORY_DELETE(category_code, function(err, rows) {
+        if(err) {
+            console.log(err);
+        }
+
+        const data = rows[0][0];
+
+        res.send(data);
+    });
 });
 
 
