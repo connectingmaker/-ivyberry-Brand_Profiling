@@ -152,6 +152,7 @@ router.put("/trendCategory", function(req, res) {
 
 });
 
+/****************** 트랜드DB 저장 ***************************/
 router.post("/trendCategory", function(req, res) {
     const category_code = req.body.category_code;
     const category_name = req.body.category_name;
@@ -167,6 +168,8 @@ router.post("/trendCategory", function(req, res) {
     });
 });
 
+
+/****************** 트랜드DB 삭제 ***************************/
 router.delete("/trendCategory", function(req, res) {
     const category_code = req.body.category_code;
 
@@ -179,6 +182,56 @@ router.delete("/trendCategory", function(req, res) {
 
         res.send(data);
     });
+});
+
+
+/****************** 해봐라카드 카테고리 ***************************/
+router.get("/cardCategory", function(req, res) {
+    res.render('code/cardCategory', {});
+
+});
+
+router.put("/cardCategory", function(req, res) {
+    mcode.sp_BP3_CODE_CARD_CATEGORY_LIST(function(err,rows) {
+        if(err) {
+            console.log(err);
+        }
+        //console.log(rows);
+        const data = rows[0];
+        res.send(data);
+    });
+
+});
+
+router.delete("/cardCategory", function(req, res) {
+    const category_code = req.body.category_code;
+
+    mcode.sp_BP3_CODE_CARD_CATEGORY_DELETE(category_code, function(err, rows) {
+        if(err) {
+            console.log(err);
+        }
+
+        const data = rows[0][0];
+
+        res.send(data);
+    });
+
+});
+
+router.post("/cardCategory", function(req, res) {
+    const category_code = req.body.category_code;
+    const category_name = req.body.category_name;
+
+    mcode.sp_BP3_CODE_CARD_CATEGORY_SAVE(category_code, category_name, function(err, rows) {
+        if(err) {
+            console.log(err);
+        }
+
+        const data = rows[0][0];
+
+        res.send(data);
+    });
+
 });
 
 
