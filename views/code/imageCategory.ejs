@@ -1,10 +1,10 @@
 <div id="app">
     <div class="row">
+        <!--
         <div class="col-xs-4">
-            <!-- Collapsible Inbox Navigation (using Bootstrap collapse functionality) -->
             <button class="btn btn-block btn-primary visible-xs push" data-toggle="collapse" data-target="#inbox-nav" type="button">Navigation</button>
             <div class="collapse navbar-collapse remove-padding" id="inbox-nav">
-                <!-- Inbox Menu -->
+
                 <div class="block">
                     <div class="block-header bg-gray-lighter">
                         <ul class="block-options">
@@ -27,21 +27,38 @@
                                 </a>
 
                             </li>
-                            <!--
-                            <li>
-                                <a href="base_pages_inbox.html">
-                                    <span class="badge pull-right">3</span><i class="fa fa-fw fa-inbox push-5-r"></i> Inbox
-                                </a>
-                            </li>
-                            -->
                         </ul>
                     </div>
                 </div>
-                <!-- END Inbox Menu -->
+            </div>
+        </div>
+        -->
+        <div class="col-xs-3">
+            <div class="block block-themed"  style="border-radius:5px;">
+                <div class="block-header bg-primary" style="border-radius:5px;">
+                    <ul class="block-options">
+                        <li>
+                            <button type="button" v-on:click="step1_modal"><i class="fa fa-pencil"></i> 카테고리등록</button>
+                        </li>
+                    </ul>
+                    <h3 class="block-title">대분류</h3>
+                </div>
+                <div class="block-content">
+                    <ul class="list list-activity push">
+                        <li style="margin-bottom:10px; padding-bottom: 10px;" v-for="(item, index) in step1">
+
+                            <i class="si si-wallet text-success"></i>
+                            <a href="#" v-on:click="step2_list(index, item.IMAGE_CATEGORY_CODE)">
+                                <div class="font-w600">{{item.IMAGE_CATEGORY_NAME}}</div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
 
-        <div class="col-xs-8" v-if="selectedIndex >= 0">
+        <div class="col-xs-9" v-if="selectedIndex >= 0">
+            <!--
             <div class="block">
                 <div class="block-header bg-gray-lighter">
                     <ul class="block-options">
@@ -83,6 +100,51 @@
                         </tr>
                         </tbody>
                     </table>
+                </div>
+            </div>
+            -->
+            <div class="block block-themed" style="border-radius:5px;">
+                <div class="block-header bg-primary" style="border-radius:5px;">
+                    <ul class="block-options">
+                        <li>
+                            <button type="button" v-on:click="step2_modal"><i class="fa fa-pencil"></i> 등록</button>
+                        </li>
+                    </ul>
+                    <h3 class="block-title">중분류 - {{selectedIndex_title}}</h3>
+                </div>
+                <div class="block-content">
+                    <div class="row" style="padding-bottom:20px;">
+                        <div class="col-xs-12">
+                        <table id="list" class="table table-bordered fontsize">
+                            <col width="15%">
+                            <col width="65%">
+                            <col width="20%">
+
+                            <thead>
+                            <tr>
+                                <th class="text-center">상세카테고리</th>
+                                <th class="text-center">카테고리명</th>
+                                <th class="text-center">상태</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <template v-if="step2.length == 0">
+                                <tr>
+                                    <td colspan="3" class="text-center">등록된 카테고리가 존재하지 않습니다.</td>
+                                </tr>
+                            </template>
+                            <tr v-for="(item, index) in  step2">
+                                <td class="text-center">{{item.IMAGE_CATEGORY_CODE}}</td>
+                                <td>{{item.IMAGE_CATEGORY_NAME}}</td>
+                                <td class="text-center">
+                                    <button class="btn btn-xs btn-success" type="button" v-on:click="step2_modify(index)"><i class="fa fa-eyedropper"></i> 수정</button>
+                                    <button class="btn btn-xs btn-danger" type="button" v-on:click="step2_delete(index)"><i class="fa fa-times"></i> 삭제</button>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
