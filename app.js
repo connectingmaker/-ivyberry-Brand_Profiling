@@ -28,6 +28,7 @@ var survey = require('./controller/survey');
 var api = require("./controller/api");
 var code = require("./controller/code");
 var notice = require("./controller/notice");
+var card = require("./controller/card");
 /* router import end */
 
 
@@ -79,6 +80,7 @@ app.use('/api', api);
 app.use('/survey',survey);
 app.use('/notice',notice);
 app.use('/code',code);
+app.use('/card', card);
 
 
 
