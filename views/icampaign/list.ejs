@@ -1,0 +1,223 @@
+<div class="row">
+    <div class="col-xs-12 bg-white box round_box">
+        <div class="row">
+            <div class="col-xs-10 title">
+                <ul class="list-inline">
+                    <li><button class="btn <% if(type == "") {%>btn-danger<% } else { %>btn-default<% } %>"><a href="/icampaign/list/<%=bpType%>" class="<% if(type == "") {%>text-white<% } else { %><% } %>" >전체 설문</a></button></li>
+                    <li><button class="btn <% if(type == "N") {%>btn-danger<% } else { %>btn-default<% } %>"><a href="/icampaign/list?/<%=bpType%>type=N" class="<% if(type == "N") {%>text-white<% } else { %><% } %>">시작전 설문</a></button></li>
+                    <li><button class="btn <% if(type == "S") {%>btn-danger<% } else { %>btn-default<% } %>"><a href="/icampaign/list/<%=bpType%>?type=S" class="<% if(type == "S") {%>text-white<% } else { %><% } %>">진행중 설문</a></button></li>
+                    <li><button class="btn <% if(type == "E") {%>btn-danger<% } else { %>btn-default<% } %>"><a href="/icampaign/list/<%=bpType%>?type=E" class="<% if(type == "E") {%>text-white<% } else { %><% } %>">완료된 설문</a></button></li>
+                    <li><button class="btn <% if(type == "HIDE") {%>btn-danger<% } else { %>btn-default<% } %>"><a href="/icampaign/list/<%=bpType%>?type=HIDE" class="<% if(type == "HIDE") {%>text-white<% } else { %><% } %>">숨김 설문</a></button></li>
+                </ul>
+            </div>
+            <div class="col-xs-2 text-right">
+                <a href="/campaign/write" class="btn btn-danger btn-md btn-rounded">설문등록</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <form name="searchForm" id="searchForm" method="get" action="/campaign/list">
+                    <div class="input-group">
+                        <input class="form-control" type="text" id="searchName" name="searchName" placeholder="설문제목으로 검색해주세요.">
+                        <span class="input-group-btn">
+                        <button id="searchBtn" class="btn btn-default" type="button"><i class="fa fa-search"></i> 검색</button>
+                    </span>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="contents_list">
+            <table id="list" class="table table-bordered fontsize">
+                <col width="8%">
+                <col width="8%">
+                <col width="13%">
+                <col width="5%">
+                <col width="10%">
+                <col width="10%">
+                <col width="10%">
+                <col width="11%">
+                <col width="25%">
+                <thead>
+
+                <tr>
+                    <th class="text-center">설문ID</th>
+                    <th class="text-center">
+                        <% if(sorting == "category") { %>
+
+                        <% if(sortingtype == "desc") { %>
+                        <a href="/campaign/list?type=<%=type%>&sorting=category&sortingtype=asc">
+                            <i class="fa fa-sort-desc"></i>
+                            <% } else { %>
+                            <a href="/campaign/list?type=<%=type%>&sorting=category&sortingtype=desc">
+                                <i class="fa fa-sort-asc"></i>
+                                <% } %>
+                                <% } else { %>
+                                <a href="/campaign/list?type=<%=type%>&sorting=category&sortingtype=desc">
+                                    <% } %>
+                                    카테고리
+                                </a>
+                    </th>
+                    <th class="text-center">
+                        <% if(sorting == "campaign_title") { %>
+
+                        <% if(sortingtype == "desc") { %>
+                        <a href="/campaign/list?type=<%=type%>&sorting=campaign_title&sortingtype=asc">
+                            <i class="fa fa-sort-desc"></i>
+                            <% } else { %>
+                            <a href="/campaign/list?type=<%=type%>&sorting=campaign_title&sortingtype=desc">
+                                <i class="fa fa-sort-asc"></i>
+                                <% } %>
+                                <% } else { %>
+                                <a href="/campaign/list?type=<%=type%>&sorting=campaign_title&sortingtype=desc">
+                                    <% } %>
+                                    설문제목
+                                </a>
+                    </th>
+                    <th class="text-center">
+                        <% if(sorting == "use") { %>
+
+                        <% if(sortingtype == "desc") { %>
+                        <a href="/campaign/list?type=<%=type%>&sorting=use&sortingtype=asc">
+                            <i class="fa fa-sort-desc"></i>
+                            <% } else { %>
+                            <a href="/campaign/list?type=<%=type%>&sorting=use&sortingtype=desc">
+                                <i class="fa fa-sort-asc"></i>
+                                <% } %>
+                                <% } else { %>
+                                <a href="/campaign/list?type=<%=type%>&sorting=use&sortingtype=desc">
+                                    <% } %>
+                                    상태
+                                </a>
+                    </th>
+                    <th class="text-center">
+                        <% if(sorting == "startdate") { %>
+
+                        <% if(sortingtype == "desc") { %>
+                        <a href="/campaign/list?type=<%=type%>&sorting=startdate&sortingtype=asc">
+                            <i class="fa fa-sort-desc"></i>
+                            <% } else { %>
+                            <a href="/campaign/list?type=<%=type%>&sorting=startdate&sortingtype=desc">
+                                <i class="fa fa-sort-asc"></i>
+                                <% } %>
+                                <% } else { %>
+                                <a href="/campaign/list?type=<%=type%>&sorting=startdate&sortingtype=desc">
+                                    <% } %>
+                                    시작일
+                                </a>
+
+                    </th>
+                    <th class="text-center">
+                        <% if(sorting == "enddate") { %>
+
+                        <% if(sortingtype == "desc") { %>
+                        <a href="/campaign/list?type=<%=type%>&sorting=enddate&sortingtype=asc">
+                            <i class="fa fa-sort-desc"></i>
+                            <% } else { %>
+                            <a href="/campaign/list?type=<%=type%>&sorting=enddate&sortingtype=desc">
+                                <i class="fa fa-sort-asc"></i>
+                                <% } %>
+                                <% } else { %>
+                                <a href="/campaign/list?type=<%=type%>&sorting=enddate&sortingtype=desc">
+                                    <% } %>
+                                    종료일
+                                </a>
+                    </th>
+                    <th class="text-center">제한 / 참여</th>
+                    <th class="text-center">최종수정일</th>
+                    <th class="text-center">관리</th>
+                </tr>
+                </thead>
+                <tbody>
+                <%if(campaignlist.length > 0){%>
+                <% for(var i = 0; i<campaignlist.length; i++) { %>
+                <%if (campaignlist[i].CAMPAIGN_CODE != "9999999001"){%>
+                <tr id="<%=campaignlist[i].CAMPAIGN_CODE%>" class="text-center push-10 push-10-t dataViewtd">
+                    <td><a href="/campaign/write/<%=campaignlist[i].CAMPAIGN_CODE%>" class="btn btn-danger btn-block btn-xs"><%=campaignlist[i].CAMPAIGN_CODE%></a></td>
+                    <td>
+
+                        <%=campaignlist[i].CATEGORY_NAME_KO%>
+                    </td>
+                    <td><%=campaignlist[i].CAMPAIGN_TITLE%></td>
+                    <td>
+                        <select class="status">
+                            <option value="N" <% if(campaignlist[i].CAMPAIGN_ING == "N") { %>selected<%}%>>대기</option>
+                            <option value="S" <% if(campaignlist[i].CAMPAIGN_ING == "S") { %>selected<%}%>>진행중</option>
+                            <option value="E" <% if(campaignlist[i].CAMPAIGN_ING == "E") { %>selected<%}%>>완료</option>
+                        </select>
+                    </td>
+                    <td><%=moment(campaignlist[i].CAMPAIGN_STARTDATE).format("YYYY-MM-DD HH:mm")%></td>
+                    <td><%=moment(campaignlist[i].CAMPAIGN_ENDDATE).format("YYYY-MM-DD HH:mm")%></td>
+                    <td><%=campaignlist[i].JOIN_CNT%> / <%=campaignlist[i].JOIN_DATA%></td>
+                    <td><%=moment(campaignlist[i].MODIFY_DATETIME).format("YYYY-MM-DD HH:mm")%></td>
+                    <td class="text-center">
+                        <!--
+                                <a href="/survey/start?campaign_code=<%=campaignlist[i].CAMPAIGN_CODE%>&uid=99999999999999999001&quest_num=1&debug=true" target="_blank" class="btn btn-xs btn-success">테스트</a>
+                                -->
+
+                        <!--<button class="btn btn-xs btn-primary modifyBtn"><a href="/campaign/write/<%=campaignlist[i].CAMPAIGN_CODE%>" class="text-white" >수정</a></button>-->
+                        <button class="btn btn-xs btn-danger deleteBtn">삭제</button>
+
+                        <button class="btn btn-xs btn-warning hiddenBtn">숨기기</button>
+
+                        <button class="btn btn-xs btn-success data">퀘스트 보기</button>
+
+                        <button class="btn btn-xs btn-primary copy">캠페인 복사</button>
+                    </td>
+                </tr>
+                <tr id="dataView_<%=campaignlist[i].CAMPAIGN_CODE%>" class="dataView" style="display:none;">
+                    <td colspan="9" style="background-color:#f9f9f9; padding-top:10px; padding-bottom:10px;">
+                        <div>
+                            <table class="table table-bordered fontsize">
+                                <col width="10%">
+                                <col width="10%">
+                                <col width="20%">
+                                <col width="10%">
+                                <col width="10%"
+                                <col width="40%">
+                                <thead>
+                                <tr>
+                                    <td colspan="6" class="text-center" style="background-color: #ccc; color:#fff;"><%=campaignlist[i].CAMPAIGN_TITLE%></td>
+                                </tr>
+                                <tr>
+                                    <td class="text-center" style="background-color: #ccc; color:#fff;">퀘스트</td>
+                                    <td class="text-center" style="background-color: #ccc; color:#fff;">참여인원</td>
+                                    <td class="text-center" style="background-color: #ccc; color:#fff;">지급포인트</td>
+                                    <td class="text-center" style="background-color: #ccc; color:#fff;">예상<br>소요시간</td>
+                                    <td class="text-center" style="background-color: #ccc; color:#fff;">평균<br>소요시간</td>
+                                    <td class="text-center" style="background-color: #ccc; color:#fff;">DATA</td>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td class="text-center"></td>
+                                    <td class="text-center"></td>
+                                    <td class="text-center"></td>
+                                    <td class="text-center"></td>
+                                    <td class="text-center"></td>
+                                    <td class="text-center"></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </td>
+                </tr>
+                <%}%>
+                <% } %>
+                <% } else{%>
+                <tr>
+                    <td colspan="10"><h5 class="Bold text-center push-10 push-10-t">해당 리스트가 존재하지 않습니다.</h5></td>
+                </tr>
+                <% } %>
+                </tbody>
+            </table>
+        </div>
+
+        <div style="text-align: center;">
+            <%- pageHtml.render() %>
+        </div>
+    </div>
+</div>
+
+
+
+<script language="javascript" src="/view_js/campaign/list.js"></script>

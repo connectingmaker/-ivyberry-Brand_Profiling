@@ -29,6 +29,8 @@ var api = require("./controller/api");
 var code = require("./controller/code");
 var notice = require("./controller/notice");
 var card = require("./controller/card");
+var keyword = require("./controller/keyword");
+var icampaign = require("./controller/icampaign");
 /* router import end */
 
 
@@ -81,6 +83,8 @@ app.use('/survey',survey);
 app.use('/notice',notice);
 app.use('/code',code);
 app.use('/card', card);
+app.use('/keyword', keyword);
+app.use('/icampaign', icampaign);
 
 
 
