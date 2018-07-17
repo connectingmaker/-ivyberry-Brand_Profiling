@@ -23,6 +23,7 @@ var app = new Vue({
             ,joinCnt: 0
             ,totalPoint: 0
             ,finishPoint: 0
+            ,bpType: ""
         }
     }
     ,methods:{
@@ -78,10 +79,11 @@ var app = new Vue({
                 ,joinCnt : this.formData.joinCnt
                 ,totalPoint : this.formData.totalPoint
                 ,finishPoint : this.formData.finishPoint
+                ,bpType : $("#bpType").val()
             };
 
             $.ajax({
-                url:location.pathname,
+                url:"/icampaign/write",
                 type:"POST",
                 dataType:"json",
                 data:json,

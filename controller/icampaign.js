@@ -15,7 +15,6 @@ router.get("/list/:bpType", function(req, res) {
     var sorting = req.query.sorting;
     var sortingtype = req.query.sortingtype;
     var bpType = req.params.bpType;
-    console.log(bpType);
     if(type == undefined) {
         type = "";
     }
@@ -154,8 +153,11 @@ router.get("/list/:bpType", function(req, res) {
     }
 });
 
-router.get("/write", function(req, res) {
-    res.render('icampaign/write', { campaign_code : '', campaign_title: '', campaign_title_en: '', campaign_title_cn: '', campaign_desc: '', campaign_desc_en: '', campaign_desc_cn: '', campaign_startdate:'', campaign_enddate: '', moment: moment });
+router.get("/write/:bpType", function(req, res) {
+    var bpType = req.params.bpType;
+
+
+    res.render('icampaign/write', { campaign_code : '', campaign_title: '', campaign_title_en: '', campaign_title_cn: '', campaign_desc: '', campaign_desc_en: '', campaign_desc_cn: '', campaign_startdate:'', campaign_enddate: '', moment: moment, bpType: bpType });
 });
 
 router.post("/write", function(req, res) {
@@ -186,12 +188,22 @@ router.post("/write", function(req, res) {
     const joinCnt = req.body.joinCnt;
     const totalPoint = req.body.totalPoint;
     const finishPoint = req.body.finishPoint;
+    var bpType = req.body.bpType;
+
+    switch(bpType) {
+        case "bp2":
+            bpType = "A000";
+            break;
+        case "bp3":
+            bpType = "B000";
+            break;
+    }
 
     var startdate_timesteamp = new Date(campaign_startdate).getTime() / 1000.0;
     var enddate_timesteamp = new Date(campaign_enddate).getTime() / 1000.0;
 
 
-    micampaign.sp_BP3_CAMPAIGN_SAVE(campaign_code, campaign_title, campaign_title_en, campaign_title_cn, campaign_desc, campaign_desc_en, campaign_desc_cn, startdate_timesteamp, enddate_timesteamp, 'A000', joinCnt, totalPoint, function(err, rows) {
+    micampaign.sp_BP3_CAMPAIGN_SAVE(campaign_code, campaign_title, campaign_title_en, campaign_title_cn, campaign_desc, campaign_desc_en, campaign_desc_cn, startdate_timesteamp, enddate_timesteamp, bpType, joinCnt, totalPoint, function(err, rows) {
         if(err) {
             console.log(err);
         }
@@ -210,6 +222,111 @@ router.post("/write", function(req, res) {
         // res.send(dataJson);
     });
 
+});
+
+router.get("/sqWrite/:campaign_code", function(req, res) {
+    var campaign_code = req.params.campaign_code;
+
+
+    res.render("icampaign/sqWrite", { campaign_code : campaign_code });
+});
+
+router.put("/sqWrite", function(req, res) {
+    var campaign_code = req.body.campaign_code;
+
+    micampaign.get_BP3_SQ_QUESTION_Q_LIST(campaign_code, function(err, rows) {
+        if(err) {
+            console.log(err);
+        }
+
+        var qData = rows;
+        res.send(qData);
+
+    });
+
+});
+
+router.post("/sqScout", function(req, res) {
+    var campaign_code = req.body.campaign_code;
+    var sqCode = req.body.sqCode;
+    var sqaCode = req.body.sqaCode;
+    var sqaSCOUT = req.body.sqLayout;
+});
+
+router.delete("/sqDeleteQ", function(req, res) {
+    var campaign_code = req.body.campaign_code;
+    var sqCode = req.body.sqCode;
+
+    micampaign.sp_BP3_SQ_QUESTION_Q_DELETE(campaign_code, sqCode, function(err, rows) {
+        var json = {
+            ERR_CODE : "000"
+            ,ERR_MSG : "OK"
+        };
+        
+        res.send(json);
+    });
+});
+
+router.delete("/sqDeleteQA", function(req, res) {
+    var campaign_code = req.body.campaign_code;
+    var sqCode = req.body.sqCode;
+    var sqaCode = req.body.sqaCode;
+    console.log("OK");
+
+    micampaign.delete_BP3_SQ_QUESTION_QA_DELETE(campaign_code, sqCode, sqaCode, function(err, rows) {
+        var json = {
+            ERR_CODE : "000"
+            ,ERR_MSG : "OK"
+        };
+
+
+        res.send(json);
+    });
+});
+
+router.post("/sqWrite", function(req, res) {
+    var campaign_code = req.body.campaign_code;
+    var sqCode = req.body.sqCode;
+    var sqTitle = req.body.sqTitle;
+    var sqLayout = req.body.sqLayout;
+    var sqCheckMin = req.body.sqCheckMin;
+    var sqCheckMax = req.body.sqCheckMax;
+    var sqaList = req.body.sqaList;
+    sqaList = JSON.parse(sqaList);
+
+    micampaign.sp_BP3_SQ_QUESTION_Q_SAVE(campaign_code, sqCode, sqTitle, sqLayout, sqCheckMin, sqCheckMax, function(err, rows) {
+        if(err) {
+            console.log(err);
+        }
+
+
+        var data = rows[0][0];
+        micampaign.sp_BP3_SQ_QUESTION_QA_SAVE(campaign_code, data.SQ_CODE, sqaList, function(err, rows) {
+
+            micampaign.get_BP3_SQ_QUESTION_Q_SELECT(campaign_code, data.SQ_CODE, function(err, rows) {
+                var sqData = rows[0];
+
+                res.send(sqData);
+            });
+            //console.log("OK");
+            //res.send(data);
+
+        });
+
+
+    });
+});
+
+router.get("/resultSetting/:campaign_code", function(req, res) {
+    var campaign_code = req.params.campaign_code;
+
+    res.render('icampaign/resultSetting', { campaign_code : campaign_code });
+});
+
+router.get("/qWrite/:campaign_code", function(req, res) {
+    var campaign_code = req.params.campaign_code;
+
+    res.render('icampaign/qWrite', { campaign_code : campaign_code });
 });
 
 module.exports = router;

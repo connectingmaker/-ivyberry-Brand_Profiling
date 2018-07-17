@@ -1,5 +1,6 @@
 <div id="app" class="row">
     <input type="hidden" id="campaign_code" value="<%=campaign_code%>" v-model="formData.campaign_code">
+    <input type="hidden" id="bpType" value="<%=bpType%>">
     <div class="row">
         <div class="col-xs-12">
             <div class="wizard">
@@ -7,7 +8,7 @@
                 <% if(campaign_code != "") { %>
                 <a href="/icampaign/sQuestion/<%=campaign_code%>"><span class="badge">2</span> 선정 질문</a>
                 <a href="/icampaign/resultSetting/<%=campaign_code%>"><span class="badge">3</span> 결과 설정</a>
-                <a href="/icampaign/qQuestion/<%=campaign_code%>"><span class="badge">4</span> 질문 설정</a>
+                <a href="/icampaign/qWrite/<%=campaign_code%>"><span class="badge">4</span> 질문 설정</a>
                 <a href="/icampaign/joinSetting/<%=campaign_code%>"><span class="badge">5</span> 참여 설정</a>
                 <% } %>
             </div>
