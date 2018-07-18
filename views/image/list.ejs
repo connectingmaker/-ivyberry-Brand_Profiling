@@ -14,14 +14,14 @@
                             <a href="#" @click="imageCategorySelect(index)">
                                 <div class="font-w600">{{item.CODE_IMAGE_CATEGORY_NAME}}</div>
                             </a>
-                            <ul v-show="item.open" class="width-300">
-                                <li v-for="(item,index) in list">
-                                    <a href="#" @click="step2_list(index2, item2.CODE_IMAGE_CATEGORY)">
-                                        <div>{{item2.CODE_IMAGE_CATEGORY_NAME}}</div>
-                                    </a>
+                            <!--<ul v-show="item.open" class="width-300">-->
+                                <!--<li v-for="(item,index) in list">-->
+                                    <!--<a href="#" @click="step2_list(index2, item2.CODE_IMAGE_CATEGORY)">-->
+                                        <!--<div>{{item2.CODE_IMAGE_CATEGORY_NAME}}</div>-->
+                                    <!--</a>-->
 
-                                </li>
-                            </ul>
+                                <!--</li>-->
+                            <!--</ul>-->
                         </li>
 
                     </ul>
@@ -101,7 +101,7 @@
                                         <!--<img v-bind:src="image_filenameTemp" width='220' height='200' v-if="image_filenameTemp!=''">-->
                                         <img  width='220' height='200'>
                                     </div>
-                                    <input type="file" name="image_filename" id="image_filename">
+                                    <!--<input type="file" name="image_filename" id="image_filename">-->
                                     <!--<input type="hidden" name="image_filenameTemp" v-model="image_filenameTemp" ref="image_filenameTemp" style="display:none;">-->
 
                                     <!--<template v-if="image_filenameTemp!=''">-->

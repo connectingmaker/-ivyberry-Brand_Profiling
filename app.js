@@ -84,6 +84,8 @@ app.use('/survey',survey);
 app.use('/notice',notice);
 app.use('/code',code);
 app.use('/card', card);
+app.use('/image',image);
+app.use('/icampaign',icampaign);
 
 
 
