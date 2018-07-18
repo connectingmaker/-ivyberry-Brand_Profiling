@@ -38,7 +38,7 @@
                 <div class="block-header bg-primary" style="border-radius:5px;">
                     <ul class="block-options">
                         <li>
-                            <button type="button" v-on:click="step1_modal"><i class="fa fa-pencil"></i> 카테고리등록</button>
+                            <button type="button" @click="step1_modal"><i class="fa fa-pencil"></i> 카테고리등록</button>
                         </li>
                     </ul>
                     <h3 class="block-title">대분류</h3>
@@ -48,9 +48,11 @@
                         <li style="margin-bottom:10px; padding-bottom: 10px;" v-for="(item, index) in step1">
 
                             <i class="si si-wallet text-success"></i>
-                            <a href="#" v-on:click="step2_list(index, item.IMAGE_CATEGORY_CODE)">
-                                <div class="font-w600">{{item.IMAGE_CATEGORY_NAME}}</div>
+                            <a href="#" @click="step2_list(index, item.CODE_IMAGE_CATEGORY)">
+                                <div class="font-w600">{{item.CODE_IMAGE_CATEGORY_NAME}}</div>
                             </a>
+                            <button class="btn btn-xs btn-success" type="button" @click="step1_modify(index)"><i class="fa fa-eyedropper"></i> 수정</button>
+                            <button class="btn btn-xs btn-danger" type="button" @click="step1_delete(index)"><i class="fa fa-times"></i> 삭제</button>
                         </li>
                     </ul>
                 </div>
@@ -107,7 +109,7 @@
                 <div class="block-header bg-primary" style="border-radius:5px;">
                     <ul class="block-options">
                         <li>
-                            <button type="button" v-on:click="step2_modal"><i class="fa fa-pencil"></i> 등록</button>
+                            <button type="button" @click="step2_modal"><i class="fa fa-pencil"></i> 등록</button>
                         </li>
                     </ul>
                     <h3 class="block-title">중분류 - {{selectedIndex_title}}</h3>
@@ -134,11 +136,11 @@
                                 </tr>
                             </template>
                             <tr v-for="(item, index) in  step2">
-                                <td class="text-center">{{item.IMAGE_CATEGORY_CODE}}</td>
-                                <td>{{item.IMAGE_CATEGORY_NAME}}</td>
+                                <td class="text-center">{{item.CODE_IMAGE_CATEGORY}}</td>
+                                <td>{{item.CODE_IMAGE_CATEGORY_NAME}}</td>
                                 <td class="text-center">
-                                    <button class="btn btn-xs btn-success" type="button" v-on:click="step2_modify(index)"><i class="fa fa-eyedropper"></i> 수정</button>
-                                    <button class="btn btn-xs btn-danger" type="button" v-on:click="step2_delete(index)"><i class="fa fa-times"></i> 삭제</button>
+                                    <button class="btn btn-xs btn-success" type="button" @click="step2_modify(index)"><i class="fa fa-eyedropper"></i> 수정</button>
+                                    <button class="btn btn-xs btn-danger" type="button" @click="step2_delete(index)"><i class="fa fa-times"></i> 삭제</button>
                                 </td>
                             </tr>
                             </tbody>
@@ -190,7 +192,7 @@
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-sm btn-default" type="button" data-dismiss="modal">닫기</button>
-                    <button v-on:click="step1_write" class="btn btn-sm btn-danger" type="button"><i class="fa fa-check"></i> 저장</button>
+                    <button @click="step1_write" class="btn btn-sm btn-danger" type="button"><i class="fa fa-check"></i> 저장</button>
 
                 </div>
             </div>

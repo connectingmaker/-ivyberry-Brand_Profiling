@@ -27,14 +27,13 @@ var app = new Vue({
 
             this.mode = "step1";
 
+
             $("#categoryModal").modal("show");
         }
         ,step2_modal: function() {
-            this.modal.category_code = this.step1[this.selectedIndex].IMAGE_CATEGORY_CODE.substring(0,3);
+            this.modal.category_code = this.step1[this.selectedIndex].CODE_IMAGE_CATEGORY.substring(0,3);
             this.modal.category_name = "";
             this.selectedIndex2 = -1;
-
-
 
             this.mode = "step2";
 
@@ -105,16 +104,16 @@ var app = new Vue({
         ,step1_modify: function(index) {
             //console.log(this.step1[index]);
             this.mode = "step1";
-            this.modal.category_code = this.step1[index].IMAGE_CATEGORY_CODE;
-            this.modal.category_name = this.step1[index].IMAGE_CATEGORY_NAME;
+            this.modal.category_code = this.step1[index].CODE_IMAGE_CATEGORY;
+            this.modal.category_name = this.step1[index].CODE_IMAGE_CATEGORY_NAME;
             this.selectedIndex = index;
             $("#categoryModal").modal("show");
         }
         ,step2_modify: function(index) {
             //console.log(this.step1[index]);
             this.mode = "step2";
-            this.modal.category_code = this.step2[index].IMAGE_CATEGORY_CODE;
-            this.modal.category_name = this.step2[index].IMAGE_CATEGORY_NAME;
+            this.modal.category_code = this.step2[index].CODE_IMAGE_CATEGORY;
+            this.modal.category_name = this.step2[index].CODE_IMAGE_CATEGORY_NAME;
             this.selectedIndex2 = index;
 
             $("#categoryModal").modal("show");
@@ -122,7 +121,7 @@ var app = new Vue({
         ,step1_delete: function(index) {
             var _this = this;
             if(confirm("삭제하시겠습니까?") == true) {
-                var category_code = this.step1[index].IMAGE_CATEGORY_CODE;
+                var category_code = this.step1[index].CODE_IMAGE_CATEGORY;
                 var json = {
                     category_code : category_code
                 }
@@ -144,7 +143,7 @@ var app = new Vue({
                             _this.selectedIndex = -1;
                         }
 
-                        //console.log(data);
+                        console.log(data);
                     },
                     error:function(e){
                         alert(e.responseText);
@@ -155,7 +154,7 @@ var app = new Vue({
         ,step2_delete: function(index) {
             var _this = this;
             if(confirm("삭제하시겠습니까?") == true) {
-                var category_code = this.step2[index].IMAGE_CATEGORY_CODE;
+                var category_code = this.step2[index].CODE_IMAGE_CATEGORY;
                 var json = {
                     category_code : category_code
                 }
@@ -177,7 +176,7 @@ var app = new Vue({
                             _this.selectedIndex2 = -1;
                         }
 
-                        //console.log(data);
+                        console.log(data);
                     },
                     error:function(e){
                         alert(e.responseText);
@@ -194,7 +193,7 @@ var app = new Vue({
                 // data:json,
                 success:function(data){
                     _this.step1 = data;
-                    //console.log(data);
+                    console.log(_this.step1);
                 },
                 error:function(e){
                     alert(e.responseText);
@@ -205,7 +204,8 @@ var app = new Vue({
             var _this = this;
             this.selectedIndex = index;
 
-            this.selectedIndex_title = this.step1[index].IMAGE_CATEGORY_NAME;
+            this.selectedIndex_title = this.step1[index].CODE_IMAGE_CATEGORY_NAME;
+
             var json = {
                 category_code : category_code
             };
