@@ -154,11 +154,26 @@ router.get("/list/:bpType", function(req, res) {
 });
 
 router.get("/write/:bpType", function(req, res) {
+    var campaign_code = req.params.campaign_code;
     var bpType = req.params.bpType;
 
 
-    res.render('icampaign/write', { campaign_code : '', campaign_title: '', campaign_title_en: '', campaign_title_cn: '', campaign_desc: '', campaign_desc_en: '', campaign_desc_cn: '', campaign_startdate:'', campaign_enddate: '', moment: moment, bpType: bpType });
+    res.render('icampaign/write', { campaign_code : campaign_code, campaign_title: '', campaign_title_en: '', campaign_title_cn: '', campaign_desc: '', campaign_desc_en: '', campaign_desc_cn: '', campaign_startdate:'', campaign_enddate: '', moment: moment, bpType: bpType });
 });
+
+router.get("/write/:bpType/:campaign_code", function(req, res) {
+    var campaign_code = req.params.campaign_code;
+    var bpType = req.params.bpType;
+
+
+    res.render('icampaign/write', { campaign_code : campaign_code, campaign_title: '', campaign_title_en: '', campaign_title_cn: '', campaign_desc: '', campaign_desc_en: '', campaign_desc_cn: '', campaign_startdate:'', campaign_enddate: '', moment: moment, bpType: bpType });
+});
+
+router.put("/write", function(req, res) {
+
+});
+
+
 
 router.post("/write", function(req, res) {
     // campaign_code : this.formData.campaign_code

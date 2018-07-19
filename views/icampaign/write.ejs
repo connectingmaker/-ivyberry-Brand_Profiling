@@ -1,6 +1,6 @@
 <div id="app" class="row">
-    <input type="hidden" id="campaign_code" value="<%=campaign_code%>" v-model="formData.campaign_code">
-    <input type="hidden" id="bpType" value="<%=bpType%>">
+    <input type="text" id="campaign_code" value="<%=campaign_code%>">
+    <input type="text" id="bpType" value="<%=bpType%>">
     <div class="row">
         <div class="col-xs-12">
             <div class="wizard">
@@ -35,37 +35,37 @@
                 <tr>
                     <th>설문제목(국문)</th>
                     <td>
-                        <input type="text" id="campaign_title" class="form-control" v-model="formData.campaign_title">
+                        <input type="text" id="campaign_title" class="form-control">
                     </td>
                 </tr>
                 <tr>
                     <th>설문제목(영문)</th>
                     <td>
-                        <input type="text" id="campaign_title_en" class="form-control" v-model="formData.campaign_title_en">
+                        <input type="text" id="campaign_title_en" class="form-control">
                     </td>
                 </tr>
                 <tr>
                     <th>설문제목(중문)</th>
                     <td>
-                        <input type="text" id="campaign_title_cn" class="form-control" v-model="formData.campaign_title_cn">
+                        <input type="text" id="campaign_title_cn" class="form-control">
                     </td>
                 </tr>
                 <tr>
                     <th>설문설명(국문)</th>
                     <td>
-                        <input type="text" id="campaign_desc" class="form-control" v-model="formData.campaign_desc">
+                        <input type="text" id="campaign_desc" class="form-control">
                     </td>
                 </tr>
                 <tr>
                     <th>설문설명(영문)</th>
                     <td>
-                        <input type="text" id="campaign_desc_en" class="form-control" v-model="formData.campaign_desc_en">
+                        <input type="text" id="campaign_desc_en" class="form-control">
                     </td>
                 </tr>
                 <tr>
                     <th>설문설명(중문)</th>
                     <td>
-                        <input type="text" id="campaign_desc_cn" class="form-control" v-model="formData.campaign_desc_cn">
+                        <input type="text" id="campaign_desc_cn" class="form-control">
                     </td>
                 </tr>
 
@@ -136,9 +136,9 @@
                             <col width="30%">
                             <tr>
                                 <td class="text-center">총 포인트</td>
-                                <td><input type="text" class="form-control" id="totalPoint" v-model="formData.totalPoint"></td>
+                                <td><input type="text" class="form-control" id="totalPoint"></td>
                                 <td class="text-center">완료 포인트</td>
-                                <td><input type="text" class="form-control" id="finishPoint" v-model="formData.finishPoint"></td>
+                                <td><input type="text" class="form-control" id="finishPoint"></td>
                             </tr>
                         </table>
                     </td>
