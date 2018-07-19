@@ -4,7 +4,7 @@
             <div class="col-xs-10 title">
                 <ul class="list-inline">
                     <li><button class="btn <% if(type == "") {%>btn-danger<% } else { %>btn-default<% } %>"><a href="/icampaign/list/<%=bpType%>" class="<% if(type == "") {%>text-white<% } else { %><% } %>" >전체 설문</a></button></li>
-                    <li><button class="btn <% if(type == "N") {%>btn-danger<% } else { %>btn-default<% } %>"><a href="/icampaign/list?/<%=bpType%>type=N" class="<% if(type == "N") {%>text-white<% } else { %><% } %>">시작전 설문</a></button></li>
+                    <li><button class="btn <% if(type == "N") {%>btn-danger<% } else { %>btn-default<% } %>"><a href="/icampaign/list/<%=bpType%>type=N" class="<% if(type == "N") {%>text-white<% } else { %><% } %>">시작전 설문</a></button></li>
                     <li><button class="btn <% if(type == "S") {%>btn-danger<% } else { %>btn-default<% } %>"><a href="/icampaign/list/<%=bpType%>?type=S" class="<% if(type == "S") {%>text-white<% } else { %><% } %>">진행중 설문</a></button></li>
                     <li><button class="btn <% if(type == "E") {%>btn-danger<% } else { %>btn-default<% } %>"><a href="/icampaign/list/<%=bpType%>?type=E" class="<% if(type == "E") {%>text-white<% } else { %><% } %>">완료된 설문</a></button></li>
                     <li><button class="btn <% if(type == "HIDE") {%>btn-danger<% } else { %>btn-default<% } %>"><a href="/icampaign/list/<%=bpType%>?type=HIDE" class="<% if(type == "HIDE") {%>text-white<% } else { %><% } %>">숨김 설문</a></button></li>
@@ -132,7 +132,7 @@
                 <% for(var i = 0; i<campaignlist.length; i++) { %>
                 <%if (campaignlist[i].CAMPAIGN_CODE != "9999999001"){%>
                 <tr id="<%=campaignlist[i].CAMPAIGN_CODE%>" class="text-center push-10 push-10-t dataViewtd">
-                    <td><a href="/icampaign/write/<%=campaignlist[i].CAMPAIGN_CODE%>" class="btn btn-danger btn-block btn-xs"><%=campaignlist[i].CAMPAIGN_CODE%></a></td>
+                    <td><a href="/icampaign/write/<%=bpType%>/<%=campaignlist[i].CAMPAIGN_CODE%>" class="btn btn-danger btn-block btn-xs"><%=campaignlist[i].CAMPAIGN_CODE%></a></td>
                     <td>
 
                         <%=campaignlist[i].CATEGORY_NAME_KO%>

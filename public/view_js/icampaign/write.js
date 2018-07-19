@@ -27,7 +27,29 @@ var app = new Vue({
         }
     }
     ,methods:{
-        campaignWrite: function() {
+        campaignSelect: function() {
+            this.formData.campaign_code = $("#campaign_code").val();
+            this.formData.bpType = $("#bpType").val();
+
+            if(this.formData.campaign_code != "") {
+                var json = {
+                    campaign_code : $("#campaign_code").val()
+                };
+                $.ajax({
+                    url:"/icampaign/write",
+                    type:"PUT",
+                    dataType:"json",
+                    data:json,
+                    success:function(data){
+
+                    },
+                    error:function(e){
+                        alert(e.responseText);
+                    }
+                });
+            }
+        }
+        ,campaignWrite: function() {
             //console.log($('#startPage').code());
 
 
@@ -66,19 +88,19 @@ var app = new Vue({
             }
 
             var json = {
-                campaign_code : this.formData.campaign_code
-                ,campaign_title : this.formData.campaign_title
-                ,campaign_title_en : this.formData.campaign_title_en
-                ,campaign_title_cn : this.formData.campaign_title_cn
-                ,campaign_desc : this.formData.campaign_desc
-                ,campaign_desc_en : this.formData.campaign_desc_en
-                ,campaign_desc_cn : this.formData.campaign_desc_cn
+                campaign_code : $("#campaign_code").val()
+                ,campaign_title : $("#campaign_title").val()
+                ,campaign_title_en : $("#campaign_title_en").val()
+                ,campaign_title_cn : $("#campaign_title_cn").val()
+                ,campaign_desc : $("#campaign_desc").val()
+                ,campaign_desc_en : $("#campaign_desc_en").val()
+                ,campaign_desc_cn : $("#campaign_desc_cn").val()
                 ,startdate : $("#campaign_startdate").val()
                 ,enddate : $("#campaign_enddate").val()
                 ,startPage : $('#startPage').code()
-                ,joinCnt : this.formData.joinCnt
-                ,totalPoint : this.formData.totalPoint
-                ,finishPoint : this.formData.finishPoint
+                ,joinCnt : $("#joinCnt").val()
+                ,totalPoint : $("#totalPoint").val()
+                ,finishPoint : $("#finishPoint").val()
                 ,bpType : $("#bpType").val()
             };
 
@@ -88,6 +110,12 @@ var app = new Vue({
                 dataType:"json",
                 data:json,
                 success:function(data){
+                    var campaign_code = data[0].CAMPAIGN_CODE;
+
+                    location.href = "/icampaign/sQuestion/"+$("#bpType").val()+"/"+campaign_code;
+
+                    //console.log(campaign_code);
+                    //location.replace("");
                     /*
                     if(_this.selectedIndex < 0) {
                         _this.list.push(data);

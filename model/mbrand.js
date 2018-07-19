@@ -36,6 +36,7 @@ var mbrand = {
         var params = [];
         params.push(category_code);
 
+
         var data = connection.query(query,params,callback);
         connection.end();
         return data;
@@ -59,7 +60,7 @@ var mbrand = {
         var connection = mysql_dbc.init();
         var query = " SELECT * ";
         query += " , 0 AS CNT"
-        query += " FROM BRAND_CATEGORY WHERE CATEGORY_CODE <> '9999' ORDER BY CATEGORY_CODE ASC ";
+        query += " FROM BRAND_CATEGORY WHERE CATEGORY_CODE NOT IN ('9999', 'A000', 'B000') ORDER BY CATEGORY_CODE ASC ";
 
         var data = connection.query(query, callback);
         connection.end();

@@ -25,6 +25,16 @@ var micampaign = {
         connection.end();
         return data;
     }
+    ,sp_BP3_CAMPAIGN_SELECT: function(campaign_code, callback) {
+        var connection = mysql_dbc.init();
+        var query = " call sp_BP3_CAMPAIGN_SELECT(?)";
+        var params = [];
+        params.push(campaign_code);
+
+        var data = connection.query(query, params, callback);
+        connection.end();
+        return data;
+    }
     ,sp_BP3_CAMPAIGN_POINT: function (campaign_code, finish_point, callback) {
         var connection = mysql_dbc.init();
         var query = " call sp_BP3_CAMPAIGN_POINT(?, ?)";
