@@ -36,6 +36,7 @@ var mbrand = {
         var params = [];
         params.push(category_code);
 
+
         var data = connection.query(query,params,callback);
         connection.end();
         return data;

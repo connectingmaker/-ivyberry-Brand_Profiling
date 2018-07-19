@@ -132,7 +132,7 @@
                 <% for(var i = 0; i<campaignlist.length; i++) { %>
                 <%if (campaignlist[i].CAMPAIGN_CODE != "9999999001"){%>
                 <tr id="<%=campaignlist[i].CAMPAIGN_CODE%>" class="text-center push-10 push-10-t dataViewtd">
-                    <td><a href="/icampaign/write/<%=campaignlist[i].CAMPAIGN_CODE%>" class="btn btn-danger btn-block btn-xs"><%=campaignlist[i].CAMPAIGN_CODE%></a></td>
+                    <td><a href="/icampaign/write/<%=bpType%>/<%=campaignlist[i].CAMPAIGN_CODE%>" class="btn btn-danger btn-block btn-xs"><%=campaignlist[i].CAMPAIGN_CODE%></a></td>
                     <td>
 
                         <%=campaignlist[i].CATEGORY_NAME_KO%>

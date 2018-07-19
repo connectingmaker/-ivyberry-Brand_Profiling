@@ -110,7 +110,11 @@ var app = new Vue({
                 dataType:"json",
                 data:json,
                 success:function(data){
-                    console.log(data);
+                    var campaign_code = data[0].CAMPAIGN_CODE;
+
+                    location.href = "/icampaign/sQuestion/"+$("#bpType").val()+"/"+campaign_code;
+
+                    //console.log(campaign_code);
                     //location.replace("");
                     /*
                     if(_this.selectedIndex < 0) {
