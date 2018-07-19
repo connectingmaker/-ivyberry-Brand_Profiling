@@ -575,10 +575,15 @@ $(function() {
                             console.log(per);
                             table += "<table class='table-bordered'>";
                             table += "<tr>";
-                            table += "<td class='text-left text-white' width='"+per+"%' style='font-size:11px; padding:5px 10px; background-color:"+bgcolor+";'></td>";
-                            // table += "<div style='width:"+qa_data_per+"%;background-color:"+bgcolor+";'>&nbsp</div></td>";
-                            // table += "<td class='text-center' width='5%' style='font-size:11px; border-color: #ffffff'>"+ qa_data+"</td>";
-                            table += "<td class='text-left' style='font-size:11px; border-color: #ffffff'>"+qa_title+" ("+qa_data+"명)</td>";
+                            if (per == 0) {
+                                table += "<td colspan='2' class='text-left' style='font-size:11px; border-color: #ffffff; border-left-color: "+ bgcolor +"' >" + qa_title + "(" + qa_data + "명)</td>";
+                            } else {
+                                table += "<td class='text-left text-white' width='" + per + "%' style='font-size:11px; padding:5px 10px; background-color:" + bgcolor + ";'></td>";
+                                // table += "<div style='width:"+qa_data_per+"%;background-color:"+bgcolor+";'>&nbsp</div></td>";
+                                // table += "<td class='text-center' width='5%' style='font-size:11px; border-color: #ffffff'>"+ qa_data+"</td>";
+
+                                table += "<td class='text-left' style='font-size:11px; border-color: #ffffff'>" + qa_title + " (" + qa_data + "명)</td>";
+                            }
                             table += "</tr>";
                             table += "</table>";
 
