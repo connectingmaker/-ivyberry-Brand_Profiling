@@ -3,12 +3,12 @@
     <div class="row">
         <div class="col-xs-12">
             <div class="wizard">
-                <a class="current" href="/icampaign/write/<%=campaign_code%>"><span class="badge badge-inverse">1</span> 설문등록</a>
+                <a class="current" href="/icampaign/write/<%=bpType%>/<%=campaign_code%>"><span class="badge badge-inverse">1</span> 설문등록</a>
                 <% if(campaign_code != "") { %>
-                <a class="current" href="/icampaign/sqWrite/<%=campaign_code%>"><span class="badge badge-inverse">2</span> 선정 질문</a>
-                <a class="current" href="/icampaign/resultSetting/<%=campaign_code%>"><span class="badge badge-inverse">3</span> 결과 설정</a>
-                <a href="/icampaign/qWrite/<%=campaign_code%>"><span class="badge">4</span> 질문 설정</a>
-                <a href="/icampaign/joinSetting/<%=campaign_code%>"><span class="badge">5</span> 참여 설정</a>
+                <a class="current" href="/icampaign/sqWrite/<%=bpType%>/<%=campaign_code%>"><span class="badge badge-inverse">2</span> 선정 질문</a>
+                <a class="current" href="/icampaign/resultSetting/<%=bpType%>/<%=campaign_code%>"><span class="badge badge-inverse">3</span> 결과 설정</a>
+                <a href="/icampaign/qWrite/<%=bpType%>/<%=campaign_code%>"><span class="badge">4</span> 질문 설정</a>
+                <a href="/icampaign/joinSetting/<%=bpType%>/<%=campaign_code%>"><span class="badge">5</span> 참여 설정</a>
                 <% } %>
             </div>
         </div>
