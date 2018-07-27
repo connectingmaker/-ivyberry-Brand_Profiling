@@ -1,6 +1,7 @@
 $(function() {
     <!-- 질문 그룹  추가하기 -->
     $("#groupCreate").click(function() {
+        $("#group_code").val("");
         $("#memo").val("");
         $("#group_name_ko").val("");
         $("#group_name_en").val("");
