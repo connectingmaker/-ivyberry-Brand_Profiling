@@ -29,6 +29,7 @@ var app = new Vue({
                 dataType:"json",
                 // data:json,
                 success:function(data){
+                    console.log(data);
                     _this.list = data;
                     //console.log(data);
                 },

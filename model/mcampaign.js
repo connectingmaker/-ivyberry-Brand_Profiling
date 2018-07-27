@@ -85,6 +85,20 @@ var mcampaign = {
         connection.end();
         return data;
     }
+    ,sp_CAMPAIGN_BRAND_TITLE_SAVE_20180727: function(campaign_code, subject, subject_en, subject_cn, selected_min, selected_max, callback) {
+        var connection = mysql_dbc.init();
+        var query = " call sp_CAMPAIGN_BRAND_TITLE_SAVE_20180727(?, ?, ?, ?, ?, ?)";
+        var params = [];
+        params.push(campaign_code);
+        params.push(subject);
+        params.push(subject_en);
+        params.push(subject_cn);
+        params.push(selected_min);
+        params.push(selected_max);
+        var data = connection.query(query,params,callback);
+        connection.end();
+        return data;
+    }
     ,get_campaign_count: function(campaign_ing, searchName, callback) {
         var connection = mysql_dbc.init();
         if(campaign_ing == "") {

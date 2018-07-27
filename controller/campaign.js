@@ -283,6 +283,8 @@ router.get('/brandPool/:code', function(req, res) {
         if(rows.length == 0) {
             var brand_title = {
                 SUBJECT : "아래 브랜드 중 알고 계신 브랜드를 30개 이내로 선택해주세요(설문 대상 브랜드에 포함됨)."
+                ,SUBJECT_EN : ""
+                ,SUBJECT_CN : ""
                 ,SELECTED_MIN : ""
                 ,SELECTED_MAX : ""
             }
@@ -310,6 +312,8 @@ router.post("/brandPoolProcess", function(req, res) {
     var brandList = req.body.brandList;
     var brandSkip = req.body.brandSkip;
     var q_title = req.body.q_title;
+    var q_title_en = req.body.q_title_en;
+    var q_title_cn = req.body.q_title_cn;
     var selected_min = req.body.selected_min;
     var selected_max = req.body.selected_max;
     var err = "";
@@ -317,7 +321,7 @@ router.post("/brandPoolProcess", function(req, res) {
     console.log("DATA");
 
 
-    mcampaign.sp_CAMPAIGN_BRAND_TITLE_SAVE(campaign_code, q_title, selected_min, selected_max, function(err, rows) {
+    mcampaign.sp_CAMPAIGN_BRAND_TITLE_SAVE_20180727(campaign_code, q_title, q_title_en, q_title_cn, selected_min, selected_max, function(err, rows) {
         if(err) {
             console.log(err);
         }

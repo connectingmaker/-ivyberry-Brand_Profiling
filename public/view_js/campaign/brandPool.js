@@ -57,6 +57,8 @@ $(function() {
             ,brandList : brandDetail
             ,brandSkip : brandSkip
             ,q_title : $("#q_title").val()
+            ,q_title_en : $("#q_title_en").val()
+            ,q_title_cn : $("#q_title_cn").val()
             ,selected_min : $("#selected_min").val()
             ,selected_max : $("#selected_max").val()
 

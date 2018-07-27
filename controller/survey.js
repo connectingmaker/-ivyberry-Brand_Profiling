@@ -318,6 +318,7 @@ router.get("/brand", function(req, res) {
     var uid = req.query.uid;
     var seq = req.query.seq;
     var debug = req.query.debug;
+    var lang = req.query.lang;
     if(debug == undefined) {
         debug = "";
     }
@@ -345,7 +346,7 @@ router.get("/brand", function(req, res) {
             }
 
             var brand = rows[0];
-            res.render('survey/brand', {layout: 'layout/survey_page', "layout extractScripts": true, title_data: title_data,campaign_code: campaign_code, quest_num: quest_num, uid: uid, seq: seq, brand: brand, debug : debug});
+            res.render('survey/brand', {layout: 'layout/survey_page', "layout extractScripts": true, title_data: title_data,campaign_code: campaign_code, quest_num: quest_num, uid: uid, seq: seq, brand: brand, debug : debug, lang: lang});
         });
 
 
