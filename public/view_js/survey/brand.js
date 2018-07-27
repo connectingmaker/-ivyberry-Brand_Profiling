@@ -134,7 +134,7 @@ $(function() {
             common.ajax.send('/survey/brandProcess', json);
             common.ajax.return = function(data) {
                 console.log(data);
-                location.replace("/survey/page?campaign_code="+$("#campaign_code").val()+"&uid="+$("#uid").val()+"&seq="+$("#seq").val()+"&quest_num="+$("#quest_num").val()+"&page=1"+debugUrl);
+                location.replace("/survey/page?campaign_code="+$("#campaign_code").val()+"&uid="+$("#uid").val()+"&seq="+$("#seq").val()+"&quest_num="+$("#quest_num").val()+"&page=1"+debugUrl+"&lang="+$("#lang").val());
             }
             //$("#brandForm").submit();
         }
