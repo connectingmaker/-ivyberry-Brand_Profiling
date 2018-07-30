@@ -977,7 +977,7 @@ $(function() {
                                     var per = Math.ceil((qa_data / returnData[0].TOTAL_CNT * 80), 0);
                                     // var qa_data_per = parseFloat(eval("returnData["+i+"].QA_PER"+qa_code));
                                     console.log(per);
-                                    table += "<table class='table-bordered'>";
+                                    table += "<table class='table-bordered' style='width: 100%;'>";
                                     table += "<tr>";
                                     if (per == 0) {
                                         table += "<td colspan='2' class='text-left' style='font-size:11px; border-color: #ffffff; border-left-color: " + bgcolor + "' >" + qa_title + "(" + qa_data + "명)</td>";
