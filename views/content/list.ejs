@@ -1,0 +1,59 @@
+
+<div class="row">
+    <div class="col-xs-12 bg-white box round_box">
+        <div class="row">
+            <div class="col-xs-10 title">
+                <h3 class="block-title">컨텐츠 </h3>
+            </div>
+            <div class="col-xs-2 text-right">
+                <a href="/content/write" class="btn btn-danger btn-block btn-xs btn-rounded">추가</a>
+            </div>
+        </div>
+        <div class="contents_list">
+            <table id="list" class="table table-bordered fontsize">
+                <col width="5%">
+                <col width="25%">
+                <col width="10%">
+                <col width="10%">
+                <col width="25%">
+
+                <thead>
+                <tr>
+                    <th class="text-center">번호</th>
+                    <th class="text-center">제목</th>
+                    <th class="text-center">등록날짜</th>
+                    <th class="text-center">노출여부</th>
+                    <th class="text-center">관리</th>
+                </tr>
+                </thead>
+                <tbody>
+                <%if(contentlist.length > 0){%>
+                <% for(var i = 0; i<contentlist.length; i++) { %>
+                <tr id="<%=contentlist[i].SEQ%>">
+                    <td style="text-align: center;"><%=contentlist[i].SEQ%></td>
+                    <td><%=contentlist[i].SUBJECT%></td>
+                    <td style="text-align: center;"><%=moment(contentlist[i].INSERT_DATETIME).format("YYYY-MM-DD hh:mm")%></td>
+                    <td style="text-align: center;"><%=contentlist[i].USE_YN_TEXT%></td>
+                    <td style="text-align: center;">
+                        <button class="btn btn-xs btn-warning deleteBtn">삭제</button>
+                        <button class="btn btn-xs btn-primary modifyBtn"><a href="/content/write/<%=contentlist[i].SEQ%>" class="text-white" >수정</a></button>
+                    </td>
+                </tr>
+                <%}%>
+                <%}else{%>
+                <tr>
+                    <td colspan="5"><h5 class="Bold text-center push-10 push-10-t">현재 내용이 없습니다.</h5></td>
+
+                </tr>
+                <%}%>
+
+                </tbody>
+            </table>
+            <div class="col-xs-12 text-center">
+                <%- pageHtml.render() %>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script language="javascript" src="/view_js/content/list.js"></script>

@@ -32,6 +32,7 @@ var card = require("./controller/card");
 var image = require("./controller/image");
 var keyword = require("./controller/keyword");
 var icampaign = require("./controller/icampaign");
+var content = require("./controller/content");
 /* router import end */
 
 
@@ -86,6 +87,7 @@ app.use('/code',code);
 app.use('/card', card);
 app.use('/image',image);
 app.use('/icampaign',icampaign);
+app.use('/content',content);
 
 
 

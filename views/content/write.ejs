@@ -1,0 +1,59 @@
+
+<div class="row">
+
+
+    <form id="contentsForm" name="contentsForm" method="post" action="/content/writeProcess">
+    <input type="hidden" id="seq" name="seq" value="<%=seq%>">
+    <div class="col-xs-12 bg-white box round_box">
+        <div class="row">
+            <div class="col-xs-10 title">
+                <h3 class="block-title">컨텐츠 등록</h3>
+            </div>
+        </div>
+        <div class="contents_list">
+            <table id="list" class="table table-bordered fontsize round_box">
+                <col width="20%">
+                <col width="80%">
+                <tbody>
+
+                <tr>
+                    <th class="text-center">노출여부</th>
+                    <td><input name="use_yn" class='content_yn' type="radio" <% if(use_yn == "Y") { %> checked <% } %> value = "Y"> 노출&nbsp;&nbsp;&nbsp;<input name="use_yn" type="radio" class='content_yn' <% if(use_yn == "N") { %>  checked <% } %> value = "N"> 미노출</td>
+                </tr>
+                <tr>
+                    <th class="text-center">제목</th>
+                    <td>
+                        <input id="subject" type="text" name="subject" class="form-control" value="<%=subject%>">
+                    </td>
+                </tr>
+                <tr>
+                    <th class="text-center">내용</th>
+                    <td>
+                        <div class="contents_list">
+                            <!-- Summernote Container -->
+                            <!--<div id="contents"></div>-->
+                            <textarea id="contents" name="contents"><%=contents%></textarea>
+                        </div>
+                    </td>
+                </tr>
+
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-6 push-20-t push-20">
+            <button class="btn btn-sm btn-block btn-primary backBtn">이전</button>
+        </div>
+
+        <div class="col-xs-6 push-20-t push-20 text-right">
+            <button type="submit" class="btn btn-sm btn-block btn-danger">저장</button>
+        </div>
+    </div>
+    </form>
+</div>
+
+<script src="/assets/js/plugins/summernote/summernote.min.js"></script>
+<script language="javascript" src="/view_js/content/write.js"></script>
