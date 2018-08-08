@@ -326,14 +326,8 @@ function getGroupQuestionRowData_all(campaign_code, quest_num, group_q, q_code, 
 
 
                             } else {
-                                if (parseInt(results[0][k].SUM) > 3) {
-                                    dataRow.push("");
-                                } else {
-                                    dataRow.push("1");
 
-                                    totalRealData[num] = totalRealData[num] + 1;
-
-                                }
+                                dataRow.push(getValue(results[0][k], fields[0][num].name).toString());
                             }
 
                         } else {
@@ -341,7 +335,6 @@ function getGroupQuestionRowData_all(campaign_code, quest_num, group_q, q_code, 
                                 dataRow.push("");
                                 totalRealData[num] = totalRealData[num] + 0;
                             } else {
-                                //if(results[0][k].SUM
                                 dataRow.push(getValue(results[0][k], fields[0][num].name).toString());
 
 
