@@ -147,11 +147,15 @@ function getGroupQuestionRowData(campaign_code, quest_num, group_q, q_code, i, i
     var connection = mysql_dbc.init();
 
     var query = " call sp_CAMPAIGN_RAWDATA_GROUP_QUESTION(?, ?, ?, ?)";
+
     var params = [];
     params.push(campaign_code);
     params.push(quest_num);
     params.push(group_q);
     params.push(q_code);
+
+    console.log(params);
+
 
 
     var totalRow = new Array;
