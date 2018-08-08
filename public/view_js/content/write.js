@@ -2,27 +2,20 @@
  * Created by jccho on 2018. 7. 31..
  */
 $(function() {
+
     $('#contents').summernote({
         height:350
     });
 
-});
+    $('#contents_en').summernote({
+        height:350
+    });
 
-const bodyParser = require("body-parser");
-
-app.use(bodyParser.urlencoded({
-    extended: true
-}));
-
-app.use(bodyParser.json());
-
-app.post("/", function (req, res) {
-    console.log(request.body.subject);
-    console.log(request.body.contents);
-});
+    $('#contents_cn').summernote({
+        height:350
+    });
 
 
-$(function() {
     $("#contentSave").click(function() {
         var use_yn = "N";
         if(inputTextCheck('subject', '제목을 입력해주세요.') == false) {

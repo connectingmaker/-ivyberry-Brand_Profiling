@@ -6,6 +6,11 @@
     <input type="hidden" id="seq" name="seq" value="<%=seq%>">
     <div class="col-xs-12 bg-white box round_box">
         <div class="row">
+            <div class="col-sm-3 col-sm-offset-9 text-right">
+                <a href="/content/list" class="btn btn-info btn-block btn-xs btn-rounded">컨텐츠 관리 목록</a>
+            </div>
+        </div>
+        <div class="row">
             <div class="col-xs-10 title">
                 <h3 class="block-title">컨텐츠 등록</h3>
             </div>
@@ -27,6 +32,18 @@
                     </td>
                 </tr>
                 <tr>
+                    <th class="text-center">제목(영문)</th>
+                    <td>
+                        <input id="subject_en" type="text" name="subject_en" class="form-control" value="<%=subject_en%>">
+                    </td>
+                </tr>
+                <tr>
+                    <th class="text-center">제목(중문)</th>
+                    <td>
+                        <input id="subject_cn" type="text" name="subject_cn" class="form-control" value="<%=subject_cn%>">
+                    </td>
+                </tr>
+                <tr>
                     <th class="text-center">내용</th>
                     <td>
                         <div class="contents_list">
@@ -36,23 +53,43 @@
                         </div>
                     </td>
                 </tr>
+                <tr>
+                    <th class="text-center">내용(영문)</th>
+                    <td>
+                        <div class="contents_list">
+                            <!-- Summernote Container -->
+                            <!--<div id="contents"></div>-->
+                            <textarea id="contents_en" name="contents_en"><%=contents_en%></textarea>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <th class="text-center">내용(중문)</th>
+                    <td>
+                        <div class="contents_list">
+                            <!-- Summernote Container -->
+                            <!--<div id="contents"></div>-->
+                            <textarea id="contents_cn" name="contents_cn"><%=contents_cn%></textarea>
+                        </div>
+                    </td>
+                </tr>
 
                 </tbody>
 
             </table>
         </div>
     </div>
-
+    </form>
     <div class="row">
         <div class="col-xs-6 push-20-t push-20">
             <button class="btn btn-sm btn-block btn-primary backBtn">이전</button>
         </div>
 
         <div class="col-xs-6 push-20-t push-20 text-right">
-            <button type="submit" class="btn btn-sm btn-block btn-danger">저장</button>
+            <button id="contentSave" type="submit" class="btn btn-sm btn-block btn-danger">저장</button>
         </div>
     </div>
-    </form>
+
 </div>
 
 <script src="/assets/js/plugins/summernote/summernote.min.js"></script>

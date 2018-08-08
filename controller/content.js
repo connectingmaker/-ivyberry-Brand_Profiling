@@ -67,7 +67,7 @@ router.get('/list', function(req, res, next) {
 
 router.get('/write', function(req, res) {
 
-    res.render('content/write', {title: 'Express',moment: moment,seq: "", subject: "", contents:"", insert_datetime: "", use_yn: ""});
+    res.render('content/write', {title: 'Express',moment: moment,seq: "", subject: "",subject_en: "",subject_cn: "", contents:"",contents_en:"",contents_cn:"", insert_datetime: "", use_yn: ""});
 
 });
 
@@ -76,12 +76,16 @@ router.get('/write/:code', function(req, res, next) {
 
     mcontent.get_content_select(seq, function(err, content_rows){
         var subject = content_rows[0].SUBJECT;
+        var subject_en = content_rows[0].SUBJECT_EN;
+        var subject_cn = content_rows[0].SUBJECT_CN;
         var contents = content_rows[0].CONTENTS;
+        var contents_en = content_rows[0].CONTENTS_EN;
+        var contents_cn = content_rows[0].CONTENTS_CN;
         var insert_datetime = content_rows[0].INSERT_DATETIME;
         var use_yn = content_rows[0].USE_YN;
         console.log(content_rows[0]);
 
-        res.render('content/write', { moment: moment, seq: seq, subject: subject, contents:contents, insert_datetime: insert_datetime, use_yn: use_yn});
+        res.render('content/write', { moment: moment, seq: seq, subject: subject,subject_en: subject_en,subject_cn: subject_cn, contents:contents,contents_en:contents_en,contents_cn:contents_cn, insert_datetime: insert_datetime, use_yn: use_yn});
     });
 
 
@@ -117,24 +121,27 @@ router.post("/contentDelete", function(req, res) {
 router.post('/writeProcess', function(req, res) {
     var seq = req.body.seq;
     var subject = req.body.subject;
+    var subject_en = req.body.subject_en;
+    var subject_cn = req.body.subject_cn;
     var contents = req.body.contents;
+    var contents_en = req.body.contents_en;
+    var contents_cn = req.body.contents_cn;
+
     var use_yn = req.body.use_yn;
 
-    console.log(contents);
+    // console.log(contents);
+    //
+    // console.log("user_yn");
+    // console.log(use_yn);
 
-    console.log("user_yn");
-    console.log(use_yn);
-
-    mcontent.sp_CONTENT_SAVE(seq, subject, contents,use_yn, function(err, rows) {
+    mcontent.sp_CONTENT_SAVE(seq, subject, subject_en,subject_cn,contents,contents_en,contents_cn,use_yn, function(err, rows) {
         if(err) {
             console.log(err);
         }
 
-
-        var objToJson = rows[0];
-        var dataJson = JSON.stringify(objToJson);
-        console.log(dataJson);
-        res.send(dataJson);
+        // var objToJson = rows[0];
+        // var dataJson = JSON.stringify(objToJson);
+        res.redirect("/content/list");
     });
 });
 
