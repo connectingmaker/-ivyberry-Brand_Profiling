@@ -284,5 +284,14 @@ var mapi = {
         connection.end();
         return data;
     }
+    ,sp_CONTENTS: function(callback) {
+        var connection = mysql_dbc.init();
+        var query = " call sp_CONTENTS() ";
+        var params = [];
+
+        var data = connection.query(query, params, callback);
+        connection.end();
+        return data;
+    }
 }
 module.exports = mapi;

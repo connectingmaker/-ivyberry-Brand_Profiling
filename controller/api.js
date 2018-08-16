@@ -635,4 +635,23 @@ router.get("/notice", function(req, res) {
     });
 });
 
+router.get("/contents", function(req, res) {
+    mapi.sp_CONTENTS(function(err, rows) {
+        if(err) {
+            console.log(err);
+        }
+
+        console.log(rows[0]);
+
+        var data = rows[0];
+        console.log(data);
+
+        var json = {
+            list: data
+        };
+
+        res.send(json);
+    });
+});
+
 module.exports = router;
