@@ -1,0 +1,41 @@
+<input type="hidden" id="campaign_code" value="<%=campaign_code%>">
+<input type="hidden" id="uid" value="<%=uid%>">
+<input type="hidden" id="sq_code" value="<%=sq_code%>">
+
+
+<div class="row" style="padding:10px 40px;">
+    <div clss="col-xs-12">
+        <div class="row titleBox2">
+
+            <div class="col-xs-12 text-center titleCountBg">
+                <h2> <span id="selectCnt" class="Textcolor">0</span></h2>
+                <small><span id="textselectCnt" class="Textcolor">0개 브랜드가 선택되었습니다</span></small>
+
+            </div>
+
+            <div class="col-xs-12 text-left titleSelectBg" style="font-size:1.2em; padding:10px 20px;">
+                <%=sq_data.SQ_TITLE%>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row push-20-t">
+    <div clss="col-xs-12" style="padding:10px 0px;">
+        <% for(var i = 0; i<sq_qa.length; i++) { %>
+        <div class="col-xs-12">
+            <input type='radio' id="qaData_<%=i%>" style="display:none;" class="qaData" value="<%=sq_qa[i].SQA_CODE%>">
+            <button class="qaList btn btn-white push-5-r push-10 btn-block btn-md" id="<%=i%>" name="qa[]" type="button">
+                <span class="pull-left"><img src="/img/survey/checkBox_icon_off.png">&nbsp;&nbsp;&nbsp;
+                    <%=sq_qa[i].SQA_TITLE%>
+                </span>
+            </button>
+        </div>
+        <% } %>
+
+    </div>
+    </div>
+</div>
+
+
+<script src="/view_js/survey/sq.js"></script>

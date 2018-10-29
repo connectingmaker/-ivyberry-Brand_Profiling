@@ -76,6 +76,17 @@ var mapi = {
         connection.end();
         return data;
     }
+    ,sp_API_CAMPAIGN_LIST_20181029: function(uid, callback) {
+        var connection = mysql_dbc.init();
+        var query = " call sp_API_CAMPAIGN_LIST_20181029(?) ";
+        var params = [];
+        params.push(uid);
+
+        var data = connection.query(query, params, callback);
+        connection.end();
+        return data;
+
+    }
     ,mycampaignList: function(uid, callback) {
         var connection = mysql_dbc.init();
         var query = " call sp_API_MY_CAMPAIGN_LIST(?) ";

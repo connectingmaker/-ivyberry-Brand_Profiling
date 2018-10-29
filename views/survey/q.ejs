@@ -1,0 +1,226 @@
+<input type="hidden" id="campaign_code" value="<%=campaign_code%>">
+<input type="hidden" id="uid" value="<%=uid%>">
+<input type="hidden" id="q_code" value="<%-q_data.Q_CODE%>">
+<input type="hidden" id="q_type" value="<%-q_data.Q_TYPE%>">
+<input type="hidden" id="q_min" value="<%-q_data.Q_CHECKED_MIN%>">
+<input type="hidden" id="q_max" value="<%-q_data.Q_CHECKED_MAX%>">
+
+
+<%=q_data.Q_TYPE%>
+
+<div class="row" style="padding:10px 40px;">
+    <div clss="col-xs-12">
+        <div class="row titleBox2">
+
+            <div class="col-xs-12 text-center titleCountBg">
+                <h2> <span id="selectCnt" class="Textcolor">0</span></h2>
+                <small><span id="textselectCnt" class="Textcolor">0개 브랜드가 선택되었습니다</span></small>
+
+            </div>
+
+            <div class="col-xs-12 text-left titleSelectBg" style="font-size:1.2em; padding:10px 20px;">
+                <%-q_data.Q_TITLE%>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row push-20-t">
+        <div clss="col-xs-12" style="padding:10px 0px;">
+
+            <% if(q_data.Q_TYPE == 1) { %>
+            <table border="0" width="100%" cellspacing="0" cellpadding="0">
+                <col width="50%">
+                <col width="50%">
+                <% for(var i = 0; i<qaImg.length; i++) { %>
+                <% if(i%2 == 0) { %>
+                <tr>
+                    <td class="imgBox_off imgBox" align="center" category_code="<%=qaImg[i].CATEGORY_CODE%>" qa_code="<%=qaImg[i].IMG_SEQ%>">
+                        <span class="imgBox_check"><img src="/img/survey/checkBox_icon_off.png"></span>
+                        <img src="<%-site_url%><%=qaImg[i].IMAGE_FILENAME%>" width="100%" align="center" style="padding-top:10px;">
+                    </td>
+                <% } %>
+                <% if(i%2 == 1) { %>
+                    <td class="imgBox_off imgBox" align="center" category_code="<%=qaImg[i].CATEGORY_CODE%>" qa_code="<%=qaImg[i].IMG_SEQ%>">
+                        <span class="imgBox_check"><img src="/img/survey/checkBox_icon_off.png"></span>
+                        <img src="<%-site_url%><%=qaImg[i].IMAGE_FILENAME%>" width="100%" align="center" style="padding-top:10px;">
+                    </td>
+                </tr>
+                <% } %>
+                <% } %>
+            </table>
+            <% } %>
+
+            <% if(q_data.Q_TYPE == 2) { %>
+                <div class="col-xs-12 text-center">
+                    <img src="<%-site_url%><%=qaImg[0].IMAGE_FILENAME%>" style="width:100%;">
+
+                    <div class="rating"></div>
+                    <input type="hidden" id="rating" class="rating_value" category_code="<%=qaImg[0].CATEGORY_CODE%>">
+
+                </div>
+            <% } %>
+
+            <% if(q_data.Q_TYPE == 3) { %>
+
+                <% for(var i = 0; i<qaImg.length; i++) { %>
+                    <div class="col-xs-12 text-center">
+                        <img src="<%-site_url%><%=qaImg[i].IMAGE_FILENAME%>" width="100%">
+                    </div>
+                <% } %>
+
+
+                <div class="row">
+                <div class="col-xs-12 text-center push-20-t">
+                    <% for(var i = 0; i<qa.length; i++) { %>
+                    <div class="col-xs-12">
+                        <input type='radio' id="qaData_<%=i%>" style="display:none;" class="qaData" category_code="">
+                        <button class="qaList btn btn-white push-5-r push-10 btn-block btn-md" id="<%=i%>" name="qa[]" type="button">
+                    <span class="pull-left"><img src="/img/survey/checkBox_icon_off.png">&nbsp;&nbsp;&nbsp;
+                        <%=qa[i].QA_TITLE%>
+                    </span>
+                        </button>
+                    </div>
+                    <% } %>
+
+                </div>
+                </div>
+
+            <% } %>
+
+
+            <% if(q_data.Q_TYPE == 4) { %>
+            <div class="col-xs-12 text-center">
+                <% for(var i = 0; i<qa.length; i++) { %>
+                <div class="col-xs-12">
+                    <input type='radio' id="qaData_<%=i%>" style="display:none;" class="qaData" category_code="">
+                    <button class="qaList btn btn-white push-5-r push-10 btn-block btn-md" id="<%=i%>" name="qa[]" type="button">
+                <span class="pull-left"><img src="/img/survey/checkBox_icon_off.png">&nbsp;&nbsp;&nbsp;
+                    <%=qa[i].QA_TITLE%>
+                </span>
+                    </button>
+                </div>
+                <% } %>
+
+            </div>
+            <% } %>
+
+            <% if(q_data.Q_TYPE == 5) { %>
+
+                <% for(var i = 0; i<qaImg_l.length; i++) { %>
+                <div class="col-xs-12 text-center">
+                    <img src="<%-site_url%><%=qaImg_l[i].IMAGE_FILENAME%>" width="100%">
+                </div>
+                <% } %>
+
+                <div class="col-xs-12 push-20-t">
+                    <table border="0" width="100%" cellspacing="0" cellpadding="0">
+                        <col width="50%">
+                        <col width="50%">
+
+                    <% for(var i = 0; i<qaImg_r.length; i++) { %>
+                    <% if(i%2 == 0) { %>
+                    <tr>
+                        <td class="imgBox_off imgBox" align="center" category_code="<%=qaImg_r[i].CATEGORY_CODE%>" qa_code="<%=qaImg_r[i].IMG_SEQ%>">
+                            <span class="imgBox_check"><img src="/img/survey/checkBox_icon_off.png"></span>
+                            <img src="<%-site_url%><%=qaImg_r[i].IMAGE_FILENAME%>" width="100%" align="center" style="padding-top:10px;">
+
+                        </td>
+                        <% } %>
+                        <% if(i%2 == 1) { %>
+                        <td class="imgBox_off imgBox" align="center" category_code="<%=qaImg_r[i].CATEGORY_CODE%>" qa_code="<%=qaImg_r[i].IMG_SEQ%>">
+                            <span class="imgBox_check"><img src="/img/survey/checkBox_icon_off.png"></span>
+                            <img src="<%-site_url%><%=qaImg_r[i].IMAGE_FILENAME%>" width="100%" align="center" style="padding-top:10px;">
+                        </td>
+                    </tr>
+                    <% } %>
+                    <% } %>
+                    </table>
+
+
+
+
+
+                </div>
+            <% } %>
+
+            <% if(q_data.Q_TYPE == 6) { %>
+            <table border="0" width="100%" cellspacing="0" cellpadding="0">
+                <col width="50%">
+                <col width="50%">
+                <% for(var i = 0; i<qaImg.length; i++) { %>
+                    <% if(i%2 == 0) { %>
+                    <tr>
+                        <td class="imgBox_off imgBox2" align="center" category_code="<%=qaImg[i].CATEGORY_CODE%>" qa_code="<%=qaImg[i].IMG_SEQ%>">
+                            <span class="imgBox_check"><img src="/img/survey/checkBox_icon_off.png"></span>
+                            <img src="<%-site_url%><%=qaImg[i].IMAGE_FILENAME%>" width="100%" align="center" style="padding-top:10px;">
+
+                        </td>
+                        <% } %>
+                        <% if(i%2 == 1) { %>
+                        <td class="imgBox_off imgBox2" align="center" category_code="<%=qaImg[i].CATEGORY_CODE%>" qa_code="<%=qaImg[i].IMG_SEQ%>">
+                            <span class="imgBox_check"><img src="/img/survey/checkBox_icon_off.png"></span>
+                            <img src="<%-site_url%><%=qaImg[i].IMAGE_FILENAME%>" width="100%" align="center" style="padding-top:10px;">
+                        </td>
+                    </tr>
+                    <% } %>
+
+
+
+
+
+                <% } %>
+
+
+                <% for(var i = 0; i<qaImg.length; i++) { %>
+                <% if(i%2 == 0) { %>
+                <tr>
+                    <td>
+                        <textarea id="text_<%=qaImg[i].IMG_SEQ%>_<%=qaImg[i].CATEGORY_CODE%>" class="form-control textarea" disabled></textarea>
+                    </td>
+                    <% } %>
+                    <% if(i%2 == 1) { %>
+                    <td>
+                        <textarea id="text_<%=qaImg[i].IMG_SEQ%>_<%=qaImg[i].CATEGORY_CODE%>" class="form-control" disabled></textarea>
+                    </td>
+                </tr>
+                <% } %>
+                <% } %>
+
+
+            </table>
+            <% } %>
+
+
+            <% if(q_data.Q_TYPE == 9) { %>
+            <div class="col-xs-12">
+                <%=q_data.CONTENTS%>
+            </div>
+            <% } %>
+
+        </div>
+    </div>
+</div>
+
+
+<script src="/view_js/survey/q.js"></script>
+<script>
+    $(".rating").rate({
+        length: 5,
+        value: 0,
+        readonly: false,
+        size: '48px',
+        selectClass: 'fxss_rate_select',
+        customClass: 'custom_class',
+        text: false,
+        callback: function(object){
+
+            var value = object.index + 1;
+
+
+            $("#rating").val(value);
+
+
+        }
+    });
+</script>

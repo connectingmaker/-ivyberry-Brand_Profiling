@@ -4,8 +4,6 @@
 var mysql_dbc = require('../module/db_con')();
 
 
-
-
 var mcampaign = {
     /**** 관리자 로그인 조회 ********/
     sp_CAMPAIGN_SAVE: function(campaign_code, campaign_title, campaign_desc, campaign_startdate, campaign_enddate, category_code, callback) {
@@ -23,6 +21,8 @@ var mcampaign = {
         connection.end();
         return data;
     }
+
+
     ,sp_CAMPAIGN_SAVE_20180618: function(campaign_code, campaign_title, campaign_title_en, campaign_title_cn, campaign_desc, campaign_desc_en, campaign_desc_cn, campaign_startdate, campaign_enddate, category_code, callback) {
         var connection = mysql_dbc.init();
         var query = " call sp_CAMPAIGN_SAVE_20180618(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -42,6 +42,7 @@ var mcampaign = {
         connection.end();
         return data;
     }
+
     ,sp_CAMPAIGN_COPY: function(campaign_code, callback) {
         var connection = mysql_dbc.init();
         var query = " call sp_CAMPAIGN_COPY(?)";
@@ -138,7 +139,7 @@ var mcampaign = {
                 query += " AND C.CAMPAIGN_TITLE LIKE '%" + searchName + "%' ";
             }
 
-            query += " AND C.CATEGORY_CODE NOT IN('A000', 'B000') ";
+            query += " AND C.CATEGORY_CODE NOT IN('B000') ";
 
             if(sorting == "") {
                 query += " ORDER BY C.INSERT_DATETIME DESC LIMIT "+page+", 30 ";
@@ -165,6 +166,7 @@ var mcampaign = {
             }
 
             var params = [];
+            console.log(query);
             params.push();
 
             var data = connection.query(query, params, callback);
@@ -177,7 +179,7 @@ var mcampaign = {
             if(searchName != "") {
                 query += " AND C.CAMPAIGN_TITLE LIKE '%" + searchName + "%' ";
             }
-            query += " AND C.CATEGORY_CODE NOT IN('A000', 'B000') ";
+            query += " AND C.CATEGORY_CODE NOT IN('B000') ";
             //query += " ORDER BY C.INSERT_DATETIME DESC LIMIT "+page+", 30 ";
             if(sorting == "") {
                 query += " ORDER BY C.INSERT_DATETIME DESC LIMIT "+page+", 30 ";
@@ -683,6 +685,9 @@ var mcampaign = {
         connection.end();
         return data;
     }
+
+
+
 }
 
 module.exports = mcampaign;
