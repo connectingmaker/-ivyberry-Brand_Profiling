@@ -304,5 +304,15 @@ var mapi = {
         connection.end();
         return data;
     }
+    ,sp_CONTENTS_SUB: function(seq, callback) {
+        var connection = mysql_dbc.init();
+        var query = " call sp_CONTENTS_SUB(?) ";
+        var params = [];
+        params.push(seq);
+
+        var data = connection.query(query, params, callback);
+        connection.end();
+        return data;
+    }
 }
 module.exports = mapi;

@@ -641,10 +641,8 @@ router.get("/contents", function(req, res) {
             console.log(err);
         }
 
-        console.log(rows[0]);
 
         var data = rows[0];
-        console.log(data);
 
         var json = {
             list: data
@@ -652,6 +650,30 @@ router.get("/contents", function(req, res) {
 
         res.send(json);
     });
+});
+
+router.get("/contentsView/:seq", function(req, res) {
+    var seq = req.params.seq;
+    var lang = req.query.lang;
+    console.log(lang);
+
+
+    mapi.sp_CONTENTS_SUB(seq, function(err, rows) {
+        if(err) {
+            console.log(err);
+        };
+
+        var contents = rows[0][0];
+
+        //
+        res.render('content/contentsView', {
+            layout: 'layout/contents_layout',
+            "layout extractScripts": true,
+            contents : contents,
+            lang: lang
+        });
+
+    })
 });
 
 module.exports = router;
