@@ -233,7 +233,8 @@ router.post("/memberSelectBank", function(req, res) {
 router.get("/campaignList/:code", function(req, res) {
     var uid = req.params.code;
     //var uid = "20170926181112gz0317";
-    mapi.sp_API_CAMPAIGN_LIST_20181029(uid, function(err,rows) {
+    mapi.campaignList(uid, function(err, rows) {
+    // mapi.sp_API_CAMPAIGN_LIST_20181029(uid, function(err,rows) {
         if(err) {
             console.log(err);
             throw err;
