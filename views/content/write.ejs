@@ -2,7 +2,7 @@
 <div class="row">
 
 
-    <form id="contentsForm" name="contentsForm" method="post" action="/content/writeProcess">
+    <form id="contentsForm" name="contentsForm" method="post" enctype="multipart/form-data" action="/content/writeProcess">
     <input type="hidden" id="seq" name="seq" value="<%=seq%>">
     <div class="col-xs-12 bg-white box round_box">
         <div class="row">
@@ -41,6 +41,19 @@
                     <th class="text-center">제목(중문)</th>
                     <td>
                         <input id="subject_cn" type="text" name="subject_cn" class="form-control" value="<%=subject_cn%>">
+                    </td>
+                </tr>
+                <tr>
+                    <th class="text-center">제목 옆 이미지</th>
+                    <td>
+                        <div class="col-lg-10">
+                            <% if(seq != "") { %>
+                            <img src="/uploads/<%=filename%>">
+                            <input type="hidden" name="tempImg" value="<%=filename%>"">
+                            <% } %>
+                            <input type="file" class="file-input" name="title_img" data-show-caption="false" data-show-upload="false">
+
+                        </div>
                     </td>
                 </tr>
                 <tr>
