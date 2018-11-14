@@ -49,7 +49,7 @@
                         <div class="col-lg-10">
                             <% if(seq != "") { %>
                             <img src="/uploads/<%=filename%>">
-                            <input type="hidden" name="tempImg" value="<%=filename%>"">
+                            <input type="hidden" name="tempImg" value="<%=filename%>">
                             <% } %>
                             <input type="file" class="file-input" name="title_img" data-show-caption="false" data-show-upload="false">
 
@@ -57,11 +57,27 @@
                     </td>
                 </tr>
                 <tr>
+                    <th class="text-center">메인리스트 아래 내용</th>
+                    <td>
+                        <input id="main_contents" type="text" name="main_contents" class="form-control" value="<%=main_contents%>">
+                    </td>
+                </tr>
+                <tr>
+                    <th class="text-center">메인리스트 아래 내용(영문)</th>
+                    <td>
+                        <input id="main_contents_en" type="text" name="main_contents_en" class="form-control" value="<%=main_contents_en%>">
+                    </td>
+                </tr>
+                <tr>
+                    <th class="text-center">메인리스트 아래 내용(중문)</th>
+                    <td>
+                        <input id="main_contents_cn" type="text" name="main_contents_cn" class="form-control" value="<%=main_contents_cn%>">
+                    </td>
+                </tr>
+                <tr>
                     <th class="text-center">내용</th>
                     <td>
                         <div class="contents_list">
-                            <!-- Summernote Container -->
-                            <!--<div id="contents"></div>-->
                             <textarea id="contents" name="contents"><%=contents%></textarea>
                         </div>
                     </td>

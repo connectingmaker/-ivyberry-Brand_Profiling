@@ -92,7 +92,7 @@ router.get('/list', function(req, res, next) {
 
 router.get('/write', function(req, res) {
 
-    res.render('content/write', {title: 'Express',moment: moment,seq: "", subject: "",subject_en: "",subject_cn: "", contents:"",contents_en:"",contents_cn:"", insert_datetime: "", use_yn: ""});
+    res.render('content/write', {title: 'Express',moment: moment,seq: "", subject: "",subject_en: "",subject_cn: "", contents:"",contents_en:"",contents_cn:"", insert_datetime: "", filename:"",main_contents:"",main_contents_en:"",main_contents_cn:"",use_yn: ""});
 
 });
 
@@ -103,6 +103,9 @@ router.get('/write/:code', function(req, res, next) {
         var subject = content_rows[0].SUBJECT;
         var subject_en = content_rows[0].SUBJECT_EN;
         var subject_cn = content_rows[0].SUBJECT_CN;
+        var main_contents = content_rows[0].MAIN_CONTENTS;
+        var main_contents_en = content_rows[0].MAIN_CONTENTS_EN;
+        var main_contents_cn = content_rows[0].MAIN_CONTENTS_CN;
         var contents = content_rows[0].CONTENTS;
         var contents_en = content_rows[0].CONTENTS_EN;
         var contents_cn = content_rows[0].CONTENTS_CN;
@@ -111,7 +114,7 @@ router.get('/write/:code', function(req, res, next) {
         var use_yn = content_rows[0].USE_YN;
         console.log(content_rows[0]);
 
-        res.render('content/write', { moment: moment, seq: seq, subject: subject,subject_en: subject_en,subject_cn: subject_cn, contents:contents,contents_en:contents_en,contents_cn:contents_cn, insert_datetime: insert_datetime, filename: filename, use_yn: use_yn});
+        res.render('content/write', { moment: moment, seq: seq, subject: subject,subject_en: subject_en,subject_cn: subject_cn, contents:contents,contents_en:contents_en,contents_cn:contents_cn, insert_datetime: insert_datetime, filename: filename, main_contents: main_contents,  main_contents_en: main_contents_en, main_contents_cn: main_contents_cn,use_yn: use_yn});
     });
 
 
@@ -120,7 +123,7 @@ router.get('/write/:code', function(req, res, next) {
 
 router.post("/contentDelete", function(req, res) {
     var seq = req.body.seq;
-
+    console.log(seq);
     mcontent.delcontent(seq, function(err, rows) {
         if(err) {
             console.log(err);
@@ -143,6 +146,7 @@ router.post("/contentDelete", function(req, res) {
 
 
 });
+/*
 
 router.post('/writeProcess', function(req, res) {
     var seq = req.body.seq;
@@ -152,7 +156,9 @@ router.post('/writeProcess', function(req, res) {
     var contents = req.body.contents;
     var contents_en = req.body.contents_en;
     var contents_cn = req.body.contents_cn;
-
+    var main_contents = req.body.main_contents;
+    var main_contents_en = req.body.main_contents_en;
+    var main_contents_cn = req.body.main_contents_cn;
     var use_yn = req.body.use_yn;
     var tempImg = req.body.tempImg;
 
@@ -165,7 +171,7 @@ router.post('/writeProcess', function(req, res) {
     // console.log("user_yn");
     // console.log(use_yn);
 
-    mcontent.sp_CONTENT_SAVE(seq, subject, subject_en,subject_cn,fileimg,contents,contents_en,contents_cn,use_yn, function(err, rows) {
+    mcontent.sp_CONTENT_SAVE(seq, subject, subject_en,subject_cn,fileimg,main_contents,main_contents_en,main_contents_cn,contents,contents_en,contents_cn,use_yn, function(err, rows) {
         if(err) {
             console.log(err);
         }
@@ -175,6 +181,7 @@ router.post('/writeProcess', function(req, res) {
         res.redirect("/content/list");
     });
 });
+*/
 
 router.post('/writeProcess',upload.single('title_img'), function(req, res) {
     var seq = req.body.seq;
@@ -184,6 +191,9 @@ router.post('/writeProcess',upload.single('title_img'), function(req, res) {
     var contents = req.body.contents;
     var contents_en = req.body.contents_en;
     var contents_cn = req.body.contents_cn;
+    var main_contents = req.body.main_contents;
+    var main_contents_en = req.body.main_contents_en;
+    var main_contents_cn = req.body.main_contents_cn;
 
     var use_yn = req.body.use_yn;
     var tempImg = req.body.tempImg;
@@ -199,12 +209,10 @@ router.post('/writeProcess',upload.single('title_img'), function(req, res) {
     if(req.file.filename == "") {
         fileimg = tempImg;
     }
-    //
-    // console.log("user_yn");
-    // console.log(use_yn);
 
-    mcontent.sp_CONTENT_SAVE(seq, subject, subject_en,subject_cn,fileimg,contents,contents_en,contents_cn,use_yn, function(err, rows) {
+    mcontent.sp_CONTENT_SAVE(seq, subject, subject_en,subject_cn,fileimg,main_contents,main_contents_en,main_contents_cn,contents,contents_en,contents_cn,use_yn, function(err, rows) {
         if(err) {
+
             console.log(err);
         }
 

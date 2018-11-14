@@ -5,15 +5,18 @@
 var mysql_dbc = require('../module/db_con')();
 
 var mcontent = {
-    sp_CONTENT_SAVE: function(seq, subject, subject_en,subject_cn,fileimg,contents,contents_en,contents_cn, use_yn, callback) {
+    sp_CONTENT_SAVE: function(seq, subject, subject_en,subject_cn,fileimg,main_contents,main_contents_en,main_contents_cn,contents,contents_en,contents_cn, use_yn, callback) {
         var connection = mysql_dbc.init();
-        var query = " call sp_CONTENT_SAVE(?, ?,?, ?, ?, ?, ?, ?, ?)";
+        var query = " call sp_CONTENT_SAVE(?, ?,?, ?,?, ?, ?, ?, ?, ?, ?, ?)";
         var params = [];
         params.push(seq);
         params.push(subject);
         params.push(subject_en);
         params.push(subject_cn);
         params.push(fileimg);
+        params.push(main_contents);
+        params.push(main_contents_en);
+        params.push(main_contents_cn);
         params.push(contents);
         params.push(contents_en);
         params.push(contents_cn);
@@ -50,7 +53,7 @@ var mcontent = {
     }
     ,get_content_select: function(seq, callback) {
         var connection = mysql_dbc.init();
-        var query = " SELECT SEQ,SUBJECT,SUBJECT_EN,SUBJECT_CN,CONTENTS,CONTENTS_EN,CONTENTS_CN,USE_YN,FILEIMG,INSERT_DATETIME,CASE USE_YN WHEN 'N' THEN '미노출' WHEN 'Y' THEN '노출' END USE_YN_TEXT FROM CONTENT WHERE seq = ? ";
+        var query = " SELECT SEQ,SUBJECT,SUBJECT_EN,SUBJECT_CN,CONTENTS,CONTENTS_EN,CONTENTS_CN,USE_YN,FILEIMG, MAIN_CONTENTS,MAIN_CONTENTS_EN,MAIN_CONTENTS_CN,INSERT_DATETIME,CASE USE_YN WHEN 'N' THEN '미노출' WHEN 'Y' THEN '노출' END USE_YN_TEXT FROM CONTENT WHERE seq = ? ";
         var params = [];
         params.push(seq);
 

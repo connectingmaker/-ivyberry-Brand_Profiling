@@ -1,6 +1,14 @@
 <div class="row">
     <div class="col-xs-12 text-center" style="padding:10px; font-size:14px; background-color:#f1f1f1;">
-        <%=contents.SUBJECT%>
+        <% if(lang == "ko") { %>
+            <%=contents.SUBJECT%>
+        <% } %>
+        <% if(lang == "en") { %>
+        <%=contents.SUBJECT_EN%>
+        <% } %>
+        <% if(lang == "cn") { %>
+        <%=contents.SUBJECT_CN%>
+        <% } %>
     </div>
     <div class="col-xs-12" style="padding:10px 30px;">
         <% if(lang == "ko") { %>

@@ -37,6 +37,10 @@ $(function() {
             }
         });
 
+        if(inputTextCheck('title_img', '메인 이미지를 넣어주세요.') == false) {
+            return;
+        }
+
         $("#contentsForm").submit();
 
 
