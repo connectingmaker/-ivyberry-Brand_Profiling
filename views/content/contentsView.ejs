@@ -10,7 +10,7 @@
         <%=contents.SUBJECT_CN%>
         <% } %>
     </div>
-    <div class="col-xs-12" style="padding:10px 30px;">
+    <div class="col-xs-12" style="padding:10px 30px; max-width: 100%;">
         <% if(lang == "ko") { %>
             <%-contents.CONTENTS%>
         <% } %>
@@ -24,3 +24,13 @@
         <% } %>
     </div>
 </div>
+
+<script>
+    $(function() {
+
+        $("img").each(function() {
+            $(this).css({"width":"50%"});
+
+        });
+    })
+</script>
