@@ -6,15 +6,13 @@
 <input type="hidden" id="q_max" value="<%-q_data.Q_CHECKED_MAX%>">
 
 
-<%=q_data.Q_TYPE%>
-
 <div class="row" style="padding:10px 40px;">
     <div clss="col-xs-12">
         <div class="row titleBox2">
 
             <div class="col-xs-12 text-center titleCountBg">
-                <h2> <span id="selectCnt" class="Textcolor">0</span></h2>
-                <small><span id="textselectCnt" class="Textcolor">0개 브랜드가 선택되었습니다</span></small>
+                <h2> <span id="selectCnt" class="Textcolor">QUESTION</span></h2>
+                <small><span id="textselectCnt" class="Textcolor">아래 보기 중 선택해주세요.</span></small>
 
             </div>
 
@@ -37,17 +35,33 @@
                 <tr>
                     <td class="imgBox_off imgBox" align="center" category_code="<%=qaImg[i].CATEGORY_CODE%>" qa_code="<%=qaImg[i].IMG_SEQ%>">
                         <span class="imgBox_check"><img src="/img/survey/checkBox_icon_off.png"></span>
-                        <img src="<%-site_url%><%=qaImg[i].IMAGE_FILENAME%>" width="100%" align="center" style="padding-top:10px;">
+                        <!--<img src="<%-site_url%><%=qaImg[i].IMAGE_FILENAME%>" width="100%" align="center" style="padding-top:10px;">-->
+                        <div style="background: url(<%-site_url%><%=qaImg[i].IMAGE_FILENAME%>) no-repeat center center; -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover; height:350px;"></div>
                     </td>
                 <% } %>
                 <% if(i%2 == 1) { %>
                     <td class="imgBox_off imgBox" align="center" category_code="<%=qaImg[i].CATEGORY_CODE%>" qa_code="<%=qaImg[i].IMG_SEQ%>">
                         <span class="imgBox_check"><img src="/img/survey/checkBox_icon_off.png"></span>
-                        <img src="<%-site_url%><%=qaImg[i].IMAGE_FILENAME%>" width="100%" align="center" style="padding-top:10px;">
+                        <!--<img src="<%-site_url%><%=qaImg[i].IMAGE_FILENAME%>" width="100%" align="center" style="padding-top:10px;">-->
+                        <div style="background: url(<%-site_url%><%=qaImg[i].IMAGE_FILENAME%>) no-repeat center center; -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover; height:350px;"></div>
                     </td>
                 </tr>
                 <% } %>
                 <% } %>
+                <% if(q_data.QA_NO_ANSWER_CHECKED  == 'Y') { %>
+                <tr>
+                    <!--<div class="col-xs-12 noRadio" v-if="q_list[q_index].QA_NO_ANSWER_CHECKED == 'Y'">-->
+                        <!--<template v-if="q_list[q_index].NOTANSWER == '99'">-->
+                            <!--<a href="javascript:void(0)" v-on:click="notAnswer(q_index)" style="font-size:14px; color:red;">V 없음 / 잘 모르겠음</a>-->
+                        <!--</template>-->
+
+
+                        <!--<template v-else>-->
+                            <!--<a href="javascript:void(0)" v-on:click="notAnswer(q_index)" style="font-size:14px;">없음 / 잘 모르겠음</a>-->
+                        <!--</template>-->
+                    <!--</div>-->
+                   <td>없음/ 잘모르겠음</td>
+                </tr>
             </table>
             <% } %>
 
@@ -123,14 +137,15 @@
                     <tr>
                         <td class="imgBox_off imgBox" align="center" category_code="<%=qaImg_r[i].CATEGORY_CODE%>" qa_code="<%=qaImg_r[i].IMG_SEQ%>">
                             <span class="imgBox_check"><img src="/img/survey/checkBox_icon_off.png"></span>
-                            <img src="<%-site_url%><%=qaImg_r[i].IMAGE_FILENAME%>" width="100%" align="center" style="padding-top:10px;">
-
+                            <!--<img src="<%-site_url%><%=qaImg_r[i].IMAGE_FILENAME%>" width="100%" align="center" style="padding-top:10px;">-->
+                            <div style="background: url(<%-site_url%><%=qaImg[i].IMAGE_FILENAME%>) no-repeat center center; -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover; height:350px;"></div>
                         </td>
                         <% } %>
                         <% if(i%2 == 1) { %>
                         <td class="imgBox_off imgBox" align="center" category_code="<%=qaImg_r[i].CATEGORY_CODE%>" qa_code="<%=qaImg_r[i].IMG_SEQ%>">
                             <span class="imgBox_check"><img src="/img/survey/checkBox_icon_off.png"></span>
-                            <img src="<%-site_url%><%=qaImg_r[i].IMAGE_FILENAME%>" width="100%" align="center" style="padding-top:10px;">
+                            <!--<img src="<%-site_url%><%=qaImg_r[i].IMAGE_FILENAME%>" width="100%" align="center" style="padding-top:10px;">-->
+                            <div style="background: url(<%-site_url%><%=qaImg[i].IMAGE_FILENAME%>) no-repeat center center; -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover; height:350px;"></div>
                         </td>
                     </tr>
                     <% } %>
@@ -148,21 +163,27 @@
             <table border="0" width="100%" cellspacing="0" cellpadding="0">
                 <col width="50%">
                 <col width="50%">
+
                 <% for(var i = 0; i<qaImg.length; i++) { %>
+
                     <% if(i%2 == 0) { %>
                     <tr>
                         <td class="imgBox_off imgBox2" align="center" category_code="<%=qaImg[i].CATEGORY_CODE%>" qa_code="<%=qaImg[i].IMG_SEQ%>">
                             <span class="imgBox_check"><img src="/img/survey/checkBox_icon_off.png"></span>
-                            <img src="<%-site_url%><%=qaImg[i].IMAGE_FILENAME%>" width="100%" align="center" style="padding-top:10px;">
+                            <!--<img src="<%-site_url%><%=qaImg[i].IMAGE_FILENAME%>" width="100%" align="center" style="padding-top:10px;">-->
+                            <div style="background: url(<%-site_url%><%=qaImg[i].IMAGE_FILENAME%>) no-repeat center center; -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover; height:350px;"></div>
 
                         </td>
                         <% } %>
                         <% if(i%2 == 1) { %>
                         <td class="imgBox_off imgBox2" align="center" category_code="<%=qaImg[i].CATEGORY_CODE%>" qa_code="<%=qaImg[i].IMG_SEQ%>">
                             <span class="imgBox_check"><img src="/img/survey/checkBox_icon_off.png"></span>
-                            <img src="<%-site_url%><%=qaImg[i].IMAGE_FILENAME%>" width="100%" align="center" style="padding-top:10px;">
+                            <!--<img src="<%-site_url%><%=qaImg[i].IMAGE_FILENAME%>" width="100%" align="center" style="padding-top:10px;">-->
+                            <div style="background: url(<%-site_url%><%=qaImg[i].IMAGE_FILENAME%>) no-repeat center center; -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover; height:350px;"></div>
+
                         </td>
                     </tr>
+
                     <% } %>
 
 
