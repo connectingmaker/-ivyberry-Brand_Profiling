@@ -33,8 +33,22 @@ function submit() {
                 }
 
                 qaData.push(json);
+            } else {
+                if(q_min > qaData.length) {
+                    alert("최소 "+q_min+"개를 선택해주세요.");
+                    return;
+                }
+
+                if(q_max < qaData.length) {
+                    alert("최대 "+q_max+"개를 선택해주세요.");
+                    return;
+                }
+
             }
+
             break;
+
+
         case "2":
             var checked = 0;
             qaData = [];
@@ -54,7 +68,7 @@ function submit() {
             });
 
 
-            if(checked == 0) {
+            if(checked != $(".rating_value").length) {
                 alert("선택해주세요.");
                 return;
             }

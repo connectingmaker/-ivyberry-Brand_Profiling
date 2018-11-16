@@ -23,6 +23,7 @@
 
     </div>
 
+    <%-q_data.Q_TYPE%>
     <div class="row push-20-t">
         <div clss="col-xs-12" style="padding:10px 0px;">
 
@@ -74,13 +75,15 @@
             <% } %>
 
             <% if(q_data.Q_TYPE == 2) { %>
+            <% for(var i = 0; i<qaImg.length; i++) { %>
                 <div class="col-xs-12 text-center">
-                    <img src="<%-site_url%><%=qaImg[0].IMAGE_FILENAME%>" style="width:100%;">
+                    <img src="<%-site_url%><%=qaImg[i].IMAGE_FILENAME%>" style="width:100%;">
 
-                    <div class="rating"></div>
-                    <input type="hidden" id="rating" class="rating_value" category_code="<%=qaImg[0].CATEGORY_CODE%>">
+                    <div class="rating" id="rating_value_<%=qaImg[i].IMG_SEQ%>" style="padding:10px;"></div>
+                    <input type="hidden" id="rating_<%=qaImg[i].IMG_SEQ%>" class="rating_value" category_code="<%=qaImg[i].CATEGORY_CODE%>">
 
                 </div>
+            <% } %>
             <% } %>
 
             <% if(q_data.Q_TYPE == 3) { %>
@@ -181,20 +184,25 @@
                             <div style="background: url(<%-site_url%><%=qaImg[i].IMAGE_FILENAME%>) no-repeat center center; -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover; height:350px;"></div>
 
                         </td>
+                        <% if(i+1 <= qaImg.length -1) { %>
                         <td class="imgBox_off imgBox2" align="center" category_code="<%=qaImg[i+1].CATEGORY_CODE%>" qa_code="<%=qaImg[i+1].IMG_SEQ%>">
                             <span class="imgBox_check"><img src="/img/survey/checkBox_icon_off.png"></span>
                             <!--<img src="<%-site_url%><%=qaImg[i+1].IMAGE_FILENAME%>" width="100%" align="center" style="padding-top:10px;">-->
                             <div style="background: url(<%-site_url%><%=qaImg[i+1].IMAGE_FILENAME%>) no-repeat center center; -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover; height:350px;"></div>
 
                         </td>
+                        <% } %>
                     </tr>
                     <tr>
                         <td>
-                            <textarea id="text_<%=qaImg[i].IMG_SEQ%>_<%=qaImg[i+1].CATEGORY_CODE%>" class="form-control textarea" disabled></textarea>
+                            <textarea id="text_<%=qaImg[i].IMG_SEQ%>_<%=qaImg[i].CATEGORY_CODE%>" class="form-control textarea" disabled></textarea>
                         </td>
+                        <% if(i+1 <= qaImg.length-1) { %>
+
                         <td>
                             <textarea id="text_<%=qaImg[i+1].IMG_SEQ%>_<%=qaImg[i+1].CATEGORY_CODE%>" class="form-control" disabled></textarea>
                         </td>
+                        <% } %>
                     </tr>
 
 
@@ -235,9 +243,12 @@
         callback: function(object){
 
             var value = object.index + 1;
+            var id = object.id.replace("_value", "");
 
 
-            $("#rating").val(value);
+            $("#"+id).val(value);
+
+            // $("#rating").val(value);
 
 
         }
