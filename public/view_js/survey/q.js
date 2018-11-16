@@ -170,7 +170,7 @@ function submit() {
                 var json = {
                     category_code : category_code
                     ,qa_code : qa_code
-                    ,qa_text : $("text_"+qa_code+"_"+category_code).val()
+                    ,qa_text : $("#text_"+qa_code+"_"+category_code).val()
                 }
 
                 checked++;

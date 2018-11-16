@@ -38,13 +38,13 @@ router.get("/start", function(req, res) {
                 throw err;
             }
 
-            console.log("OK");
             var survey = rows[0];
             res.redirect("/survey/profile?campaign_code=" + campaign_code + "&uid=" + uid + "&quest_num=" + quest_num + "&seq=" + survey[0]._SEQ+"&step=1"+debugurl+"&lang="+lang);
         });
         //res.redirect("/survey/profile?campaign_code=" + campaign_code + "&uid=" + uid + "&quest_num=" + quest_num +"&step=1");
     } else {
 
+        console.log(uid);
         msurvey.sp_SURVEY_START_20181028(campaign_code, uid, quest_num, function (err, rows) {
             if (err) {
                 console.log(err);
@@ -53,6 +53,7 @@ router.get("/start", function(req, res) {
 
 
             var survey = rows[0];
+            console.log(survey);
             if(survey[0].CATEGORY_CODE == "A000") {
                 if(survey[0].SQ_CODE == 0 && survey[0].Q_CODE == 0) {
                     res.send("질문지가 생성되지 않았습니다.");

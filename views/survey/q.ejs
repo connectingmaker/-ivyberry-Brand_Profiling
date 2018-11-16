@@ -23,7 +23,6 @@
 
     </div>
 
-    <%-q_data.Q_TYPE%>
     <div class="row push-20-t">
         <div clss="col-xs-12" style="padding:10px 0px;">
 
@@ -34,14 +33,14 @@
                 <% for(var i = 0; i<qaImg.length; i++) { %>
                 <% if(i%2 == 0) { %>
                 <tr>
-                    <td class="imgBox_off imgBox" align="center" category_code="<%=qaImg[i].CATEGORY_CODE%>" qa_code="<%=qaImg[i].IMG_SEQ%>">
+                    <td class="imgBox_off imgBox" align="center" category_code="<%=qaImg[i].CODE_IMAGE_CATEGORY%>" qa_code="<%=qaImg[i].IMG_SEQ%>">
                         <span class="imgBox_check"><img src="/img/survey/checkBox_icon_off.png"></span>
                         <!--<img src="<%-site_url%><%=qaImg[i].IMAGE_FILENAME%>" width="100%" align="center" style="padding-top:10px;">-->
                         <div style="background: url(<%-site_url%><%=qaImg[i].IMAGE_FILENAME%>) no-repeat center center; -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover; height:350px;"></div>
                     </td>
                 <% } %>
                 <% if(i%2 == 1) { %>
-                    <td class="imgBox_off imgBox" align="center" category_code="<%=qaImg[i].CATEGORY_CODE%>" qa_code="<%=qaImg[i].IMG_SEQ%>">
+                    <td class="imgBox_off imgBox" align="center" category_code="<%=qaImg[i].CODE_IMAGE_CATEGORY%>" qa_code="<%=qaImg[i].IMG_SEQ%>">
                         <span class="imgBox_check"><img src="/img/survey/checkBox_icon_off.png"></span>
                         <!--<img src="<%-site_url%><%=qaImg[i].IMAGE_FILENAME%>" width="100%" align="center" style="padding-top:10px;">-->
                         <div style="background: url(<%-site_url%><%=qaImg[i].IMAGE_FILENAME%>) no-repeat center center; -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover; height:350px;"></div>
@@ -80,7 +79,7 @@
                     <img src="<%-site_url%><%=qaImg[i].IMAGE_FILENAME%>" style="width:100%;">
 
                     <div class="rating" id="rating_value_<%=qaImg[i].IMG_SEQ%>" style="padding:10px;"></div>
-                    <input type="hidden" id="rating_<%=qaImg[i].IMG_SEQ%>" class="rating_value" category_code="<%=qaImg[i].CATEGORY_CODE%>">
+                    <input type="hidden" id="rating_<%=qaImg[i].IMG_SEQ%>" class="rating_value" category_code="<%=qaImg[i].CODE_IMAGE_CATEGORY%>">
 
                 </div>
             <% } %>
@@ -143,23 +142,21 @@
                         <col width="50%">
                         <col width="50%">
 
-                    <% for(var i = 0; i<qaImg_r.length; i++) { %>
-                    <% if(i%2 == 0) { %>
+                    <% for(var i = 0; i<qaImg_r.length; i+=2) { %>
                     <tr>
-                        <td class="imgBox_off imgBox" align="center" category_code="<%=qaImg_r[i].CATEGORY_CODE%>" qa_code="<%=qaImg_r[i].IMG_SEQ%>">
+                        <td class="imgBox_off imgBox" align="center" category_code="<%=qaImg_r[i].CODE_IMAGE_CATEGORY%>" qa_code="<%=qaImg_r[i].IMG_SEQ%>">
                             <span class="imgBox_check"><img src="/img/survey/checkBox_icon_off.png"></span>
                             <!--<img src="<%-site_url%><%=qaImg_r[i].IMAGE_FILENAME%>" width="100%" align="center" style="padding-top:10px;">-->
-                            <div style="background: url(<%-site_url%><%=qaImg[i].IMAGE_FILENAME%>) no-repeat center center; -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover; height:350px;"></div>
+                            <div style="background: url(<%-site_url%><%=qaImg_r[i].IMAGE_FILENAME%>) no-repeat center center; -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover; height:350px;"></div>
+                        </td>
+                        <% if(i+1 <= qaImg_r.length -1) { %>
+                        <td class="imgBox_off imgBox" align="center" category_code="<%=qaImg_r[i+1].CODE_IMAGE_CATEGORY%>" qa_code="<%=qaImg_r[i+1].IMG_SEQ%>">
+                            <span class="imgBox_check"><img src="/img/survey/checkBox_icon_off.png"></span>
+                            <!--<img src="<%-site_url%><%=qaImg_r[i+1].IMAGE_FILENAME%>" width="100%" align="center" style="padding-top:10px;">-->
+                            <div style="background: url(<%-site_url%><%=qaImg_r[i+1].IMAGE_FILENAME%>) no-repeat center center; -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover; height:350px;"></div>
                         </td>
                         <% } %>
-                        <% if(i%2 == 1) { %>
-                        <td class="imgBox_off imgBox" align="center" category_code="<%=qaImg_r[i].CATEGORY_CODE%>" qa_code="<%=qaImg_r[i].IMG_SEQ%>">
-                            <span class="imgBox_check"><img src="/img/survey/checkBox_icon_off.png"></span>
-                            <!--<img src="<%-site_url%><%=qaImg_r[i].IMAGE_FILENAME%>" width="100%" align="center" style="padding-top:10px;">-->
-                            <div style="background: url(<%-site_url%><%=qaImg[i].IMAGE_FILENAME%>) no-repeat center center; -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover; height:350px;"></div>
-                        </td>
                     </tr>
-                    <% } %>
                     <% } %>
                     </table>
 
@@ -178,14 +175,14 @@
                 <% for(var i = 0; i<qaImg.length; i+=2) { %>
 
                     <tr>
-                        <td class="imgBox_off imgBox2" align="center" category_code="<%=qaImg[i].CATEGORY_CODE%>" qa_code="<%=qaImg[i].IMG_SEQ%>">
+                        <td class="imgBox_off imgBox2" align="center" category_code="<%=qaImg[i].CODE_IMAGE_CATEGORY%>" qa_code="<%=qaImg[i].IMG_SEQ%>">
                             <span class="imgBox_check"><img src="/img/survey/checkBox_icon_off.png"></span>
                             <!--<img src="<%-site_url%><%=qaImg[i].IMAGE_FILENAME%>" width="100%" align="center" style="padding-top:10px;">-->
                             <div style="background: url(<%-site_url%><%=qaImg[i].IMAGE_FILENAME%>) no-repeat center center; -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover; height:350px;"></div>
 
                         </td>
                         <% if(i+1 <= qaImg.length -1) { %>
-                        <td class="imgBox_off imgBox2" align="center" category_code="<%=qaImg[i+1].CATEGORY_CODE%>" qa_code="<%=qaImg[i+1].IMG_SEQ%>">
+                        <td class="imgBox_off imgBox2" align="center" category_code="<%=qaImg[i+1].CODE_IMAGE_CATEGORY%>" qa_code="<%=qaImg[i+1].IMG_SEQ%>">
                             <span class="imgBox_check"><img src="/img/survey/checkBox_icon_off.png"></span>
                             <!--<img src="<%-site_url%><%=qaImg[i+1].IMAGE_FILENAME%>" width="100%" align="center" style="padding-top:10px;">-->
                             <div style="background: url(<%-site_url%><%=qaImg[i+1].IMAGE_FILENAME%>) no-repeat center center; -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover; height:350px;"></div>
@@ -195,12 +192,12 @@
                     </tr>
                     <tr>
                         <td>
-                            <textarea id="text_<%=qaImg[i].IMG_SEQ%>_<%=qaImg[i].CATEGORY_CODE%>" class="form-control textarea" disabled></textarea>
+                            <textarea id="text_<%=qaImg[i].IMG_SEQ%>_<%=qaImg[i].CODE_IMAGE_CATEGORY%>" class="form-control textarea" disabled></textarea>
                         </td>
                         <% if(i+1 <= qaImg.length-1) { %>
 
                         <td>
-                            <textarea id="text_<%=qaImg[i+1].IMG_SEQ%>_<%=qaImg[i+1].CATEGORY_CODE%>" class="form-control" disabled></textarea>
+                            <textarea id="text_<%=qaImg[i+1].IMG_SEQ%>_<%=qaImg[i+1].CODE_IMAGE_CATEGORY%>" class="form-control textarea" disabled></textarea>
                         </td>
                         <% } %>
                     </tr>

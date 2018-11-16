@@ -20,6 +20,8 @@ var msurvey = {
         var query = " call sp_SURVEY_START_20181028(?, ?, ?) ";
         var params = [];
         params.push(campaign_code, uid, quest_num);
+        console.log(params);
+
 
         var data = connection.query(query, params, callback);
         connection.end();
