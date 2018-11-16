@@ -24,6 +24,16 @@ function submit() {
                 qaData.push(json);
 
             });
+
+            if($("#NotQuestion").is(":checked") == true) {
+                var json = {
+                    category_code : ""
+                    ,qa_code : "99"
+                    ,qa_text : ""
+                }
+
+                qaData.push(json);
+            }
             break;
         case "2":
             var checked = 0;
@@ -257,6 +267,9 @@ $(function() {
 
         }
 
+
+
+
     });
 
 
@@ -293,6 +306,16 @@ $(function() {
         }
 
         $("body").focus();
+
+
+        if($("#NotQuestion").html() != undefined) {
+            $("#NotQuestion").prop("checked", "");
+
+
+            $("#NotQuestionBtn").removeClass("btn-danger");
+            $("#NotQuestionBtn").addClass("btn-white");
+
+        }
 
     });
 
@@ -336,6 +359,88 @@ $(function() {
 
         $("body").focus();
 
+        if($("#NotQuestion").html() != undefined) {
+            $("#NotQuestion").prop("checked", "");
+
+
+            $("#NotQuestionBtn").removeClass("btn-danger");
+            $("#NotQuestionBtn").addClass("btn-white");
+
+        }
+        if($("#NotQuestion").html() != undefined) {
+            $("#NotQuestion").prop("checked", "");
+
+
+            $("#NotQuestionBtn").removeClass("btn-danger");
+            $("#NotQuestionBtn").addClass("btn-white");
+
+        }
+
+
+    });
+
+
+    $(".NotQuestion").click(function() {
+
+
+
+
+        if($("#NotQuestion").is(":checked") == true) {
+            $("#NotQuestion").prop("checked", "");
+
+            $(this).removeClass("btn-danger");
+            $(this).addClass("btn-white");
+
+        } else {
+
+            $(".imgBox").each(function() {
+                var check = $(this).find(".imgBox_check img").attr("src");
+                var temp = check.replace("/img/survey/checkBox_icon_", "");
+                temp = temp.replace(".png", "");
+
+                var qa_code = $(this).attr("qa_code");
+                $(this).removeClass("imgBox_on");
+                $(this).addClass("imgBox_off");
+
+                $(this).addClass("imgBox_off");
+
+                check = check.replace("_on", "_off");
+                $(this).find(".imgBox_check img").attr("src", check);
+            });
+
+            $(".imgBox2").each(function() {
+                var check = $(this).find(".imgBox_check img").attr("src");
+                var temp = check.replace("/img/survey/checkBox_icon_", "");
+                temp = temp.replace(".png", "");
+
+
+
+                var qa_code = $(this).attr("qa_code");
+                var category_code = $(this).attr("category_code");
+                $(this).removeClass("imgBox_on");
+                $(this).addClass("imgBox_off");
+
+                $(this).addClass("imgBox_off");
+
+                check = check.replace("_on", "_off");
+                $(this).find(".imgBox_check img").attr("src", check);
+
+                $("#text_"+qa_code+"_"+category_code).attr("disabled", true);
+
+            });
+
+
+            if($("#NotQuestion").html() != undefined) {
+                $("#NotQuestion").prop("checked", "");
+
+
+                $("#NotQuestionBtn").removeClass("btn-danger");
+                $("#NotQuestionBtn").addClass("btn-white");
+
+            }
+
+
+        }
     });
 
 
