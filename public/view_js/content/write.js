@@ -27,6 +27,13 @@ $(function() {
             return;
         }
 
+
+        if($("#title_img").val() == false) {
+            $("#contentsForm").attr("action", "/content/writeProcess_single");
+        } else {
+            $("#contentsForm").attr("action", "/content/writeProcess");
+        }
+
         // if(inputTextCheck('contents', '내용을 입력해주세요.') == false) {
         //     return;
         // }
@@ -37,9 +44,7 @@ $(function() {
             }
         });
 
-        if(inputTextCheck('title_img', '메인 이미지를 넣어주세요.') == false) {
-            return;
-        }
+
 
         $("#contentsForm").submit();
 
@@ -68,4 +73,63 @@ $(function() {
     });
 
 
+    $('#fileupload_ko').fileupload({
+        url: "/content/imageUpdate",
+        type:"post",
+        dataType: 'json',
+        done: function (e, data) {
+
+
+            var html = $("#contents").code();
+
+            html += "<img src='"+data.result.img+"' width='100%'>";
+
+
+
+            $("#contents").code(html);
+        }
+    }).prop('disabled', !$.support.fileInput)
+        .parent().addClass($.support.fileInput ? undefined : 'disabled');
+
+
+    $('#fileupload_en').fileupload({
+        url: "/content/imageUpdate",
+        type:"post",
+        dataType: 'json',
+        done: function (e, data) {
+            var html = $("#contents_en").code();
+
+            html += "<img src='"+data.result.img+"' width='100%'>";
+
+
+
+            $("#contents_en").code(html);
+
+
+        }
+    }).prop('disabled', !$.support.fileInput)
+        .parent().addClass($.support.fileInput ? undefined : 'disabled');
+
+
+    $('#fileupload_cn').fileupload({
+        url: "/content/imageUpdate",
+        type:"post",
+        dataType: 'json',
+        done: function (e, data) {
+            var html = $("#contents_cn").code();
+
+            html += "<img src='"+data.result.img+"' width='100%'>";
+
+
+
+            $("#contents_cn").code(html);
+
+
+        }
+    }).prop('disabled', !$.support.fileInput)
+        .parent().addClass($.support.fileInput ? undefined : 'disabled');
+
+
+
 });
+

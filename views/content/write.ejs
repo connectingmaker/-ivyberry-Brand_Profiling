@@ -51,7 +51,7 @@
                             <img src="/uploads/<%=filename%>" style="width: 200px; height:200px;">
                             <input type="hidden" name="tempImg" value="<%=filename%>">
                             <% } %>
-                            <input type="file" class="file-input" name="title_img" data-show-caption="false" data-show-upload="false">
+                            <input type="file" class="file-input" name="title_img" id="title_img" data-show-caption="false" data-show-upload="false">
 
                         </div>
                     </td>
@@ -60,18 +60,24 @@
                     <th class="text-center">메인리스트 아래 내용</th>
                     <td>
                         <input id="main_contents" type="text" name="main_contents" class="form-control" value="<%=main_contents%>">
+
+
                     </td>
                 </tr>
                 <tr>
                     <th class="text-center">메인리스트 아래 내용(영문)</th>
                     <td>
                         <input id="main_contents_en" type="text" name="main_contents_en" class="form-control" value="<%=main_contents_en%>">
+
+
                     </td>
                 </tr>
                 <tr>
                     <th class="text-center">메인리스트 아래 내용(중문)</th>
                     <td>
                         <input id="main_contents_cn" type="text" name="main_contents_cn" class="form-control" value="<%=main_contents_cn%>">
+
+
                     </td>
                 </tr>
                 <tr>
@@ -79,6 +85,13 @@
                     <td>
                         <div class="contents_list">
                             <textarea id="contents" name="contents"><%=contents%></textarea>
+
+                            <span class="btn btn-default btn-sm fileinput-button">
+                                    <span>업로드하기 <span class="check">*</span></span>
+                                    <input id="fileupload_ko" type="file" name="qa_title_img_ko">
+
+                                </span>
+
                         </div>
                     </td>
                 </tr>
@@ -89,6 +102,13 @@
                             <!-- Summernote Container -->
                             <!--<div id="contents"></div>-->
                             <textarea id="contents_en" name="contents_en"><%=contents_en%></textarea>
+
+                            <!--<input id="fileupload_en" type="file" name="qa_title_img_en">-->
+                            <span class="btn btn-default btn-sm fileinput-button">
+                                    <span>업로드하기 <span class="check">*</span></span>
+                                    <input id="fileupload_en" type="file" name="qa_title_img_ko">
+
+                                </span>
                         </div>
                     </td>
                 </tr>
@@ -99,6 +119,13 @@
                             <!-- Summernote Container -->
                             <!--<div id="contents"></div>-->
                             <textarea id="contents_cn" name="contents_cn"><%=contents_cn%></textarea>
+                            <!--<input id="fileupload_cn" type="file" name="qa_title_img_cn">-->
+
+                            <span class="btn btn-default btn-sm fileinput-button">
+                                    <span>업로드하기 <span class="check">*</span></span>
+                                    <input id="fileupload_cn" type="file" name="qa_title_img_ko">
+
+                                </span>
                         </div>
                     </td>
                 </tr>
@@ -121,5 +148,9 @@
 
 </div>
 
+
+<script src="/js/jquery.ui.widget.js"></script>
+<script src="/js/jquery.iframe-transport.js"></script>
+<script src="/js/jquery.fileupload.js"></script>
 <script src="/assets/js/plugins/summernote/summernote.min.js"></script>
 <script language="javascript" src="/view_js/content/write.js"></script>

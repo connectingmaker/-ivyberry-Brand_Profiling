@@ -10,6 +10,7 @@ var moment = require('moment');
 var pagination = require('pagination');
 
 var mkdirp = require('mkdirp');
+var siteurl = require("../config/site_url");
 
 var multer = require('multer');//업로드를 위한 multer를 가져옴
 var storage = multer.diskStorage({
@@ -146,9 +147,8 @@ router.post("/contentDelete", function(req, res) {
 
 
 });
-/*
 
-router.post('/writeProcess', function(req, res) {
+router.post('/writeProcess_single', function(req, res) {
     var seq = req.body.seq;
     var subject = req.body.subject;
     var subject_en = req.body.subject_en;
@@ -181,7 +181,6 @@ router.post('/writeProcess', function(req, res) {
         res.redirect("/content/list");
     });
 });
-*/
 
 router.post('/writeProcess',upload.single('title_img'), function(req, res) {
     var seq = req.body.seq;
@@ -204,6 +203,7 @@ router.post('/writeProcess',upload.single('title_img'), function(req, res) {
     var day = d.getDay();
 
 
+
     var fileimg =  year + '/' + month + '/' + day + '/' +req.file.filename;
 
     if(req.file.filename == "") {
@@ -221,5 +221,62 @@ router.post('/writeProcess',upload.single('title_img'), function(req, res) {
         res.redirect("/content/list");
     });
 });
+
+
+router.post("/imageUpdate", upload.single('qa_title_img_ko'), function(req, res){
+    var d = new Date();
+    var year = d.getFullYear();
+    var month = d.getMonth();
+    var day = d.getDay();
+
+    console.log("qa_title_img_ko");
+
+
+
+    var json = {
+        img : siteurl.bp3 + "/uploads/" + year + '/' + month + '/' + day + '/' +req.file.filename
+    };
+
+
+    res.send(json);
+});
+
+router.post("/imageUpdate", upload.single('qa_title_img_en'), function(req, res){
+    var d = new Date();
+    var year = d.getFullYear();
+    var month = d.getMonth();
+    var day = d.getDay();
+
+    console.log("qa_title_img_en");
+
+
+
+    var json = {
+        img : siteurl.bp3 + "/uploads/" + year + '/' + month + '/' + day + '/' +req.file.filename
+    };
+
+
+    res.send(json);
+});
+
+router.post("/imageUpdate", upload.single('qa_title_img_cn'), function(req, res){
+    var d = new Date();
+    var year = d.getFullYear();
+    var month = d.getMonth();
+    var day = d.getDay();
+
+    console.log("qa_title_img_cn");
+
+
+
+    var json = {
+        img : siteurl.bp3 + "/uploads/" + year + '/' + month + '/' + day + '/' +req.file.filename
+    };
+
+
+    res.send(json);
+});
+
+
 
 module.exports = router;
