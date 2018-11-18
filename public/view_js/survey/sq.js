@@ -52,7 +52,7 @@ $(function() {
             switch(data.ERR_CODE) {
                 case "SC":
                     location.replace("/survey/img_surveyEnd?campaign_code="+$("#campaign_code").val()+"&uid="+$("#uid").val()+"&lang="+$("#lang").val());
-                    alert("스크린아웃");
+                    alert("죄송합니다. 이 설문에 맞는 대상이 아닙니다.\n다른 설문에 참여해주세요.");
                     break;
                 case "QN":
                     location.replace("/survey/q?campaign_code="+$("#campaign_code").val() + "&uid="+$("#uid").val()+"&q_code="+data.Q_CODE);

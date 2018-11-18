@@ -397,9 +397,8 @@ $(function() {
     $(".NotQuestion").click(function() {
 
 
-
-
         if($("#NotQuestion").is(":checked") == true) {
+            console.log("OK");
             $("#NotQuestion").prop("checked", "");
 
             $(this).removeClass("btn-danger");
@@ -445,11 +444,10 @@ $(function() {
 
 
             if($("#NotQuestion").html() != undefined) {
-                $("#NotQuestion").prop("checked", "");
+                $("#NotQuestion").prop("checked", true);
 
-
-                $("#NotQuestionBtn").removeClass("btn-danger");
-                $("#NotQuestionBtn").addClass("btn-white");
+                $("#NotQuestionBtn").removeClass("btn-default");
+                $("#NotQuestionBtn").addClass("btn-danger");
 
             }
 

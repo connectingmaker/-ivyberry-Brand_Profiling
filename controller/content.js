@@ -113,7 +113,6 @@ router.get('/write/:code', function(req, res, next) {
         var filename = content_rows[0].FILEIMG;
         var insert_datetime = content_rows[0].INSERT_DATETIME;
         var use_yn = content_rows[0].USE_YN;
-        console.log(content_rows[0]);
 
         res.render('content/write', { moment: moment, seq: seq, subject: subject,subject_en: subject_en,subject_cn: subject_cn, contents:contents,contents_en:contents_en,contents_cn:contents_cn, insert_datetime: insert_datetime, filename: filename, main_contents: main_contents,  main_contents_en: main_contents_en, main_contents_cn: main_contents_cn,use_yn: use_yn});
     });
@@ -148,7 +147,8 @@ router.post("/contentDelete", function(req, res) {
 
 });
 
-router.post('/writeProcess_single', function(req, res) {
+router.post('/writeProcess_single',upload.single('title_img'), function(req, res) {
+
     var seq = req.body.seq;
     var subject = req.body.subject;
     var subject_en = req.body.subject_en;
