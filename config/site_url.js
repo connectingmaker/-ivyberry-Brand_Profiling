@@ -2,6 +2,7 @@ module.exports = (function () {
 
     return {
         bp3: "http://bp3.brandprofiling.co.kr"
+        ,bp2:"http://bp2.brandprofiling.co.kr"
         // bp3: "http://127.0.0.1:3000"
     }
 

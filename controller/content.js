@@ -234,7 +234,7 @@ router.post("/imageUpdate", upload.single('qa_title_img_ko'), function(req, res)
 
 
     var json = {
-        img : siteurl.bp3 + "/uploads/" + year + '/' + month + '/' + day + '/' +req.file.filename
+        img : siteurl.bp2 + "/uploads/" + year + '/' + month + '/' + day + '/' +req.file.filename
     };
 
 
@@ -252,7 +252,7 @@ router.post("/imageUpdate", upload.single('qa_title_img_en'), function(req, res)
 
 
     var json = {
-        img : siteurl.bp3 + "/uploads/" + year + '/' + month + '/' + day + '/' +req.file.filename
+        img : siteurl.bp2 + "/uploads/" + year + '/' + month + '/' + day + '/' +req.file.filename
     };
 
 
@@ -270,7 +270,7 @@ router.post("/imageUpdate", upload.single('qa_title_img_cn'), function(req, res)
 
 
     var json = {
-        img : siteurl.bp3 + "/uploads/" + year + '/' + month + '/' + day + '/' +req.file.filename
+        img : siteurl.bp2 + "/uploads/" + year + '/' + month + '/' + day + '/' +req.file.filename
     };
 
 
