@@ -35,12 +35,15 @@ function submit() {
                 qaData.push(json);
             } else {
                 if(q_min > qaData.length) {
-                    alert("최소 "+q_min+"개를 선택해주세요.");
+                    // alert("최소 "+q_min+"개를 선택해주세요.");
+                    bootbox.alert("최소 "+q_min+"개를 선택해주세요.");
                     return;
                 }
 
                 if(q_max < qaData.length) {
-                    alert("최대 "+q_max+"개를 선택해주세요.");
+                    // alert("최대 "+q_max+"개를 선택해주세요.");
+                    bootbox.alert("최대 "+q_max+"개를 선택해주세요.");
+
                     return;
                 }
 
@@ -92,12 +95,16 @@ function submit() {
             });
 
             if(q_min > checked) {
-                alert("최소 "+q_min+"개를 선택해주세요.");
+                // alert("최소 "+q_min+"개를 선택해주세요.");
+                bootbox.alert("최소 "+q_min+"개를 선택해주세요.");
+
                 return;
             }
 
             if(q_max < checked) {
-                alert("최대 "+q_max+"개를 선택해주세요.");
+                // alert("최대 "+q_max+"개를 선택해주세요.");
+                bootbox.alert("최대 "+q_max+"개를 선택해주세요.");
+
                 return;
             }
 
@@ -121,12 +128,16 @@ function submit() {
             });
 
             if(q_min > checked) {
-                alert("최소 "+q_min+"개를 선택해주세요.");
+                // alert("최소 "+q_min+"개를 선택해주세요.");
+                bootbox.alert("최소 "+q_min+"개를 선택해주세요.");
+
                 return;
             }
 
             if(q_max < checked) {
-                alert("최대 "+q_max+"개를 선택해주세요.");
+                // alert("최대 "+q_max+"개를 선택해주세요.");
+                bootbox.alert("최대 "+q_max+"개를 선택해주세요.");
+
                 return;
             }
             break;
@@ -150,12 +161,15 @@ function submit() {
             });
 
             if(q_min > checked) {
-                alert("최소 "+q_min+"개를 선택해주세요.");
+                // alert("최소 "+q_min+"개를 선택해주세요.");
+                bootbox.alert("최소 "+q_min+"개를 선택해주세요.");
+
                 return;
             }
 
             if(q_max < checked) {
-                alert("최대 "+q_max+"개를 선택해주세요.");
+                // alert("최대 "+q_max+"개를 선택해주세요.");
+                bootbox.alert("최대 "+q_max+"개를 선택해주세요.");
                 return;
             }
             break;
@@ -192,18 +206,24 @@ function submit() {
             });
 
             if(q_min > checked) {
-                alert("최소 "+q_min+"개를 선택해주세요.");
+                // alert("최소 "+q_min+"개를 선택해주세요.");
+                bootbox.alert("최소 "+q_min+"개를 선택해주세요.");
+
                 return;
             }
 
             if(q_max < checked) {
-                alert("최대 "+q_max+"개를 선택해주세요.");
+                // alert("최대 "+q_max+"개를 선택해주세요.");
+                bootbox.alert("최대 "+q_max+"개를 선택해주세요.");
+
                 return;
             }
 
 
             if(checked_false == true) {
-                alert("내용을 입력해주세요.");
+                // alert("내용을 입력해주세요.");
+                bootbox.alert("내용을 입력해주세요.");
+
                 return;
             }
             break;
