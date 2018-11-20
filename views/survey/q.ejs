@@ -43,14 +43,14 @@
                 <% for(var i = 0; i<qaImg.length; i++) { %>
                 <% if(i%2 == 0) { %>
                 <tr>
-                    <td class="imgBox_off imgBox" align="center" category_code="<%=qaImg[i].CODE_IMAGE_CATEGORY%>" qa_code="<%=qaImg[i].IMG_SEQ%>">
+                    <td class="imgBox_off imgBox" align="center" category_code="<%=qaImg[i].CODE_IMAGE_CATEGORY%>" code_gubun="<%=qaImg[i].CODE_GUBUN%>" qa_code="<%=qaImg[i].IMG_SEQ%>">
                         <span class="imgBox_check"><img src="/img/survey/checkBox_icon_off.png"></span>
                         <!--<img src="<%-site_url%><%=qaImg[i].IMAGE_FILENAME%>" width="100%" align="center" style="padding-top:10px;">-->
                         <div style="background: url(<%-site_url%><%=qaImg[i].IMAGE_FILENAME%>) no-repeat center center; -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover; height:200px;"></div>
                     </td>
                 <% } %>
                 <% if(i%2 == 1) { %>
-                    <td class="imgBox_off imgBox" align="center" category_code="<%=qaImg[i].CODE_IMAGE_CATEGORY%>" qa_code="<%=qaImg[i].IMG_SEQ%>">
+                    <td class="imgBox_off imgBox" align="center" category_code="<%=qaImg[i].CODE_IMAGE_CATEGORY%>" code_gubun="<%=qaImg[i].CODE_GUBUN%>" qa_code="<%=qaImg[i].IMG_SEQ%>">
                         <span class="imgBox_check"><img src="/img/survey/checkBox_icon_off.png"></span>
                         <!--<img src="<%-site_url%><%=qaImg[i].IMAGE_FILENAME%>" width="100%" align="center" style="padding-top:10px;">-->
                         <div style="background: url(<%-site_url%><%=qaImg[i].IMAGE_FILENAME%>) no-repeat center center; -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover; height:200px;"></div>
@@ -154,13 +154,13 @@
 
                     <% for(var i = 0; i<qaImg_r.length; i+=2) { %>
                     <tr>
-                        <td class="imgBox_off imgBox" align="center" category_code="<%=qaImg_r[i].CODE_IMAGE_CATEGORY%>" qa_code="<%=qaImg_r[i].IMG_SEQ%>">
+                        <td class="imgBox_off imgBox" align="center" category_code="<%=qaImg_r[i].CODE_IMAGE_CATEGORY%>" code_gubun="<%=qaImg_r[i].CODE_GUBUN%>" qa_code="<%=qaImg_r[i].IMG_SEQ%>">
                             <span class="imgBox_check"><img src="/img/survey/checkBox_icon_off.png"></span>
                             <!--<img src="<%-site_url%><%=qaImg_r[i].IMAGE_FILENAME%>" width="100%" align="center" style="padding-top:10px;">-->
                             <div style="background: url(<%-site_url%><%=qaImg_r[i].IMAGE_FILENAME%>) no-repeat center center; -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover; height:200px;"></div>
                         </td>
                         <% if(i+1 <= qaImg_r.length -1) { %>
-                        <td class="imgBox_off imgBox" align="center" category_code="<%=qaImg_r[i+1].CODE_IMAGE_CATEGORY%>" qa_code="<%=qaImg_r[i+1].IMG_SEQ%>">
+                        <td class="imgBox_off imgBox" align="center" category_code="<%=qaImg_r[i+1].CODE_IMAGE_CATEGORY%>" code_gubun="<%=qaImg_r[i].CODE_GUBUN%>" qa_code="<%=qaImg_r[i+1].IMG_SEQ%>">
                             <span class="imgBox_check"><img src="/img/survey/checkBox_icon_off.png"></span>
                             <!--<img src="<%-site_url%><%=qaImg_r[i+1].IMAGE_FILENAME%>" width="100%" align="center" style="padding-top:10px;">-->
                             <div style="background: url(<%-site_url%><%=qaImg_r[i+1].IMAGE_FILENAME%>) no-repeat center center; -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover; height:200px;"></div>
@@ -185,14 +185,14 @@
                 <% for(var i = 0; i<qaImg.length; i+=2) { %>
 
                     <tr>
-                        <td class="imgBox_off imgBox2" align="center" category_code="<%=qaImg[i].CODE_IMAGE_CATEGORY%>" qa_code="<%=qaImg[i].IMG_SEQ%>">
+                        <td class="imgBox_off imgBox2" align="center" category_code="<%=qaImg[i].CODE_IMAGE_CATEGORY%>" code_gubun="<%=qaImg[i].CODE_GUBUN%>" qa_code="<%=qaImg[i].IMG_SEQ%>">
                             <span class="imgBox_check"><img src="/img/survey/checkBox_icon_off.png"></span>
                             <!--<img src="<%-site_url%><%=qaImg[i].IMAGE_FILENAME%>" width="100%" align="center" style="padding-top:10px;">-->
                             <div style="background: url(<%-site_url%><%=qaImg[i].IMAGE_FILENAME%>) no-repeat center center; -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover; height:200px;"></div>
 
                         </td>
                         <% if(i+1 <= qaImg.length -1) { %>
-                        <td class="imgBox_off imgBox2" align="center" category_code="<%=qaImg[i+1].CODE_IMAGE_CATEGORY%>" qa_code="<%=qaImg[i+1].IMG_SEQ%>">
+                        <td class="imgBox_off imgBox2" align="center" category_code="<%=qaImg[i+1].CODE_IMAGE_CATEGORY%>" code_gubun="<%=qaImg[i].CODE_GUBUN%>" qa_code="<%=qaImg[i+1].IMG_SEQ%>">
                             <span class="imgBox_check"><img src="/img/survey/checkBox_icon_off.png"></span>
                             <!--<img src="<%-site_url%><%=qaImg[i+1].IMAGE_FILENAME%>" width="100%" align="center" style="padding-top:10px;">-->
                             <div style="background: url(<%-site_url%><%=qaImg[i+1].IMAGE_FILENAME%>) no-repeat center center; -webkit-background-size: cover; -moz-background-size: cover; -o-background-size: cover; background-size: cover; height:200px;"></div>

@@ -20,7 +20,7 @@ var msurvey = {
         var query = " call sp_SURVEY_START_20181028(?, ?, ?) ";
         var params = [];
         params.push(campaign_code, uid, quest_num);
-        console.log(params);
+        // console.log(params);
 
 
         var data = connection.query(query, params, callback);
@@ -439,15 +439,30 @@ var msurvey = {
         connection.end();
         return data;
     }
+    ,sp_BP2_SURVEY_Q_DATA_DELETE: function(campaign_code, uid, q_code, callback) {
+        var connection = mysql_dbc.init();
+        var query = " CALL bp3.sp_BP2_SURVEY_Q_DATA_DELETE(?, ?, ?)";
+        var params = [];
+
+        params.push(campaign_code);
+        params.push(uid);
+        params.push(q_code);
+
+        var data = connection.query(query,params,callback);
+        connection.end();
+        return data;
+
+    }
     ,sp_BP2_SURVEY_NEXT_Q: function(campaign_code, uid, q_code, qaData, callback) {
         var connection = mysql_dbc.init();
-        var query = " CALL bp3.sp_BP2_SURVEY_NEXT_Q(?, ?, ?, ?, ?, ?)";
+        var query = " CALL bp3.sp_BP2_SURVEY_NEXT_Q(?, ?, ?, ?, ?, ?, ?)";
         var params = [];
         if(qaData.length == 0) {
             params = [];
             params.push(campaign_code);
             params.push(uid);
             params.push(q_code);
+            params.push("");
             params.push("");
             params.push("");
             params.push("");
@@ -467,6 +482,7 @@ var msurvey = {
                 params.push(qaData[i].qa_code);
                 params.push(qaData[i].qa_text);
                 params.push(qaData[i].category_code);
+                params.push(qaData[i].code_gubun);
 
                 console.log(params);
 

@@ -14,12 +14,14 @@ function submit() {
             $(".imgBox_on").each(function() {
                 var category_code = $(this).attr("category_code");
                 var qa_code = $(this).attr("qa_code");
-
+                var code_gubun = $(this).attr("code_gubun");
                 var json = {
                     category_code : category_code
+                    ,code_gubun : code_gubun
                     ,qa_code : qa_code
                     ,qa_text : ""
                 }
+
 
                 qaData.push(json);
 
@@ -28,6 +30,7 @@ function submit() {
             if($("#NotQuestion").is(":checked") == true) {
                 var json = {
                     category_code : ""
+                    ,code_gubun : ""
                     ,qa_code : "99"
                     ,qa_text : ""
                 }
@@ -57,11 +60,13 @@ function submit() {
             qaData = [];
             $(".rating_value").each(function() {
                 var category_code = $(this).attr("category_code");
+                var code_gubun = $(this).attr("code_gubun");
                 if($(this).val() != false) {
                     checked++;
 
                     var json = {
                         category_code : category_code
+                        ,code_gubun : code_gubun
                         ,qa_code : $(this).val()
                         ,qa_text : ""
                     }
@@ -86,6 +91,7 @@ function submit() {
 
                     var json = {
                         category_code : ""
+                        ,code_gubun : ""
                         ,qa_code : $(this).val()
                         ,qa_text : ""
                     }
@@ -119,6 +125,7 @@ function submit() {
 
                     var json = {
                         category_code : ""
+                        ,code_gubun : ""
                         ,qa_code : $(this).val()
                         ,qa_text : ""
                     }
@@ -148,9 +155,11 @@ function submit() {
             $(".imgBox_on").each(function() {
                 var category_code = $(this).attr("category_code");
                 var qa_code = $(this).attr("qa_code");
+                var code_gubun = $(this).attr("code_gubun");
 
                 var json = {
                     category_code : category_code
+                    ,code_gubun : code_gubun
                     ,qa_code : qa_code
                     ,qa_text : ""
                 }
@@ -180,9 +189,11 @@ function submit() {
             $(".imgBox_on").each(function() {
                 var category_code = $(this).attr("category_code");
                 var qa_code = $(this).attr("qa_code");
+                var code_gubun = $(this).attr("code_gubun");
 
                 var json = {
                     category_code : category_code
+                    ,code_gubun : code_gubun
                     ,qa_code : qa_code
                     ,qa_text : $("#text_"+qa_code+"_"+category_code).val()
                 }
@@ -240,6 +251,8 @@ function submit() {
         ,qaData : JSON.stringify(qaData)
     }
 
+
+
     common.ajax.type = "POST";
     common.ajax.send('/survey/qProcess', json);
     common.ajax.return = function(data) {
@@ -258,6 +271,9 @@ function submit() {
 }
 
 $(function() {
+    var width = Math.round(document.body.offsetWidth / 2);
+
+
     $(".nextStep").click(function() {
         submit();
     });

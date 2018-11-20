@@ -611,7 +611,6 @@ router.get("/surveyEnd", function(req, res) {
         }
 
 
-        console.log(json);
 
 
         res.render('survey/surveyEnd', {
@@ -746,14 +745,17 @@ router.post("/qProcess", function(req, res, next) {
     var qaData = JSON.parse(req.body.qaData);
 
 
-    msurvey.sp_BP2_SURVEY_NEXT_Q(campaign_code, uid, q_code, qaData, function(err, rows) {
-        if(err) {
-            console.log(err);
-        }
-        var data = rows[0][0];
-        console.log(data);
+    msurvey.sp_BP2_SURVEY_Q_DATA_DELETE(campaign_code, uid, q_code, function(err, rows) {
+        msurvey.sp_BP2_SURVEY_NEXT_Q(campaign_code, uid, q_code, qaData, function(err, rows) {
+            if(err) {
+                console.log(err);
+            }
+            var data = rows[0][0];
+            console.log(data);
 
-        res.json(data);
+            res.json(data);
+        });
+
     });
 });
 
