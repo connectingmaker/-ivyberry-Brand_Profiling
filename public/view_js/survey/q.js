@@ -273,6 +273,13 @@ function submit() {
 $(function() {
     var width = Math.round(document.body.offsetWidth / 2);
 
+    $(".imageView").css({"height":width});
+
+    $( window ).resize(function() {
+        var width = Math.round(document.body.offsetWidth / 2);
+
+        $(".imageView").css({"height":width});
+    });
 
     $(".nextStep").click(function() {
         submit();
