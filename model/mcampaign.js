@@ -271,6 +271,23 @@ var mcampaign = {
         return data;
 
     }
+    ,testReset: function(campaign_code, callback) {
+        var connection = mysql_dbc.init();
+        var query = " DELETE FROM bp3.BP3_SURVEY_DATA_Q WHERE UID ='99999999999999999001' AND CAMPAIGN_CODE = ? ;";
+            query += " DELETE FROM bp3.BP3_SURVEY_DATA_SQ WHERE UID ='99999999999999999001' AND CAMPAIGN_CODE = ? ;";
+            query += " DELETE FROM bp3.BP3_SURVEY_DATA WHERE UID ='99999999999999999001' AND CAMPAIGN_CODE = ? ;";
+
+        //console.log(query);
+        var params = [];
+        params.push(campaign_code);
+        params.push(campaign_code);
+        params.push(campaign_code);
+
+        var data = connection.query(query,params,callback);
+        connection.end();
+        return data;
+    }
+
     ,get_campaign_select: function(campaign_code, callback) {
         var connection = mysql_dbc.init();
         var query = " SELECT CAMPAIGN_CODE, CAMPAIGN_TITLE, CAMPAIGN_TITLE_EN, CAMPAIGN_TITLE_CN, CAMPAIGN_DESC, CAMPAIGN_DESC_EN, CAMPAIGN_DESC_CN, CATEGORY_CODE, FROM_UNIXTIME(CAMPAIGN_STARTDATE) AS CAMPAIGN_STARTDATE, FROM_UNIXTIME(CAMPAIGN_ENDDATE) AS CAMPAIGN_ENDDATE, CAMPAIGN_ING, VIRTUAL_YN, JOIN_CNT, POINT_LIMIT, INSERT_DATETIME, MODIFY_DATETIME, BRAND_SKIP FROM CAMPAIGN WHERE CAMPAIGN_CODE = ? ";

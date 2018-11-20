@@ -635,6 +635,23 @@ router.post("/campaignHidden", function(req, res) {
 
 });
 
+
+router.post("/testreset", function(req, res) {
+    var campaign_code = req.body.campaign_code;
+    console.log(campaign_code);
+
+    mcampaign.testReset(campaign_code, function(err, rows) {
+
+        var jsonData = {
+            campaign_code : campaign_code
+        };
+
+        res.send(jsonData);
+    });
+
+
+});
+
 router.get("/joinUser/:campaign_code/:quest_num", function(req, res) {
     var campaign_code = req.params.campaign_code;
     var quest_num = req.params.quest_num;
