@@ -56,6 +56,18 @@
 <script src="/js/bootbox.min.js"></script>
 <%- script %>
 
+<script>
+    $(function() {
+        var lang = $("#lang").val();
 
+        if(lang == "en") {
+            $(".nextStep").html("Next");
+        } else if(lang == "zh") {
+            $(".nextStep").html("下一页");
+        } else {
+            $(".nextStep").html("다음단계");
+        }
+    });
+</script>
 
 </html>
