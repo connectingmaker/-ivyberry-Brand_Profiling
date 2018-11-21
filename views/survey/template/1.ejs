@@ -15,7 +15,7 @@
 <input type="hidden" id="page" value="<%=page%>">
 <input type="hidden" id="brandCnt" value="<%=brandList.length%>">
 <input type="hidden" id="debug" value="<%=debug%>">
-<input type="text" id="lang" value="<%=lang%>">
+<input type="hidden" id="lang" value="<%=lang%>">
 <div class="row" style="padding:10px 40px;">
     <div clss="col-xs-12">
         <div class="row titleBox2">
@@ -25,9 +25,9 @@
 
                 <small>
                     <% if(lang == "en") { %>
-                    <span id="textselectCnt" class="Textcolor">0개가 선택되었습니다</span>
+                    <span id="textselectCnt" class="Textcolor">0 are selected. </span>
                     <% } else if(lang == "zh") { %>
-                    <span id="textselectCnt" class="Textcolor">0개가 선택되었습니다</span>
+                    <span id="textselectCnt" class="Textcolor">已选择0个</span>
                     <% } else { %>
                     <span id="textselectCnt" class="Textcolor">0개가 선택되었습니다</span>
                     <% } %>

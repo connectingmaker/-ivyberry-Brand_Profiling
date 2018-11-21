@@ -24,13 +24,22 @@
             <div class="col-xs-12 text-center titleCountBg">
                 <h2> <span id="selectCnt" class="Textcolor">0</span> / <%=brandList.length%></h2>
 
-                <small style="font-size:1.2em;"><span id="textselectCnt" class="Textcolor">0개가 선택되었습니다</span></small>
+                <small>
+                    <% if(lang == "en") { %>
+                    <span id="textselectCnt" class="Textcolor">0 are selected. </span>
+                    <% } else if(lang == "zh") { %>
+                    <span id="textselectCnt" class="Textcolor">已选择0个</span>
+                    <% } else { %>
+                    <span id="textselectCnt" class="Textcolor">0개가 선택되었습니다</span>
+                    <% } %>
+
+                </small>
             </div>
 
             <div class="col-xs-12 text-center titleSelectBg" style="font-size:1.2em; padding:10px 20px;">
                 <% if(lang == "en") { %>
                 <%=surveyQ.Q_TITLE_EN%>
-                <% } else if(lang == "cn") { %>
+                <% } else if(lang == "zh") { %>
                 <%=surveyQ.Q_TITLE_CN%>
                 <% } else { %>
                 <%=surveyQ.Q_TITLE_KO%>
@@ -48,7 +57,7 @@
             <div class="col-xs-12 titleSelectBg" style="padding:10px;">
                 <% if(lang == "en") { %>
                 <%=brandList[brandNum].BRAND_NAME_EN%>
-                <% } else if(lang == "cn") { %>
+                <% } else if(lang == "zh") { %>
                 <%=brandList[brandNum].BRAND_NAME_CN%>
                 <% } else { %>
                 <%=brandList[brandNum].BRAND_NAME_KO%>

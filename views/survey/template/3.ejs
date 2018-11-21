@@ -45,7 +45,7 @@
                             <b class="Textcolor">
                                 <% if(lang == "en") { %>
                                 <%=brandList[brandNum].BRAND_NAME_EN%>
-                                <% } else if(lang == "cn") { %>
+                                <% } else if(lang == "zh") { %>
                                 <%=brandList[brandNum].BRAND_NAME_CN%>
                                 <% } else { %>
                                 <%=brandList[brandNum].BRAND_NAME_KO%>
@@ -53,12 +53,20 @@
                                 - </b>
                                 <% if(lang == "en") { %>
                                 <%=surveyQ.Q_TITLE_EN%>
-                                <% } else if(lang == "cn") { %>
+                                <% } else if(lang == "zh") { %>
                                 <%=surveyQ.Q_TITLE_CN%>
                                 <% } else { %>
                                 <%=surveyQ.Q_TITLE_KO%>
                                 <% } %>
-                                 <span class="TextColor">(1개)</span>
+                                <% if(lang == "en") { %>
+                                     <span class="TextColor">(1 select)</span>
+                                <% } else if(lang == "zh") { %>
+                                     <span class="TextColor">(1)</span>
+
+                                <% } else { %>
+                                    <span class="TextColor">(1개)</span>
+                                <% } %>
+
                         </div>
                     </div>
 
@@ -108,7 +116,17 @@
                         </div>
 
                         <div class="col-xs-12 text-center titleSelectBg">
-                            <small>아래 이미지에서 연상되는 키워드를 1개~5개 적어 주세요</small>
+
+                            <small>
+                                <% if(lang == "en") { %>
+                                Please write 1 to 5 keywords that are reminiscent of the image below.
+                                <% } else if(lang == "zh") { %>
+                                请填写通过以下图像联想到的1到5个相关关键词
+
+                                <% } else { %>
+                                아래 이미지에서 연상되는 키워드를 1개~5개 적어 주세요.
+                                <% } %>
+                            </small>
                         </div>
                     </div>
 
@@ -126,7 +144,7 @@
                                 <td valign="top">
                                     <% for(var textNum = 0; textNum<parseInt(surveyQ.Q_TEXT_MAX); textNum++) { %>
                                     <div class="col-xs-12 push-10-t">
-                                        <input type="text" class="form-control imgText" placeholder="입력하기">
+                                        <input type="text" class="form-control imgText" placeholder="input text">
                                     </div>
                                     <% } %>
 

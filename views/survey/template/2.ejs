@@ -25,19 +25,35 @@
             <div class="col-xs-12 text-center titleCountBg">
                 <h2> <span id="selectCnt" class="Textcolor">0</span> / <%=brandList.length%></h2>
 
-                <small><span id="textselectCnt" class="Textcolor">0개가 선택되었습니다</span></small>
+                <small>
+                <% if(lang == "en") { %>
+                <span id="textselectCnt" class="Textcolor">0 are selected. </span>
+                <% } else if(lang == "zh") { %>
+                <span id="textselectCnt" class="Textcolor">已选择0个</span>
+                <% } else { %>
+                <span id="textselectCnt" class="Textcolor">0개가 선택되었습니다</span>
+                <% } %>
+
+                </small>
             </div>
 
             <div class="col-xs-12 text-center titleSelectBg" style="font-size:1.2em; padding:10px 20px;">
 
                 <% if(lang == "en") { %>
                 <%=surveyQ.Q_TITLE_EN%>
-                <% } else if(lang == "cn") { %>
+                <% } else if(lang == "zh") { %>
                 <%=surveyQ.Q_TITLE_CN%>
                 <% } else { %>
                 <%=surveyQ.Q_TITLE_KO%>
                 <% } %>
-                <br>아래 두개의 이미지중 어느쪽과 유사한지 응답해주세요.
+                <br>
+                <% if(lang == "en") { %>
+                     Please respond to which of the two images below is similar.
+                <% } else if(lang == "zh") { %>
+                  请回答以下两个图像中，更接近哪一个
+                <% } else { %>
+                    아래 두개의 이미지중 어느쪽과 유사한지 응답해주세요.
+                <% } %>
             </div>
             <div class="col-xs-12">
                 <table width="100%" border="0" cellpadding="0" cellspacing="0">
@@ -78,7 +94,7 @@
 
                     <% if(lang == "en") { %>
                     <%=brandList[brandNum].BRAND_NAME_EN%>
-                    <% } else if(lang == "cn") { %>
+                    <% } else if(lang == "zh") { %>
                     <%=brandList[brandNum].BRAND_NAME_CN%>
                     <% } else { %>
                     <%=brandList[brandNum].BRAND_NAME_KO%>
