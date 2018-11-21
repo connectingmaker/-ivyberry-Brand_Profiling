@@ -107,10 +107,23 @@
                 </div>
                 <div class="col-xs-3 text-right">
                     <div style="display:none;">
-                    <input type="radio" name="qa[<%=brandNum%>]" id="NotQuestion_<%=brandNum%>" brand_code="<%=brandList[brandNum].DETAIL_BRAND_CODE%>" class="qaData qaData_<%=brandNum%>" value="99"><span></span> 모르겠음
+                    <input type="radio" name="qa[<%=brandNum%>]" id="NotQuestion_<%=brandNum%>" brand_code="<%=brandList[brandNum].DETAIL_BRAND_CODE%>" class="qaData qaData_<%=brandNum%>" value="99"><span></span>
+                        <% if(lang == "en") { %>
+                        I do not know
+                        <% } else if(lang == "zh") { %>
+                        不了解
+                        <% } else { %>
+                        모르겠음
+                        <% } %>
                     </div>
                     <button id="NotQuestionBtn_<%=brandNum%>" class="btn btn-sm btn-default NotQuestion" brandNum="<%=brandNum%>">
+                        <% if(lang == "en") { %>
+                        I do not know
+                        <% } else if(lang == "zh") { %>
+                        不了解
+                        <% } else { %>
                         모르겠음
+                        <% } %>
                     </button>
                 </div>
 
