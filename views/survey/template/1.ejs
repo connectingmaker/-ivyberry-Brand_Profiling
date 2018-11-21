@@ -15,7 +15,7 @@
 <input type="hidden" id="page" value="<%=page%>">
 <input type="hidden" id="brandCnt" value="<%=brandList.length%>">
 <input type="hidden" id="debug" value="<%=debug%>">
-<input type="hidden" id="lang" value="<%=lang%>">
+<input type="text" id="lang" value="<%=lang%>">
 <div class="row" style="padding:10px 40px;">
     <div clss="col-xs-12">
         <div class="row titleBox2">
@@ -26,7 +26,7 @@
                 <small>
                     <% if(lang == "en") { %>
                     <span id="textselectCnt" class="Textcolor">0개가 선택되었습니다</span>
-                    <% } else if(lang == "cn") { %>
+                    <% } else if(lang == "zh") { %>
                     <span id="textselectCnt" class="Textcolor">0개가 선택되었습니다</span>
                     <% } else { %>
                     <span id="textselectCnt" class="Textcolor">0개가 선택되었습니다</span>
@@ -38,7 +38,7 @@
             <div class="col-xs-12 text-left titleSelectBg" style="padding:10px 20px;font-size:1.2em;">
                 <% if(lang == "en") { %>
                 <%=surveyQ.Q_TITLE_EN%>
-                <% } else if(lang == "cn") { %>
+                <% } else if(lang == "zh") { %>
                 <%=surveyQ.Q_TITLE_CN%>
                 <% } else { %>
                 <%=surveyQ.Q_TITLE_KO%>
@@ -61,7 +61,7 @@
                         <td class="Textcolor text-right" style="padding-top:10px; padding-bottom:20px;"><%=surveyQA[2].QA_TITLE_EN%></td>
 
                     </tr>
-                    <% } else if(lang == "cn") { %>
+                    <% } else if(lang == "zh") { %>
                     <tr>
                         <td class="Textcolor text-left" style="padding-top:10px; padding-bottom:20px;"><%=surveyQA[0].QA_TITLE_CN%></td>
 
@@ -96,7 +96,7 @@
                 <div class="col-xs-9">
                     <% if(lang == "en") { %>
                     <%=brandList[brandNum].BRAND_NAME_EN%>
-                    <% } else if(lang == "cn") { %>
+                    <% } else if(lang == "zh") { %>
                     <%=brandList[brandNum].BRAND_NAME_CN%>
                     <% } else { %>
                     <%=brandList[brandNum].BRAND_NAME_KO%>

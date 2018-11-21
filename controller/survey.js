@@ -14,7 +14,8 @@ router.get("/start", function(req, res) {
     var uid = req.query.uid;
     var debug = req.query.debug;
     var debugurl = "";
-    var lang = req.body.lang;
+    var lang = req.query.lang;
+
 
 
     if(lang == "" || lang == undefined) {
@@ -44,7 +45,6 @@ router.get("/start", function(req, res) {
         //res.redirect("/survey/profile?campaign_code=" + campaign_code + "&uid=" + uid + "&quest_num=" + quest_num +"&step=1");
     } else {
 
-        console.log(uid);
         msurvey.sp_SURVEY_START_20181028(campaign_code, uid, quest_num, function (err, rows) {
             if (err) {
                 console.log(err);
@@ -53,7 +53,6 @@ router.get("/start", function(req, res) {
 
 
             var survey = rows[0];
-            console.log(survey);
             if(survey[0].CATEGORY_CODE == "A000") {
                 if(survey[0].SQ_CODE == 0 && survey[0].Q_CODE == 0) {
                     res.send("질문지가 생성되지 않았습니다.");
@@ -422,7 +421,11 @@ router.get("/page", function(req, res) {
     var page = req.query["page"];
     var seq = req.query["seq"];
     var debug = req.query["debug"];
-    var lang = req.query["lang"];
+    var lang = req.query.lang;
+
+
+
+
 
     if(debug == undefined) {
         debug = "";
@@ -480,6 +483,7 @@ router.get("/page", function(req, res) {
 
 
 
+
                             res.render('survey/template/' + surveyQ.QUESTION_TYPE
                                 , {
                                     layout: 'layout/survey_page'
@@ -498,6 +502,8 @@ router.get("/page", function(req, res) {
 
                         });
                     } else {
+
+
 
                         msurvey.brandListSelect(uid, 1, campaign_code, function (err, rows) {
                             if(err) {
