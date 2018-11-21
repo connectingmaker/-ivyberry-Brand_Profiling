@@ -171,9 +171,6 @@
                     </table>
 
 
-
-
-
                 </div>
             <% } %>
 
@@ -220,7 +217,19 @@
                 <% } %>
 
 
+                <% if(q_data.QA_NO_ANSWER_CHECKED  == 'Y') { %>
+                <tr>
 
+                    <td q_code="" align="right" colspan="2">
+                        <div style="display:none;">
+                            <input type="radio" id="NotQuestion" class="qaData" value="99"><span></span> 모르겠음
+                        </div>
+                        <button id="NotQuestionBtn" class="btn btn-sm btn-default NotQuestion">
+                            모르겠음
+                        </button>
+                    </td>
+                </tr>
+                <% } %>
 
             </table>
             <% } %>

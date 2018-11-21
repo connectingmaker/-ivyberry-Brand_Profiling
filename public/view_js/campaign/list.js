@@ -26,6 +26,26 @@ $(function() {
         }
     });
 
+    $(document).on('click', '.resetBtn', function() {
+        if(confirm("해당 테스트를 초기화 하시겠습니까?") == true) {
+            var id = $(this).parents("tr").attr("id");
+            var params = {
+                campaign_code: id
+            };
+
+
+            common.ajax.send("/campaign/testreset", params);
+
+            common.ajax.return = function(data) {
+                location.reload();
+                alert("테스트가 초기화 되었습니다.");
+                return;
+
+            };
+
+        }
+    });
+
     $(document).on('click', '.hiddenBtn', function() {
         if(confirm("해당 설문을 정말로 숨기겠습니까?") == true) {
             var id = $(this).parents("tr").attr("id");
