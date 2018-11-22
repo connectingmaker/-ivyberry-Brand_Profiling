@@ -232,20 +232,46 @@ router.post("/memberSelectBank", function(req, res) {
 /****************** 캠페인리스트 ***************************/
 router.get("/campaignList/:code", function(req, res) {
     var uid = req.params.code;
-    //var uid = "20170926181112gz0317";
-    mapi.sp_API_CAMPAIGN_LIST_20181029(uid, function(err, rows) {
-    // mapi.sp_API_CAMPAIGN_LIST_20181029(uid, function(err,rows) {
-        if(err) {
-            console.log(err);
-            throw err;
+    var lang = req.query.lang;
 
+
+    if(lang == "ko") {
+        mapi.sp_API_CAMPAIGN_LIST_20181029(uid, function(err, rows) {
+            if(err) {
+                console.log(err);
+                throw err;
+
+            }
+            var objToJson = rows[0];
+            var dataJson = JSON.stringify(objToJson);
+            res.send(dataJson);
+
+        });
+    } else {
+        var area_code = "";
+        if(lang == "en") {
+            area_code = "131072";
         }
-        var objToJson = rows[0];
-        var dataJson = JSON.stringify(objToJson);
-        res.send(dataJson);
 
-    });
+        if(lang == "zh") {
+            area_code = "262144";
+        }
+        mapi.sp_API_CAMPAIGN_LIST_ENCN_20181029(uid, area_code,function(err, rows) {
+            if(err) {
+                console.log(err);
+                throw err;
+
+            }
+            var objToJson = rows[0];
+            var dataJson = JSON.stringify(objToJson);
+            res.send(dataJson);
+
+        });
+    }
+
 });
+
+
 
 router.get("/mycampaignList/:code", function(req, res) {
     var uid = req.params.code;
