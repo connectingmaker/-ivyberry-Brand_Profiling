@@ -1,0 +1,25 @@
+<input type="hidden" id="campaign_code" value="<%=campaign_code%>">
+<input type="hidden" id="total" value="<%=total%>">
+<div class="row" style="padding:10px 40px;">
+    <% for(var i = 0; i<q_list.length; i++) { %>
+    <% if(q_list[i].Q_TYPE != "9") { %>
+    <input type="hidden" class="q_code" value="<%=q_list[i].Q_CODE%>///<%=q_list[i].Q_TYPE%>">
+    <div clss="col-xs-12">
+        <div class="row titleBox2">
+
+            <div class="col-xs-12 text-left titleSelectBg" style="padding:10px 20px;">
+                <%=q_list[i].Q_TITLE%>
+            </div>
+        </div>
+    </div>
+
+    <div class="row push-10-t">
+        <div id="result<%=q_list[i].Q_CODE%>" clss="col-xs-12" style="padding:10px 0px;">
+
+        </div>
+    </div>
+    <% } %>
+    <% } %>
+</div>
+
+<script src="/view_js/survey/surveyResult.js"></script>

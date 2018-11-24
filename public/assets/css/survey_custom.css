@@ -205,6 +205,17 @@ button { box-shadow: 0px 0px 10px 1px #ccc; }
     cursor:pointer;
 }
 
+.img_background {
+    background:#000;
+    opacity: 0.5;
+}
+
+.per_class {
+    font-size:1.8em;
+    color:#fff;
+    width:100%;
+
+}
 /*
 .radio input[type="radio"] {
     display:none;
