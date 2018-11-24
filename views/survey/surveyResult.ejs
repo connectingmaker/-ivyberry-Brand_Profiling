@@ -21,5 +21,23 @@
     <% } %>
     <% } %>
 </div>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="btn btn-sm btn-danger btn-block" onclick="close()">닫기</div>
+    </div>
+</div>
+
+<script>
+    function close(){
+        var json = {
+            ERR_CODE : "000"
+            ,ERR_MSG : "END"
+            ,SURVEY_TYPE : "END"
+        }
+
+        postMessage(JSON.stringify(json), '*');
+
+    }
+</script>
 
 <script src="/view_js/survey/surveyResult.js"></script>
