@@ -234,6 +234,10 @@ router.get("/campaignList/:code", function(req, res) {
     var uid = req.params.code;
     var lang = req.query.lang;
 
+    if(lang == undefined || lang == "") {
+        lang = "ko";
+    }
+
 
     if(lang == "ko") {
         mapi.sp_API_CAMPAIGN_LIST_20181029(uid, function(err, rows) {

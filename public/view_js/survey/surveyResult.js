@@ -86,3 +86,14 @@ $(function() {
         }
     });
 });
+
+function ResultClose() {
+    // alert("OK");
+    var json = {
+        ERR_CODE: "000"
+        , ERR_MSG: "000"
+        , SURVEY_TYPE: "END"
+    }
+
+    window.postMessage(JSON.stringify(json), '*');
+}
