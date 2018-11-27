@@ -87,6 +87,26 @@ var msurveyresult = {
         //     callback(err, rows);
         // });
     }
+    ,sp_BP3_PROJECT_RESULT_QA_IMG_DATA_BP2: function(campaign_code, q_code, callback) {
+
+        var connection = mysql_dbc.init();
+        var query = " call bp3.sp_BP3_PROJECT_RESULT_QA_IMG_DATA_BP2(?, ?) ";
+        var params = [];
+        params.push(campaign_code);
+        params.push(q_code);
+
+        var data = connection.query(query, params, callback);
+        connection.end();
+        return data;
+
+        // var params = [];
+        // params.push(campaign_code);
+        // params.push(q_code);
+        //
+        // db.sp_resultArray("bp3.sp_BP3_PROJECT_RESULT_QA_IMG_DATA", params, function(err, rows) {
+        //     callback(err, rows);
+        // });
+    }
 
     ,sp_BP3_QUESTION_QA_IMG_LIST: function(campaign_code, q_code, left_right, callback) {
 

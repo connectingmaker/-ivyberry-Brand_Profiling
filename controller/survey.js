@@ -667,7 +667,7 @@ router.put("/surveyResult", function(req, res, next) {
     var q_type = req.body.q_type;
 
     if(q_type == 1 || q_type == 5 || q_type == 6) {
-        msurveyresult.sp_BP3_PROJECT_RESULT_QA_IMG_DATA(campaign_code, q_code, function(err, qa_data) {
+        msurveyresult.sp_BP3_PROJECT_RESULT_QA_IMG_DATA_BP2(campaign_code, q_code, function(err, qa_data) {
             var sub = qa_data[0];
             var json = {
                 q_code : q_code

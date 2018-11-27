@@ -21,9 +21,45 @@ $(function() {
                 case "1":
                 case "5":
                 case "6":
-                    html += "<table border='0' width='100%' cellpadding='0' cellspacing='0'>";
-                    html += "<col width='50%'>";
-                    html += "<col width='50%'>";
+                    html += "<div style='padding:0px 10px;'><table border='0' width='100%' cellpadding='0' cellspacing='0'>";
+                    html += "<col width='15%'>";
+                    html += "<col width='70%'>";
+                    html += "<col width='15%'>";
+                    html += "<thead>";
+                    html += "<tr>";
+                    html += "<th style='background-color:#fff;border-left:1px solid #ccc; border-bottom:1px solid #ccc;border-top:1px solid #ccc;padding:10px; color:#da4211; text-align:center;'>Rank</th>"
+                    html += "<th style='background-color:#fff;border-left:1px solid #ccc; border-bottom:1px solid #ccc;border-top:1px solid #ccc;padding:10px; color:#da4211; text-align:center;'>Image</th>"
+                    html += "<th style='background-color:#fff;border-left:1px solid #ccc; border-bottom:1px solid #ccc;border-top:1px solid #ccc;padding:10px; color:#da4211; text-align:center;border-right:1px solid #ccc;'>Data</th>"
+
+                    html += "</tr>";
+                    html += "</thead>";
+                    html += "<tbody>";
+                    for(var i = 0; i<data.sub.length; i++) {
+                        var num = i + 1;
+                        var value_total = (data.sub[i].TOTAL / total) * 100;
+                        html += "<tr>";
+                        html += "<td style='background-color:#fff;border-left:1px solid #ccc; border-bottom:1px solid #ccc;border-top:1px solid #ccc;padding:10px; font-size:18px; color:#da4211; text-align:center;font-style:italic;'>"+num+"</td>";
+                        html += "<td style='background-color:#fff;border-left:1px solid #ccc; border-bottom:1px solid #ccc;border-top:1px solid #ccc;padding:10px; font-size:18px; color:#da4211; text-align:center;'>";
+                        html += "<table>";
+                        html += "<tr>";
+                        html += "<td width='50'><img src='http://bp3.brandprofiling.co.kr"+data.sub[i].IMAGE_FILENAME+"' width='50'></td>";
+                        html += "<td style='font-size:14px; padding:0px 5px;' valign='middle' align='left'>"+data.sub[i].IMAGE_TITLE+"</td>"
+                        html += "</tr>";
+
+                        html += "<tr>";
+                        html += "<td colspan='2' style='font-size:11px; padding:5px 0px; color:#DA8028;' valign='middle' align='left'>"+data.sub[i].IMAGE_TAG+"</td>"
+                        html += "</tr>";
+                        html += "</table>";
+                        html += "</td>";
+                        html += "<td style='background-color:#fff;border-left:1px solid #ccc; border-bottom:1px solid #ccc;border-right:1px solid #ccc;border-top:1px solid #ccc;padding:10px; font-size:18px; color:#da4211; text-align:center;font-style:italic'>"+value_total+"%</td>";
+                        html += "</tr>";
+                    }
+                    html += "</tbody>";
+
+                    html += "</table></div>";
+
+                    $("#result"+data.q_code).html(html);
+                    /*
                     for(var i = 0; i<data.sub.length; i+=2) {
                         html += "<tr>";
                         html += "<td class='imgBox_off imgBox' align='center'>";
@@ -52,8 +88,17 @@ $(function() {
                         $("#"+id).html(per + "%");
 
                     });
+                    */
                     break;
                 case "2":
+                    html += "<div class='js-rating col-xs-12 text-center' data-score='"+data.sub[0].SCORE+"' data-star-on='fa fa-fw fa-2x fa-star text-warning' data-star-off='fa fa-fw fa-2x fa-star text-gray'></div>";
+                    html += "<div class='text-center' style='color:#da4211;font-size:18px;'>"+data.sub[0].SCORE+"</div>";
+
+                    $("#result"+data.q_code).html(html);
+
+
+                    jQuery(function(){ BaseCompRating.init(); });
+                    // <label class="font-18"><b>{{q_item.QA[0].SCORE}}</b></label><div class="js-rating col-xs-6 text-center" :data-score="q_item.QA[0].SCORE" data-star-on="fa fa-fw fa-2x fa-star text-warning" data-star-off="fa fa-fw fa-2x fa-star text-gray"></div>
                     break;
                 case "3":
                 case "4":
