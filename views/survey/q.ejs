@@ -275,5 +275,25 @@
             $(this).css({"width":"100%" ,"height": ""});
             $(this).attr("width", "100%");
         });
+
+        $(".textarea").focusin(function() {
+            var height = $("#main-container").height();
+            $("#main-container").css("height", height + 600);
+
+            var offset = $(this).offset();
+            $('html, body').animate({scrollTop : offset.top}, 200);
+
+
+        });
+
+        $(".textarea").focusout(function() {
+            var height = $("#main-container").height();
+            $("#main-container").css("height", height - 600);
+
+
+
+        });
     });
+
+
 </script>
