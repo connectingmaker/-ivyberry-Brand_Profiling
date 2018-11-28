@@ -272,11 +272,11 @@ function submit() {
     common.ajax.return = function(data) {
         switch(data.ERR_CODE) {
             case "F":
-                location.replace("/survey/surveyEnd?campaign_code="+$("#campaign_code").val()+"&uid="+$("#uid").val()+"&quest_num=1");
+                location.replace("/survey/surveyEnd?campaign_code="+$("#campaign_code").val()+"&uid="+$("#uid").val()+"&quest_num=1&lang="+$("#lang").val());
 
                 break;
             case "N":
-                location.replace("/survey/q?campaign_code="+$("#campaign_code").val() + "&uid="+$("#uid").val() + "&q_code="+data.Q_CODE);
+                location.replace("/survey/q?campaign_code="+$("#campaign_code").val() + "&uid="+$("#uid").val() + "&q_code="+data.Q_CODE+"&lang="+$("#lang").val());
                 break;
         }
     }

@@ -65,10 +65,10 @@ $(function() {
                     }
                     break;
                 case "QN":
-                    location.replace("/survey/q?campaign_code="+$("#campaign_code").val() + "&uid="+$("#uid").val()+"&q_code="+data.Q_CODE);
+                    location.replace("/survey/q?campaign_code="+$("#campaign_code").val() + "&uid="+$("#uid").val()+"&q_code="+data.Q_CODE+"&lang="+$("#lang").val());
                     break;
                 case "SQN":
-                    location.replace("/survey/sq?campaign_code="+$("#campaign_code").val() + "&uid="+$("#uid").val()+"&sq_code="+data.SC_CODE);
+                    location.replace("/survey/sq?campaign_code="+$("#campaign_code").val() + "&uid="+$("#uid").val()+"&sq_code="+data.SC_CODE+"&lang="+$("#lang").val());
                     break;
                 default:
 

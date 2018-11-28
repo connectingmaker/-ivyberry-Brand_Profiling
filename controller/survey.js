@@ -723,6 +723,7 @@ router.get("/sq", function(req, res, next) {
     var campaign_code = req.query.campaign_code;
     var uid = req.query.uid;
     var sq_code = req.query.sq_code;
+    var lang = req.query.lang;
 
 
 
@@ -730,9 +731,11 @@ router.get("/sq", function(req, res, next) {
     msurvey.sp_BP3_SQ_QUESTION_Q_SELECT(campaign_code, sq_code, function(err, sq_data) {
         var sq_data_data = sq_data[0][0];
         msurvey.sp_BP3_SQ_QUESTION_QA_LIST(campaign_code, sq_code, function(err, rows) {
+            console.log(rows);
             res.render('survey/sq', {
                 layout: 'layout/survey_page',
                 "layout extractScripts": true,
+                "lang" : lang,
                 "uid": uid,
                 "campaign_code": campaign_code,
                 "sq_code" : sq_code,
@@ -772,10 +775,12 @@ router.get("/q", function(req, res, next) {
     var campaign_code = req.query.campaign_code;
     var q_code = req.query.q_code;
     var uid = req.query.uid;
+    var lang = req.query.lang;
 
     msurvey.sp_BP3_SURVEY_Q_SELECT(campaign_code, q_code, function(err, rows) {
 
         var q_data = rows[0][0];
+        console.log(q_data);
         msurvey.sp_BP3_SURVEY_QA_LIST(campaign_code, uid, q_code, function(err, rows) {
             var qalist = rows[0];
             if(q_data.Q_TYPE == 5) {
@@ -799,7 +804,8 @@ router.get("/q", function(req, res, next) {
                             "qaImg" : "",
                             "qaImg_l" : img_data_l,
                             "qaImg_r" : img_data_r,
-                            "site_url" : site_url.bp3
+                            "site_url" : site_url.bp3,
+                            "lang" : lang
 
                         });
                     });
@@ -821,7 +827,8 @@ router.get("/q", function(req, res, next) {
                         "qaImg" : imglist,
                         "qaImg_l" : [],
                         "qaImg_r" : [],
-                        "site_url" : site_url.bp3
+                        "site_url" : site_url.bp3,
+                        "lang" : lang
                     });
                 });
             }

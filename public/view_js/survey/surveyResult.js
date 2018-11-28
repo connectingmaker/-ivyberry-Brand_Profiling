@@ -45,10 +45,6 @@ $(function() {
                         html += "<td width='50'><img src='http://bp3.brandprofiling.co.kr"+data.sub[i].IMAGE_FILENAME+"' width='50'></td>";
                         html += "<td style='font-size:14px; padding:0px 5px;' valign='middle' align='left'>"+data.sub[i].IMAGE_TITLE+"</td>"
                         html += "</tr>";
-
-                        html += "<tr>";
-                        html += "<td colspan='2' style='font-size:11px; padding:5px 0px; color:#DA8028;' valign='middle' align='left'>"+data.sub[i].IMAGE_TAG+"</td>"
-                        html += "</tr>";
                         html += "</table>";
                         html += "</td>";
                         html += "<td style='background-color:#fff;border-left:1px solid #ccc; border-bottom:1px solid #ccc;border-right:1px solid #ccc;border-top:1px solid #ccc;padding:10px; font-size:18px; color:#da4211; text-align:center;font-style:italic'>"+value_total+"%</td>";

@@ -2,6 +2,7 @@
 <input type="hidden" id="uid" value="<%=uid%>">
 <input type="hidden" id="sq_code" value="<%=sq_code%>">
 <input type="hidden" id="bp_type" value="">
+<input type="hidden" id="lang" value="<%=lang%>">
 
 
 <div class="row" style="padding:10px 40px;">
@@ -10,12 +11,22 @@
 
             <div class="col-xs-12 text-center titleCountBg">
                 <h2> <span id="selectCnt" class="Textcolor">QUESTION</span></h2>
-                <small><span id="textselectCnt" class="Textcolor">아래 보기 중 선택해주세요.</span></small>
 
             </div>
 
             <div class="col-xs-12 text-left titleSelectBg" style="padding:10px 20px;">
+
+                <% if(lang == "ko") { %>
                 <%=sq_data.SQ_TITLE%>
+                <% } %>
+
+                <% if(lang == "en") { %>
+                <%=sq_data.SQ_TITLE_EN%>
+                <% } %>
+
+                <% if(lang == "zh") { %>
+                <%=sq_data.SQ_TITLE_CN%>
+                <% } %>
             </div>
         </div>
 
@@ -27,8 +38,19 @@
         <div class="col-xs-12">
             <input type='radio' id="qaData_<%=i%>" style="display:none;" class="qaData" value="<%=sq_qa[i].SQA_CODE%>">
             <button class="qaList btn btn-white push-5-r push-10 btn-block btn-md" id="<%=i%>" name="qa[]" type="button" style="white-space: normal;text-align:left;">
-                <span class="pull-left" style="display: block;word-wrap:break-word; width:100%;"><img src="/img/survey/checkBox_icon_off.png">&nbsp;&nbsp;&nbsp;
-                    <%=sq_qa[i].SQA_TITLE%>
+                <span class="pull-left" style="display: block;word-wrap:break-word; width:100%;"><img src="/img/survey/checkBox_icon_off.png">
+                    &nbsp;&nbsp;&nbsp;
+                    <% if(lang == "ko") { %>
+                        <%=sq_qa[i].SQA_TITLE%>
+                    <% } %>
+
+                    <% if(lang == "en") { %>
+                        <%=sq_qa[i].SQA_TITLE_EN%>
+                    <% } %>
+
+                    <% if(lang == "zh") { %>
+                        <%=sq_qa[i].SQA_TITLE_CN%>
+                    <% } %>
                 </span>
             </button>
         </div>
