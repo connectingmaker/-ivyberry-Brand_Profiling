@@ -4,6 +4,8 @@ var subTextBrand = false;
 var imgSelect = 0;
 var qaData=[];
 
+var lang = $("#lang").val();
+
 function submit() {
     var q_min = $("#q_min").val();
     var q_max = $("#q_max").val();
@@ -39,14 +41,30 @@ function submit() {
             } else {
                 if(q_min > qaData.length) {
                     // alert("최소 "+q_min+"개를 선택해주세요.");
-                    bootbox.alert("최소 "+q_min+"개를 선택해주세요.");
+                    if(lang =='ko'){
+                        bootbox.alert("최소 "+q_min+"개를 선택해주세요.");
+                    }
+                    if(lang =='en'){
+                        bootbox.alert("Please choose at least  "+q_min+".");
+                    }
+                    if(lang =='zh'){
+                        bootbox.alert("請至少選擇 "+q_min+"個.");
+                    }
+
                     return;
                 }
 
                 if(q_max < qaData.length) {
                     // alert("최대 "+q_max+"개를 선택해주세요.");
-                    bootbox.alert("최대 "+q_max+"개를 선택해주세요.");
-
+                    if(lang =='ko'){
+                        bootbox.alert("최대 "+q_max+"개를 선택해주세요.");
+                    }
+                    if(lang =='en'){
+                        bootbox.alert("Please choose up to  "+q_max+".");
+                    }
+                    if(lang =='zh'){
+                        bootbox.alert("請選擇最多 "+q_max+"個.");
+                    }
                     return;
                 }
 
@@ -77,7 +95,16 @@ function submit() {
 
 
             if(checked != $(".rating_value").length) {
-                alert("선택해주세요.");
+                if(lang =='ko'){
+                    bootbox.alert("선택해주세요.");
+                }
+                if(lang =='en'){
+                    bootbox.alert("please select");
+                }
+                if(lang =='zh'){
+                    bootbox.alert("請選擇");
+                }
+
                 return;
             }
             break;
@@ -102,14 +129,30 @@ function submit() {
 
             if(q_min > checked) {
                 // alert("최소 "+q_min+"개를 선택해주세요.");
-                bootbox.alert("최소 "+q_min+"개를 선택해주세요.");
+                if(lang =='ko'){
+                    bootbox.alert("최소 "+q_min+"개를 선택해주세요.");
+                }
+                if(lang =='en'){
+                    bootbox.alert("Please choose at least  "+q_min+".");
+                }
+                if(lang =='zh'){
+                    bootbox.alert("請至少選擇 "+q_min+"個.");
+                }
 
                 return;
             }
 
             if(q_max < checked) {
                 // alert("최대 "+q_max+"개를 선택해주세요.");
-                bootbox.alert("최대 "+q_max+"개를 선택해주세요.");
+                if(lang =='ko'){
+                    bootbox.alert("최대 "+q_max+"개를 선택해주세요.");
+                }
+                if(lang =='en'){
+                    bootbox.alert("Please choose up to  "+q_max+".");
+                }
+                if(lang =='zh'){
+                    bootbox.alert("請選擇最多 "+q_max+"個.");
+                }
 
                 return;
             }
@@ -136,14 +179,30 @@ function submit() {
 
             if(q_min > checked) {
                 // alert("최소 "+q_min+"개를 선택해주세요.");
-                bootbox.alert("최소 "+q_min+"개를 선택해주세요.");
+                if(lang =='ko'){
+                    bootbox.alert("최소 "+q_min+"개를 선택해주세요.");
+                }
+                if(lang =='en'){
+                    bootbox.alert("Please choose at least  "+q_min+".");
+                }
+                if(lang =='zh'){
+                    bootbox.alert("請至少選擇 "+q_min+"個.");
+                }
 
                 return;
             }
 
             if(q_max < checked) {
                 // alert("최대 "+q_max+"개를 선택해주세요.");
-                bootbox.alert("최대 "+q_max+"개를 선택해주세요.");
+                if(lang =='ko'){
+                    bootbox.alert("최대 "+q_max+"개를 선택해주세요.");
+                }
+                if(lang =='en'){
+                    bootbox.alert("Please choose up to  "+q_max+".");
+                }
+                if(lang =='zh'){
+                    bootbox.alert("請選擇最多 "+q_max+"個.");
+                }
 
                 return;
             }
@@ -171,14 +230,30 @@ function submit() {
 
             if(q_min > checked) {
                 // alert("최소 "+q_min+"개를 선택해주세요.");
-                bootbox.alert("최소 "+q_min+"개를 선택해주세요.");
+                if(lang =='ko'){
+                    bootbox.alert("최소 "+q_min+"개를 선택해주세요.");
+                }
+                if(lang =='en'){
+                    bootbox.alert("Please choose at least  "+q_min+".");
+                }
+                if(lang =='zh'){
+                    bootbox.alert("請至少選擇 "+q_min+"個.");
+                }
 
                 return;
             }
 
             if(q_max < checked) {
                 // alert("최대 "+q_max+"개를 선택해주세요.");
-                bootbox.alert("최대 "+q_max+"개를 선택해주세요.");
+                if(lang =='ko'){
+                    bootbox.alert("최대 "+q_max+"개를 선택해주세요.");
+                }
+                if(lang =='en'){
+                    bootbox.alert("Please choose up to  "+q_max+".");
+                }
+                if(lang =='zh'){
+                    bootbox.alert("請選擇最多 "+q_max+"個.");
+                }
                 return;
             }
             break;
@@ -231,14 +306,30 @@ function submit() {
 
                 if(q_min > checked) {
                     // alert("최소 "+q_min+"개를 선택해주세요.");
-                    bootbox.alert("최소 "+q_min+"개를 선택해주세요.");
+                    if(lang =='ko'){
+                        bootbox.alert("최소 "+q_min+"개를 선택해주세요.");
+                    }
+                    if(lang =='en'){
+                        bootbox.alert("Please choose at least  "+q_min+".");
+                    }
+                    if(lang =='zh'){
+                        bootbox.alert("請至少選擇 "+q_min+"個.");
+                    }
 
                     return;
                 }
 
                 if(q_max < checked) {
                     // alert("최대 "+q_max+"개를 선택해주세요.");
-                    bootbox.alert("최대 "+q_max+"개를 선택해주세요.");
+                    if(lang =='ko'){
+                        bootbox.alert("최대 "+q_max+"개를 선택해주세요.");
+                    }
+                    if(lang =='en'){
+                        bootbox.alert("Please choose up to  "+q_max+".");
+                    }
+                    if(lang =='zh'){
+                        bootbox.alert("請選擇最多 "+q_max+"個.");
+                    }
 
                     return;
                 }
@@ -247,6 +338,15 @@ function submit() {
                 if(checked_false == true) {
                     // alert("내용을 입력해주세요.");
                     bootbox.alert("내용을 입력해주세요.");
+                    if(lang =='ko'){
+                        bootbox.alert("내용을 입력해주세요.");
+                    }
+                    if(lang =='en'){
+                        bootbox.alert("Please enter your details.");
+                    }
+                    if(lang =='zh'){
+                        bootbox.alert("請輸入您的詳細信息。");
+                    }
 
                     return;
                 }
