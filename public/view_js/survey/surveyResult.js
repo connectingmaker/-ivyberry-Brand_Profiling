@@ -1,5 +1,6 @@
 $(function() {
     var campaign_code = $("#campaign_code").val();
+    var lang = $("#lang").val();
 
     $(".q_code").each(function() {
         var temp = $(this).val().split("///");
@@ -102,16 +103,30 @@ $(function() {
                     html += "<col width='80%'>";
                     html += "<col width='20%'>";
 
+                    var lang_string = "";
+
                     for(var i = 0; i<data.sub.length; i++) {
                         var per = (parseInt(data.sub[i].TOTAL) / total) * 100;
+                        if(lang == "ko") {
+                            lang_string = data.sub[i].QA_TITLE;
+                        }
+
+                        if(lang == "en") {
+                            lang_string = data.sub[i].QA_TITLE_EN;
+                        }
+
+                        if(lang == "zh") {
+                            lang_string = data.sub[i].QA_TITLE_CN;
+                        }
                         if(i == 0) {
                             html += "<tr>";
-                            html += "<td style='background-color:#fff;border-left:1px solid #ccc; border-bottom:1px solid #ccc;border-top:1px solid #ccc;padding:10px;'>"+data.sub[i].QA_TITLE+"</td>";
+
+                            html += "<td style='background-color:#fff;border-left:1px solid #ccc; border-bottom:1px solid #ccc;border-top:1px solid #ccc;padding:10px;'>"+lang_string+"</td>";
                             html += "<td style='background-color:#fff;border-left:1px solid #ccc; border-bottom:1px solid #ccc; border-top:1px solid #ccc; border-right:1px solid #ccc; padding:10px; text-align:center;'>"+per+"%</td>";
                             html += "</tr>";
                         } else {
                             html += "<tr>";
-                            html += "<td style='background-color:#fff;border-left:1px solid #ccc; border-bottom:1px solid #ccc;padding:10px;'>"+data.sub[i].QA_TITLE+"</td>";
+                            html += "<td style='background-color:#fff;border-left:1px solid #ccc; border-bottom:1px solid #ccc;padding:10px;'>"+lang_string+"</td>";
                             html += "<td style='background-color:#fff;border-left:1px solid #ccc; border-bottom:1px solid #ccc;border-right:1px solid #ccc; padding:10px; text-align:center;'>"+per+"%</td>";
                             html += "</tr>";
 

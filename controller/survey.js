@@ -640,6 +640,7 @@ router.get("/surveyEnd", function(req, res) {
 
 router.get("/surveyResult", function(req, res, next) {
     var campaign_code = req.query.campaign_code;
+    var lang = req.query.lang;
 
     msurveyresult.sp_BP3_PROJECT_RESULT_TOTAL(campaign_code, function(err, rows) {
         var total = rows[0][0].TOTAL;
@@ -654,7 +655,8 @@ router.get("/surveyResult", function(req, res, next) {
                 "layout extractScripts": true,
                 "total" : total,
                 "q_list" : q_list,
-                "campaign_code" : campaign_code
+                "campaign_code" : campaign_code,
+                "lang" : lang
             });
 
         });

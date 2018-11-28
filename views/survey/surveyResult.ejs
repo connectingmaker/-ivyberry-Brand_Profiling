@@ -1,5 +1,6 @@
 <input type="hidden" id="campaign_code" value="<%=campaign_code%>">
 <input type="hidden" id="total" value="<%=total%>">
+<input type="hidden" id="lang" value="<%=lang%>">
 <div class="row" style="padding:10px 40px;">
     <% for(var i = 0; i<q_list.length; i++) { %>
     <% if(q_list[i].Q_TYPE != "9") { %>
@@ -8,7 +9,14 @@
         <div class="row titleBox2">
 
             <div class="col-xs-12 text-left titleSelectBg" style="padding:10px 20px;">
+                <% if(lang == "ko") { %>
                 <%=q_list[i].Q_TITLE%>
+                <% } else if(lang == "en") { %>
+                <%=q_list[i].Q_TITLE_EN%>
+                <% } else { %>
+                <%=q_list[i].Q_TITLE_CN%>
+                <% }%>
+
             </div>
         </div>
     </div>
