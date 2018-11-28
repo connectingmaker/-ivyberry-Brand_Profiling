@@ -87,8 +87,7 @@
             <% for(var i = 0; i<qaImg.length; i++) { %>
                 <div class="col-xs-12 text-center">
                     <img src="<%-site_url%><%=qaImg[i].IMAGE_FILENAME%>" style="width:100%;">
-
-                    <div class="rating" id="rating_value_<%=qaImg[i].IMG_SEQ%>" style="padding:10px;"></div>
+                    <div class="rating" id="rating_value_<%=qaImg[i].IMG_SEQ%>" q_option="<%=q_data.Q_OPTION%>" style="padding:10px;"></div>
                     <input type="hidden" id="rating_<%=qaImg[i].IMG_SEQ%>" class="rating_value" category_code="<%=qaImg[i].CODE_IMAGE_CATEGORY%>">
 
                 </div>
@@ -248,29 +247,49 @@
 
 <script src="/view_js/survey/q.js"></script>
 <script>
-    $(".rating").rate({
-        length: 5,
-        value: 0,
-        readonly: false,
-        size: '48px',
-        selectClass: 'fxss_rate_select',
-        customClass: 'custom_class',
-        text: false,
-        callback: function(object){
-
-            var value = object.index + 1;
-            var id = object.id.replace("_value", "");
-
-
-            $("#"+id).val(value);
-
-            // $("#rating").val(value);
-
-
-        }
-    });
+    // $(".rating").rate({
+    //     length: $(this).attr("q_option"),
+    //     value: 0,
+    //     readonly: false,
+    //     size: '48px',
+    //     selectClass: 'fxss_rate_select',
+    //     customClass: 'custom_class',
+    //     text: false,
+    //     callback: function(object){
+    //
+    //         var value = object.index + 1;
+    //         var id = object.id.replace("_value", "");
+    //
+    //
+    //         $("#"+id).val(value);
+    //
+    //
+    //     }
+    // });
 
     $(function() {
+        $(".rating").each(function() {
+            var option = $(this).attr("q_option");
+            $(this).rate({
+                length: option,
+                value: 0,
+                readonly: false,
+                size: '30px',
+                selectClass: 'fxss_rate_select',
+                customClass: 'custom_class',
+                text: false,
+                callback: function(object){
+
+                    var value = object.index + 1;
+                    var id = object.id.replace("_value", "");
+
+
+                    $("#"+id).val(value);
+
+
+                }
+            });
+        });
         $(".module9 img").each(function() {
             $(this).css({"width":"100%" ,"height": ""});
             $(this).attr("width", "100%");
