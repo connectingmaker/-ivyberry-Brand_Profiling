@@ -144,12 +144,17 @@ $(function() {
 });
 
 function ResultClose() {
-    // alert("OK");
-    var json = {
-        ERR_CODE: "000"
-        , ERR_MSG: "000"
-        , SURVEY_TYPE: "END"
+    if($("#debug").val() == "true") {
+        location.replace("http://cn.brandprofiling.co.kr/survey");
+    } else {
+        var json = {
+            ERR_CODE: "000"
+            , ERR_MSG: "000"
+            , SURVEY_TYPE: "END"
+        }
+
+        window.postMessage(JSON.stringify(json), '*');
+
     }
 
-    window.postMessage(JSON.stringify(json), '*');
 }
