@@ -32,7 +32,17 @@
 </div>
 <div class="row">
     <div class="col-xs-12">
-        <button id="close" class="btn btn-lg btn-danger btn-block" onclick="ResultClose();">닫기</button>
+        <button id="close" class="btn btn-lg btn-danger btn-block" onclick="ResultClose();">
+
+            <% if(lang == "ko") { %>
+               설문목록으로 이동
+            <% } else if(lang == "en") { %>
+                Go to poll list
+            <% } else { %>
+                轉到投票列表
+            <% }%>
+
+        </button>
     </div>
 </div>
 
