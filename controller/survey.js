@@ -602,7 +602,7 @@ router.get("/surveyEnd", function(req, res) {
     }
 
 
-    msurvey.surveyEnd(campaign_code, quest_num, seq, function(err, rows) {
+    msurvey.surveyEnd(campaign_code, quest_num, seq, uid, function(err, rows) {
         if(err) {
             console.log(err);
             throw err;
@@ -669,14 +669,26 @@ router.put("/surveyResult", function(req, res, next) {
     var campaign_code = req.body.campaign_code;
     var q_code = req.body.q_code;
     var q_type = req.body.q_type;
+    var q_option = req.body.q_option;
 
     if(q_type == 1 || q_type == 5 || q_type == 6) {
-        msurveyresult.sp_BP3_PROJECT_RESULT_QA_IMG_DATA_BP2(campaign_code, q_code, function(err, qa_data) {
+        msurveyresult.sp_BP3_PROJECT_RESULT_QA_IMG_DATA_BP2(campaign_code, q_code, function (err, qa_data) {
             var sub = qa_data[0];
             var json = {
-                q_code : q_code
-                ,q_type : q_type
-                ,sub : sub
+                q_code: q_code
+                , q_type: q_type
+                , sub: sub
+            }
+            res.json(json);
+        });
+    } else if(q_type == 2) {
+        msurveyresult.sp_BP3_PROJECT_RESULT_QA_IMG_DATA_BP2_SCALE(campaign_code, q_code, function(err, qa_data) {
+            var sub = qa_data[0];
+            var json = {
+                q_code: q_code
+                , q_type: q_type
+                , sub: sub
+                , q_option : q_option
             }
             res.json(json);
         });

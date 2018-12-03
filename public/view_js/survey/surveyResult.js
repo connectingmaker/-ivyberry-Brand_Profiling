@@ -6,10 +6,14 @@ $(function() {
         var temp = $(this).val().split("///");
         var q_code = temp[0];
         var q_type = temp[1];
+        var q_option = temp[2];
+
+
         var json = {
             campaign_code : campaign_code
             ,q_code : temp[0]
             ,q_type : temp[1]
+            ,q_option : q_option
         }
 
         common.ajax.type = "put";
@@ -18,6 +22,7 @@ $(function() {
         common.ajax.return = function(data) {
             var html = "";
             var total = parseInt($("#total").val());
+
             switch(data.q_type) {
                 case "1":
                 case "5":
@@ -44,7 +49,19 @@ $(function() {
                         html += "<table>";
                         html += "<tr>";
                         html += "<td width='50'><img src='http://bp3.brandprofiling.co.kr"+data.sub[i].IMAGE_FILENAME+"' width='50'></td>";
-                        html += "<td style='font-size:14px; padding:0px 5px;' valign='middle' align='left'>"+data.sub[i].IMAGE_TITLE+"</td>"
+
+                        if(lang == "ko") {
+                            html += "<td style='font-size:14px; padding:0px 5px;' valign='middle' align='left'>"+data.sub[i].IMAGE_TITLE+"</td>"
+                        }
+
+                        if(lang == "en") {
+                            html += "<td style='font-size:14px; padding:0px 5px;' valign='middle' align='left'>"+data.sub[i].IMAGE_TITLE_EN+"</td>"
+                        }
+
+                        if(lang == "zh") {
+                            html += "<td style='font-size:14px; padding:0px 5px;' valign='middle' align='left'>"+data.sub[i].IMAGE_TITLE_CN+"</td>"
+                        }
+                        // html += "<td style='font-size:14px; padding:0px 5px;' valign='middle' align='left'>"+data.sub[i].IMAGE_TITLE+"</td>"
                         html += "</tr>";
                         html += "</table>";
                         html += "</td>";
@@ -93,8 +110,36 @@ $(function() {
 
                     $("#result"+data.q_code).html(html);
 
+                    console.log(data);
 
-                    jQuery(function(){ BaseCompRating.init(); });
+
+                    // Set Default options
+                    jQuery.fn.raty.defaults.starType    = 'i';
+                    jQuery.fn.raty.defaults.hints       = ['Bad', 'Poor', 'Regular', 'Good', 'Gorgeous', '111', '2222'];
+
+
+                    // Init Raty on .js-rating class
+                    jQuery('.js-rating').each(function(){
+                        var $ratingEl = jQuery(this);
+
+                        $ratingEl.raty({
+                            score: $ratingEl.data('score') ? $ratingEl.data('score') : 0,
+                            number: $ratingEl.data('number') ? $ratingEl.data('number') : 7,
+                            cancel: $ratingEl.data('cancel') ? $ratingEl.data('cancel') : false,
+                            target: $ratingEl.data('target') ? $ratingEl.data('target') : false,
+                            targetScore: $ratingEl.data('target-score') ? $ratingEl.data('target-score') : false,
+                            precision  : $ratingEl.data('precision') ? $ratingEl.data('precision') : false,
+                            cancelOff: $ratingEl.data('cancel-off') ? $ratingEl.data('cancel-off') : 'fa fa-fw fa-times text-danger',
+                            cancelOn: $ratingEl.data('cancel-on') ? $ratingEl.data('cancel-on') : 'fa fa-fw fa-times',
+                            starHalf: $ratingEl.data('star-half') ? $ratingEl.data('star-half') : 'fa fa-fw fa-star-half-o text-warning',
+                            starOff: $ratingEl.data('star-off') ? $ratingEl.data('star-off') : 'fa fa-fw fa-star text-gray',
+                            starOn: $ratingEl.data('star-on') ? $ratingEl.data('star-on') : 'fa fa-fw fa-star text-warning',
+                            click: function(score, evt) {
+                                // Here you could add your logic on rating click
+                                // console.log('ID: ' + this.id + "\nscore: " + score + "\nevent: " + evt);
+                            }
+                        });
+                    });
                     // <label class="font-18"><b>{{q_item.QA[0].SCORE}}</b></label><div class="js-rating col-xs-6 text-center" :data-score="q_item.QA[0].SCORE" data-star-on="fa fa-fw fa-2x fa-star text-warning" data-star-off="fa fa-fw fa-2x fa-star text-gray"></div>
                     break;
                 case "3":

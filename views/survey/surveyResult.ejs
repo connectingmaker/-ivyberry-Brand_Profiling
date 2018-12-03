@@ -5,7 +5,7 @@
 <div class="row" style="padding:10px 40px;">
     <% for(var i = 0; i<q_list.length; i++) { %>
     <% if(q_list[i].Q_TYPE != "9") { %>
-    <input type="hidden" class="q_code" value="<%=q_list[i].Q_CODE%>///<%=q_list[i].Q_TYPE%>">
+    <input type="hidden" class="q_code" value="<%=q_list[i].Q_CODE%>///<%=q_list[i].Q_TYPE%>///<%=q_list[i].Q_OPTION%>">
     <div clss="col-xs-12">
         <div class="row titleBox2">
 

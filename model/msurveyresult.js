@@ -87,6 +87,17 @@ var msurveyresult = {
         //     callback(err, rows);
         // });
     }
+    ,sp_BP3_PROJECT_RESULT_QA_IMG_DATA_BP2_SCALE: function(campaign_code, q_code, callback) {
+        var connection = mysql_dbc.init();
+        var query = " call bp3.sp_BP3_PROJECT_RESULT_QA_IMG_DATA_BP2_SCALE(?, ?) ";
+        var params = [];
+        params.push(campaign_code);
+        params.push(q_code);
+
+        var data = connection.query(query, params, callback);
+        connection.end();
+        return data;
+    }
     ,sp_BP3_PROJECT_RESULT_QA_IMG_DATA_BP2: function(campaign_code, q_code, callback) {
 
         var connection = mysql_dbc.init();

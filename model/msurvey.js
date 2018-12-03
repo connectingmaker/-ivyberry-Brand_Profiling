@@ -169,13 +169,14 @@ var msurvey = {
             }
         }
     }
-    ,surveyEnd: function(campaign_code, quest_num, seq, callback) {
+    ,surveyEnd: function(campaign_code, quest_num, seq, uid, callback) {
         var connection = mysql_dbc.init();
-        var query = " call sp_SURVEY_END(?, ?, ?) ";
+        var query = " call sp_SURVEY_END(?, ?, ?, ?) ";
         var params = [];
         params.push(campaign_code);
         params.push(quest_num);
         params.push(seq);
+        params.push(uid);
 
         var data = connection.query(query, params, callback);
         connection.end();

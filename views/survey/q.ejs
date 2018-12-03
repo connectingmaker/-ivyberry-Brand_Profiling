@@ -44,6 +44,7 @@
 
     </div>
 
+
     <div class="row push-20-t">
         <div clss="col-xs-12" style="padding:10px 0px;">
 
@@ -111,8 +112,8 @@
             <% for(var i = 0; i<qaImg.length; i++) { %>
                 <div class="col-xs-12 text-center">
                     <img src="<%-site_url%><%=qaImg[i].IMAGE_FILENAME%>" style="width:100%;">
-                    <div class="rating" id="rating_value_<%=qaImg[i].IMG_SEQ%>" q_option="<%=q_data.Q_OPTION%>" style="padding:10px;"></div>
-                    <input type="hidden" id="rating_<%=qaImg[i].IMG_SEQ%>" class="rating_value" category_code="<%=qaImg[i].CODE_IMAGE_CATEGORY%>">
+                    <div class="rating" id="rating_value_<%=qaImg[i].IMG_SEQ%>" q_option="<%=q_data.Q_OPTION%>" code_gubun="<%=qaImg[i].CODE_GUBUN%>" style="padding:10px;"></div>
+                    <input type="hidden" id="rating_<%=qaImg[i].IMG_SEQ%>" class="rating_value" code_gubun="<%=qaImg[i].CODE_GUBUN%>" category_code="<%=qaImg[i].CODE_IMAGE_CATEGORY%>">
 
                 </div>
             <% } %>
@@ -123,7 +124,7 @@
                 <% for(var i = 0; i<qaImg.length; i++) { %>
                     <div class="col-xs-12 text-center">
                         <img src="<%-site_url%><%=qaImg[i].IMAGE_FILENAME%>" width="100%">
-                    </div>
+                    </div>aaa
                 <% } %>
 
 
@@ -160,7 +161,7 @@
             <div class="col-xs-12 text-center">
                 <% for(var i = 0; i<qa.length; i++) { %>
                 <div class="col-xs-12">
-                    <input type='radio' id="qaData_<%=i%>" style="display:none;" class="qaData" category_code="">
+                    <input type='radio' id="qaData_<%=i%>" style="display:none;" class="qaData" category_code="" value="<%=qa[i].QA_CODE%>">
                     <button class="qaList btn btn-white push-5-r push-10 btn-block btn-md" id="<%=i%>" name="qa[]" type="button" style="white-space: normal;text-align:left;">
                 <span class="pull-left" style="display: block;word-wrap:break-word; width:100%;"><img src="/img/survey/checkBox_icon_off.png">&nbsp;&nbsp;&nbsp;
                     <% if(lang == "ko") { %>
@@ -329,6 +330,7 @@
     $(function() {
         $(".rating").each(function() {
             var option = $(this).attr("q_option");
+            var code_gubun = $(this).attr("code_gubun");
             $(this).rate({
                 length: option,
                 value: 0,
