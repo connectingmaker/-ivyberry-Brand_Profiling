@@ -33,30 +33,32 @@
     </div>
 
     <div class="row push-20-t">
-    <div clss="col-xs-12" style="padding:10px 0px;">
-        <% for(var i = 0; i<sq_qa.length; i++) { %>
-        <div class="col-xs-12">
-            <input type='radio' id="qaData_<%=i%>" style="display:none;" class="qaData" value="<%=sq_qa[i].SQA_CODE%>">
-            <button class="qaList btn btn-white push-5-r push-10 btn-block btn-md" id="<%=i%>" name="qa[]" type="button" style="white-space: normal;text-align:left;">
-                <span class="pull-left" style="display: block;word-wrap:break-word; width:100%;"><img src="/img/survey/checkBox_icon_off.png">
-                    &nbsp;&nbsp;&nbsp;
-                    <% if(lang == "ko") { %>
-                        <%=sq_qa[i].SQA_TITLE%>
-                    <% } %>
+        <div clss="col-xs-12" style="padding:10px 0px;">
+            <% for(var i = 0; i<sq_qa.length; i++) { %>
+            <div class="col-xs-12">
+                <input type='radio' id="qaData_<%=i%>" style="display:none;" class="qaData" value="<%=sq_qa[i].SQA_CODE%>">
+                <button class="qaList btn btn-white push-5-r push-10 btn-block btn-md" id="<%=i%>" name="qa[]" type="button" style="white-space: normal;text-align:left;">
+                    <span class="pull-left" style="display: block;word-wrap:break-word; width:100%;"><img src="/img/survey/checkBox_icon_off.png">
+                        &nbsp;&nbsp;&nbsp;
+                        <% if(lang == "ko") { %>
+                            <%=sq_qa[i].SQA_TITLE%>
+                        <% } %>
 
-                    <% if(lang == "en") { %>
-                        <%=sq_qa[i].SQA_TITLE_EN%>
-                    <% } %>
+                        <% if(lang == "en") { %>
+                            <%=sq_qa[i].SQA_TITLE_EN%>
+                        <% } %>
 
-                    <% if(lang == "zh") { %>
-                        <%=sq_qa[i].SQA_TITLE_CN%>
-                    <% } %>
-                </span>
-            </button>
+                        <% if(lang == "zh") { %>
+                            <%=sq_qa[i].SQA_TItLE_CN%>
+                        <% } %>
+                    </span>
+                </button>
+            </div>
+            <% } %>
+
         </div>
-        <% } %>
 
-    </div>
+
     </div>
 </div>
 
