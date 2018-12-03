@@ -612,7 +612,7 @@ router.get("/surveyEnd", function(req, res) {
         var data = rows[0][0];
 
         if(data.CATEGORY_CODE == "A000") {
-            res.redirect("/survey/surveyResult?campaign_code=" + campaign_code);
+            res.redirect("/survey/surveyResult?campaign_code=" + campaign_code+"&debug="+debug);
         } else {
             var json = {
                 ERR_CODE : data.ERR_CODE
@@ -641,6 +641,7 @@ router.get("/surveyEnd", function(req, res) {
 router.get("/surveyResult", function(req, res, next) {
     var campaign_code = req.query.campaign_code;
     var lang = req.query.lang;
+    var debug = req.query.debug;
 
     msurveyresult.sp_BP3_PROJECT_RESULT_TOTAL(campaign_code, function(err, rows) {
         var total = rows[0][0].TOTAL;
@@ -656,7 +657,8 @@ router.get("/surveyResult", function(req, res, next) {
                 "total" : total,
                 "q_list" : q_list,
                 "campaign_code" : campaign_code,
-                "lang" : lang
+                "lang" : lang,
+                "debug" : debug
             });
 
         });
@@ -726,6 +728,7 @@ router.get("/sq", function(req, res, next) {
     var uid = req.query.uid;
     var sq_code = req.query.sq_code;
     var lang = req.query.lang;
+    var debug = req.query.debug;
 
 
 
@@ -742,7 +745,9 @@ router.get("/sq", function(req, res, next) {
                 "campaign_code": campaign_code,
                 "sq_code" : sq_code,
                 "sq_data" : sq_data_data,
-                "sq_qa" : rows[0]
+                "sq_qa" : rows[0],
+                "debug" : debug
+
 
             });
         });
@@ -778,6 +783,7 @@ router.get("/q", function(req, res, next) {
     var q_code = req.query.q_code;
     var uid = req.query.uid;
     var lang = req.query.lang;
+    var debug = req.query.debug;
 
     msurvey.sp_BP3_SURVEY_Q_SELECT(campaign_code, q_code, function(err, rows) {
 
@@ -807,7 +813,8 @@ router.get("/q", function(req, res, next) {
                             "qaImg_l" : img_data_l,
                             "qaImg_r" : img_data_r,
                             "site_url" : site_url.bp3,
-                            "lang" : lang
+                            "lang" : lang,
+                            "debug" : debug
 
                         });
                     });
@@ -830,7 +837,8 @@ router.get("/q", function(req, res, next) {
                         "qaImg_l" : [],
                         "qaImg_r" : [],
                         "site_url" : site_url.bp3,
-                        "lang" : lang
+                        "lang" : lang,
+                        "debug" : debug
                     });
                 });
             }
