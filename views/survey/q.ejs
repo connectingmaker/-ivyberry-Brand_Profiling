@@ -83,7 +83,7 @@
                        <div style="display:none;">
                            <input type="radio" id="NotQuestion" class="qaData" value="99"><span></span>
                            <% if(lang == "en") { %>
-                           I do not know
+                           I don't know
                            <% } else if(lang == "zh") { %>
                            不了解
                            <% } else { %>
@@ -92,7 +92,7 @@
                        </div>
                        <button id="NotQuestionBtn" class="btn btn-sm btn-default btn-block NotQuestion" style="margin-top:10px;">
                            <% if(lang == "en") { %>
-                           I do not know
+                           I don't know
                            <% } else if(lang == "zh") { %>
                            不了解
                            <% } else { %>
@@ -263,10 +263,24 @@
 
                     <td q_code="" align="right" colspan="2">
                         <div style="display:none;">
-                            <input type="radio" id="NotQuestion" class="qaData" value="99"><span></span> 모르겠음
-                        </div>
-                        <button id="NotQuestionBtn" class="btn btn-sm btn-default NotQuestion">
+                            <% if(lang == "en") { %>
+                            I do not know
+                            <% } else if(lang == "zh") { %>
+                            不了解
+                            <% } else { %>
                             모르겠음
+                            <% } %>
+                        </div>
+
+
+                        <button id="NotQuestionBtn" class="btn btn-sm btn-default NotQuestion">
+                            <% if(lang == "en") { %>
+                            I do not know
+                            <% } else if(lang == "zh") { %>
+                            不了解
+                            <% } else { %>
+                            모르겠음
+                            <% } %>
                         </button>
                     </td>
                 </tr>
