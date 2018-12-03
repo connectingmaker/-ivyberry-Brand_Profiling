@@ -65,7 +65,7 @@ $(function() {
                         html += "</tr>";
                         html += "</table>";
                         html += "</td>";
-                        html += "<td style='background-color:#fff;border-left:1px solid #ccc; border-bottom:1px solid #ccc;border-right:1px solid #ccc;border-top:1px solid #ccc;padding:10px; font-size:18px; color:#da4211; text-align:center;font-style:italic'>"+value_total+"%</td>";
+                        html += "<td style='background-color:#fff;border-left:1px solid #ccc; border-bottom:1px solid #ccc;border-right:1px solid #ccc;border-top:1px solid #ccc;padding:10px; font-size:18px; color:#da4211; text-align:center;font-style:italic'>"+value_total.toFixed(2)+"%</td>";
                         html += "</tr>";
                     }
                     html += "</tbody>";
@@ -106,7 +106,7 @@ $(function() {
                     break;
                 case "2":
                     html += "<div class='js-rating col-xs-12 text-center' data-score='"+data.sub[0].SCORE+"' data-star-on='fa fa-fw fa-2x fa-star text-warning' data-star-off='fa fa-fw fa-2x fa-star text-gray'></div>";
-                    html += "<div class='text-center' style='color:#da4211;font-size:18px;'>"+data.sub[0].SCORE+"</div>";
+                    html += "<div class='text-center' style='color:#da4211;font-size:18px;'>"+data.sub[0].SCORE.toFixed(2)+"</div>";
 
                     $("#result"+data.q_code).html(html);
 
@@ -167,12 +167,12 @@ $(function() {
                             html += "<tr>";
 
                             html += "<td style='background-color:#fff;border-left:1px solid #ccc; border-bottom:1px solid #ccc;border-top:1px solid #ccc;padding:10px;'>"+lang_string+"</td>";
-                            html += "<td style='background-color:#fff;border-left:1px solid #ccc; border-bottom:1px solid #ccc; border-top:1px solid #ccc; border-right:1px solid #ccc; padding:10px; text-align:center;'>"+per+"%</td>";
+                            html += "<td style='background-color:#fff;border-left:1px solid #ccc; border-bottom:1px solid #ccc; border-top:1px solid #ccc; border-right:1px solid #ccc; padding:10px; text-align:center;'>"+per.toFixed(2)+"%</td>";
                             html += "</tr>";
                         } else {
                             html += "<tr>";
                             html += "<td style='background-color:#fff;border-left:1px solid #ccc; border-bottom:1px solid #ccc;padding:10px;'>"+lang_string+"</td>";
-                            html += "<td style='background-color:#fff;border-left:1px solid #ccc; border-bottom:1px solid #ccc;border-right:1px solid #ccc; padding:10px; text-align:center;'>"+per+"%</td>";
+                            html += "<td style='background-color:#fff;border-left:1px solid #ccc; border-bottom:1px solid #ccc;border-right:1px solid #ccc; padding:10px; text-align:center;'>"+per.toFixed(2)+"%</td>";
                             html += "</tr>";
 
                         }
