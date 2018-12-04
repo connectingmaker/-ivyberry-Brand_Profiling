@@ -337,7 +337,7 @@ function submit() {
 
                 if(checked_false == true) {
                     // alert("내용을 입력해주세요.");
-                    bootbox.alert("내용을 입력해주세요.");
+                   // bootbox.alert("내용을 입력해주세요.");
                     if(lang =='ko'){
                         bootbox.alert("내용을 입력해주세요.");
                     }
