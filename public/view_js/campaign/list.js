@@ -1,4 +1,5 @@
 $(function() {
+    $(".A000").css("background-color", "#f9f9f9");
     $(document).on('click', '.deleteBtn', function() {
         if(confirm("해당 설문을 정말로 삭제하시겠습니까?") == true) {
             var id = $(this).parents("tr").attr("id");

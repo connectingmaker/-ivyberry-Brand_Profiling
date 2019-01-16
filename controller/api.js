@@ -491,7 +491,7 @@ router.post("/pointSend", function(req, res) {
         };
 
         res.send(JSON.stringify(json));
-    })
+    });
 
 });
 
