@@ -210,7 +210,7 @@
                         <% } else { %>
                         <a href="/users/list?sorting=point&sortingtype=desc"><% } %>
                         포인트</a></th>
-                    <th>참여설문</th>
+                    <th>참여설문<br>BP2 / BP3</th>
                     <th>최근접속</th>
                     <th>기능</th>
                 </tr>
@@ -233,7 +233,7 @@
                     <td><%=userData[i].USEREMAIL%></td>
                     <td><%=userData[i].USERPHONE%></td>
                     <td><a href="/users/pointHistory/<%=userData[i].UID%>" class="btn btn-xs btn-success historyBtn"><%=userData[i].POINT%></a></td>
-                    <td><%=userData[i].JOIN_TOTAL%></td>
+                    <td><%=userData[i].JOIN_TOTAL%> / <%=userData[i].BP3_JOIN_TOTAL%></td>
                     <td><%=moment(userData[i].LAST_LOGIN).format("YYYY-MM-DD hh:mm")%></td>
                     <td class="text-center">
                         <button class="btn btn-xs btn-warning deleteBtn">삭제</button>

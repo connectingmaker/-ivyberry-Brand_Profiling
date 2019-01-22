@@ -87,6 +87,7 @@ var muser = {
         query += " , CG.CODE_NAME ";
         query += " , CG.CODE_DESC ";
         query += " , (SELECT COUNT(*) FROM DATA_JOIN WHERE UID = M.UID AND ENDTYPE='E') JOIN_TOTAL"
+        query += " , (SELECT COUNT(*) FROM bp3.BP3_SURVEY_DATA WHERE UID = M.UID AND ENDTYPE='E') BP3_JOIN_TOTAL "
         query += " FROM MEMBER M INNER JOIN CODE_GRADE CG ON(M.CODE_GRADE = CG.CODE_GRADE) ";
         if(searchName != "") {
             query += " WHERE (M.USERNAME LIKE '"+searchName+"%' OR M.USEREMAIL LIKE '%"+searchName+"%')";
