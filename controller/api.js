@@ -666,6 +666,25 @@ router.get("/notice", function(req, res) {
     });
 });
 
+router.get("/notice_bp3", function(req, res) {
+    mapi.sp_API_NOTICE_BP3(function(err, rows) {
+        if(err) {
+            console.log(err);
+        }
+
+        console.log(rows[0]);
+
+        var data = rows[0];
+        console.log(data);
+
+        var json = {
+            list: data
+        };
+
+        res.send(json);
+    });
+});
+
 router.get("/contents", function(req, res) {
     mapi.sp_CONTENTS(function(err, rows) {
         if(err) {

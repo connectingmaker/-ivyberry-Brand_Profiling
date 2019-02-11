@@ -67,7 +67,7 @@ router.get('/list', function(req, res, next) {
 
 router.get('/write', function(req, res) {
 
-    res.render('notice/write', {title: 'Express',moment: moment,seq: "", subject: "", contents:"", insert_datetime: "", use_yn: ""});
+    res.render('notice/write', {title: 'Express',moment: moment,seq: "", subject: "", contents:"", insert_datetime: "", use_yn: "", notice_type: ""});
 
 
 });
@@ -80,9 +80,10 @@ router.get('/write/:code', function(req, res, next) {
         var contents = notice_rows[0].CONTENTS;
         var insert_datetime = notice_rows[0].INSERT_DATETIME;
         var use_yn = notice_rows[0].USE_YN;
+        var notice_type = notice_rows[0].NOTICE_TYPE;
         console.log(notice_rows[0]);
 
-        res.render('notice/write', { moment: moment, seq: seq, subject: subject, contents:contents, insert_datetime: insert_datetime, use_yn: use_yn});
+        res.render('notice/write', { moment: moment, seq: seq, subject: subject, contents:contents, insert_datetime: insert_datetime, use_yn: use_yn, notice_type : notice_type});
     });
 
 
@@ -98,14 +99,10 @@ router.post("/noticeDelete", function(req, res) {
             throw err;
         }
 
-        console.log(rows);
-
-        var data = rows[0];
-        console.log(data);
         var jsonData = {
             seq : seq
-            ,ERR_CODE : data[0].ERR_CODE
-            ,ERR_MSG : data[0].ERR_MSG
+            ,ERR_CODE : '000'
+            ,ERR_MSG : 'OK'
         };
 
 
@@ -120,10 +117,11 @@ router.post('/writeProcess', function(req, res) {
     var subject = req.body.subject;
     var contents = req.body.contents;
     var use_yn = req.body.use_yn;
+    var notice_type = req.body.notice_type;
 
-    console.log(use_yn);
+    console.log(req.body);
 
-    mnotice.sp_NOTICE_SAVE(seq, subject, contents, use_yn, function(err, rows) {
+    mnotice.sp_NOTICE_SAVE(seq, subject, contents, use_yn, notice_type, function(err, rows) {
         if(err) {
             console.log(err);
         }

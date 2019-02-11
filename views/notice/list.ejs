@@ -12,7 +12,8 @@
         <div class="contents_list">
             <table id="list" class="table table-bordered fontsize">
                 <col width="5%">
-                <col width="25%">
+                <col width="5%">
+                <col width="20%">
                 <col width="10%">
                 <col width="10%">
                 <col width="25%">
@@ -20,6 +21,7 @@
                 <thead>
                 <tr>
                     <th class="text-center">번호</th>
+                    <th class="text-center">TYPE</th>
                     <th class="text-center">제목</th>
                     <th class="text-center">등록날짜</th>
                     <th class="text-center">노출여부</th>
@@ -31,6 +33,7 @@
                     <% for(var i = 0; i<noticelist.length; i++) { %>
                         <tr id="<%=noticelist[i].SEQ%>">
                             <td style="text-align: center;"><%=noticelist[i].SEQ%></td>
+                            <td class="text-center"><%=noticelist[i].NOTICE_TYPE%></td>
                             <td><%=noticelist[i].SUBJECT%></td>
                             <td style="text-align: center;"><%=moment(noticelist[i].INSERT_DATETIME).format("YYYY-MM-DD hh:mm")%></td>
                             <td style="text-align: center;"><%=noticelist[i].USE_YN_TEXT%></td>

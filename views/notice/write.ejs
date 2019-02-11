@@ -16,6 +16,10 @@
                 <col width="80%">
                 <tbody>
                 <tr>
+                    <th class="text-center">BP2 & BP3</th>
+                    <td><input name="notice_type" class='notice_type' type="radio" <% if(notice_type == "BP2") { %> checked <% } %> value = "BP2"> BP2&nbsp;&nbsp;&nbsp;<input name="notice_type" type="radio" class='notice_type' <% if(notice_type == "BP3") { %>  checked <% } %> value = "BP3"> BP3</td>
+                </tr>
+                <tr>
                     <th class="text-center">노출여부</th>
                     <td><input name="use_yn" class='notice_yn' type="radio" <% if(use_yn == "Y") { %> checked <% } %> value = "Y"> 노출&nbsp;&nbsp;&nbsp;<input name="use_yn" type="radio" class='notice_yn' <% if(use_yn == "N") { %>  checked <% } %> value = "N"> 미노출</td>
                 </tr>

@@ -7,14 +7,20 @@ var mysql_dbc = require('../module/db_con')();
 
 
 var mnotice = {
-    sp_NOTICE_SAVE: function(seq, subject, contents, use_yn, callback) {
+    sp_NOTICE_SAVE: function(seq, subject, contents, use_yn, notice_type, callback) {
         var connection = mysql_dbc.init();
-        var query = " call sp_NOTICE_SAVE(?, ?, ?, ?)";
+        var query = " call sp_NOTICE_SAVE(?, ?, ?, ?, ?, ?, ?, ?, ?)";
         var params = [];
         params.push(seq);
         params.push(subject);
+        params.push("");
+        params.push("");
         params.push(contents);
+        params.push("");
+        params.push("");
         params.push(use_yn);
+        params.push(notice_type);
+
 
         var data = connection.query(query,params,callback);
         connection.end();
@@ -23,7 +29,7 @@ var mnotice = {
     ,get_notice_list: function(page,callback) {
     var connection = mysql_dbc.init();
 
-        var query = " SELECT SEQ,SUBJECT,CONTENTS,USE_YN,INSERT_DATETIME,CASE USE_YN WHEN 'N' THEN '미노출' WHEN 'Y' THEN '노출' END USE_YN_TEXT FROM NOTICE ORDER BY INSERT_DATETIME DESC LIMIT "+page+", 10";
+        var query = " SELECT SEQ,SUBJECT,CONTENTS,USE_YN,INSERT_DATETIME,CASE USE_YN WHEN 'N' THEN '미노출' WHEN 'Y' THEN '노출' END USE_YN_TEXT, NOTICE_TYPE FROM NOTICE ORDER BY INSERT_DATETIME DESC LIMIT "+page+", 10";
         var params = [];
         params.push();
 
@@ -34,7 +40,7 @@ var mnotice = {
     }
     ,delnotice: function(seq, callback) {
         var connection = mysql_dbc.init();
-        var query = " DELETE FROM NOTICE WHERE seq = ? ";
+        var query = " DELETE FROM NOTICE WHERE SEQ = ? ";
 
         var params = [];
         params.push(seq);
@@ -45,7 +51,7 @@ var mnotice = {
     }
     ,get_notice_select: function(seq, callback) {
         var connection = mysql_dbc.init();
-        var query = " SELECT SEQ,SUBJECT,CONTENTS,USE_YN,INSERT_DATETIME,CASE USE_YN WHEN 'N' THEN '미노출' WHEN 'Y' THEN '노출' END USE_YN_TEXT FROM NOTICE WHERE seq = ? ";
+        var query = " SELECT SEQ,SUBJECT,CONTENTS,USE_YN,INSERT_DATETIME,CASE USE_YN WHEN 'N' THEN '미노출' WHEN 'Y' THEN '노출' END USE_YN_TEXT, NOTICE_TYPE FROM NOTICE WHERE seq = ? ";
         var params = [];
         params.push(seq);
 

@@ -4,6 +4,12 @@
 $(function() {
     $("#noticeSave").click(function() {
         var use_yn = "N";
+        var notice_type = "BP2";
+        if($(".notice_type").is(":checked") == false) {
+            alert("BP2 & BP3을 선택해주세요..");
+            return;
+        }
+
         if(inputTextCheck('notice_subject', '공지사항 제목을 입력해주세요.') == false) {
             return;
         }
@@ -24,6 +30,13 @@ $(function() {
         });
 
 
+        $(".notice_type").each(function() {
+            if($(this).is(":checked") == true) {
+                notice_type = $(this).val();
+            }
+        });
+
+
 
 
 
@@ -33,6 +46,7 @@ $(function() {
             ,subject : $("#notice_subject").val()
             ,contents : $("#notice_contents").val()
             ,use_yn : use_yn
+            ,notice_type : notice_type
 
         };
 

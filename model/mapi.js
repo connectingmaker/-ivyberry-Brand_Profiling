@@ -306,6 +306,16 @@ var mapi = {
         connection.end();
         return data;
     }
+    ,sp_API_NOTICE_BP3: function(callback) {
+        var connection = mysql_dbc.init();
+        var query = " call sp_API_NOTICE_BP3() ";
+        var params = [];
+
+        var data = connection.query(query, params, callback);
+        connection.end();
+        return data;
+    }
+
     ,sp_CONTENTS: function(callback) {
         var connection = mysql_dbc.init();
         var query = " call sp_CONTENTS() ";
