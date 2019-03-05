@@ -643,6 +643,7 @@ router.get("/surveyResult", function(req, res, next) {
     var campaign_code = req.query.campaign_code;
     var lang = req.query.lang;
     var debug = req.query.debug;
+    lang = "ko";
 
     msurveyresult.sp_BP3_PROJECT_RESULT_TOTAL(campaign_code, function(err, rows) {
         var total = rows[0][0].TOTAL;
