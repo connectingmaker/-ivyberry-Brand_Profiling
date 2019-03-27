@@ -117,3 +117,7 @@ $(function() {
 
     });
 });
+
+function surveyNext() {
+    $(".nextStep").trigger("click");
+}

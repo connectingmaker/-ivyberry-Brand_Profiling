@@ -36,6 +36,14 @@ $(function() {
 
         });
 
+        if(qaData.length == 0){
+
+            //alert("응답하지 않은 설문이 있습니다.");
+            bootbox.alert("응답하지 않은 설문이 있습니다.");
+            return;
+
+        }
+
         var json = {
             campaign_code : $("#campaign_code").val()
             ,uid : $("#uid").val()
@@ -80,3 +88,7 @@ $(function() {
 
     });
 });
+
+function surveyNext() {
+    $(".nextStep").trigger("click");
+}

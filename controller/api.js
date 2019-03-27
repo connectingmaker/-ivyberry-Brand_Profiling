@@ -78,6 +78,7 @@ router.post("/memberInsert", function(req,res) {
     var userpasswd = req.body.userpasswd;
     var birthday = "";
 
+
     muser.sp_MEMBER_SAVE('', code_grade, '', useremail, userphone, userpasswd, 'N', '', 0, function(err,rows) {
         if(err) {
             console.log(err);
@@ -139,8 +140,11 @@ router.post("/memberFaceBook", function(req, res) {
                     throw err;
                 }
 
+
+                console.log("가입");
                 var objToJson = rows[0];
                 var dataJson = JSON.stringify(objToJson);
+                console.log(dataJson);
                 res.send(dataJson);
             });
         } else {
@@ -150,8 +154,10 @@ router.post("/memberFaceBook", function(req, res) {
                     console.log(err);
                 }
 
+                console.log("로그인");
 
                 var dataJson = JSON.stringify(objToJson);
+                console.log(dataJson);
                 res.send(dataJson);
             });
 
