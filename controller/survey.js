@@ -783,7 +783,6 @@ router.post("/sqProcess", function(req, res, next) {
                 console.log(err);
             }
             msurvey.sp_BP3_SURVEY_DATA_SQ_NEXT(campaign_code, uid, sq_code, function(err, rows) {
-
                 res.json(rows[0][0]);
 
             });

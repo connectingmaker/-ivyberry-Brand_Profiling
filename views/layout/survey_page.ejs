@@ -21,14 +21,16 @@
         <%-body%>
     </main>
 
-    <!-- Footer -->
-    <footer id="page-footer" class="content-mini content-mini-full" style="background-color:#000;text-align:right; color:#fff; padding:10px 20px;">
-        <div class="col-xs-12">
-            <a href="javascript:void(0);" style="color:#fff;" class="nextStep">다음단계</a>
-        </div>
-    </footer>
-    <!-- END Footer -->
+    
 </div>
+
+<!-- Footer -->
+<footer id="page-footer" class="" style="background-color:#000;text-align:right; color:#fff; padding:10px 20px;">
+    <div class="col-xs-12">
+        <a href="javascript:void(0);" style="color:#fff;" class="nextStep">다음단계</a>
+    </div>
+</footer>
+<!-- END Footer -->
 
 </body>
 <!-- OneUI Core JS: jQuery, Bootstrap, slimScroll, scrollLock, Appear, CountTo, Placeholder, Cookie and App.js -->
@@ -67,7 +69,22 @@
         } else {
             $(".nextStep").html("다음단계");
         }
+
+        var height = $(this).height();
+        height = height - 40;
+        // console.log(height);
+        $("#main-container").css({"height":height+"px"});
+
+
+        $(window).resize(function() {
+            var height = $(this).height();
+            height = height - 40;
+            // console.log(height);
+            $("#main-container").css({"height":height+"px"});
+        });
     });
+
+    
 </script>
 
 </html>
