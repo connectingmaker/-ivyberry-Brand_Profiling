@@ -218,7 +218,12 @@
                 <tbody>
                 <% for(var i = 0; i<userData.length; i++) { %>
                 <tr id="<%=userData[i].UID%>">
-                    <td class="text-center"><a href="/users/write/<%=userData[i].UID%>" class="btn btn-xs btn-danger"><%=userData[i].UID%></a></td>
+                    <%if(userData[i].MEMBER_DROP == "Y"){%>
+                        <td class="text-center"><a href="/users/write/<%=userData[i].UID%>" class="btn btn-xs btn-danger">탈퇴</a></td>
+                    <%}else{%>
+                     <td class="text-center"><a href="/users/write/<%=userData[i].UID%>" class="btn btn-xs btn-danger"><%=userData[i].UID%></a></td>        
+                    <%}%>
+                    
 
                     <td><%=userData[i].CODE_NAME%></td>
                     <td>
