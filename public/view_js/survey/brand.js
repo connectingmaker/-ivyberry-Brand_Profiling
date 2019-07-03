@@ -91,7 +91,7 @@ $(function() {
     $(".nextStep").click(function() {
         var debugUrl = "";
 
-        if($("#debug").val() == "true") {
+        if($("#debug").val() != "") {
             debugUrl = "&debug=true";
         }
         if($(".chk_brand").is(":checked") == false) {
