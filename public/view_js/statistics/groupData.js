@@ -883,7 +883,9 @@ $(function() {
                     case "8":
                         // var module_type = $(this).attr("module_type");
                         // var module_type = "M";
-                        if(module_type == "S") {
+                       if(module_type == "S") {
+                        
+ 
                             var table = "";
 
                             table += "<tr>";
@@ -1002,6 +1004,7 @@ $(function() {
                         }
 
                         if(module_type == "T") {
+                            console.log(returnData);
                             var table = "";
                             var brand_code = "";
                             var col = 1;
@@ -1010,18 +1013,27 @@ $(function() {
                             var maxArrayCode = [];
                             for (var i = 0; i < returnData.length; i++) {
 
+                                var text_data = "";
+                                var temp_split = returnData[i].QA_TEXT.split(",");
 
-                            table += "<div style='font-size:11px; padding:5px 10px;'><span style='font-size:12px; color:red; padding-right:10px;display:none;'>★</span></div>";
-                            table += "<div class='col-xs-9 push-5-t' style='height:300px;'>서술형</div>\n";
+                                temp_split.forEach(function(value) {
+                                    
+                                    if(text_data == "") {
+                                        text_data += "<span class='badge badge-danger'>"+value+"</span>";
+                                    } else {
+                                        text_data += ", <span class='badge badge-danger'>"+value+"</span>";
+                                    }
+                                });
+                                table += "<div style='font-size:11px; padding:5px 10px;'><span style='font-size:12px; color:red; padding-right:10px;display:none;'>★</span></div>";
+                                table += "<div class='col-xs-9 push-5-t' style='height:300px;'>"+text_data+"</div>\n";
 
-                            table += "<div class='col-xs-12 push-5-t' style='height:2px; background-color: #f1f1f1;'>&nbsp;</div>";
 
 
 
                                 if (i == returnData.length - 1) {
-                                    $("#data_" + returnData[i].Q_CODE).hide();
+
+                                    $("#data_" + returnData[i].Q_CODE).html(table);
                                     $("#chart_" + returnData[i].Q_CODE).hide();
-                                    $("#cloudText_" + returnData[i].Q_CODE).html(table);
                                 }
 
                             }
